@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Keeper.Core">
+        <item name="android:statusBarColor">@color/keeper_background_main</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+</resources>

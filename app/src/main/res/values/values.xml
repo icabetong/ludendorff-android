@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Keeper" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/keeper_primary_400</item>
+        <item name="colorPrimaryVariant">@color/keeper_primary_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/keeper_secondary_800</item>
+        <item name="colorSecondaryVariant">@color/keeper_primary_900</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Error related colors -->
+        <item name="colorError">@color/keeper_error</item>
+        <item name="colorOnError">@color/keeper_on_error</item>
+        <!-- Cards and other elevated UI stuff -->
+        <item name="colorSurface">@color/keeper_surface</item>
+        <item name="colorOnSurface">@color/keeper_on_surface</item>
+        <!-- Widgets -->
+        <item name="android:textViewStyle">@style/Widget.Keeper.TextView</item>
+        <!-- MaterialComponents -->
+        <item name="toolbarStyle">@style/Widget.Keeper.Toolbar</item>
+        <item name="textInputStyle">@style/Widget.Keeper.TextInput.Layout</item>
+        <item name="materialButtonStyle">@style/Widget.Keeper.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.Keeper.Button.Outlined</item>
+        <!-- TextAppearance -->
+    </style>
+
+    <!-- Widgets -->
+    <style name="Widget.Keeper.TextView" parent="android:Widget.TextView">
+        <item name="android:textAppearance">@style/TextAppearance.Keeper</item>
+    </style>
+    <style name="Widget.Keeper.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
+    <style name="Widget.Keeper.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="titleTextAppearance">@style/TextAppearance.Keeper.Title</item>
+        <item name="maxButtonHeight">48dp</item>
+        <item name="contentInsetStart">@dimen/toolbar_keyline</item>
+        <item name="android:paddingStart">@dimen/toolbar_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/toolbar_padding_horizontal</item>
+    </style>
+    <style name="Widget.Keeper.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:padding">12dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Keeper.Button</item>
+    </style>
+    <style name="Widget.Keeper.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <!-- TextAppearances -->
+    <style name="TextAppearance.Keeper" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/font_inter_regular</item>
+    </style>
+    <style name="TextAppearance.Keeper.Header">
+        <item name="fontFamily">@font/font_inter_bold</item>
+        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textSize">@dimen/text_header</item>
+    </style>
+    <style name="TextAppearance.Keeper.Title">
+        <item name="fontFamily">@font/font_inter_medium</item>
+        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="TextAppearance.Keeper.Button">
+        <item name="fontFamily">@font/font_inter_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+    <style name="TextAppearance.Keeper.List">
+        <item name="fontFamily">@font/font_inter_medium</item>
+        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textSize">@dimen/text_list_item</item>
+    </style>
+    <style name="TextAppearance.Keeper.List.Title"/>
+</resources>
