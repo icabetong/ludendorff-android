@@ -1,4 +1,4 @@
-package io.capstone.keeper.android.components
+package io.capstone.keeper.android.components.custom
 
 import android.content.Context
 import android.graphics.Canvas

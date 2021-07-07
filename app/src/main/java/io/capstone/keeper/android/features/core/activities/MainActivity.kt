@@ -3,7 +3,6 @@ package io.capstone.keeper.android.features.core.activities
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.android.R
@@ -24,6 +23,7 @@ class MainActivity: BaseActivity() {
         setContentView(binding.root)
 
         controller = findNavController(R.id.navigationHostFragment)
+
     }
 
     override fun onStart() {

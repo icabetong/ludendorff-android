@@ -21,12 +21,11 @@
             android:layout_marginStart="@dimen/activity_margin_tiny"
             android:layout_marginEnd="@dimen/activity_margin_tiny"
             android:contentDescription="@null"
-            app:tint="@color/keeper_text_secondary"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/titleView"
-            tools:srcCompat="@drawable/ic_location_marker"/>
+            tools:srcCompat="@drawable/ic_hero_location_marker"/>
 
         <TextView
             android:id="@+id/titleView"

@@ -32,7 +32,8 @@ class TrackingFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding.appBar.toolbar) {
-            title = getString(R.string.activity_tracking)
+            setTitle(R.string.activity_tracking)
+            setNavigationIcon(R.drawable.ic_hero_menu)
             setNavigationOnClickListener {
                 val activityView: View = requireActivity().findViewById(R.id.overlappingPanels)
                 if (activityView is OverlappingPanelsLayout)

@@ -19,9 +19,12 @@
     <color name="keeper_on_surface">@color/black</color>
 
     <color name="keeper_text_primary">@color/black</color>
-    <color name="keeper_text_secondary">#AF000000</color>
+    <color name="keeper_text_secondary">#373737</color>
 
-    <color name="keeper_background_main">#e0e0e0</color>
+    <color name="keeper_background_content">#ffffff</color>
+    <color name="keeper_background_main">#f5f5f5</color>
+    <color name="keeper_status_bar">@color/keeper_background_main</color>
+    <color name="keeper_navigation_bar">@color/keeper_background_main</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>

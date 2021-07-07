@@ -1,5 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-    <style name="Theme.Keeper.Core" parent="Theme.Keeper"/>
+    <style name="Theme.Keeper.Core" parent="Theme.Keeper">
+        <item name="android:statusBarColor">@color/keeper_background_main</item>
+    </style>
 
 </resources>

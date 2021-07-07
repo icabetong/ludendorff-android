@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_user_home"
         android:title="@string/navigation_home"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/ic_hero_home"/>
 
     <item
         android:id="@+id/navigation_assets"
@@ -14,11 +14,11 @@
     <item
         android:id="@+id/navigation_users"
         android:title="@string/navigation_users"
-        android:icon="@drawable/ic_user_group"/>
+        android:icon="@drawable/ic_hero_users"/>
 
     <item
         android:id="@+id/navigation_tracking"
         android:title="@string/navigation_tracking"
-        android:icon="@drawable/ic_location_marker"/>
+        android:icon="@drawable/ic_hero_location_marker"/>
 
 </menu>

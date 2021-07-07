@@ -8,24 +8,19 @@
     android:layout_height="match_parent"
     android:background="@color/keeper_background_main">
 
-    <androidx.cardview.widget.CardView
+    <fragment
+        android:id="@+id/navigationFragment"
+        android:name="io.capstone.keeper.android.features.core.fragment.NavigationFragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/activity_margin_tiny"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        tools:ignore="FragmentTagUsage" />
 
-        <fragment
-            android:id="@+id/navigationFragment"
-            android:name="io.capstone.keeper.android.features.core.fragment.NavigationFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="FragmentTagUsage" />
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/keeper_background_content">
 
         <fragment
             android:id="@+id/navigationHostFragment"
@@ -36,14 +31,15 @@
             app:navGraph="@navigation/navigation_main"
             tools:ignore="FragmentTagUsage" />
 
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
-    <androidx.cardview.widget.CardView
+    <fragment
+        android:id="@+id/optionsFragment"
+        android:name="io.capstone.keeper.android.features.core.fragment.OptionsFragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/activity_margin_tiny"
-        android:layout_gravity="end">
-
-    </androidx.cardview.widget.CardView>
+        android:layout_gravity="end"
+        tools:ignore="FragmentTagUsage"/>
 
 </com.discord.panels.OverlappingPanelsLayout>

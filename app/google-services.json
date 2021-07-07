@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "783396412369",
+    "project_id": "keeper-io",
+    "storage_bucket": "keeper-io.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783396412369:android:363eab589e645e92251ef0",
+        "android_client_info": {
+          "package_name": "io.capstone.keeper.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "783396412369-0nakncv73uo0faujgug9leue5qbmtg0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATqsiJWjQqc3uvfi--5OMuDcnilzP6omI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "783396412369-0nakncv73uo0faujgug9leue5qbmtg0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

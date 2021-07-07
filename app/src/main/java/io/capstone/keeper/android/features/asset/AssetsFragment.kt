@@ -32,11 +32,12 @@ class AssetsFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding.appBar.toolbar) {
-            title = getString(R.string.activity_assets)
+            setTitle(R.string.activity_assets)
+            setNavigationIcon(R.drawable.ic_hero_menu)
             setNavigationOnClickListener {
-                val activityView: View = requireActivity().findViewById(R.id.overlappingPanels)
-                if (activityView is OverlappingPanelsLayout)
-                    activityView.openStartPanel()
+                val overlappingPanels = getViewFromActivity(R.id.overlappingPanels)
+                if (overlappingPanels is OverlappingPanelsLayout)
+                    overlappingPanels.openStartPanel()
             }
         }
     }

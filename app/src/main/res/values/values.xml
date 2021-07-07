@@ -16,8 +16,12 @@
         <!-- Cards and other elevated UI stuff -->
         <item name="colorSurface">@color/keeper_surface</item>
         <item name="colorOnSurface">@color/keeper_on_surface</item>
+        <!-- Others -->
+        <item name="android:windowBackground">@color/keeper_background_main</item>
         <!-- Widgets -->
         <item name="android:textViewStyle">@style/Widget.Keeper.TextView</item>
+        <!-- AppCompat -->
+        <item name="imageButtonStyle">@style/Widget.Keeper.ImageButton</item>
         <!-- MaterialComponents -->
         <item name="toolbarStyle">@style/Widget.Keeper.Toolbar</item>
         <item name="textInputStyle">@style/Widget.Keeper.TextInput.Layout</item>
@@ -35,8 +39,15 @@
         <item name="titleTextAppearance">@style/TextAppearance.Keeper.Title</item>
         <item name="maxButtonHeight">48dp</item>
         <item name="contentInsetStart">@dimen/toolbar_keyline</item>
+        <item name="backgroundColor">@color/keeper_background_main</item>
+        <item name="navigationIcon">@drawable/ic_hero_arrow_left</item>
         <item name="android:paddingStart">@dimen/toolbar_padding_horizontal</item>
         <item name="android:paddingEnd">@dimen/toolbar_padding_horizontal</item>
+    </style>
+    <style name="Widget.Keeper.ImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:padding">@dimen/activity_margin_small</item>
     </style>
     <style name="Widget.Keeper.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:padding">12dp</item>
@@ -54,6 +65,11 @@
         <item name="fontFamily">@font/font_inter_bold</item>
         <item name="android:textColor">@color/keeper_text_primary</item>
         <item name="android:textSize">@dimen/text_header</item>
+    </style>
+    <style name="TextAppearance.Keeper.Header.Navigation">
+        <item name="fontFamily">@font/font_inter_medium</item>
+        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textSize">18sp</item>
     </style>
     <style name="TextAppearance.Keeper.Title">
         <item name="fontFamily">@font/font_inter_medium</item>
