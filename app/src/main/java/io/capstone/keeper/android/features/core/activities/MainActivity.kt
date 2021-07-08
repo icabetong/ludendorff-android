@@ -23,7 +23,6 @@ class MainActivity: BaseActivity() {
         setContentView(binding.root)
 
         controller = findNavController(R.id.navigationHostFragment)
-
     }
 
     override fun onStart() {

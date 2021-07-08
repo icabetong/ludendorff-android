@@ -6,4 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/shape_fragment_card">
 
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/layout_appbar"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

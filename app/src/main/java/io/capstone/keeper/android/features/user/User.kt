@@ -12,7 +12,16 @@ data class User @JvmOverloads constructor(
     var department: String? = null
 ) {
 
+
     companion object {
         const val COLLECTION_NAME = "users"
+
+        const val PERMISSION_READ = 1
+        const val PERMISSION_CREATE = 2
+        const val PERMISSION_UPDATE = 4
+        const val PERMISSION_DELETE = 8
+        const val PERMISSION_AUDIT = 16
+        const val PERMISSION_MANAGE_USERS = 32
+        const val PERMISSION_ADMINISTRATIVE = 64
     }
 }

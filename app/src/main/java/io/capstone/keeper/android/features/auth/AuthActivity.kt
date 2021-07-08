@@ -24,6 +24,7 @@ class AuthActivity: BaseActivity() {
 
     private val viewModel: AuthViewModel by viewModels()
 
+    @Inject
     lateinit var userProperties: UserProperties
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +64,7 @@ class AuthActivity: BaseActivity() {
         viewModel.currentUser.observe(this) {
             when (it) {
                 is Response.Success -> {
-                    userProperties.setProperties(it.value)
+                    userProperties.set(it.value)
 
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

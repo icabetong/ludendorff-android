@@ -30,6 +30,7 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
     private val viewModel: CoreViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by viewModels()
 
+    @Inject
     lateinit var userProperties: UserProperties
 
     override fun onCreateView(
@@ -50,7 +51,6 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
         super.onViewCreated(view, savedInstanceState)
         navigationAdapter = NavigationAdapter(activity, R.menu.menu_navigation, R.id.navigation_user_home,
             this@NavigationFragment)
-        userProperties = UserProperties(view.context)
 
         with(binding.recyclerView) {
             addItemDecoration(NavigationItemDecoration(context))
@@ -68,6 +68,8 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
                 message(R.string.dialog_sign_out_message)
                 positiveButton(R.string.button_continue) {
                     authViewModel.endSession()
+                    userProperties.clear()
+
                     startActivity(Intent(context, AuthActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     })

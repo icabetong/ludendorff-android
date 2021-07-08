@@ -10,7 +10,7 @@ class UserProperties(private val context: Context) {
         PreferenceManager.getDefaultSharedPreferences(context)
     }
 
-    fun setProperties(user: User) {
+    fun set(user: User) {
         sharedPreferences.edit {
             putString(USER_ID, user.userId)
             putString(USER_FIRST_NAME, user.firstName)
@@ -19,6 +19,18 @@ class UserProperties(private val context: Context) {
             putString(USER_POSITION, user.position)
             putString(USER_DEPARTMENT, user.department)
             putInt(USER_PERMISSIONS, user.permissions)
+        }
+    }
+
+    fun clear() {
+        sharedPreferences.edit {
+            remove(USER_ID)
+            remove(USER_FIRST_NAME)
+            remove(USER_LAST_NAME)
+            remove(USER_EMAIL)
+            remove(USER_POSITION)
+            remove(USER_DEPARTMENT)
+            remove(USER_PERMISSIONS)
         }
     }
 

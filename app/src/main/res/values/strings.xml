@@ -3,6 +3,7 @@
 
     <string name="activity_authentication">Authentication</string>
     <string name="activity_home">Home</string>
+    <string name="activity_scan">Scan</string>
     <string name="activity_assets">Assets</string>
     <string name="activity_users">Users</string>
     <string name="activity_tracking">Tracking</string>

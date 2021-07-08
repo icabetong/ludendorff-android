@@ -3,6 +3,7 @@ package io.capstone.keeper.android.components.persistence
 import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import java.util.*
 
@@ -29,9 +30,8 @@ class UserPreferences(private val context: Context?) {
     var theme: Theme
         get() = Theme.parse(sharedPreference.getString(PREFERENCE_THEME, Theme.SYSTEM.toString()))
         set(value) {
-            sharedPreference.edit().run {
+            sharedPreference.edit {
                 putString(PREFERENCE_THEME, value.toString())
-                apply()
             }
         }
 
