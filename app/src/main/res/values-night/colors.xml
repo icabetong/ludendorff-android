@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="keeper_surface">#1e1e1e</color>
-    <color name="keeper_on_surface">@color/white</color>
+    <color name="keeper_on_surface">@android:color/white</color>
 
-    <color name="keeper_text_primary">@color/white</color>
+    <color name="keeper_text_primary">@android:color/white</color>
     <color name="keeper_text_secondary">#e0e0e0</color>
 
     <color name="keeper_background_content">#141414</color>

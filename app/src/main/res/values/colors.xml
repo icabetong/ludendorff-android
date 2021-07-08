@@ -8,12 +8,12 @@
     <color name="keeper_secondary_variant">#ffb129</color>
 
     <color name="keeper_error">#B00020</color>
-    <color name="keeper_on_error">@color/white</color>
+    <color name="keeper_on_error">@android:color/white</color>
 
-    <color name="keeper_surface">@color/white</color>
-    <color name="keeper_on_surface">@color/black</color>
+    <color name="keeper_surface">@android:color/white</color>
+    <color name="keeper_on_surface">@android:color/black</color>
 
-    <color name="keeper_text_primary">@color/black</color>
+    <color name="keeper_text_primary">#373737</color>
     <color name="keeper_text_secondary">#757575</color>
 
     <color name="keeper_background_content">#ffffff</color>
@@ -23,7 +23,4 @@
 
     <color name="keeper_highlight_background">#eeeeee</color>
     <color name="keeper_highlight_content">#373737</color>
-
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
 </resources>

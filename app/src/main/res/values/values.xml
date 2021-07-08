@@ -5,11 +5,11 @@
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/keeper_primary</item>
         <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@android:color/white</item>
         <!-- Secondary brand color -->
         <item name="colorSecondary">@color/keeper_secondary</item>
         <item name="colorSecondaryVariant">@color/keeper_secondary_variant</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@android:color/black</item>
         <!-- Error related colors -->
         <item name="colorError">@color/keeper_error</item>
         <item name="colorOnError">@color/keeper_on_error</item>
@@ -41,6 +41,7 @@
         <item name="contentInsetStart">@dimen/toolbar_keyline</item>
         <item name="backgroundColor">@color/keeper_background_main</item>
         <item name="navigationIcon">@drawable/ic_hero_arrow_left</item>
+        <item name="navigationIconTint">@color/keeper_text_primary</item>
         <item name="android:paddingStart">@dimen/toolbar_padding_horizontal</item>
         <item name="android:paddingEnd">@dimen/toolbar_padding_horizontal</item>
     </style>
