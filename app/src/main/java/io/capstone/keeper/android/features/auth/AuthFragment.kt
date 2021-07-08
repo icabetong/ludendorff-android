@@ -1,37 +1,67 @@
 package io.capstone.keeper.android.features.auth
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.android.R
 import io.capstone.keeper.android.components.exceptions.EmptyCredentialsException
 import io.capstone.keeper.android.components.persistence.UserProperties
-import io.capstone.keeper.android.databinding.ActivityAuthBinding
+import io.capstone.keeper.android.databinding.FragmentAuthBinding
 import io.capstone.keeper.android.features.core.Response
-import io.capstone.keeper.android.features.core.activities.MainActivity
-import io.capstone.keeper.android.features.shared.components.BaseActivity
+import io.capstone.keeper.android.features.shared.components.BaseFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AuthActivity: BaseActivity() {
-    private lateinit var binding: ActivityAuthBinding
+class AuthFragment: BaseFragment() {
+    private var _binding: FragmentAuthBinding? = null
+    private var controller: NavController? = null
 
+    private val binding get() = _binding!!
     private val viewModel: AuthViewModel by viewModels()
 
-    @Inject
-    lateinit var userProperties: UserProperties
+    @Inject lateinit var userProperties: UserProperties
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAuthBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        userProperties = UserProperties(this)
+
+        enterTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAuthBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /**
+         *  Get the host activity's NavController
+         *  to navigate from here to to the
+         *  RootFragment
+         */
+        controller = Navigation.findNavController(view)
 
         binding.authenticateButton.setOnClickListener {
             viewModel.authenticate(binding.emailTextInput.text.toString(),
@@ -47,28 +77,16 @@ class AuthActivity: BaseActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        binding.emailTextInput.doAfterTextChanged {
-            resetErrors()
-        }
-        binding.passwordTextInput.doAfterTextChanged {
-            resetErrors()
-        }
-    }
-
     override fun onResume() {
         super.onResume()
 
-        viewModel.currentUser.observe(this) {
+        viewModel.currentUser.observe(viewLifecycleOwner) {
             when (it) {
                 is Response.Success -> {
+                    createSnackbar(R.string.feedback_sign_in_success)
                     userProperties.set(it.value)
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+                    controller?.navigate(AuthFragmentDirections.toNavigationRoot())
                     binding.errorTextView.isVisible = false
                 }
                 is Response.Error -> {

@@ -3,16 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/navigation_core_fragment">
+    app:startDestination="@id/navigation_auth">
 
     <fragment
-        android:id="@+id/navigation_core_fragment"
-        android:name="io.capstone.keeper.android.features.core.fragment.CoreFragment"
-        tools:layout="@layout/fragment_core"/>
+        android:id="@+id/navigation_auth"
+        android:name="io.capstone.keeper.android.features.auth.AuthFragment"
+        tools:layout="@layout/fragment_auth"/>
+    <fragment
+        android:id="@+id/navigation_root"
+        android:name="io.capstone.keeper.android.features.core.fragment.RootFragment"
+        tools:layout="@layout/fragment_root"/>
 
     <action
-        android:id="@+id/to_navigation_core"
-        app:destination="@id/navigation_core_fragment"/>
+        android:id="@+id/to_navigation_auth"
+        app:destination="@id/navigation_auth"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/navigation_main"
+        app:popUpToInclusive="true"/>
+    <action
+        android:id="@+id/to_navigation_root"
+        app:destination="@id/navigation_root"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/navigation_main"
+        app:popUpToInclusive="true"/>
 
     <include app:graph="@navigation/navigation_core"/>
 

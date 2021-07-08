@@ -1,4 +1,4 @@
-package io.capstone.keeper.android.features.core.viewmodel
+package io.capstone.keeper.android.features.navigation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

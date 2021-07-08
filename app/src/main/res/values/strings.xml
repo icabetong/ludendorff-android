@@ -26,6 +26,8 @@
     <string name="button_sign_in">Sign In</string>
     <string name="button_continue">Continue</string>
     <string name="button_cancel">Cancel</string>
+
+    <string name="feedback_sign_in_success">Signed-in successfully</string>
     
     <string name="error_generic">An error occurred</string>
     <string name="error_invalid_credentials">Your email or password is incorrect</string>

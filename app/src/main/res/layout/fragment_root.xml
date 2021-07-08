@@ -17,8 +17,8 @@
         android:layout_gravity="start"
         tools:ignore="FragmentTagUsage" />
 
-    <fragment
-        android:id="@+id/navigationHostFragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nestedNavHostFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

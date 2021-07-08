@@ -11,15 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Keeper.Core.Content" >
 
-        <activity android:name=".features.core.activities.StartActivity">
+        <activity android:name=".features.core.activities.MainActivity"
+            android:theme="@style/Theme.Keeper.Core">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.auth.AuthActivity"/>
-        <activity android:name=".features.core.activities.MainActivity"
-            android:theme="@style/Theme.Keeper.Core"/>
         <activity android:name=".features.settings.SettingsActivity" />
 
     </application>

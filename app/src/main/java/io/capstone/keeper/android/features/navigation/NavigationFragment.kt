@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.discord.panels.OverlappingPanelsLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,9 +17,7 @@ import io.capstone.keeper.android.R
 import io.capstone.keeper.android.components.custom.NavigationItemDecoration
 import io.capstone.keeper.android.components.persistence.UserProperties
 import io.capstone.keeper.android.databinding.FragmentNavigationBinding
-import io.capstone.keeper.android.features.auth.AuthActivity
 import io.capstone.keeper.android.features.auth.AuthViewModel
-import io.capstone.keeper.android.features.core.viewmodel.NavigationViewModel
 import io.capstone.keeper.android.features.settings.SettingsActivity
 import io.capstone.keeper.android.features.shared.components.BaseFragment
 import javax.inject.Inject
@@ -25,6 +26,7 @@ import javax.inject.Inject
 class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListener {
     private var _binding: FragmentNavigationBinding? = null
     private var navigationAdapter: NavigationAdapter? = null
+    private var controller: NavController? = null
 
     private val binding get() = _binding!!
     private val viewModel: NavigationViewModel by activityViewModels()
@@ -49,6 +51,10 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        controller = requireActivity().supportFragmentManager.findFragmentById(R.id.navHostFragment)
+            ?.findNavController()
+
         navigationAdapter = NavigationAdapter(activity, R.menu.menu_navigation, R.id.navigation_user_home,
             this@NavigationFragment)
 
@@ -70,9 +76,7 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
                     authViewModel.endSession()
                     userProperties.clear()
 
-                    startActivity(Intent(context, AuthActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    })
+                    controller?.navigate(R.id.to_navigation_auth)
                 }
                 negativeButton(R.string.button_cancel)
             }
@@ -81,6 +85,7 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
 
     override fun onItemSelected(id: Int) {
         viewModel.setDestination(id)
+
         navigationAdapter?.setNewDestination(id)
         dismissNavigationPanel()
     }
