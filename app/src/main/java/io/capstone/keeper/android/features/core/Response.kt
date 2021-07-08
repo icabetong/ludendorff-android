@@ -6,6 +6,10 @@ sealed class Response<out T> {
         val value: R
     ): Response<R>()
 
+    data class InProgress(
+        val inProgress: Boolean = true
+    ): Response<Nothing>()
+
     data class Error(
         val throwable: Throwable?
     ): Response<Nothing>()

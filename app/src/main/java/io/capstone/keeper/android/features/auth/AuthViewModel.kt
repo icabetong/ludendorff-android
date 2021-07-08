@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.android.features.core.Response
 import io.capstone.keeper.android.features.shared.components.BaseViewModel
@@ -21,6 +20,8 @@ class AuthViewModel @Inject constructor(
     internal val currentUser: LiveData<Response<User>> = _currentUser
 
     fun authenticate(email: String, password: String) = viewModelScope.launch {
+        _currentUser.value = Response.InProgress()
+
         if (email.isNotBlank() && password.isNotBlank()) {
             val response = repository.authenticate(email, password)
             _currentUser.postValue(response)

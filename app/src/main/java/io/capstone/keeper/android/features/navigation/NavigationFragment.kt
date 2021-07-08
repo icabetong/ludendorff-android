@@ -9,10 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.afollestad.materialdialogs.MaterialDialog
 import com.discord.panels.OverlappingPanelsLayout
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.android.R
 import io.capstone.keeper.android.components.custom.NavigationItemDecoration
+import io.capstone.keeper.android.components.persistence.UserProperties
 import io.capstone.keeper.android.databinding.FragmentNavigationBinding
 import io.capstone.keeper.android.features.auth.AuthActivity
 import io.capstone.keeper.android.features.auth.AuthViewModel
@@ -29,6 +29,8 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
     private val binding get() = _binding!!
     private val viewModel: CoreViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by viewModels()
+
+    lateinit var userProperties: UserProperties
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,11 +50,14 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
         super.onViewCreated(view, savedInstanceState)
         navigationAdapter = NavigationAdapter(activity, R.menu.menu_navigation, R.id.navigation_user_home,
             this@NavigationFragment)
+        userProperties = UserProperties(view.context)
 
         with(binding.recyclerView) {
             addItemDecoration(NavigationItemDecoration(context))
             adapter = navigationAdapter
         }
+
+        binding.nameTextView.text = userProperties.getDisplayName()
 
         binding.navigationSettings.setOnClickListener {
             startActivity(Intent(context, SettingsActivity::class.java))

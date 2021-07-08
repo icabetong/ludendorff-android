@@ -1,6 +1,5 @@
 package io.capstone.keeper.android.features.user
 
-import com.google.firebase.firestore.Exclude
 import java.util.*
 
 data class User @JvmOverloads constructor(
@@ -11,4 +10,9 @@ data class User @JvmOverloads constructor(
     var permissions: Int = 0,
     var position: String? = null,
     var department: String? = null
-)
+) {
+
+    companion object {
+        const val COLLECTION_NAME = "users"
+    }
+}
