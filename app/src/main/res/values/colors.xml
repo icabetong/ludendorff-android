@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="keeper_primary_200">#96a4fe</color>
-    <color name="keeper_primary_300">#6280ff</color>
-    <color name="keeper_primary_400">#2962ff</color>
-    <color name="keeper_primary_700">#002fe3</color>
-    <color name="keeper_primary_900">#0001c0</color>
 
-    <color name="keeper_secondary_200">#ffdd81</color>
-    <color name="keeper_secondary_400">#ffc629</color>
-    <color name="keeper_secondary_700">#fe9c08</color>
-    <color name="keeper_secondary_800">#fd8b09</color>
-    <color name="keeper_secondary_900">#fd6b0a</color>
+    <color name="keeper_primary">#2977ff</color>
+    <color name="keeper_primary_variant">#2e65ec</color>
+
+    <color name="keeper_secondary">#ffc932</color>
+    <color name="keeper_secondary_variant">#ffb129</color>
 
     <color name="keeper_error">#B00020</color>
     <color name="keeper_on_error">@color/white</color>
@@ -19,12 +14,15 @@
     <color name="keeper_on_surface">@color/black</color>
 
     <color name="keeper_text_primary">@color/black</color>
-    <color name="keeper_text_secondary">#373737</color>
+    <color name="keeper_text_secondary">#757575</color>
 
     <color name="keeper_background_content">#ffffff</color>
     <color name="keeper_background_main">#f5f5f5</color>
     <color name="keeper_status_bar">@color/keeper_background_main</color>
     <color name="keeper_navigation_bar">@color/keeper_background_main</color>
+
+    <color name="keeper_highlight_background">#eeeeee</color>
+    <color name="keeper_highlight_content">#494949</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>

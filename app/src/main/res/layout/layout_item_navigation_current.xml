@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingVertical="@dimen/activity_margin_small"
-    android:paddingHorizontal="@dimen/activity_margin_small"
     android:background="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/shape_current_navigation">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iconView"
@@ -21,6 +21,7 @@
             android:layout_marginStart="@dimen/activity_margin_tiny"
             android:layout_marginEnd="@dimen/activity_margin_tiny"
             android:contentDescription="@null"
+            app:tint="@color/keeper_highlight_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginEnd="@dimen/activity_margin_tiny"
-            android:textColor="@color/keeper_text_secondary"
+            android:textColor="@color/keeper_highlight_content"
             android:textAppearance="@style/TextAppearance.Keeper.List"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

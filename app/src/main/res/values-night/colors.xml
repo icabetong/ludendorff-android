@@ -10,4 +10,7 @@
     <color name="keeper_background_main">#111111</color>
     <color name="keeper_status_bar">@color/keeper_background_main</color>
     <color name="keeper_navigation_bar">@color/keeper_background_main</color>
+
+    <color name="keeper_highlight_background">#212121</color>
+    <color name="keeper_highlight_content">#cfcfcf</color>
 </resources>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,7 +12,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/activity_margin_huge"
         android:padding="@dimen/activity_margin_medium"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:animateLayoutChanges="true">
 
         <TextView
             android:layout_width="match_parent"
@@ -25,13 +28,25 @@
             android:text="@string/authentication_welcome_back"
             android:textAppearance="@style/TextAppearance.Keeper.Header" />
 
+        <TextView
+            android:id="@+id/errorTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin_medium"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:textColor="@color/keeper_error"
+            android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
+            android:visibility="gone"
+            tools:text="@string/error_generic"
+            tools:visibility="visible"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_medium"
-            android:layout_marginBottom="@dimen/activity_margin_medium"
-            android:hint="@string/hint_email">
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:hint="@string/hint_email"
+            app:errorEnabled="true">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailTextInput"
                 android:layout_width="match_parent"
@@ -47,7 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_margin_huge"
-            android:hint="@string/hint_password">
+            android:hint="@string/hint_password"
+            app:errorEnabled="true">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordTextInput"
                 android:layout_width="match_parent"

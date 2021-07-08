@@ -3,12 +3,12 @@
 
     <style name="Theme.Keeper" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color -->
-        <item name="colorPrimary">@color/keeper_primary_400</item>
-        <item name="colorPrimaryVariant">@color/keeper_primary_700</item>
+        <item name="colorPrimary">@color/keeper_primary</item>
+        <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color -->
-        <item name="colorSecondary">@color/keeper_secondary_800</item>
-        <item name="colorSecondaryVariant">@color/keeper_primary_900</item>
+        <item name="colorSecondary">@color/keeper_secondary</item>
+        <item name="colorSecondaryVariant">@color/keeper_secondary_variant</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Error related colors -->
         <item name="colorError">@color/keeper_error</item>
@@ -87,4 +87,13 @@
         <item name="android:textSize">@dimen/text_list_item</item>
     </style>
     <style name="TextAppearance.Keeper.List.Title"/>
+    <style name="TextAppearance.Keeper.Body">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/keeper_text_secondary</item>
+    </style>
+    <style name="TextAppearance.Keeper.Body.Medium">
+        <item name="fontFamily">@font/font_inter_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/keeper_text_primary</item>
+    </style>
 </resources>

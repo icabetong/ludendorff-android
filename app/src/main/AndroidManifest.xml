@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.authentication.AuthenticationActivity"/>
+        <activity android:name=".features.auth.AuthActivity"/>
         <activity android:name=".features.core.activities.MainActivity"
             android:theme="@style/Theme.Keeper.Core"/>
         <activity android:name=".features.settings.SettingsActivity" />

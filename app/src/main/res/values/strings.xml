@@ -12,6 +12,7 @@
     <string name="authentication_welcome_back">Welcome Back</string>
 
     <string name="navigation_home">Home</string>
+    <string name="navigation_scan">Scan</string>
     <string name="navigation_assets">Assets</string>
     <string name="navigation_users">Users</string>
     <string name="navigation_tracking">Tracking</string>
@@ -20,6 +21,16 @@
     <string name="hint_password">Password</string>
 
     <string name="button_sign_in">Sign In</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_cancel">Cancel</string>
+    
+    <string name="error_generic">An error occurred</string>
+    <string name="error_invalid_credentials">Your email or password is incorrect</string>
+    <string name="error_invalid_user">The account associated with this email is either disabled or doesn\'t exist</string>
+    <string name="error_empty_credentials">Both the email and password fields cannot be blank</string>
+    
+    <string name="dialog_sign_out_title">Sign out?</string>
+    <string name="dialog_sign_out_message">Are you sure you want to end your session? You will need to enter your credentials again next time.</string>
 
     <string name="settings_theme_title">Theme</string>
 </resources>

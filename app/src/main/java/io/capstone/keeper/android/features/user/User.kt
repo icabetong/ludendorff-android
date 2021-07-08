@@ -1,5 +1,6 @@
 package io.capstone.keeper.android.features.user
 
+import com.google.firebase.firestore.Exclude
 import java.util.*
 
 data class User @JvmOverloads constructor(

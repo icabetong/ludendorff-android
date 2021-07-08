@@ -21,14 +21,15 @@ class NavigationItemDecoration(context: Context)
         super.getItemOffsets(outRect, view, parent, state)
 
         with(outRect) {
-            top = OFFSET_SIZE
-            bottom = OFFSET_SIZE
-            left = OFFSET_SIZE
-            right = OFFSET_SIZE
+            top = OFFSET_SIZE_VERTICAL
+            bottom = OFFSET_SIZE_VERTICAL
+            left = OFFSET_SIZE_HORIZONTAL
+            right = OFFSET_SIZE_HORIZONTAL
         }
     }
 
     companion object {
-        private const val OFFSET_SIZE = 4
+        private const val OFFSET_SIZE_VERTICAL = 4
+        private const val OFFSET_SIZE_HORIZONTAL = 8
     }
 }

@@ -25,10 +25,11 @@
             app:srcCompat="@drawable/ic_hero_cog"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/navigation_end_session"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/activity_margin_tiny"
-            app:srcCompat="@drawable/ic_hero_information"/>
+            app:srcCompat="@drawable/ic_hero_logout"/>
 
     </LinearLayout>
 

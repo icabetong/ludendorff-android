@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/navigationFragment"
-        android:name="io.capstone.keeper.android.features.core.fragment.NavigationFragment"
+        android:name="io.capstone.keeper.android.features.navigation.NavigationFragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/activity_margin_tiny"
