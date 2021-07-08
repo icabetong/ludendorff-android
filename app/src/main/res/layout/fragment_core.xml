@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.discord.panels.OverlappingPanelsLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/overlappingPanels"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/keeper_background_main">
+
+    <fragment
+        android:id="@+id/navigationFragment"
+        android:name="io.capstone.keeper.android.features.navigation.NavigationFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/activity_margin_tiny"
+        android:layout_gravity="start"
+        tools:ignore="FragmentTagUsage" />
+
+    <fragment
+        android:id="@+id/navigationHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="false"
+        app:navGraph="@navigation/navigation_core"
+        tools:ignore="FragmentTagUsage" />
+
+    <fragment
+        android:id="@+id/optionsFragment"
+        android:name="io.capstone.keeper.android.features.core.fragment.OptionsFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/activity_margin_tiny"
+        android:layout_gravity="end"
+        tools:ignore="FragmentTagUsage"/>
+
+</com.discord.panels.OverlappingPanelsLayout>

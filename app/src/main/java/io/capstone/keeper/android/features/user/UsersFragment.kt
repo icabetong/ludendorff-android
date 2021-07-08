@@ -35,9 +35,10 @@ class UsersFragment: BaseFragment() {
             setTitle(R.string.activity_users)
             setNavigationIcon(R.drawable.ic_hero_menu)
             setNavigationOnClickListener {
-                val activityView: View = requireActivity().findViewById(R.id.overlappingPanels)
-                if (activityView is OverlappingPanelsLayout)
-                    activityView.openStartPanel()
+                val rootView: View? = getParentView()?.findViewById(R.id.overlappingPanels)
+
+                if (rootView is OverlappingPanelsLayout)
+                    rootView.openStartPanel()
             }
         }
     }

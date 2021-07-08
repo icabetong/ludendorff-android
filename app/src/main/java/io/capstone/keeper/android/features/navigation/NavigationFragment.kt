@@ -16,7 +16,7 @@ import io.capstone.keeper.android.components.persistence.UserProperties
 import io.capstone.keeper.android.databinding.FragmentNavigationBinding
 import io.capstone.keeper.android.features.auth.AuthActivity
 import io.capstone.keeper.android.features.auth.AuthViewModel
-import io.capstone.keeper.android.features.core.viewmodel.CoreViewModel
+import io.capstone.keeper.android.features.core.viewmodel.NavigationViewModel
 import io.capstone.keeper.android.features.settings.SettingsActivity
 import io.capstone.keeper.android.features.shared.components.BaseFragment
 import javax.inject.Inject
@@ -27,7 +27,7 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
     private var navigationAdapter: NavigationAdapter? = null
 
     private val binding get() = _binding!!
-    private val viewModel: CoreViewModel by activityViewModels()
+    private val viewModel: NavigationViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by viewModels()
 
     @Inject

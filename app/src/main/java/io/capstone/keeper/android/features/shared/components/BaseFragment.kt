@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment: Fragment() {
 
-    protected fun getViewFromActivity(@IdRes id: Int): View {
-        return requireActivity().findViewById(id)
+    protected fun getParentView(): View? {
+        return parentFragment?.parentFragment?.view
     }
 }

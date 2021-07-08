@@ -92,6 +92,7 @@ class AuthActivity: BaseActivity() {
                     binding.emailTextInputLayout.isEnabled = false
                     binding.passwordTextInputLayout.isEnabled = false
                     binding.authenticateButton.isEnabled = false
+                    binding.authenticateButton.setText(R.string.button_authenticating)
                 }
             }
         }
@@ -106,6 +107,8 @@ class AuthActivity: BaseActivity() {
 
         if (!binding.authenticateButton.isEnabled)
             binding.authenticateButton.isEnabled = true
+
+        binding.authenticateButton.setText(R.string.button_sign_in)
     }
 
     private fun resetErrors() {

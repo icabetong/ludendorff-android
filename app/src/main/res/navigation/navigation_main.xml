@@ -3,43 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/navigation_user_home">
+    app:startDestination="@id/navigation_core_fragment">
 
     <fragment
-        android:id="@+id/navigation_user_home"
-        android:name="io.capstone.keeper.android.features.home.HomeFragment"
-        tools:layout="@layout/fragment_home"/>
-    <fragment
-        android:id="@+id/navigation_scan"
-        android:name="io.capstone.keeper.android.features.scan.ScanFragment"
-        tools:layout="@layout/fragment_scan"/>
-    <fragment
-        android:id="@+id/navigation_assets"
-        android:name="io.capstone.keeper.android.features.asset.AssetsFragment"
-        tools:layout="@layout/fragment_assets"/>
-    <fragment
-        android:id="@+id/navigation_users"
-        android:name="io.capstone.keeper.android.features.user.UsersFragment"
-        tools:layout="@layout/fragment_users"/>
-    <fragment
-        android:id="@+id/navigation_tracking"
-        android:name="io.capstone.keeper.android.features.tracking.TrackingFragment"
-        tools:layout="@layout/fragment_tracking"/>
+        android:id="@+id/navigation_core_fragment"
+        android:name="io.capstone.keeper.android.features.core.fragment.CoreFragment"
+        tools:layout="@layout/fragment_core"/>
 
     <action
-        android:id="@+id/to_navigation_user_home"
-        app:destination="@id/navigation_user_home"/>
-    <action
-        android:id="@+id/to_navigation_scan"
-        app:destination="@id/navigation_scan"/>
-    <action
-        android:id="@+id/to_navigation_assets"
-        app:destination="@id/navigation_assets"/>
-    <action
-        android:id="@+id/to_navigation_users"
-        app:destination="@id/navigation_users"/>
-    <action
-        android:id="@+id/to_navigation_tracking"
-        app:destination="@id/navigation_tracking"/>
+        android:id="@+id/to_navigation_core"
+        app:destination="@id/navigation_core_fragment"/>
+
+    <include app:graph="@navigation/navigation_core"/>
 
 </navigation>

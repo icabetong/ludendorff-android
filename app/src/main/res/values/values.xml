@@ -27,7 +27,10 @@
         <item name="textInputStyle">@style/Widget.Keeper.TextInput.Layout</item>
         <item name="materialButtonStyle">@style/Widget.Keeper.Button</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.Keeper.Button.Outlined</item>
-        <!-- TextAppearance -->
+        <!-- MaterialDialogs -->
+        <item name="md_font_title">@font/font_inter_medium</item>
+        <item name="md_font_body">@font/font_inter_regular</item>
+        <item name="md_font_button">@font/font_inter_medium</item>
     </style>
 
     <!-- Widgets -->
