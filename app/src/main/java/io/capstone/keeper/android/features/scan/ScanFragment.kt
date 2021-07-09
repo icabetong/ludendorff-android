@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.launch
 import androidx.core.view.isVisible
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
@@ -57,16 +56,14 @@ class ScanFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupToolbar(binding.appBar.toolbar, {
+            val activityView: View = requireActivity().findViewById(R.id.overlappingPanels)
+
+            if (activityView is OverlappingPanelsLayout)
+                activityView.openStartPanel()
+        }, R.string.activity_scan, R.drawable.ic_hero_menu)
+
         codeScanner = CodeScanner(view.context, binding.codeScannerView)
-        with(binding.appBar.toolbar) {
-            setTitle(R.string.activity_scan)
-            setNavigationIcon(R.drawable.ic_hero_menu)
-            setNavigationOnClickListener {
-                val activityView: View = requireActivity().findViewById(R.id.overlappingPanels)
-                if (activityView is OverlappingPanelsLayout)
-                    activityView.openStartPanel()
-            }
-        }
 
         with(codeScanner) {
             camera = CodeScanner.CAMERA_BACK
@@ -75,7 +72,7 @@ class ScanFragment: BaseFragment() {
             autoFocusMode = AutoFocusMode.SAFE
             scanMode = ScanMode.SINGLE
             isAutoFocusEnabled = true
-            isFlashEnabled = true
+            isFlashEnabled = false
         }
     }
 
@@ -85,15 +82,16 @@ class ScanFragment: BaseFragment() {
         binding.codeScannerView.setOnClickListener {
             codeScanner.startPreview()
         }
+
+        binding.permissionButton.setOnClickListener {
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+        }
     }
 
     override fun onResume() {
         super.onResume()
 
-        if (!permissions.cameraPermissionGranted) {
-            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-            switchViews(false)
-        } else {
+        if (permissions.cameraPermissionGranted) {
             switchViews(true)
             codeScanner.startPreview()
         }

@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import io.capstone.keeper.android.components.exceptions.EmptyCredentialsException
 import io.capstone.keeper.android.features.core.Response
 import io.capstone.keeper.android.features.user.User
 import kotlinx.coroutines.tasks.await
@@ -33,10 +34,14 @@ class AuthRepository @Inject constructor(
 
     suspend fun authenticate(email: String, password: String): Response<User> {
         return try {
-            val task = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-            return if (task.user != null) {
-                fetchUserProperties(task.user!!.uid)
-            } else Response.Error(Exception())
+            return if (email.isNotBlank() && password.isNotBlank()) {
+
+                val task = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+                return if (task.user != null) {
+                    fetchUserProperties(task.user!!.uid)
+                } else Response.Error(Exception())
+
+            } else Response.Error(EmptyCredentialsException())
 
         } catch (invalidUserException: FirebaseAuthInvalidUserException) {
             Response.Error(invalidUserException)

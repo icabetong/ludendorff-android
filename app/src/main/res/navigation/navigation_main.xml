@@ -13,6 +13,11 @@
         android:id="@+id/navigation_root"
         android:name="io.capstone.keeper.android.features.core.fragment.RootFragment"
         tools:layout="@layout/fragment_root"/>
+    <!-- Editor Fragments -->
+    <fragment
+        android:id="@+id/navigation_editor_asset"
+        android:name="io.capstone.keeper.android.features.asset.editor.AssetEditorFragment"
+        tools:layout="@layout/fragment_editor_asset"/>
 
     <action
         android:id="@+id/to_navigation_auth"
@@ -26,6 +31,11 @@
         app:launchSingleTop="true"
         app:popUpTo="@+id/navigation_main"
         app:popUpToInclusive="true"/>
+
+    <!-- Editor Fragment Actions -->
+    <action
+        android:id="@+id/to_navigation_editor_asset"
+        app:destination="@id/navigation_editor_asset"/>
 
     <include app:graph="@navigation/navigation_core"/>
 

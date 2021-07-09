@@ -31,15 +31,12 @@ class HomeFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding.appBar.toolbar) {
-            setTitle(R.string.activity_home)
-            setNavigationIcon(R.drawable.ic_hero_menu)
-            setNavigationOnClickListener {
-                val rootView: View? = getParentView()?.findViewById(R.id.overlappingPanels)
+        setupToolbar(binding.appBar.toolbar, {
+            val rootView: View? = getParentView()?.findViewById(R.id.overlappingPanels)
 
-                if (rootView is OverlappingPanelsLayout)
-                    rootView.openStartPanel()
-            }
-        }
+            if (rootView is OverlappingPanelsLayout)
+                rootView.openStartPanel()
+        }, R.string.activity_home, R.drawable.ic_hero_menu)
+
     }
 }

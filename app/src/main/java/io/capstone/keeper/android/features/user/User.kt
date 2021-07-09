@@ -15,6 +15,9 @@ data class User @JvmOverloads constructor(
     var department: String? = null
 ): Parcelable {
 
+    fun getDisplayName(): String {
+        return "$firstName $lastName"
+    }
 
     companion object {
         const val COLLECTION_NAME = "users"

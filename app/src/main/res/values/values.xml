@@ -28,7 +28,7 @@
         <item name="materialButtonStyle">@style/Widget.Keeper.Button</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.Keeper.Button.Outlined</item>
         <!-- MaterialDialogs -->
-        <item name="md_font_title">@font/font_inter_medium</item>
+        <item name="md_font_title">@font/font_inter_bold</item>
         <item name="md_font_body">@font/font_inter_regular</item>
         <item name="md_font_button">@font/font_inter_medium</item>
     </style>
@@ -99,5 +99,11 @@
         <item name="fontFamily">@font/font_inter_medium</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/keeper_text_primary</item>
+    </style>
+    <style name="TextAppearance.Keeper.Overline">
+        <item name="fontFamily">@font/font_inter_regular</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.15</item>
     </style>
 </resources>

@@ -11,7 +11,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -85,8 +84,16 @@ class AuthFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
+        setSystemBarColor(R.color.keeper_background_content)
+
         binding.emailTextInput.doAfterTextChanged { resetErrors() }
         binding.passwordTextInput.doAfterTextChanged { resetErrors() }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        setSystemBarColor(R.color.keeper_background_main)
     }
 
     override fun onResume() {

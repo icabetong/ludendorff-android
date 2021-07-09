@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="Theme.Keeper.Core">
+        <item name="android:statusBarColor">@color/keeper_background_main</item>
+        <item name="android:navigationBarColor">@color/keeper_background_main</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+    <style name="Theme.Keeper.Core.Content">
+        <item name="android:windowBackground">@color/keeper_background_content</item>
+    </style>
+
+</resources>

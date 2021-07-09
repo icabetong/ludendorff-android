@@ -29,4 +29,6 @@ class MainActivity: BaseActivity() {
         else controller.navigate(R.id.to_navigation_auth)
     }
 
+    override fun onSupportNavigateUp(): Boolean = controller.navigateUp()
+
 }
