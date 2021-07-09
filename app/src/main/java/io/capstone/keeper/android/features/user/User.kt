@@ -1,7 +1,10 @@
 package io.capstone.keeper.android.features.user
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+@Parcelize
 data class User @JvmOverloads constructor(
     var userId: String = UUID.randomUUID().toString(),
     var firstName: String? = null,
@@ -10,7 +13,7 @@ data class User @JvmOverloads constructor(
     var permissions: Int = 0,
     var position: String? = null,
     var department: String? = null
-) {
+): Parcelable {
 
 
     companion object {

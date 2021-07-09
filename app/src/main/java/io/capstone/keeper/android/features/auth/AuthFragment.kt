@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -56,6 +58,9 @@ class AuthFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+
         /**
          *  Get the host activity's NavController
          *  to navigate from here to to the
@@ -75,6 +80,13 @@ class AuthFragment: BaseFragment() {
             }
             return@setOnEditorActionListener false
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        binding.emailTextInput.doAfterTextChanged { resetErrors() }
+        binding.passwordTextInput.doAfterTextChanged { resetErrors() }
     }
 
     override fun onResume() {

@@ -26,6 +26,7 @@
     <string name="button_sign_in">Sign In</string>
     <string name="button_continue">Continue</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_grant_permission">Grant Permission</string>
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
     
@@ -33,7 +34,9 @@
     <string name="error_invalid_credentials">Your email or password is incorrect</string>
     <string name="error_invalid_user">The account associated with this email is either disabled or doesn\'t exist</string>
     <string name="error_empty_credentials">Both the email and password fields cannot be blank</string>
-    
+    <string name="error_camera_permission_header">Camera Permission Required</string>
+    <string name="error_camera_permission_summary">We need permission to access your device\'s camera to scan QR codes.</string>
+
     <string name="dialog_sign_out_title">Sign out?</string>
     <string name="dialog_sign_out_message">Are you sure you want to end your session? You will need to enter your credentials again next time.</string>
 
