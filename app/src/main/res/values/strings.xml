@@ -34,6 +34,8 @@
     <string name="button_remove">Remove</string>
     <string name="button_share">Share</string>
 
+    <string name="menu_view_qrcode">View QR Code</string>
+
     <string name="authentication_hello">Hello.</string>
     <string name="authentication_welcome_back">Welcome Back</string>
 
@@ -61,4 +63,6 @@
     <string name="settings_theme_option_system">System</string>
     <string name="settings_theme_option_light">Light</string>
     <string name="settings_theme_option_dark">Dark</string>
+
+    <string name="notification_channel_general">General</string>
 </resources>

@@ -1,13 +1,11 @@
 package io.capstone.keeper.android.features.shared.components
 
+import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.view.View
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
-import androidx.annotation.StringRes
+import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
@@ -17,6 +15,9 @@ import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import io.capstone.keeper.android.R
+import me.saket.cascade.CascadePopupMenu
+import me.saket.cascade.overrideAllPopupMenus
+import me.saket.cascade.overrideOverflowMenu
 
 abstract class BaseFragment: Fragment() {
 
@@ -29,11 +30,19 @@ abstract class BaseFragment: Fragment() {
     protected fun setupToolbar(toolbar: MaterialToolbar,
                                navigation: () -> Unit,
                                @StringRes id: Int = 0,
-                               @DrawableRes icon: Int = R.drawable.ic_hero_arrow_left, ){
+                               @DrawableRes icon: Int = R.drawable.ic_hero_arrow_left,
+                               @MenuRes menu: Int = 0,
+                               menuListener: ((id: Int) -> Unit)? = null){
         with(toolbar) {
             if (id != 0) setTitle(id)
+            if (menu != 0) inflateMenu(menu)
             setNavigationIcon(icon)
             setNavigationOnClickListener { navigation() }
+            overrideOverflowMenu(::customPopupProvider)
+            setOnMenuItemClickListener{
+                menuListener?.let { listener -> listener(it.itemId) }
+                true
+            }
         }
     }
 
@@ -75,6 +84,15 @@ abstract class BaseFragment: Fragment() {
                 MaterialColors.getColor(requireContext(), R.attr.colorSurface,
                 ContextCompat.getColor(requireContext(), R.color.keeper_surface)))
         }
+
+    private fun customPopupProvider(context: Context, anchor: View): CascadePopupMenu {
+        return CascadePopupMenu(context, anchor,
+            styler = CascadePopupMenu.Styler(
+                background = {
+                    ContextCompat.getDrawable(context, R.drawable.shape_cascade_background)
+                }
+            ))
+    }
 
     companion object {
         const val TRANSITION_DURATION = 300L
