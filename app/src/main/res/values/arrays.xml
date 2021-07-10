@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Settings -->
     <string-array name="settings_theme_options">
-        <item>System</item>
-        <item>Light</item>
-        <item>Dark</item>
+        <item>@string/settings_theme_option_system</item>
+        <item>@string/settings_theme_option_light</item>
+        <item>@string/settings_theme_option_dark</item>
     </string-array>
     <string-array name="settings_theme_options_values">
         <item>system</item>

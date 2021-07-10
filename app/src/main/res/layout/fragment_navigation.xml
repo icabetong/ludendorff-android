@@ -58,7 +58,7 @@
             android:layout_marginTop="@dimen/activity_margin_small"
             android:layout_marginBottom="@dimen/activity_margin_medium"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Keeper.Header.Navigation"
+            android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
             tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
 
         <androidx.recyclerview.widget.RecyclerView

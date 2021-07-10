@@ -1,4 +1,4 @@
-package io.capstone.keeper.android.features.category
+package io.capstone.keeper.android.features.asset.category
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

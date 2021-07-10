@@ -10,6 +10,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentResultListener
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.color.MaterialColors
@@ -18,6 +19,12 @@ import com.google.android.material.transition.MaterialContainerTransform
 import io.capstone.keeper.android.R
 
 abstract class BaseFragment: Fragment() {
+
+    protected fun registerForFragmentResult(keys: Array<String>, listener: FragmentResultListener) {
+        keys.forEach {
+            childFragmentManager.setFragmentResultListener(it, viewLifecycleOwner, listener)
+        }
+    }
 
     protected fun setupToolbar(toolbar: MaterialToolbar,
                                navigation: () -> Unit,

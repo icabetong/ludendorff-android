@@ -13,7 +13,7 @@ import io.capstone.keeper.android.R
 import io.capstone.keeper.android.databinding.FragmentAssetsBinding
 import io.capstone.keeper.android.features.shared.components.BaseFragment
 
-class AssetsFragment: BaseFragment() {
+class AssetFragment: BaseFragment() {
     private var _binding: FragmentAssetsBinding? = null
     private var controller: NavController? = null
 
@@ -35,6 +35,7 @@ class AssetsFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
@@ -52,7 +53,6 @@ class AssetsFragment: BaseFragment() {
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         binding.actionButton.setOnClickListener {
-            it.transitionName = TRANSITION_NAME_ROOT
             controller?.navigate(R.id.to_navigation_editor_asset, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }

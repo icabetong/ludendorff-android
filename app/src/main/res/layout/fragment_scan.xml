@@ -36,7 +36,7 @@
                 android:layout_marginBottom="@dimen/activity_margin_tiny"
                 android:text="@string/error_camera_permission_header"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.Keeper.Header.Navigation"/>
+                android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
 
             <TextView
                 android:layout_width="match_parent"

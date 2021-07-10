@@ -18,13 +18,11 @@ abstract class BaseEditorFragment: BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-
         setSystemBarColor(R.color.keeper_background_content)
     }
 
     override fun onStop() {
         super.onStop()
-
         setSystemBarColor(R.color.keeper_background_main)
     }
 

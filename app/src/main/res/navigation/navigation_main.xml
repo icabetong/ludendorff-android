@@ -18,6 +18,10 @@
         android:id="@+id/navigation_editor_asset"
         android:name="io.capstone.keeper.android.features.asset.editor.AssetEditorFragment"
         tools:layout="@layout/fragment_editor_asset"/>
+    <fragment
+        android:id="@+id/navigation_editor_user"
+        android:name="io.capstone.keeper.android.features.user.editor.UserEditorFragment"
+        tools:layout="@layout/fragment_editor_user"/>
 
     <action
         android:id="@+id/to_navigation_auth"
@@ -36,6 +40,9 @@
     <action
         android:id="@+id/to_navigation_editor_asset"
         app:destination="@id/navigation_editor_asset"/>
+    <action
+        android:id="@+id/to_navigation_editor_user"
+        app:destination="@id/navigation_editor_user"/>
 
     <include app:graph="@navigation/navigation_core"/>
 

@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -12,6 +14,10 @@ import io.capstone.keeper.android.R
 
 abstract class BaseBottomSheet(private val manager: FragmentManager)
     : BottomSheetDialogFragment() {
+
+    protected fun createToast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT): Toast {
+        return Toast.makeText(requireContext(), id, duration).apply { show() }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireContext(), theme)

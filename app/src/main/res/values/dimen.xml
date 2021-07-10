@@ -16,6 +16,8 @@
     <dimen name="text_header">26sp</dimen>
     <dimen name="text_list_item">14sp</dimen>
 
-    <dimen name="icon_size">24dp</dimen>
+    <dimen name="icon_size_small">24dp</dimen>
+    <dimen name="icon_size_medium">48dp</dimen>
+    <dimen name="icon_size_large">64dp</dimen>
 
 </resources>

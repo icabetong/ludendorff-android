@@ -9,9 +9,6 @@
     <string name="activity_tracking">Tracking</string>
     <string name="activity_settings">Settings</string>
 
-    <string name="authentication_hello">Hello.</string>
-    <string name="authentication_welcome_back">Welcome Back</string>
-
     <string name="navigation_home">Home</string>
     <string name="navigation_scan">Scan</string>
     <string name="navigation_assets">Assets</string>
@@ -20,6 +17,12 @@
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
+    <string name="hint_asset_name">Asset Name</string>
+    <string name="hint_status">Status</string>
+    <string name="hint_category">Category</string>
+    <string name="hint_specifications">Specifications</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_value">Value</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>
@@ -27,6 +30,17 @@
     <string name="button_continue">Continue</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_grant_permission">Grant Permission</string>
+    <string name="button_save">Save</string>
+    <string name="button_remove">Remove</string>
+    <string name="button_share">Share</string>
+
+    <string name="authentication_hello">Hello.</string>
+    <string name="authentication_welcome_back">Welcome Back</string>
+
+    <string name="asset_status_option_operational">Operational</string>
+    <string name="asset_status_option_idle">Idle</string>
+    <string name="asset_status_option_under_maintenance">Under Maintenance</string>
+    <string name="asset_status_option_retired">Retired</string>
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
     
@@ -37,8 +51,14 @@
     <string name="error_camera_permission_header">Camera Permission Required</string>
     <string name="error_camera_permission_summary">We need permission to access your device\'s camera to scan QR codes.</string>
 
+    <string name="dialog_specification_create">Create Specification</string>
+    <string name="dialog_specification_edit">Edit Specification</string>
+    <string name="dialog_view_qr_code">View QR Code</string>
     <string name="dialog_sign_out_title">Sign out?</string>
     <string name="dialog_sign_out_message">Are you sure you want to end your session? You will need to enter your credentials again next time.</string>
 
     <string name="settings_theme_title">Theme</string>
+    <string name="settings_theme_option_system">System</string>
+    <string name="settings_theme_option_light">Light</string>
+    <string name="settings_theme_option_dark">Dark</string>
 </resources>

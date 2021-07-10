@@ -15,8 +15,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iconView"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/icon_size_small"
+            android:layout_height="@dimen/icon_size_small"
             android:layout_marginStart="@dimen/activity_margin_tiny"
             android:layout_marginEnd="@dimen/activity_margin_tiny"
             android:contentDescription="@null"

@@ -1,26 +1,22 @@
-package io.capstone.keeper.android.features.asset.editor
+package io.capstone.keeper.android.features.user.editor
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentResultListener
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.android.R
-import io.capstone.keeper.android.databinding.FragmentEditorAssetBinding
-import io.capstone.keeper.android.features.asset.Asset
-import io.capstone.keeper.android.features.asset.code.QRCodeViewBottomSheet
-import io.capstone.keeper.android.features.asset.specs.SpecificationBottomSheet
+import io.capstone.keeper.android.databinding.FragmentEditorUserBinding
 import io.capstone.keeper.android.features.shared.components.BaseEditorFragment
 
-class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
-    private var _binding: FragmentEditorAssetBinding? = null
+@AndroidEntryPoint
+class UserEditorFragment: BaseEditorFragment() {
+    private var _binding: FragmentEditorUserBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +29,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEditorAssetBinding.inflate(inflater, container, false)
+        _binding = FragmentEditorUserBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,23 +46,5 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
         setupToolbar(binding.appBar.toolbar, {
             controller?.navigateUp()
         }, icon = R.drawable.ic_hero_x)
-
-        registerForFragmentResult(arrayOf(SpecificationBottomSheet.REQUEST_KEY_CREATE,
-            SpecificationBottomSheet.REQUEST_KEY_UPDATE), this)
     }
-
-    override fun onStart() {
-        super.onStart()
-
-        binding.addAction.addActionButton.setOnClickListener {
-            QRCodeViewBottomSheet(childFragmentManager).show {
-                arguments = bundleOf(QRCodeViewBottomSheet.EXTRA_ASSET_ID to Asset().assetId)
-            }
-        }
-    }
-
-    override fun onFragmentResult(requestKey: String, result: Bundle) {
-
-    }
-
 }

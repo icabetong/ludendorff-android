@@ -94,7 +94,7 @@ class ScanFragment: BaseFragment() {
         if (permissions.cameraPermissionGranted) {
             switchViews(true)
             codeScanner.startPreview()
-        }
+        } else switchViews(false)
     }
 
     override fun onPause() {

@@ -15,11 +15,11 @@
         tools:layout="@layout/fragment_scan"/>
     <fragment
         android:id="@+id/navigation_assets"
-        android:name="io.capstone.keeper.android.features.asset.AssetsFragment"
+        android:name="io.capstone.keeper.android.features.asset.AssetFragment"
         tools:layout="@layout/fragment_assets"/>
     <fragment
         android:id="@+id/navigation_users"
-        android:name="io.capstone.keeper.android.features.user.UsersFragment"
+        android:name="io.capstone.keeper.android.features.user.UserFragment"
         tools:layout="@layout/fragment_users"/>
     <fragment
         android:id="@+id/navigation_tracking"

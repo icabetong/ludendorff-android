@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/keeper_background_content">
+    android:background="@drawable/shape_fragment_card">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,14 +48,18 @@
             android:layout_marginBottom="@dimen/activity_margin"
             android:hint="@string/hint_email"
             app:errorEnabled="true">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress">
+
                 <requestFocus/>
+
             </com.google.android.material.textfield.TextInputEditText>
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -65,12 +69,14 @@
             android:layout_marginBottom="@dimen/activity_margin_huge"
             android:hint="@string/hint_password"
             app:errorEnabled="true">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
