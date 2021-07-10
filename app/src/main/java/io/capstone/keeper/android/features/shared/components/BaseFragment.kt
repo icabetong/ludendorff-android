@@ -16,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import io.capstone.keeper.android.R
 import me.saket.cascade.CascadePopupMenu
-import me.saket.cascade.overrideAllPopupMenus
 import me.saket.cascade.overrideOverflowMenu
 
 abstract class BaseFragment: Fragment() {
