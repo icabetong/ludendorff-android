@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
+import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.discord.panels.OverlappingPanelsLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +29,7 @@ class ScanFragment: BaseFragment() {
     private lateinit var codeScanner: CodeScanner
 
     private val binding get() = _binding!!
+    private val viewModel: ScanViewModel by activityViewModels()
 
     @Inject lateinit var permissions: DevicePermissions
 
@@ -74,15 +77,27 @@ class ScanFragment: BaseFragment() {
             isAutoFocusEnabled = true
             isFlashEnabled = false
         }
+
+        codeScanner.decodeCallback = DecodeCallback {
+            viewModel.setDecodeResult(it.text)
+        }
     }
 
     override fun onStart() {
         super.onStart()
 
+        viewModel.decodeResult.observe(viewLifecycleOwner) {
+            if (it != null) {
+                val activityView: View = requireActivity().findViewById(R.id.overlappingPanels)
+
+                if (activityView is OverlappingPanelsLayout)
+                    activityView.openEndPanel()
+            }
+        }
+
         binding.codeScannerView.setOnClickListener {
             codeScanner.startPreview()
         }
-
         binding.permissionButton.setOnClickListener {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         }

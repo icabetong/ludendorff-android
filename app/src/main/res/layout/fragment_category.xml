@@ -4,13 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_fragment_card">
+    android:background="@color/keeper_background_content">
 
     <include
         android:id="@+id/appBar"
         layout="@layout/layout_appbar"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -28,8 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin"
-        android:contentDescription="@string/button_add"
         android:layout_gravity="bottom|end"
+        android:contentDescription="@string/button_add"
         app:srcCompat="@drawable/ic_hero_plus"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

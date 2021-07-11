@@ -45,7 +45,11 @@ class AssetFragment: BaseFragment() {
 
             if (rootView is OverlappingPanelsLayout)
                 rootView.openStartPanel()
-        }, R.string.activity_assets, R.drawable.ic_hero_menu)
+        }, R.string.activity_assets, R.drawable.ic_hero_menu, R.menu.menu_asset, { id ->
+            when (id) {
+                R.id.action_categories -> controller?.navigate(R.id.to_navigation_category)
+            }
+        })
     }
 
     override fun onStart() {

@@ -20,10 +20,7 @@ class UserFragment: BaseFragment() {
     private var _binding: FragmentUsersBinding? = null
     private var controller: NavController? = null
 
-    private lateinit var adapter: UserAdapter
-
     private val binding get() = _binding!!
-    private val viewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,9 +49,6 @@ class UserFragment: BaseFragment() {
             if (rootView is OverlappingPanelsLayout)
                 rootView.openStartPanel()
         }, R.string.activity_users, R.drawable.ic_hero_menu)
-
-        adapter = UserAdapter()
-        binding.recyclerView.adapter = adapter
     }
 
     override fun onStart() {

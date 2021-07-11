@@ -23,6 +23,6 @@ class UserViewModel @Inject constructor(
     }
 
     private fun fetch() = viewModelScope.launch(Dispatchers.IO) {
-        _users.postValue(repository.fetchUsers())
+        _users.postValue(repository.fetch())
     }
 }

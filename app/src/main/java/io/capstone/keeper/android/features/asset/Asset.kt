@@ -31,6 +31,7 @@ data class Asset @JvmOverloads constructor(
     }
 
     companion object {
+
         fun generateQRCode(id: String): Bitmap {
             val bitMatrix = QRCodeWriter().encode(id, BarcodeFormat.QR_CODE,
                 128, 128)

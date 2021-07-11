@@ -18,7 +18,8 @@ import io.capstone.keeper.android.features.shared.components.BaseFragment
 @AndroidEntryPoint
 class RootFragment: BaseFragment() {
     private var _binding: FragmentRootBinding? = null
-    private var controller: NavController? = null
+    private var mainNavController: NavController? = null
+    private var endPanelNavController: NavController? = null
 
     private val binding get() = _binding!!
     private val navigationViewModel: NavigationViewModel by activityViewModels()
@@ -54,7 +55,12 @@ class RootFragment: BaseFragment() {
          *  NavigationViewModel
          */
         val nestedNavHost = childFragmentManager.findFragmentById(R.id.nestedNavHostFragment) as? NavHostFragment
-        controller = nestedNavHost?.navController
+        mainNavController = nestedNavHost?.navController
+        /**
+         *  Get this other fragment's NavController
+         */
+        val endPanelNavHost = childFragmentManager.findFragmentById(R.id.endPanelNavHostFragment) as? NavHostFragment
+        endPanelNavController = endPanelNavHost?.navController
 
         /**
          *  Essential to enable the transitions between the
@@ -68,7 +74,10 @@ class RootFragment: BaseFragment() {
         super.onStart()
 
         navigationViewModel.destination.observe(viewLifecycleOwner) {
-            controller?.navigate(it)
+            mainNavController?.navigate(it)
+            if (it == R.id.navigation_scan)
+                endPanelNavController?.navigate(R.id.navigation_scan_result)
+            else endPanelNavController?.navigate(R.id.navigation_options)
         }
     }
 }
