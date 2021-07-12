@@ -101,18 +101,18 @@ class AuthFragment: BaseFragment() {
 
         viewModel.currentUser.observe(viewLifecycleOwner) {
             when (it) {
-                is Response.Success -> {
+                is AuthStatus.Success -> {
                     createSnackbar(R.string.feedback_sign_in_success)
-                    userProperties.set(it.value)
+                    userProperties.set(it.user)
 
                     controller?.navigate(AuthFragmentDirections.toNavigationRoot())
                     binding.errorTextView.isVisible = false
                 }
-                is Response.Error -> {
+                is AuthStatus.Error -> {
                     resetProgress()
 
                     binding.errorTextView.isVisible = true
-                    when(it.throwable) {
+                    when(it.exception) {
                         is FirebaseAuthInvalidUserException ->
                             binding.errorTextView.setText(R.string.error_invalid_user)
                         is FirebaseAuthInvalidCredentialsException ->
@@ -125,7 +125,7 @@ class AuthFragment: BaseFragment() {
                     binding.passwordTextInputLayout.error = " "
                     binding.emailTextInputLayout.error = " "
                 }
-                is Response.InProgress -> {
+                is AuthStatus.Authenticating -> {
                     binding.emailTextInputLayout.isEnabled = false
                     binding.passwordTextInputLayout.isEnabled = false
                     binding.authenticateButton.isEnabled = false

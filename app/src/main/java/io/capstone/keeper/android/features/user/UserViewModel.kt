@@ -15,7 +15,7 @@ class UserViewModel @Inject constructor(
     private val repository: UserRepository
 ): BaseViewModel() {
 
-    private var _users: MutableLiveData<Response<List<User>>> = MutableLiveData(Response.InProgress())
+    private var _users: MutableLiveData<Response<List<User>>> = MutableLiveData()
     internal val users: LiveData<Response<List<User>>> = _users
 
     init {

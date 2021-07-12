@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import io.capstone.keeper.android.components.exceptions.EmptyCredentialsException
 import io.capstone.keeper.android.features.core.data.Response
 import io.capstone.keeper.android.features.user.User
@@ -15,10 +16,10 @@ import javax.inject.Singleton
 @Singleton
 class AuthRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val userRepository: UserRepository
+    private val firestore: FirebaseFirestore
 ){
 
-    suspend fun authenticate(email: String, password: String): Response<User> {
+    suspend fun authenticate(email: String, password: String): AuthStatus {
         return try {
             return if (email.isNotBlank() && password.isNotBlank()) {
                 /**
@@ -27,21 +28,29 @@ class AuthRepository @Inject constructor(
                  *  and perform actions with the result
                  */
                 val task = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-                return if (task.user != null) {
+                if (task != null && task.user != null) {
                     /**
                      *  The user has been successfully authenticated,
                      *  proceed in fetching his information that
                      *  will be used by the application.
                      */
-                    userRepository.fetchSpecificUser(task.user!!.uid)
-                } else Response.Error(Exception())
+                    val userTask = firestore.collection(User.COLLECTION)
+                        .document(task.user!!.uid)
+                        .get().await()
+                    if (userTask != null) {
+                        val user = userTask.toObject(User::class.java)
+                        if (user != null)
+                            AuthStatus.Success(user)
+                        else AuthStatus.Error(NullPointerException())
+                    } else AuthStatus.Error(NullPointerException())
+                } else AuthStatus.Error(NullPointerException())
             } else {
                 /**
                  *  Return a custom exception that specifies that
                  *  the user has no credentials inputted in the fields
                  *  provided.
                  */
-                Response.Error(EmptyCredentialsException())
+                AuthStatus.Error(EmptyCredentialsException())
             }
 
         } catch (invalidUserException: FirebaseAuthInvalidUserException) {
@@ -49,17 +58,17 @@ class AuthRepository @Inject constructor(
              *  Exception raised when the user doesn't yet exists
              *  or the user account has been disabled.
              */
-            Response.Error(invalidUserException)
+            AuthStatus.Error(invalidUserException)
 
         } catch (invalidCredentialsException: FirebaseAuthInvalidCredentialsException) {
             /**
              *  Exception raised when invalid credentials are inputted
              *  by the user, either email, username or password
              */
-            Response.Error(invalidCredentialsException)
+            AuthStatus.Error(invalidCredentialsException)
 
         } catch (e: Exception) {
-            Response.Error(e)
+            AuthStatus.Error(e)
         }
     }
 

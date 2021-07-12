@@ -12,6 +12,7 @@ data class Category @JvmOverloads constructor(
 ): Parcelable {
 
     companion object {
+        const val COLLECTION = "categories"
         const val FIELD_ID = "categoryId"
         const val FIELD_NAME = "categoryName"
 

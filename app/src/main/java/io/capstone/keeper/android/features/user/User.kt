@@ -20,7 +20,7 @@ data class User @JvmOverloads constructor(
     }
 
     companion object {
-        const val COLLECTION_NAME = "users"
+        const val COLLECTION = "users"
 
         const val PERMISSION_READ = 1
         const val PERMISSION_CREATE = 2

@@ -16,11 +16,11 @@ class AuthViewModel @Inject constructor(
     private val repository: AuthRepository
 ): BaseViewModel() {
 
-    private var _currentUser: MutableLiveData<Response<User>> = MutableLiveData()
-    internal val currentUser: LiveData<Response<User>> = _currentUser
+    private var _currentUser: MutableLiveData<AuthStatus> = MutableLiveData()
+    internal val currentUser: LiveData<AuthStatus> = _currentUser
 
     fun authenticate(email: String, password: String) = viewModelScope.launch {
-        _currentUser.value = Response.InProgress()
+        _currentUser.value = AuthStatus.Authenticating()
 
         if (email.isNotBlank() && password.isNotBlank()) {
             val response = repository.authenticate(email, password)

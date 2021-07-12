@@ -23,20 +23,6 @@ class UserRepository @Inject constructor(
         }
     }
 
-    suspend fun fetchSpecificUser(id: String): Response<User> {
-        return try {
-            val task = firestore.collection(COLLECTION_NAME).document(id).get().await()
-            if (task != null) {
-                val user = task.toObject(User::class.java)
-                if (user != null)
-                    Response.Success(user)
-                else Response.Error(NullPointerException())
-            } else Response.Error(NullPointerException())
-        } catch (e: Exception) {
-            Response.Error(e)
-        }
-    }
-
     companion object {
         const val COLLECTION_NAME = "users"
     }
