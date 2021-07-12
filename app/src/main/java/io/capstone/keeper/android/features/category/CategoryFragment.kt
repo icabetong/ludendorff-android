@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BaseListAdapter.
     private var _binding: FragmentCategoryBinding? = null
     private var controller: NavController? = null
 
-    private val categoryAdapter = CategoryAdapter(this)
+    private var categoryAdapter = CategoryAdapter(this)
     private val binding get() = _binding!!
     private val viewModel: CategoryViewModel by activityViewModels()
 
@@ -55,7 +56,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BaseListAdapter.
         }
 
         with (binding.recyclerView) {
-            onLastItemReached { viewModel.fetch() }
+            onLastItemReached {  }
             adapter = categoryAdapter
         }
 
@@ -72,12 +73,12 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BaseListAdapter.
         when (requestKey) {
             CategoryEditorBottomSheet.REQUEST_KEY_CREATE -> {
                 result.getParcelable<Category>(CategoryEditorBottomSheet.EXTRA_CATEGORY)?.let {
-                    viewModel.insert(it)
+                    //viewModel.insert(it)
                 }
             }
             CategoryEditorBottomSheet.REQUEST_KEY_UPDATE -> {
                 result.getParcelable<Category>(CategoryEditorBottomSheet.EXTRA_CATEGORY)?.let {
-                    viewModel.update(it)
+                    //viewModel.update(it)
                 }
             }
         }
@@ -93,29 +94,6 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BaseListAdapter.
                 }
                 BaseListAdapter.Action.DELETE -> TODO()
                 BaseListAdapter.Action.MODIFY -> TODO()
-            }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        viewModel.categories?.observe(viewLifecycleOwner) {
-            when (it) {
-                is Response.Success -> {
-                    binding.progressIndicator.isVisible = false
-                    if (it.value.isNotEmpty()) {
-                        categoryAdapter.submitList(null)
-                        categoryAdapter.submitList(it.value)
-                        binding.emptyView.isVisible = false
-                    } else binding.emptyView.isVisible = true
-                }
-                is Response.Error -> {
-                    createSnackbar(R.string.error_generic)
-                }
-                is Response.InProgress -> {
-                    binding.progressIndicator.isVisible = true
-                }
             }
         }
     }
