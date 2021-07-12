@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.capstone.keeper.android.features.core.Response
+import io.capstone.keeper.android.features.core.data.Response
 import io.capstone.keeper.android.features.shared.components.BaseViewModel
 import io.capstone.keeper.android.features.user.User
 import kotlinx.coroutines.launch

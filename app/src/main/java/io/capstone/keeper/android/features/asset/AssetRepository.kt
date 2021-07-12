@@ -1,7 +1,7 @@
 package io.capstone.keeper.android.features.asset
 
 import com.google.firebase.firestore.FirebaseFirestore
-import io.capstone.keeper.android.features.core.Response
+import io.capstone.keeper.android.features.core.data.Response
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

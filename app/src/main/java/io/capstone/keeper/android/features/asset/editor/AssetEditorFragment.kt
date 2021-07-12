@@ -12,8 +12,9 @@ import androidx.navigation.Navigation
 import io.capstone.keeper.android.R
 import io.capstone.keeper.android.databinding.FragmentEditorAssetBinding
 import io.capstone.keeper.android.features.asset.qrcode.QRCodeViewBottomSheet
-import io.capstone.keeper.android.features.asset.specs.SpecificationBottomSheet
+import io.capstone.keeper.android.features.specs.SpecsEditorBottomSheet
 import io.capstone.keeper.android.features.shared.components.BaseEditorFragment
+import io.capstone.keeper.android.features.specs.SpecsAdapter
 
 class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
     private var _binding: FragmentEditorAssetBinding? = null
@@ -21,6 +22,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
     private val binding get() = _binding!!
     private val viewModel: AssetEditorViewModel by viewModels()
+    private val specificationAdapter = SpecsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,12 +63,37 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
                 }
             })
 
-        registerForFragmentResult(arrayOf(SpecificationBottomSheet.REQUEST_KEY_CREATE,
-            SpecificationBottomSheet.REQUEST_KEY_UPDATE), this)
+        binding.recyclerView.adapter = specificationAdapter
+
+        registerForFragmentResult(arrayOf(SpecsEditorBottomSheet.REQUEST_KEY_CREATE,
+            SpecsEditorBottomSheet.REQUEST_KEY_UPDATE), this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        binding.addAction.addActionButton.setOnClickListener {
+            SpecsEditorBottomSheet(childFragmentManager).show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
-
+        when (requestKey) {
+            SpecsEditorBottomSheet.REQUEST_KEY_CREATE -> {
+                result.getSerializable(SpecsEditorBottomSheet.EXTRA_SPECIFICATION)?.let {
+                    if (it is Pair<*, *>) {
+                        viewModel.specifications[it.first as String] = it.second as String
+                        specificationAdapter.submitList(viewModel.specifications.toList())
+                    }
+                }
+            }
+        }
     }
 
 }

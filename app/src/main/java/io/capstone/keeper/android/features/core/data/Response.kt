@@ -1,4 +1,4 @@
-package io.capstone.keeper.android.features.core
+package io.capstone.keeper.android.features.core.data
 
 sealed class Response<out T> {
 

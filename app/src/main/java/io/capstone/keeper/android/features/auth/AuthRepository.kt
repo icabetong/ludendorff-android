@@ -4,9 +4,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
 import io.capstone.keeper.android.components.exceptions.EmptyCredentialsException
-import io.capstone.keeper.android.features.core.Response
+import io.capstone.keeper.android.features.core.data.Response
 import io.capstone.keeper.android.features.user.User
 import io.capstone.keeper.android.features.user.UserRepository
 import kotlinx.coroutines.tasks.await

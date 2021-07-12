@@ -4,14 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
+import io.capstone.keeper.android.R
 import io.capstone.keeper.android.databinding.FragmentEditorCategoryBinding
+import io.capstone.keeper.android.features.category.Category
 import io.capstone.keeper.android.features.shared.components.BaseBottomSheet
 
-class CategoryBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
+class CategoryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentEditorCategoryBinding? = null
+    private var requestKey: String = REQUEST_KEY_CREATE
 
     private val binding get() = _binding!!
+    private val viewModel: CategoryEditorViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +37,22 @@ class CategoryBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments?.getParcelable<Category>(EXTRA_CATEGORY)?.let {
+            requestKey = REQUEST_KEY_UPDATE
+            viewModel.category = it
+
+            binding.componentHeaderTextView.setText(R.string.dialog_category_edit)
+            binding.nameTextInput.setText(it.categoryName)
+        }
+
+        binding.actionButton.setOnClickListener {
+            setFragmentResult(requestKey,
+                bundleOf(EXTRA_CATEGORY to viewModel.category))
+
+            this.dismiss()
+        }
+        binding.nameTextInput.doAfterTextChanged { viewModel.triggerNameChanged(it.toString()) }
     }
 
     companion object {

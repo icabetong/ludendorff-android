@@ -48,6 +48,9 @@
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
 
+    <string name="empty_no_categories_header">No Categories Added</string>
+    <string name="empty_no_categories_summary">There are no categories available that can be used to organize the assets. Tap the button below to add one.</string>
+
     <string name="error_generic">An error occurred</string>
     <string name="error_invalid_credentials">Your email or password is incorrect</string>
     <string name="error_invalid_user">The account associated with this email is either disabled or doesn\'t exist</string>

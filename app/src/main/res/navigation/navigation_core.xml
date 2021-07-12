@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_users"/>
     <fragment
         android:id="@+id/navigation_tracking"
-        android:name="io.capstone.keeper.android.features.tracking.TrackingFragment"
+        android:name="io.capstone.keeper.android.features.assignment.TrackingFragment"
         tools:layout="@layout/fragment_tracking"/>
 
     <action

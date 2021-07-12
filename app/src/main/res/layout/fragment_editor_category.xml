@@ -16,6 +16,7 @@
         app:tint="@color/keeper_text_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/componentHeaderTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/activity_margin"
@@ -50,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:text="@string/button_save"
-        app:icon="@drawable/ic_hero_check"
         style="@style/Widget.Keeper.Button"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

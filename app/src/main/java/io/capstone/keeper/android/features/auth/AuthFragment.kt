@@ -19,7 +19,7 @@ import io.capstone.keeper.android.R
 import io.capstone.keeper.android.components.exceptions.EmptyCredentialsException
 import io.capstone.keeper.android.components.persistence.UserProperties
 import io.capstone.keeper.android.databinding.FragmentAuthBinding
-import io.capstone.keeper.android.features.core.Response
+import io.capstone.keeper.android.features.core.data.Response
 import io.capstone.keeper.android.features.shared.components.BaseFragment
 import javax.inject.Inject
 

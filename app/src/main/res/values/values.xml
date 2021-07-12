@@ -26,6 +26,7 @@
         <item name="actionOverflowButtonStyle">@style/Widget.Keeper.Toolbar.Overflow</item>
         <item name="imageButtonStyle">@style/Widget.Keeper.ImageButton</item>
         <!-- MaterialComponents -->
+        <item name="appBarLayoutStyle">@style/Widget.Keeper.AppBar</item>
         <item name="toolbarStyle">@style/Widget.Keeper.Toolbar</item>
         <item name="textInputStyle">@style/Widget.Keeper.TextInput.Layout</item>
         <item name="materialButtonStyle">@style/Widget.Keeper.Button</item>
@@ -60,6 +61,9 @@
         <item name="android:textAppearance">@style/TextAppearance.Keeper</item>
     </style>
     <style name="Widget.Keeper.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
+    <style name="Widget.Keeper.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Surface">
+        <item name="android:background">@color/keeper_surface</item>
+    </style>
     <style name="Widget.Keeper.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
         <item name="titleTextAppearance">@style/TextAppearance.Keeper.Title</item>
         <item name="maxButtonHeight">48dp</item>

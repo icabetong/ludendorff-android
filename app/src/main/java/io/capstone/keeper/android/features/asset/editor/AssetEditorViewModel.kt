@@ -6,4 +6,6 @@ import io.capstone.keeper.android.features.shared.components.BaseViewModel
 class AssetEditorViewModel: BaseViewModel() {
 
     var asset = Asset()
+    val specifications = mutableMapOf<String, String>()
+
 }
