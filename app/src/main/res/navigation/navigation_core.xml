@@ -22,7 +22,7 @@
         android:name="io.capstone.keeper.android.features.user.UserFragment"
         tools:layout="@layout/fragment_users"/>
     <fragment
-        android:id="@+id/navigation_tracking"
+        android:id="@+id/navigation_assignment"
         android:name="io.capstone.keeper.android.features.assignment.TrackingFragment"
         tools:layout="@layout/fragment_tracking"/>
 
@@ -39,7 +39,7 @@
         android:id="@+id/to_navigation_users"
         app:destination="@id/navigation_users"/>
     <action
-        android:id="@+id/to_navigation_tracking"
-        app:destination="@id/navigation_tracking"/>
+        android:id="@+id/to_navigation_assignment"
+        app:destination="@id/navigation_assignment"/>
 
 </navigation>

@@ -6,15 +6,15 @@
     <string name="activity_scan">Scan</string>
     <string name="activity_assets">Assets</string>
     <string name="activity_users">Users</string>
-    <string name="activity_tracking">Tracking</string>
+    <string name="activity_assignment">Assignment</string>
     <string name="activity_settings">Settings</string>
     <string name="activity_categories">Categories</string>
 
-    <string name="navigation_home">Home</string>
-    <string name="navigation_scan">Scan</string>
-    <string name="navigation_assets">Assets</string>
-    <string name="navigation_users">Users</string>
-    <string name="navigation_tracking">Tracking</string>
+    <string name="navigation_home">@string/activity_home</string>
+    <string name="navigation_scan">@string/activity_scan</string>
+    <string name="navigation_assets">@string/activity_assets</string>
+    <string name="navigation_users">@string/activity_users</string>
+    <string name="navigation_assignment">@string/activity_assignment</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -45,6 +45,20 @@
     <string name="asset_status_option_idle">Idle</string>
     <string name="asset_status_option_under_maintenance">Under Maintenance</string>
     <string name="asset_status_option_retired">Retired</string>
+    <string name="user_permission_read">Read</string>
+    <string name="user_permission_read_summary">Allow this user to view and read records from the database.</string>
+    <string name="user_permission_create">Create</string>
+    <string name="user_permission_create_summary">Allow this user to create new records in the database.</string>
+    <string name="user_permission_update">Update</string>
+    <string name="user_permission_update_summary">Allow this user to update existing records in the database.</string>
+    <string name="user_permission_delete">Delete</string>
+    <string name="user_permission_delete_summary">Allow this user to remove records in the database.</string>
+    <string name="user_permission_audit">View Audit Logs</string>
+    <string name="user_permission_audit_summary">Allow this user to review logs that reflect the changes made in the database.</string>
+    <string name="user_permission_manage_users">Manage Users</string>
+    <string name="user_permission_manage_users_summary">Allow this user to create, remove, and administer their roles in the system.</string>
+    <string name="user_permission_administrative">Administrative</string>
+    <string name="user_permission_administrative_summary">Allow this user full control over the system and the database.</string>
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
 
@@ -52,6 +66,7 @@
     <string name="empty_no_categories_summary">There are no categories available that can be used to organize the assets. Tap the button below to add one.</string>
 
     <string name="error_generic">An error occurred</string>
+    <string name="error_generic_summary">Oops, something went wrong; in the meantime, try pulling to refresh to try again.</string>
     <string name="error_invalid_credentials">Your email or password is incorrect</string>
     <string name="error_invalid_user">The account associated with this email is either disabled or doesn\'t exist</string>
     <string name="error_empty_credentials">Both the email and password fields cannot be blank</string>

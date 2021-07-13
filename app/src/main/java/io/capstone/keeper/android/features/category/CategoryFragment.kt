@@ -13,11 +13,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ItemTouchHelper
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.android.R
+import io.capstone.keeper.android.components.custom.GenericItemDecoration
+import io.capstone.keeper.android.components.custom.SwipeItemCallback
 import io.capstone.keeper.android.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.android.components.extensions.getCountThatFitsOnScreen
-import io.capstone.keeper.android.components.extensions.onLastItemReached
 import io.capstone.keeper.android.databinding.FragmentCategoryBinding
 import io.capstone.keeper.android.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.keeper.android.features.shared.components.BaseFragment
@@ -56,15 +58,6 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
             controller?.navigateUp()
         }, R.string.activity_categories, R.drawable.ic_hero_x)
 
-        binding.actionButton.setOnClickListener {
-            CategoryEditorBottomSheet(childFragmentManager).show()
-        }
-
-        with (binding.recyclerView) {
-            onLastItemReached {  }
-            adapter = categoryAdapter
-        }
-
         registerForFragmentResult(
             arrayOf(
                 CategoryEditorBottomSheet.REQUEST_KEY_CREATE,
@@ -72,45 +65,74 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
             ),
             this
         )
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        with (binding.recyclerView) {
+            addItemDecoration(GenericItemDecoration(context))
+            adapter = categoryAdapter
+
+            ItemTouchHelper(SwipeItemCallback(requireContext(), categoryAdapter))
+                .attachToRecyclerView(this)
+        }
 
         binding.rowLayout.root.doOnLayout {
             val rowCount = it.getCountThatFitsOnScreen(it.context)
             binding.skeletonLayout.removeView(it)
 
             for (i in 0 until rowCount - 1) {
-                val row = LayoutInflater.from(view.context)
+                val row = LayoutInflater.from(requireContext())
                     .inflate(R.layout.layout_item_category_skeleton, binding.skeletonLayout, false) as ViewGroup
                 binding.skeletonLayout.addView(row)
                 row.requestLayout()
             }
         }
+
+        binding.actionButton.setOnClickListener {
+            CategoryEditorBottomSheet(childFragmentManager).show()
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            categoryAdapter.refresh()
+        }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.categories.collectLatest {
-                categoryAdapter.submitData(it)
-            }
-        }
+        /**
+         *  Use Kotlin's coroutines to fetch the current loadState of
+         *  the PagingAdapter; we will use the viewLifecycleOwner to
+         *  avoid memory leaks as we are using fragments as the presenter.
+         */
         viewLifecycleOwner.lifecycleScope.launch {
             categoryAdapter.loadStateFlow.collectLatest {
+                binding.swipeRefreshLayout.isRefreshing = false
+
                 when (it.refresh) {
+                    /**
+                     *  The current data is loading, we
+                     *  will show the user the progress indicators
+                     */
                     is LoadState.Loading -> {
+                        binding.recyclerView.isVisible = false
                         binding.skeletonLayout.isVisible = true
                         binding.shimmerFrameLayout.isVisible = true
                         binding.shimmerFrameLayout.startShimmer()
-                    }
-                    is LoadState.NotLoading -> {
-                        binding.skeletonLayout.isVisible = false
-                        binding.shimmerFrameLayout.isVisible = false
-                        binding.shimmerFrameLayout.stopShimmer()
 
-                        if (it.refresh.endOfPaginationReached)
-                            binding.emptyView.isVisible = categoryAdapter.itemCount < 1
+                        binding.errorView.isVisible = false
+                        binding.emptyView.isVisible = false
                     }
+                    /**
+                     *  The PagingAdapter or any component related to fetch
+                     *  the data have encountered an exception. Refer to the
+                     *  CategoryPagingSource class to determine the logic
+                     *  used in handling different types of errors.
+                     */
                     is LoadState.Error -> {
+                        binding.recyclerView.isVisible = false
                         binding.skeletonLayout.isVisible = false
                         binding.shimmerFrameLayout.isVisible = false
 
@@ -120,12 +142,40 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                             it.refresh is LoadState.Error -> it.refresh as LoadState.Error
                             else -> null
                         }
+
                         errorState?.let { e ->
+                            /**
+                             *  Check if the error that have returned is
+                             *  EmptySnapshotException, which is used if
+                             *  QuerySnapshot is empty. Therefore, we
+                             *  will check if the adapter is also empty
+                             *  and show the user the empty state.
+                             */
                             if (e.error is EmptySnapshotException)
                                 binding.emptyView.isVisible = categoryAdapter.itemCount < 1
+                            else
+                                binding.errorView.isVisible = true
                         }
                     }
+                    is LoadState.NotLoading -> {
+                        binding.recyclerView.isVisible = true
+                        binding.skeletonLayout.isVisible = false
+                        binding.shimmerFrameLayout.isVisible = false
+                        binding.shimmerFrameLayout.stopShimmer()
+
+                        binding.errorView.isVisible = false
+                        binding.emptyView.isVisible = false
+
+                        if (it.refresh.endOfPaginationReached)
+                            binding.emptyView.isVisible = categoryAdapter.itemCount < 1
+                    }
                 }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.categories.collectLatest {
+                categoryAdapter.submitData(it)
             }
         }
     }
@@ -135,11 +185,13 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
             CategoryEditorBottomSheet.REQUEST_KEY_CREATE -> {
                 result.getParcelable<Category>(CategoryEditorBottomSheet.EXTRA_CATEGORY)?.let {
                     viewModel.create(it)
+                    categoryAdapter.refresh()
                 }
             }
             CategoryEditorBottomSheet.REQUEST_KEY_UPDATE -> {
                 result.getParcelable<Category>(CategoryEditorBottomSheet.EXTRA_CATEGORY)?.let {
                     viewModel.update(it)
+                    categoryAdapter.refresh()
                 }
             }
         }
@@ -153,8 +205,9 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                         arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to t)
                     }
                 }
-                BasePagingAdapter.Action.DELETE -> TODO()
-                BasePagingAdapter.Action.MODIFY -> TODO()
+                BasePagingAdapter.Action.DELETE -> {
+                    viewModel.remove(t.categoryId)
+                }
             }
         }
     }

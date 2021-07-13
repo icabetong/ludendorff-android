@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/keeper_background_content">
@@ -85,6 +86,17 @@
             android:layout_marginBottom="@dimen/activity_margin_small"
             android:text="@string/hint_category"
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+
+
+
+            <TextView
+                android:id="@+id/categoryTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:focusable="true"
+                android:clickable="true"/>
+
 
         <TextView
             android:layout_width="match_parent"

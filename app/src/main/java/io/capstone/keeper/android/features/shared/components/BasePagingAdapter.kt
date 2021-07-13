@@ -13,7 +13,7 @@ abstract class BasePagingAdapter<T: Any, VH: RecyclerView.ViewHolder>(callback: 
     interface OnItemActionListener {
         fun <T> onActionPerformed(t: T, action: Action)
     }
-    enum class Action { SELECT, DELETE, MODIFY }
+    enum class Action { SELECT, DELETE }
 
 
 }

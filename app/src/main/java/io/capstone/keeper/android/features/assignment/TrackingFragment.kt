@@ -36,6 +36,6 @@ class TrackingFragment: BaseFragment() {
 
             if (rootView is OverlappingPanelsLayout)
                 rootView.openStartPanel()
-        }, R.string.activity_tracking, R.drawable.ic_hero_menu)
+        }, R.string.activity_assignment, R.drawable.ic_hero_menu)
     }
 }

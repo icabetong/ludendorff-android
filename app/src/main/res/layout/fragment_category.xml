@@ -26,20 +26,6 @@
             <include
                 android:id="@+id/rowLayout"
                 layout="@layout/layout_item_category_skeleton"/>
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
-<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
 
         </LinearLayout>
 
@@ -58,6 +44,41 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/errorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/activity_margin_medium"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/icon_size_large"
+            android:layout_height="@dimen/icon_size_large"
+            android:layout_marginBottom="@dimen/activity_margin_medium"
+            app:srcCompat="@drawable/ic_hero_cube_transparent"
+            app:tint="@color/keeper_text_primary"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:text="@string/error_generic"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/error_generic_summary"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/emptyView"

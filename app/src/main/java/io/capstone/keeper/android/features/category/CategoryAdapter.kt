@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.capstone.keeper.android.components.interfaces.SwipeableAdapter
 import io.capstone.keeper.android.databinding.LayoutItemCategoryBinding
 import io.capstone.keeper.android.features.shared.components.BasePagingAdapter
 
 class CategoryAdapter(
     private val onItemActionListener: OnItemActionListener
-): BasePagingAdapter<Category, CategoryAdapter.CategoryViewHolder>(Category.DIFF_CALLBACK) {
+): BasePagingAdapter<Category, CategoryAdapter.CategoryViewHolder>(Category.DIFF_CALLBACK), SwipeableAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val binding = LayoutItemCategoryBinding.inflate(LayoutInflater.from(parent.context),
@@ -20,6 +21,10 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.onBind(getItem(position))
+    }
+
+    override fun onSwipe(position: Int, direction: Int) {
+        onItemActionListener.onActionPerformed(getItem(position), Action.DELETE)
     }
 
     inner class CategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

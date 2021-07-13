@@ -12,6 +12,8 @@ import androidx.navigation.Navigation
 import io.capstone.keeper.android.R
 import io.capstone.keeper.android.databinding.FragmentEditorAssetBinding
 import io.capstone.keeper.android.features.asset.qrcode.QRCodeViewBottomSheet
+import io.capstone.keeper.android.features.category.Category
+import io.capstone.keeper.android.features.category.picker.CategoryPickerBottomSheet
 import io.capstone.keeper.android.features.specs.SpecsEditorBottomSheet
 import io.capstone.keeper.android.features.shared.components.BaseEditorFragment
 
@@ -61,8 +63,12 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
                 }
             })
 
-        registerForFragmentResult(arrayOf(SpecsEditorBottomSheet.REQUEST_KEY_CREATE,
-            SpecsEditorBottomSheet.REQUEST_KEY_UPDATE), this)
+        registerForFragmentResult(
+            arrayOf(
+                SpecsEditorBottomSheet.REQUEST_KEY_CREATE,
+                SpecsEditorBottomSheet.REQUEST_KEY_UPDATE,
+                CategoryPickerBottomSheet.REQUEST_KEY_PICK
+            ), this)
     }
 
     override fun onStart() {
@@ -70,6 +76,9 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
         binding.addAction.addActionButton.setOnClickListener {
             SpecsEditorBottomSheet(childFragmentManager).show()
+        }
+        binding.categoryTextInput.setOnClickListener {
+            CategoryPickerBottomSheet(childFragmentManager).show()
         }
     }
 
@@ -83,6 +92,14 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
         when (requestKey) {
             SpecsEditorBottomSheet.REQUEST_KEY_CREATE -> {
 
+            }
+            SpecsEditorBottomSheet.REQUEST_KEY_UPDATE -> {
+
+            }
+            CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
+                result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
+                    binding.categoryTextInput.setText(it.categoryName)
+                }
             }
         }
     }

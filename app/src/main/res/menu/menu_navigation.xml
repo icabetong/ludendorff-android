@@ -22,8 +22,8 @@
         android:icon="@drawable/ic_hero_users"/>
 
     <item
-        android:id="@+id/navigation_tracking"
-        android:title="@string/navigation_tracking"
+        android:id="@+id/navigation_assignment"
+        android:title="@string/navigation_assignment"
         android:icon="@drawable/ic_hero_location_marker"/>
 
 </menu>
