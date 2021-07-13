@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
@@ -16,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.android.R
+import io.capstone.keeper.android.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.android.components.extensions.getCountThatFitsOnScreen
 import io.capstone.keeper.android.components.extensions.onLastItemReached
 import io.capstone.keeper.android.databinding.FragmentCategoryBinding
@@ -24,7 +24,6 @@ import io.capstone.keeper.android.features.shared.components.BaseFragment
 import io.capstone.keeper.android.features.shared.components.BasePagingAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlin.math.ceil
 
 @AndroidEntryPoint
 class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapter.OnItemActionListener {
@@ -90,21 +89,43 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
     override fun onStart() {
         super.onStart()
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.categories.collectLatest {
                 categoryAdapter.submitData(it)
             }
         }
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             categoryAdapter.loadStateFlow.collectLatest {
-                val isLoading = it.refresh is LoadState.Loading
+                when (it.refresh) {
+                    is LoadState.Loading -> {
+                        binding.skeletonLayout.isVisible = true
+                        binding.shimmerFrameLayout.isVisible = true
+                        binding.shimmerFrameLayout.startShimmer()
+                    }
+                    is LoadState.NotLoading -> {
+                        binding.skeletonLayout.isVisible = false
+                        binding.shimmerFrameLayout.isVisible = false
+                        binding.shimmerFrameLayout.stopShimmer()
 
-                binding.skeletonLayout.isVisible = isLoading
-                binding.shimmerFrameLayout.isVisible = isLoading
+                        if (it.refresh.endOfPaginationReached)
+                            binding.emptyView.isVisible = categoryAdapter.itemCount < 1
+                    }
+                    is LoadState.Error -> {
+                        binding.skeletonLayout.isVisible = false
+                        binding.shimmerFrameLayout.isVisible = false
 
-                if (isLoading)
-                    binding.shimmerFrameLayout.startShimmer()
-                else binding.shimmerFrameLayout.stopShimmer()
+                        val errorState = when {
+                            it.prepend is LoadState.Error -> it.prepend as LoadState.Error
+                            it.append is LoadState.Error -> it.append as LoadState.Error
+                            it.refresh is LoadState.Error -> it.refresh as LoadState.Error
+                            else -> null
+                        }
+                        errorState?.let { e ->
+                            if (e.error is EmptySnapshotException)
+                                binding.emptyView.isVisible = categoryAdapter.itemCount < 1
+                        }
+                    }
+                }
             }
         }
     }

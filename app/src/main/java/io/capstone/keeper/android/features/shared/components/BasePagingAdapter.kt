@@ -1,5 +1,7 @@
 package io.capstone.keeper.android.features.shared.components
 
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,4 +14,6 @@ abstract class BasePagingAdapter<T: Any, VH: RecyclerView.ViewHolder>(callback: 
         fun <T> onActionPerformed(t: T, action: Action)
     }
     enum class Action { SELECT, DELETE, MODIFY }
+
+
 }
