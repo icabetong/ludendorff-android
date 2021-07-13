@@ -11,6 +11,40 @@
         android:id="@+id/appBar"
         layout="@layout/layout_appbar"/>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/skeletonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/rowLayout"
+                layout="@layout/layout_item_category_skeleton"/>
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+<!--            <include layout="@layout/layout_item_category_skeleton"/>-->
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
