@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/navigation_options"
-        android:name="io.capstone.keeper.android.features.core.fragment.OptionsFragment"
+        android:name="io.capstone.keeper.features.core.fragment.OptionsFragment"
         tools:layout="@layout/fragment_options"/>
 
     <fragment
         android:id="@+id/navigation_scan_result"
-        android:name="io.capstone.keeper.android.features.scan.ScanResultFragment"
+        android:name="io.capstone.keeper.features.scan.ScanResultFragment"
         tools:layout="@layout/fragment_options_scan"/>
 
     <action

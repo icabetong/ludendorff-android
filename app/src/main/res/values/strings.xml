@@ -11,6 +11,10 @@
     <string name="activity_categories">Categories</string>
     <string name="activity_department">Department</string>
 
+    <string name="title_options_assets">Asset Options</string>
+    <string name="title_options_scan"></string>
+    <string name="title_options_home"></string>
+
     <string name="navigation_home">@string/activity_home</string>
     <string name="navigation_scan">@string/activity_scan</string>
     <string name="navigation_assets">@string/activity_assets</string>
@@ -37,7 +41,7 @@
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
     <string name="button_share">Share</string>
-
+    <string name="button_search">Search</string>
 
     <string name="menu_view_qrcode">View QR Code</string>
 

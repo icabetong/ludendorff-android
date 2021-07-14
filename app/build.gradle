@@ -13,7 +13,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "io.capstone.keeper.android"
+        applicationId "io.capstone.keeper"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_auth"
-        android:name="io.capstone.keeper.android.features.auth.AuthFragment"
+        android:name="io.capstone.keeper.features.auth.AuthFragment"
         tools:layout="@layout/fragment_auth"/>
     <fragment
         android:id="@+id/navigation_root"
-        android:name="io.capstone.keeper.android.features.core.fragment.RootFragment"
+        android:name="io.capstone.keeper.features.core.fragment.RootFragment"
         tools:layout="@layout/fragment_root"/>
     <!-- Support Fragments -->
     <fragment
         android:id="@+id/navigation_category"
-        android:name="io.capstone.keeper.android.features.category.CategoryFragment"
+        android:name="io.capstone.keeper.features.category.CategoryFragment"
         tools:layout="@layout/fragment_category"/>
     <!-- Editor Fragments -->
     <fragment
         android:id="@+id/navigation_editor_asset"
-        android:name="io.capstone.keeper.android.features.asset.editor.AssetEditorFragment"
+        android:name="io.capstone.keeper.features.asset.editor.AssetEditorFragment"
         tools:layout="@layout/fragment_editor_asset"/>
     <fragment
         android:id="@+id/navigation_editor_user"
-        android:name="io.capstone.keeper.android.features.user.editor.UserEditorFragment"
+        android:name="io.capstone.keeper.features.user.editor.UserEditorFragment"
         tools:layout="@layout/fragment_editor_user"/>
 
     <action

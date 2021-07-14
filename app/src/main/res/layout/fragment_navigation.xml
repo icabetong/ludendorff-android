@@ -33,7 +33,7 @@
 
     </LinearLayout>
 
-    <io.capstone.keeper.android.components.views.RoundedFrameLayout
+    <io.capstone.keeper.components.views.RoundedFrameLayout
         android:id="@+id/endPanel"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -73,6 +73,6 @@
 
         </LinearLayout>
 
-    </io.capstone.keeper.android.components.views.RoundedFrameLayout>
+    </io.capstone.keeper.components.views.RoundedFrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -111,6 +111,9 @@
         <item name="android:textColor">@color/keeper_text_primary</item>
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="TextAppearance.Keeper.Title.Emphasized">
+        <item name="fontFamily">@font/font_inter_semibold</item>
+    </style>
     <style name="TextAppearance.Keeper.Button">
         <item name="fontFamily">@font/font_inter_medium</item>
         <item name="android:letterSpacing">0.05</item>
