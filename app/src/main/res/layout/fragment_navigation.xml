@@ -33,40 +33,46 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <io.capstone.keeper.android.components.views.RoundedFrameLayout
         android:id="@+id/endPanel"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/activity_margin_tiny"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/shape_fragment_card"
         app:layout_constraintStart_toEndOf="@id/startPanel"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_marginTop="@dimen/activity_margin_huge"
-            app:srcCompat="@drawable/ic_hero_user"/>
-
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_small"
-            android:layout_marginBottom="@dimen/activity_margin_medium"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
-            tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_marginStart="@dimen/activity_margin_tiny"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/keeper_background_content">
 
-    </LinearLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="@dimen/activity_margin_huge"
+                app:srcCompat="@drawable/ic_hero_user"/>
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin_small"
+                android:layout_marginBottom="@dimen/activity_margin_medium"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
+                tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+
+    </io.capstone.keeper.android.components.views.RoundedFrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

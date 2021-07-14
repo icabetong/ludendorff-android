@@ -18,7 +18,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/componentHeaderTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_margin"
         android:text="@string/dialog_category_create"
         android:textAlignment="center"

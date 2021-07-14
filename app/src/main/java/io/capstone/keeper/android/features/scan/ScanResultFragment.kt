@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import io.capstone.keeper.android.databinding.FragmentScanResultBinding
+import io.capstone.keeper.android.databinding.FragmentOptionsScanBinding
 import io.capstone.keeper.android.features.shared.components.BaseFragment
 
 class ScanResultFragment: BaseFragment() {
-    private var _binding: FragmentScanResultBinding? = null
+    private var _binding: FragmentOptionsScanBinding? = null
 
     private val binding get() = _binding!!
     private val viewModel: ScanViewModel by activityViewModels()
@@ -19,7 +19,7 @@ class ScanResultFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentScanResultBinding.inflate(inflater, container, false)
+        _binding = FragmentOptionsScanBinding.inflate(inflater, container, false)
         return binding.root
     }
 

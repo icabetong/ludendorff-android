@@ -10,4 +10,9 @@ data class Department @JvmOverloads constructor(
     var name: String? = null,
     var managerSSN: String? = null,
     var type: String? = null
-): Parcelable
+): Parcelable {
+
+    companion object {
+        const val COLLECTION = "department"
+    }
+}

@@ -10,6 +10,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import io.capstone.keeper.android.components.custom.GenericItemDecoration
 import io.capstone.keeper.android.databinding.FragmentPickerCategoryBinding
 import io.capstone.keeper.android.features.category.Category
 import io.capstone.keeper.android.features.category.CategoryAdapter
@@ -47,6 +48,7 @@ class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
         super.onViewCreated(view, savedInstanceState)
 
         with (binding.recyclerView) {
+            addItemDecoration(GenericItemDecoration(context))
             adapter = categoryAdapter
         }
     }
@@ -66,8 +68,11 @@ class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
             when (action) {
                 BasePagingAdapter.Action.SELECT -> {
                     setFragmentResult(REQUEST_KEY_PICK, bundleOf(EXTRA_CATEGORY to t))
+                    this.dismiss()
                 }
-                BasePagingAdapter.Action.DELETE -> TODO()
+                BasePagingAdapter.Action.DELETE -> {
+                    return
+                }
             }
         }
     }

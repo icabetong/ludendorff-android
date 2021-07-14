@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/icon_size_medium"
+        android:layout_height="@dimen/icon_size_medium"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:layout_marginBottom="@dimen/activity_margin_small"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_hero_tag"
+        app:tint="@color/keeper_text_primary"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/componentHeaderTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:text="@string/dialog_category_pick"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

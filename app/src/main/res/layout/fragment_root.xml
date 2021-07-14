@@ -17,24 +17,38 @@
         android:layout_gravity="start"
         tools:ignore="FragmentTagUsage" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nestedNavHostFragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <io.capstone.keeper.android.components.views.RoundedFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="false"
-        app:navGraph="@navigation/navigation_core"
-        tools:ignore="FragmentTagUsage" />
+        android:background="@color/keeper_background_content">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/endPanelNavHostFragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nestedNavHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="false"
+            app:navGraph="@navigation/navigation_core"
+            tools:ignore="FragmentTagUsage" />
+
+    </io.capstone.keeper.android.components.views.RoundedFrameLayout>
+
+    <io.capstone.keeper.android.components.views.RoundedFrameLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/activity_margin_tiny"
         android:layout_gravity="end"
-        app:defaultNavHost="false"
-        app:navGraph="@navigation/navigation_end"
-        tools:ignore="FragmentTagUsage"/>
+        android:background="@color/keeper_background_content">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/endPanelNavHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:defaultNavHost="false"
+            app:navGraph="@navigation/navigation_end"
+            tools:ignore="FragmentTagUsage"/>
+
+    </io.capstone.keeper.android.components.views.RoundedFrameLayout>
 
 </com.discord.panels.OverlappingPanelsLayout>

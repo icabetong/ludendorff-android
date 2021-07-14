@@ -40,6 +40,7 @@
             android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginBottom="@dimen/activity_margin_small"
             android:text="@string/hint_status"
+            android:textColor="@color/keeper_primary_variant"
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
         <com.google.android.material.chip.ChipGroup
@@ -85,18 +86,18 @@
             android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginBottom="@dimen/activity_margin_small"
             android:text="@string/hint_category"
+            android:textColor="@color/keeper_primary_variant"
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
-
-
-            <TextView
-                android:id="@+id/categoryTextInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:focusable="true"
-                android:clickable="true"/>
-
+        <TextView
+            android:id="@+id/categoryTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/activity_margin_small"
+            android:focusable="true"
+            android:clickable="true"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            tools:text="Desktop"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -104,6 +105,7 @@
             android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginBottom="@dimen/activity_margin_small"
             android:text="@string/hint_specifications"
+            android:textColor="@color/keeper_primary_variant"
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
         <androidx.recyclerview.widget.RecyclerView

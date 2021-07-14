@@ -23,8 +23,8 @@
         tools:layout="@layout/fragment_users"/>
     <fragment
         android:id="@+id/navigation_assignment"
-        android:name="io.capstone.keeper.android.features.assignment.TrackingFragment"
-        tools:layout="@layout/fragment_tracking"/>
+        android:name="io.capstone.keeper.android.features.assignment.AssignmentFragment"
+        tools:layout="@layout/fragment_assignment"/>
 
     <action
         android:id="@+id/to_navigation_user_home"

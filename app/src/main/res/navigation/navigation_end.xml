@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/navigation_scan_result"
         android:name="io.capstone.keeper.android.features.scan.ScanResultFragment"
-        tools:layout="@layout/fragment_scan_result"/>
+        tools:layout="@layout/fragment_options_scan"/>
 
     <action
         android:id="@+id/to_navigation_options"

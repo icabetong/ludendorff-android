@@ -10,7 +10,6 @@
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/activity_margin"
         android:orientation="vertical"
-        android:background="@drawable/shape_fragment_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

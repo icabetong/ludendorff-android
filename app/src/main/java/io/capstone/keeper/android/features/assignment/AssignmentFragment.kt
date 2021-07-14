@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.discord.panels.OverlappingPanelsLayout
 import io.capstone.keeper.android.R
-import io.capstone.keeper.android.databinding.FragmentTrackingBinding
+import io.capstone.keeper.android.databinding.FragmentAssignmentBinding
 import io.capstone.keeper.android.features.shared.components.BaseFragment
 
-class TrackingFragment: BaseFragment() {
-    private var _binding: FragmentTrackingBinding? = null
+class AssignmentFragment: BaseFragment() {
+    private var _binding: FragmentAssignmentBinding? = null
 
     private val binding get() = _binding!!
 
@@ -19,7 +19,7 @@ class TrackingFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTrackingBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentAssignmentBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

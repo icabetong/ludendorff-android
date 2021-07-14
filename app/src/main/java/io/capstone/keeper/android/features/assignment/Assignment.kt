@@ -6,7 +6,7 @@ import java.time.ZonedDateTime
 import java.util.*
 
 @Parcelize
-data class Tracking @JvmOverloads constructor(
+data class Assignment @JvmOverloads constructor(
     var trackingId: String = UUID.randomUUID().toString(),
     var asset: String? = null,
     var user: String? = null,
