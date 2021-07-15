@@ -50,6 +50,10 @@
         layout="@layout/layout_error_generic"/>
 
     <include
+        android:id="@+id/errorPermissionsView"
+        layout="@layout/layout_error_permission"/>
+
+    <include
         android:id="@+id/emptyView"
         layout="@layout/layout_empty_department"/>
 

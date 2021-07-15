@@ -77,6 +77,8 @@
 
     <string name="error_generic">An error occurred</string>
     <string name="error_generic_summary">Oops, something went wrong; in the meantime, try pulling to refresh to try again.</string>
+    <string name="error_no_permission">Access Denied</string>
+    <string name="error_no_permission_summary">The page you are trying to reach are restricted. Contact the system administrator for assistance.</string>
     <string name="error_invalid_credentials">Your email or password is incorrect</string>
     <string name="error_invalid_user">The account associated with this email is either disabled or doesn\'t exist</string>
     <string name="error_empty_credentials">Both the email and password fields cannot be blank</string>

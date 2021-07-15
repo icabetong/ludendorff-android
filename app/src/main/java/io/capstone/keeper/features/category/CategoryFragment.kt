@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.GenericItemDecoration
@@ -152,9 +153,17 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                              *  will check if the adapter is also empty
                              *  and show the user the empty state.
                              */
+                            hideStatusViews()
                             if (e.error is EmptySnapshotException &&
-                                    categoryAdapter.itemCount < 1)
+                                    categoryAdapter.itemCount < 1) {
                                 binding.emptyView.root.isVisible = true
+                            } else if (e.error is FirebaseFirestoreException) {
+                                when((e.error as FirebaseFirestoreException).code) {
+                                    FirebaseFirestoreException.Code.PERMISSION_DENIED ->
+                                        binding.permissionErrorView.root.isVisible = true
+                                    else -> binding.errorView.root.isVisible = true
+                                }
+                            }
                             else binding.errorView.root.isVisible = true
                         }
                     }
@@ -164,9 +173,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                         binding.shimmerFrameLayout.isVisible = false
                         binding.shimmerFrameLayout.stopShimmer()
 
-                        binding.errorView.root.isVisible = false
-                        binding.emptyView.root.isVisible = false
-
+                        hideStatusViews()
                         if (it.refresh.endOfPaginationReached)
                             binding.emptyView.root.isVisible = categoryAdapter.itemCount < 1
                     }
@@ -179,6 +186,12 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                 categoryAdapter.submitData(it)
             }
         }
+    }
+
+    private fun hideStatusViews() {
+        binding.errorView.root.isVisible = false
+        binding.permissionErrorView.root.isVisible = false
+        binding.emptyView.root.isVisible = false
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {

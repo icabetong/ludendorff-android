@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.paging.LoadState
+import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.GenericItemDecoration
@@ -98,8 +99,7 @@ class DepartmentFragment: BaseFragment(), BasePagingAdapter.OnItemActionListener
                         binding.shimmerFrameLayout.isVisible = true
                         binding.shimmerFrameLayout.startShimmer()
 
-                        binding.errorView.root.isVisible = false
-                        binding.emptyView.root.isVisible = false
+                        hideStatusViews()
                     }
                     /**
                      *  The PagingAdapter or any component related to fetch
@@ -127,10 +127,17 @@ class DepartmentFragment: BaseFragment(), BasePagingAdapter.OnItemActionListener
                              *  will check if the adapter is also empty
                              *  and show the user the empty state.
                              */
+                            hideStatusViews()
                             if (e.error is EmptySnapshotException &&
                                     departmentAdapter.itemCount < 1)
                                 binding.emptyView.root.isVisible = true
-                            else binding.errorView.root.isVisible = true
+                            else if (e.error is FirebaseFirestoreException) {
+                                when((e.error as FirebaseFirestoreException).code) {
+                                    FirebaseFirestoreException.Code.PERMISSION_DENIED ->
+                                        binding.errorPermissionsView.root.isVisible = true
+                                    else -> binding.errorView.root.isVisible = true
+                                }
+                            } else binding.errorView.root.isVisible = true
                         }
                     }
                     is LoadState.NotLoading -> {
@@ -139,9 +146,7 @@ class DepartmentFragment: BaseFragment(), BasePagingAdapter.OnItemActionListener
                         binding.shimmerFrameLayout.isVisible = false
                         binding.shimmerFrameLayout.stopShimmer()
 
-                        binding.errorView.root.isVisible = false
-                        binding.emptyView.root.isVisible = false
-
+                        hideStatusViews()
                         if (it.refresh.endOfPaginationReached)
                             binding.emptyView.root.isVisible = departmentAdapter.itemCount < 1
                     }
@@ -154,6 +159,12 @@ class DepartmentFragment: BaseFragment(), BasePagingAdapter.OnItemActionListener
                 departmentAdapter.submitData(it)
             }
         }
+    }
+
+    private fun hideStatusViews() {
+        binding.errorView.root.isVisible = false
+        binding.errorPermissionsView.root.isVisible = false
+        binding.emptyView.root.isVisible = false
     }
 
     override fun <T> onActionPerformed(t: T, action: BasePagingAdapter.Action) {
