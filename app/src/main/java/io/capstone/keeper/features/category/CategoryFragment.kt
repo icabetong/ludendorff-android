@@ -36,12 +36,6 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
     private val binding get() = _binding!!
     private val viewModel: CategoryViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = buildContainerTransform()
-        sharedElementReturnTransition = buildContainerTransform()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,12 +52,11 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.root.transitionName = TRANSITION_NAME_ROOT
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
         setupToolbar(binding.appBar.toolbar, {
             controller?.navigateUp()
-        }, R.string.activity_categories, R.drawable.ic_hero_x)
+        }, R.string.activity_categories)
 
         registerForFragmentResult(
             arrayOf(
@@ -89,9 +82,10 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
             val rowCount = it.getCountThatFitsOnScreen(it.context)
             binding.skeletonLayout.removeView(it)
 
-            for (i in 0 until rowCount - 1) {
+            for (i in 0 until rowCount) {
                 val row = LayoutInflater.from(requireContext())
-                    .inflate(R.layout.layout_item_category_skeleton, binding.skeletonLayout, false) as ViewGroup
+                    .inflate(R.layout.layout_item_category_skeleton,
+                        binding.skeletonLayout, false) as ViewGroup
                 binding.skeletonLayout.addView(row)
                 row.requestLayout()
             }
@@ -130,7 +124,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                         binding.shimmerFrameLayout.startShimmer()
 
                         binding.errorView.root.isVisible = false
-                        binding.emptyView.isVisible = false
+                        binding.emptyView.root.isVisible = false
                     }
                     /**
                      *  The PagingAdapter or any component related to fetch
@@ -158,10 +152,10 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                              *  will check if the adapter is also empty
                              *  and show the user the empty state.
                              */
-                            if (e.error is EmptySnapshotException)
-                                binding.emptyView.isVisible = categoryAdapter.itemCount < 1
-                            else
-                                binding.errorView.root.isVisible = true
+                            if (e.error is EmptySnapshotException &&
+                                    categoryAdapter.itemCount < 1)
+                                binding.emptyView.root.isVisible = true
+                            else binding.errorView.root.isVisible = true
                         }
                     }
                     is LoadState.NotLoading -> {
@@ -171,10 +165,10 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                         binding.shimmerFrameLayout.stopShimmer()
 
                         binding.errorView.root.isVisible = false
-                        binding.emptyView.isVisible = false
+                        binding.emptyView.root.isVisible = false
 
                         if (it.refresh.endOfPaginationReached)
-                            binding.emptyView.isVisible = categoryAdapter.itemCount < 1
+                            binding.emptyView.root.isVisible = categoryAdapter.itemCount < 1
                     }
                 }
             }

@@ -29,8 +29,12 @@
                 android:id="@+id/assetNameTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="text"/>
+                android:imeOptions="actionDone"
+                android:inputType="text">
+
+                <requestFocus/>
+
+            </com.google.android.material.textfield.TextInputEditText>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,6 +100,7 @@
             android:paddingVertical="@dimen/activity_margin_small"
             android:focusable="true"
             android:clickable="true"
+            android:text="@string/hint_not_set"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
             tools:text="Desktop"/>
 

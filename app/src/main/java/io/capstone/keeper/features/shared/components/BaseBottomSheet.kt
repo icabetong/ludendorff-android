@@ -3,6 +3,7 @@ package io.capstone.keeper.features.shared.components
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -29,6 +30,7 @@ abstract class BaseBottomSheet(private val manager: FragmentManager)
             val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
             with(BottomSheetBehavior.from(bottomSheet)) {
                 state = BottomSheetBehavior.STATE_EXPANDED
+                peekHeight = resources.displayMetrics.heightPixels
             }
         }
         super.onViewCreated(view, savedInstanceState)

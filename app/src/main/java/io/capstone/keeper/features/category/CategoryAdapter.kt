@@ -3,10 +3,10 @@ package io.capstone.keeper.features.category
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import io.capstone.keeper.components.interfaces.SwipeableAdapter
 import io.capstone.keeper.databinding.LayoutItemCategoryBinding
 import io.capstone.keeper.features.shared.components.BasePagingAdapter
+import io.capstone.keeper.features.shared.components.BaseViewHolder
 
 class CategoryAdapter(
     private val onItemActionListener: OnItemActionListener
@@ -26,13 +26,13 @@ class CategoryAdapter(
         onItemActionListener.onActionPerformed(getItem(position), Action.DELETE)
     }
 
-    inner class CategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class CategoryViewHolder(itemView: View): BaseViewHolder<Category>(itemView) {
         private val binding = LayoutItemCategoryBinding.bind(itemView)
 
-        fun onBind(category: Category?) {
-            binding.nameTextView.text = category?.categoryName
+        override fun onBind(data: Category?) {
+            binding.nameTextView.text = data?.categoryName
             binding.root.setOnClickListener {
-                onItemActionListener.onActionPerformed(category, Action.SELECT)
+                onItemActionListener.onActionPerformed(data, Action.SELECT)
             }
         }
     }

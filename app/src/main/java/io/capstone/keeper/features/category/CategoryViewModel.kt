@@ -15,16 +15,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
+    firestore: FirebaseFirestore,
     private val repository: CategoryRepository,
-    private val firestore: FirebaseFirestore
 ): BaseViewModel() {
 
     private val categoryQuery: Query = firestore.collection(Category.COLLECTION)
         .orderBy(Category.FIELD_NAME, Query.Direction.ASCENDING)
         .limit(FirestoreRepository.QUERY_LIMIT)
+    private val categoryPagingSource = CategoryPagingSource(categoryQuery)
 
     val categories = Pager(PagingConfig(pageSize = FirestoreRepository.QUERY_LIMIT.toInt())) {
-        CategoryPagingSource(categoryQuery)
+        categoryPagingSource
     }.flow.cachedIn(viewModelScope)
 
     fun create(data: Category) = viewModelScope.launch(Dispatchers.IO) {

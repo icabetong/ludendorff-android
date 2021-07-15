@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.components.custom.GenericItemDecoration
+import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.databinding.FragmentPickerCategoryBinding
 import io.capstone.keeper.features.category.Category
 import io.capstone.keeper.features.category.CategoryAdapter
@@ -55,6 +58,41 @@ class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
 
     override fun onStart() {
         super.onStart()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            categoryAdapter.loadStateFlow.collectLatest {
+                when (it.refresh) {
+                    is LoadState.Loading -> {
+                        binding.recyclerView.isVisible = false
+
+                    }
+                    is LoadState.Error -> {
+                        binding.recyclerView.isVisible = false
+
+                        val errorState = when {
+                            it.prepend is LoadState.Error -> it.prepend as LoadState.Error
+                            it.append is LoadState.Error -> it.append as LoadState.Error
+                            it.refresh is LoadState.Error -> it.refresh as LoadState.Error
+                            else -> null
+                        }
+
+                        errorState?.let { e ->
+                            /**
+                             *  Check if the error that have returned is
+                             *  EmptySnapshotException, which is used if
+                             *  QuerySnapshot is empty. Therefore, we
+                             *  will check if the adapter is also empty
+                             *  and show the user the empty state.
+                             */
+                            if (e.error is EmptySnapshotException &&
+                                categoryAdapter.itemCount < 1)
+                                binding.emptyView.root.isVisible = true
+                        }
+                    }
+                    is LoadState.NotLoading -> {}
+                }
+            }
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.categories.collectLatest {

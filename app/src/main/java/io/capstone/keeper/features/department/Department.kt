@@ -14,7 +14,7 @@ data class Department @JvmOverloads constructor(
 ): Parcelable {
 
     companion object {
-        const val COLLECTION = "department"
+        const val COLLECTION = "departments"
         const val FIELD_ID = "departmentId"
         const val FIELD_NAME = "name"
         const val FIELD_MANAGER_SSN = "managerSSN"

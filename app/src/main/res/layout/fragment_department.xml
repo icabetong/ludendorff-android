@@ -11,6 +11,26 @@
         android:id="@+id/appBar"
         layout="@layout/layout_appbar"/>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/skeletonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/rowLayout"
+                layout="@layout/layout_item_department_skeleton"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -29,39 +49,17 @@
         android:id="@+id/errorView"
         layout="@layout/layout_error_generic"/>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <include
         android:id="@+id/emptyView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="@dimen/activity_margin_medium"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:visibility="visible">
+        layout="@layout/layout_empty_department"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/icon_size_large"
-            android:layout_height="@dimen/icon_size_large"
-            android:layout_marginBottom="@dimen/activity_margin_medium"
-            app:srcCompat="@drawable/ic_hero_library"
-            app:tint="@color/keeper_text_primary"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:text="@string/empty_no_departments_header"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/empty_no_departments_summary"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/actionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        android:layout_gravity="bottom|end"
+        android:contentDescription="@string/button_add"
+        app:srcCompat="@drawable/ic_hero_plus"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -33,8 +33,6 @@ class AssetOptionsFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.categoryButton.transitionName = TRANSITION_NAME_ROOT
-
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
     }
 
@@ -42,9 +40,7 @@ class AssetOptionsFragment: BaseFragment() {
         super.onStart()
 
         binding.categoryButton.setOnClickListener {
-            controller?.navigate(R.id.to_navigation_category, null, null,
-                FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT)
-            )
+            controller?.navigate(R.id.to_navigation_category)
         }
     }
 }

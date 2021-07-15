@@ -1,5 +1,6 @@
 package io.capstone.keeper.features.shared.components
 
+import android.view.View
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
@@ -14,6 +15,4 @@ abstract class BasePagingAdapter<T: Any, VH: RecyclerView.ViewHolder>(callback: 
         fun <T> onActionPerformed(t: T, action: Action)
     }
     enum class Action { SELECT, DELETE }
-
-
 }

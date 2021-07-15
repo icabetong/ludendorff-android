@@ -32,7 +32,7 @@
             android:textColor="@color/keeper_text_primary"
             android:textAllCaps="false"
             android:letterSpacing="0"
-            app:icon="@drawable/ic_hero_library"
+            app:icon="@drawable/ic_hero_office_building"
             app:iconGravity="textTop"
             app:iconTint="@color/keeper_text_primary"
             app:layout_constraintTop_toBottomOf="@id/headerTextView"
