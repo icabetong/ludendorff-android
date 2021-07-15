@@ -60,11 +60,12 @@ class ScanFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupToolbar(binding.appBar.toolbar, {
-            val activityView: View = requireActivity().findViewById(R.id.overlappingPanels)
-
-            if (activityView is OverlappingPanelsLayout)
-                activityView.openStartPanel()
-        }, R.string.activity_scan, R.drawable.ic_hero_menu)
+            getOverlappingPanelLayout().openStartPanel()
+        }, R.string.activity_scan, R.drawable.ic_hero_menu, R.menu.menu_main, { id ->
+            when (id) {
+                R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
+            }
+        })
 
         codeScanner = CodeScanner(view.context, binding.codeScannerView)
 

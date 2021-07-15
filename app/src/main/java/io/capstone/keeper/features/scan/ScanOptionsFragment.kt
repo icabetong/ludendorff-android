@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import io.capstone.keeper.databinding.FragmentOptionsScanBinding
 import io.capstone.keeper.features.shared.components.BaseFragment
 
-class ScanResultFragment: BaseFragment() {
+class ScanOptionsFragment: BaseFragment() {
     private var _binding: FragmentOptionsScanBinding? = null
 
     private val binding get() = _binding!!
@@ -18,7 +18,7 @@ class ScanResultFragment: BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentOptionsScanBinding.inflate(inflater, container, false)
         return binding.root
     }

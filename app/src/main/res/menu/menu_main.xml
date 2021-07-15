@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_categories"
-        android:title="@string/navigation_categories"
-        android:icon="@drawable/ic_hero_tag"
+        android:id="@+id/action_menu"
+        android:title="@string/menu_menu"
+        android:icon="@drawable/ic_hero_dots_vertical"
         app:iconTint="@color/keeper_text_primary"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
 
 </menu>

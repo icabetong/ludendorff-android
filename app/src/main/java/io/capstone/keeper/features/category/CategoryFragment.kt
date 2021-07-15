@@ -36,6 +36,12 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
     private val binding get() = _binding!!
     private val viewModel: CategoryViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = buildContainerTransform()
+        sharedElementReturnTransition = buildContainerTransform()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +58,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.root.transitionName = TRANSITION_NAME_ROOT
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
         setupToolbar(binding.appBar.toolbar, {
@@ -122,7 +129,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                         binding.shimmerFrameLayout.isVisible = true
                         binding.shimmerFrameLayout.startShimmer()
 
-                        binding.errorView.isVisible = false
+                        binding.errorView.root.isVisible = false
                         binding.emptyView.isVisible = false
                     }
                     /**
@@ -154,7 +161,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                             if (e.error is EmptySnapshotException)
                                 binding.emptyView.isVisible = categoryAdapter.itemCount < 1
                             else
-                                binding.errorView.isVisible = true
+                                binding.errorView.root.isVisible = true
                         }
                     }
                     is LoadState.NotLoading -> {
@@ -163,7 +170,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
                         binding.shimmerFrameLayout.isVisible = false
                         binding.shimmerFrameLayout.stopShimmer()
 
-                        binding.errorView.isVisible = false
+                        binding.errorView.root.isVisible = false
                         binding.emptyView.isVisible = false
 
                         if (it.refresh.endOfPaginationReached)

@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
-import com.discord.panels.OverlappingPanelsLayout
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.NavigationItemDecoration
@@ -56,6 +55,10 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
 
         navigationAdapter = NavigationAdapter(activity, R.menu.menu_navigation, R.id.navigation_user_home,
             this@NavigationFragment)
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         with(binding.recyclerView) {
             addItemDecoration(NavigationItemDecoration(context))
@@ -63,7 +66,6 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
         }
 
         binding.nameTextView.text = userProperties.getDisplayName()
-
         binding.navigationSettings.setOnClickListener {
             startActivity(Intent(context, SettingsActivity::class.java))
         }
@@ -85,13 +87,19 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
     override fun onItemSelected(id: Int) {
         viewModel.setDestination(id)
 
-        navigationAdapter?.setNewDestination(id)
+        navigationAdapter?.setDestination(id)
         dismissNavigationPanel()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.destination.observe(viewLifecycleOwner) {
+            navigationAdapter?.setDestination(it)
+        }
+    }
+
     private fun dismissNavigationPanel() {
-        val view: View = requireActivity().findViewById(R.id.overlappingPanels)
-        if (view is OverlappingPanelsLayout)
-            view.closePanels()
+        getOverlappingPanelLayout().closePanels()
     }
 }

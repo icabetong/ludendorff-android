@@ -2,15 +2,10 @@ package io.capstone.keeper.features.category
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
-import com.google.protobuf.Empty
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class CategoryPagingSource(
     private val categoryQuery: Query

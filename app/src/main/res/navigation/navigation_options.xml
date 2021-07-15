@@ -2,39 +2,37 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_core"
+    android:id="@+id/navigation_options"
     app:startDestination="@id/navigation_user_home">
 
     <fragment
         android:id="@+id/navigation_user_home"
-        android:name="io.capstone.keeper.features.home.HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        android:name="io.capstone.keeper.features.home.HomeOptionsFragment"/>
     <fragment
         android:id="@+id/navigation_scan"
-        android:name="io.capstone.keeper.features.scan.ScanFragment"
-        tools:layout="@layout/fragment_scan"/>
+        android:name="io.capstone.keeper.features.scan.ScanOptionsFragment"
+        tools:layout="@layout/fragment_options_scan"/>
     <fragment
         android:id="@+id/navigation_assets"
-        android:name="io.capstone.keeper.features.asset.AssetFragment"
-        tools:layout="@layout/fragment_assets"/>
+        android:name="io.capstone.keeper.features.asset.AssetOptionsFragment"
+        tools:layout="@layout/fragment_options_assets"/>
     <fragment
         android:id="@+id/navigation_users"
-        android:name="io.capstone.keeper.features.user.UserFragment"
-        tools:layout="@layout/fragment_users"/>
+        android:name="io.capstone.keeper.features.user.UserOptionsFragment"
+        tools:layout="@layout/fragment_options_users"/>
     <fragment
         android:id="@+id/navigation_assignments"
-        android:name="io.capstone.keeper.features.assignment.AssignmentFragment"
-        tools:layout="@layout/fragment_assignment"/>
+        android:name="io.capstone.keeper.features.assignment.AssignmentOptionsFragment"/>
 
     <action
         android:id="@+id/to_navigation_user_home"
         app:destination="@id/navigation_user_home"/>
     <action
-        android:id="@+id/to_navigation_scan"
-        app:destination="@id/navigation_scan"/>
-    <action
         android:id="@+id/to_navigation_assets"
         app:destination="@id/navigation_assets"/>
+    <action
+        android:id="@+id/to_navigation_scan"
+        app:destination="@id/navigation_scan"/>
     <action
         android:id="@+id/to_navigation_users"
         app:destination="@id/navigation_users"/>

@@ -17,7 +17,7 @@ class UserProperties(private val context: Context) {
             putString(USER_LAST_NAME, user.lastName)
             putString(USER_EMAIL, user.email)
             putString(USER_POSITION, user.position)
-            putString(USER_DEPARTMENT, user.department)
+            putString(USER_DEPARTMENT, user.department?.departmentId)
             putInt(USER_PERMISSIONS, user.permissions)
         }
     }

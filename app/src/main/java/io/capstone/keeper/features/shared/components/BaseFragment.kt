@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import com.discord.panels.OverlappingPanelsLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -47,6 +48,10 @@ abstract class BaseFragment: Fragment() {
 
     protected fun getParentView(): View? {
         return parentFragment?.parentFragment?.view
+    }
+
+    protected fun getOverlappingPanelLayout(): OverlappingPanelsLayout {
+        return getParentView()?.findViewById(R.id.overlappingPanels) as OverlappingPanelsLayout
     }
 
     protected fun createSnackbar(@StringRes textRes: Int, length: Int = Snackbar.LENGTH_SHORT): Snackbar {

@@ -31,7 +31,7 @@ class NavigationAdapter(activity: Activity?,
         notifyDataSetChanged()
     }
 
-    fun setNewDestination(@IdRes destination: Int) {
+    fun setDestination(@IdRes destination: Int) {
         currentDestination = destination
         notifyDataSetChanged()
     }

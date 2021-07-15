@@ -19,7 +19,7 @@ import io.capstone.keeper.features.shared.components.BaseFragment
 class RootFragment: BaseFragment() {
     private var _binding: FragmentRootBinding? = null
     private var mainNavController: NavController? = null
-    private var endPanelNavController: NavController? = null
+    private var optionsNavController: NavController? = null
 
     private val binding get() = _binding!!
     private val navigationViewModel: NavigationViewModel by activityViewModels()
@@ -60,7 +60,7 @@ class RootFragment: BaseFragment() {
          *  Get this other fragment's NavController
          */
         val endPanelNavHost = childFragmentManager.findFragmentById(R.id.endPanelNavHostFragment) as? NavHostFragment
-        endPanelNavController = endPanelNavHost?.navController
+        optionsNavController = endPanelNavHost?.navController
 
         /**
          *  Essential to enable the transitions between the
@@ -75,9 +75,7 @@ class RootFragment: BaseFragment() {
 
         navigationViewModel.destination.observe(viewLifecycleOwner) {
             mainNavController?.navigate(it)
-            if (it == R.id.navigation_scan)
-                endPanelNavController?.navigate(R.id.navigation_scan_result)
-            else endPanelNavController?.navigate(R.id.navigation_options)
+            optionsNavController?.navigate(it)
         }
     }
 }

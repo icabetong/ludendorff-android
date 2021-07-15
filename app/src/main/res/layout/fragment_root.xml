@@ -43,10 +43,10 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/endPanelNavHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="false"
-            app:navGraph="@navigation/navigation_end"
+            app:navGraph="@navigation/navigation_options"
             tools:ignore="FragmentTagUsage"/>
 
     </io.capstone.keeper.components.views.RoundedFrameLayout>

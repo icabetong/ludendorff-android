@@ -22,7 +22,7 @@
         android:icon="@drawable/ic_hero_users"/>
 
     <item
-        android:id="@+id/navigation_assignment"
+        android:id="@+id/navigation_assignments"
         android:title="@string/navigation_assignment"
         android:icon="@drawable/ic_hero_location_marker"/>
 

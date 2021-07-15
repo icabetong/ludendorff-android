@@ -3,7 +3,6 @@ package io.capstone.keeper.features.category
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.capstone.keeper.components.interfaces.SwipeableAdapter
 import io.capstone.keeper.databinding.LayoutItemCategoryBinding

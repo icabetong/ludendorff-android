@@ -1,6 +1,7 @@
 package io.capstone.keeper.features.user
 
 import android.os.Parcelable
+import io.capstone.keeper.features.department.DepartmentCore
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -12,7 +13,7 @@ data class User @JvmOverloads constructor(
     var email: String? = null,
     var permissions: Int = 0,
     var position: String? = null,
-    var department: String? = null
+    var department: DepartmentCore? = null
 ): Parcelable {
 
     fun getDisplayName(): String {

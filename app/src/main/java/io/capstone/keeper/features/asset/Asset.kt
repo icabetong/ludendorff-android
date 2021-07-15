@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Parcelable
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
+import io.capstone.keeper.features.category.Category
 import kotlinx.android.parcel.Parcelize
 import java.time.ZonedDateTime
 import java.util.*
@@ -15,7 +16,7 @@ data class Asset @JvmOverloads constructor(
     var assetName: String? = null,
     var dateCreated: ZonedDateTime? = ZonedDateTime.now(),
     var status: Status? = null,
-    var category: String? = null,
+    var category: Category? = null,
     var specifications: Map<String, String> = emptyMap()
 ): Parcelable {
 
@@ -31,6 +32,14 @@ data class Asset @JvmOverloads constructor(
     }
 
     companion object {
+        const val COLLECTION = "assets"
+        const val FIELD_ID = "assetId"
+        const val FIELD_NAME = "assetName"
+        const val FIELD_DATE_CREATED = "dateCreated"
+        const val FIELD_STATUS = "status"
+        const val FIELD_CATEGORY = "category"
+        const val FIELD_CATEGORY_ID = "${FIELD_CATEGORY}.${Category.FIELD_ID}"
+        const val FIELD_SPECIFICATIONS = "specifications"
 
         fun generateQRCode(id: String): Bitmap {
             val bitMatrix = QRCodeWriter().encode(id, BarcodeFormat.QR_CODE,

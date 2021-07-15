@@ -1,7 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/keeper_background_content">
+
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/layout_appbar"/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/errorView"
+        layout="@layout/layout_error_generic"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/activity_margin_medium"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/icon_size_large"
+            android:layout_height="@dimen/icon_size_large"
+            android:layout_marginBottom="@dimen/activity_margin_medium"
+            app:srcCompat="@drawable/ic_hero_library"
+            app:tint="@color/keeper_text_primary"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:text="@string/empty_no_departments_header"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_no_departments_summary"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

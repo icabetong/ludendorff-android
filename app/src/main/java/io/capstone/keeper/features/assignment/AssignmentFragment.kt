@@ -32,10 +32,11 @@ class AssignmentFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupToolbar(binding.appBar.toolbar, {
-            val rootView: View? = getParentView()?.findViewById(R.id.overlappingPanels)
-
-            if (rootView is OverlappingPanelsLayout)
-                rootView.openStartPanel()
-        }, R.string.activity_assignment, R.drawable.ic_hero_menu)
+            getOverlappingPanelLayout().openStartPanel()
+        }, R.string.activity_assignment, R.drawable.ic_hero_menu, R.menu.menu_main, { id ->
+            when (id) {
+                R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
+            }
+        })
     }
 }

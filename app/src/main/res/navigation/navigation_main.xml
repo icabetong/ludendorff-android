@@ -18,6 +18,10 @@
         android:id="@+id/navigation_category"
         android:name="io.capstone.keeper.features.category.CategoryFragment"
         tools:layout="@layout/fragment_category"/>
+    <fragment
+        android:id="@+id/navigation_department"
+        android:name="io.capstone.keeper.features.department.DepartmentFragment"
+        tools:layout="@layout/fragment_department"/>
     <!-- Editor Fragments -->
     <fragment
         android:id="@+id/navigation_editor_asset"
@@ -45,6 +49,10 @@
     <action
         android:id="@+id/to_navigation_category"
         app:destination="@id/navigation_category"/>
+    <action
+        android:id="@+id/to_navigation_department"
+        app:destination="@id/navigation_department"/>
+    <!-- Actions to editor fragments -->
     <action
         android:id="@+id/to_navigation_editor_asset"
         app:destination="@id/navigation_editor_asset"/>

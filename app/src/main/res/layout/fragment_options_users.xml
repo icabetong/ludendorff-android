@@ -2,7 +2,6 @@
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -22,18 +21,18 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/categoryButton"
+            android:id="@+id/departmentButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_margin"
             android:layout_marginStart="@dimen/activity_margin_large"
             android:layout_marginEnd="@dimen/activity_margin_small"
             android:padding="@dimen/activity_margin_small"
-            android:text="@string/button_categories"
+            android:text="@string/button_departments"
             android:textColor="@color/keeper_text_primary"
             android:textAllCaps="false"
             android:letterSpacing="0"
-            app:icon="@drawable/ic_hero_tag"
+            app:icon="@drawable/ic_hero_library"
             app:iconGravity="textTop"
             app:iconTint="@color/keeper_text_primary"
             app:layout_constraintTop_toBottomOf="@id/headerTextView"
@@ -59,7 +58,7 @@
             app:iconTint="@color/keeper_text_primary"
             app:layout_constraintTop_toBottomOf="@id/headerTextView"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/categoryButton"
+            app:layout_constraintStart_toEndOf="@id/departmentButton"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/Widget.Keeper.Button.Outlined"/>
 
