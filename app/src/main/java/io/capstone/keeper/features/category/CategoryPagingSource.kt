@@ -18,7 +18,8 @@ class CategoryPagingSource(
     override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, Category> {
         return try {
             val currentPage = params.key ?: categoryQuery.get().await()
-            try {
+
+            if (currentPage.documents.isNotEmpty()) {
                 val lastVisibleCategory = currentPage.documents[currentPage.size() - 1]
                 val nextPage = categoryQuery.startAfter(lastVisibleCategory).get().await()
                 LoadResult.Page(
@@ -26,9 +27,8 @@ class CategoryPagingSource(
                     prevKey = null,
                     nextKey = nextPage
                 )
-            } catch (arrayOutOfBounds: ArrayIndexOutOfBoundsException) {
-                throw EmptySnapshotException()
-            }
+            } else throw EmptySnapshotException()
+
         } catch (emptySnapshotException: EmptySnapshotException) {
             LoadResult.Error(emptySnapshotException)
         } catch(e: Exception) {

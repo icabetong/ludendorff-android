@@ -18,6 +18,7 @@ import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.components.extensions.getCountThatFitsOnScreen
 import io.capstone.keeper.databinding.FragmentDepartmentBinding
+import io.capstone.keeper.features.department.editor.DepartmentEditorFragment
 import io.capstone.keeper.features.shared.components.BaseFragment
 import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import kotlinx.coroutines.flow.collectLatest
@@ -77,7 +78,11 @@ class DepartmentFragment: BaseFragment(), BasePagingAdapter.OnItemActionListener
         }
 
         binding.actionButton.setOnClickListener {
-
+            DepartmentEditorFragment(childFragmentManager)
+                .show()
+        }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            departmentAdapter.refresh()
         }
     }
 

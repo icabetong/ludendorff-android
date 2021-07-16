@@ -1,6 +1,7 @@
 package io.capstone.keeper.features.user
 
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
 import io.capstone.keeper.features.department.DepartmentCore
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -30,5 +31,15 @@ data class User @JvmOverloads constructor(
         const val PERMISSION_AUDIT = 16
         const val PERMISSION_MANAGE_USERS = 32
         const val PERMISSION_ADMINISTRATIVE = 64
+
+        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<User>() {
+            override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+                return oldItem.userId == newItem.userId
+            }
+
+            override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

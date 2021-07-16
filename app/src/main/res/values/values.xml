@@ -114,6 +114,10 @@
     <style name="TextAppearance.Keeper.Title.Emphasized">
         <item name="fontFamily">@font/font_inter_semibold</item>
     </style>
+    <style name="TextAppearance.Keeper.Title.Large">
+        <item name="fontFamily">@font/font_inter_bold</item>
+        <item name="android:textSize">28sp</item>
+    </style>
     <style name="TextAppearance.Keeper.Button">
         <item name="fontFamily">@font/font_inter_medium</item>
         <item name="android:letterSpacing">0.05</item>

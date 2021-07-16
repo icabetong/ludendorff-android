@@ -1,4 +1,4 @@
-package io.capstone.keeper.features.department
+package io.capstone.keeper.features.user
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -7,23 +7,23 @@ import com.google.firebase.firestore.QuerySnapshot
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import kotlinx.coroutines.tasks.await
 
-class DepartmentPagingSource(
-    private val departmentQuery: Query
-): PagingSource<QuerySnapshot, Department>() {
+class UserPagingSource(
+    private val userQuery: Query
+): PagingSource<QuerySnapshot, User>() {
 
-    override fun getRefreshKey(state: PagingState<QuerySnapshot, Department>): QuerySnapshot? {
+    override fun getRefreshKey(state: PagingState<QuerySnapshot, User>): QuerySnapshot? {
         return null
     }
 
-    override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, Department> {
+    override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, User> {
         return try {
-            val currentPage = params.key ?: departmentQuery.get().await()
+            val currentPage = params.key ?: userQuery.get().await()
 
             if (currentPage.documents.isNotEmpty()) {
-                val lastVisibleDepartment = currentPage.documents[currentPage.size() - 1]
-                val nextPage = departmentQuery.startAfter(lastVisibleDepartment).get().await()
+                val lastVisibleUser = currentPage.documents[currentPage.size() - 1]
+                val nextPage = userQuery.startAfter(lastVisibleUser).get().await()
                 LoadResult.Page(
-                    data = currentPage.toObjects(Department::class.java),
+                    data = currentPage.toObjects(User::class.java),
                     prevKey = null,
                     nextKey = nextPage
                 )
@@ -35,4 +35,5 @@ class DepartmentPagingSource(
             LoadResult.Error(e)
         }
     }
+
 }

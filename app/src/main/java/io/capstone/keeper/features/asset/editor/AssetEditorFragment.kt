@@ -77,7 +77,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
         binding.addAction.addActionButton.setOnClickListener {
             SpecsEditorBottomSheet(childFragmentManager).show()
         }
-        binding.categoryTextInput.setOnClickListener {
+        binding.categoryTextView.setOnClickListener {
             CategoryPickerBottomSheet(childFragmentManager).show()
         }
     }
@@ -98,7 +98,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
             }
             CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
-                    binding.categoryTextInput.setText(it.categoryName)
+                    binding.categoryTextView.setText(it.categoryName)
                 }
             }
         }

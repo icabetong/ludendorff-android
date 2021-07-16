@@ -22,10 +22,9 @@ class CategoryViewModel @Inject constructor(
     private val categoryQuery: Query = firestore.collection(Category.COLLECTION)
         .orderBy(Category.FIELD_NAME, Query.Direction.ASCENDING)
         .limit(FirestoreRepository.QUERY_LIMIT)
-    private val categoryPagingSource = CategoryPagingSource(categoryQuery)
 
     val categories = Pager(PagingConfig(pageSize = FirestoreRepository.QUERY_LIMIT.toInt())) {
-        categoryPagingSource
+        CategoryPagingSource(categoryQuery)
     }.flow.cachedIn(viewModelScope)
 
     fun create(data: Category) = viewModelScope.launch(Dispatchers.IO) {

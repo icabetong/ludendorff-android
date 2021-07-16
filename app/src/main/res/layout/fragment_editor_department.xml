@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/activity_margin"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/icon_size_medium"
+        android:layout_height="@dimen/icon_size_medium"
+        android:layout_marginBottom="@dimen/activity_margin_small"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_hero_office_building"
+        app:tint="@color/keeper_text_primary"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/componentHeaderTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:text="@string/dialog_department_create"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:hint="@string/hint_name"
+        style="@style/Widget.Keeper.TextInput.Layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="text">
+
+            <requestFocus/>
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:layout_marginBottom="@dimen/activity_margin_small"
+        android:text="@string/hint_manager"
+        android:textColor="@color/keeper_primary_variant"
+        android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+
+    <TextView
+        android:id="@+id/managerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/activity_margin_small"
+        android:focusable="true"
+        android:clickable="true"
+        android:text="@string/hint_vacant"
+        android:textAppearance="@style/TextAppearance.Keeper.List.Title" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/actionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="@string/button_save"
+        style="@style/Widget.Keeper.Button"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

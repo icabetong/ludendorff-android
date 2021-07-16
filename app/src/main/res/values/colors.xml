@@ -16,11 +16,11 @@
     <color name="keeper_text_primary">#373737</color>
     <color name="keeper_text_secondary">#757575</color>
 
-    <color name="keeper_background_content">#fafafa</color>
+    <color name="keeper_background_content">#ffffff</color>
     <color name="keeper_background_main">#e0e0e0</color>
     <color name="keeper_status_bar">@color/keeper_background_main</color>
     <color name="keeper_navigation_bar">@color/keeper_background_main</color>
-    <color name="keeper_toolbar">#f5f5f5</color>
+    <color name="keeper_toolbar">@color/keeper_surface</color>
 
     <color name="keeper_highlight_background">#eeeeee</color>
     <color name="keeper_highlight_content">#373737</color>

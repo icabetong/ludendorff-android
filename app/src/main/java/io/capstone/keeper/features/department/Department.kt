@@ -1,16 +1,16 @@
 package io.capstone.keeper.features.department
 
 import android.os.Parcelable
+import io.capstone.keeper.components.utils.IDGenerator
 import io.capstone.keeper.features.user.UserCore
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
 data class Department @JvmOverloads constructor(
-    var departmentId: String = UUID.randomUUID().toString(),
+    var departmentId: String = IDGenerator.generateRandom(),
     var name: String? = null,
-    var managerSSN: UserCore? = null,
-    var type: String? = null
+    var managerSSN: UserCore? = null
 ): Parcelable {
 
     companion object {

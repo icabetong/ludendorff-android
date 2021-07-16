@@ -28,7 +28,9 @@
     <string name="hint_specifications">Specifications</string>
     <string name="hint_name">Name</string>
     <string name="hint_value">Value</string>
+    <string name="hint_manager">Manager</string>
     <string name="hint_not_set">Not Set</string>
+    <string name="hint_vacant">Vacant</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>
@@ -85,6 +87,8 @@
     <string name="error_camera_permission_header">Camera Permission Required</string>
     <string name="error_camera_permission_summary">We need permission to access your device\'s camera to scan QR codes.</string>
 
+    <string name="dialog_department_create">Create Department</string>
+    <string name="dialog_department_edit">Edit Department</string>
     <string name="dialog_specification_create">Create Specification</string>
     <string name="dialog_specification_edit">Edit Specification</string>
     <string name="dialog_category_create">Create Category</string>
