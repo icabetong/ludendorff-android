@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -30,9 +31,9 @@ abstract class BaseBottomSheet(private val manager: FragmentManager)
             val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
             with(BottomSheetBehavior.from(bottomSheet)) {
                 state = BottomSheetBehavior.STATE_EXPANDED
-                peekHeight = resources.displayMetrics.heightPixels
             }
         }
+        view.minimumHeight = resources.displayMetrics.heightPixels / 2
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -44,5 +45,9 @@ abstract class BaseBottomSheet(private val manager: FragmentManager)
     inline fun show(sheet: BaseBottomSheet.() -> Unit) {
         this.sheet()
         this.show()
+    }
+
+    protected fun hideViews(vararg views: View) {
+        views.forEach { it.isVisible = false }  
     }
 }

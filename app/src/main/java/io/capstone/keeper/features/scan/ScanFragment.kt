@@ -16,6 +16,7 @@ import com.budiyev.android.codescanner.ScanMode
 import com.discord.panels.OverlappingPanelsLayout
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
+import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.persistence.DevicePermissions
 import io.capstone.keeper.databinding.FragmentScanBinding
 import io.capstone.keeper.features.shared.components.BaseFragment
@@ -59,13 +60,17 @@ class ScanFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupToolbar(binding.appBar.toolbar, {
-            getOverlappingPanelLayout().openStartPanel()
-        }, R.string.activity_scan, R.drawable.ic_hero_menu, R.menu.menu_main, { id ->
-            when (id) {
-                R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
+        binding.appBar.toolbar.setup(
+            titleRes = R.string.activity_scan,
+            iconRes = R.drawable.ic_hero_menu,
+            onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
+            menuRes = R.menu.menu_main,
+            onMenuOptionClicked = {
+                when (it) {
+                    R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
+                }
             }
-        })
+        )
 
         codeScanner = CodeScanner(view.context, binding.codeScannerView)
 

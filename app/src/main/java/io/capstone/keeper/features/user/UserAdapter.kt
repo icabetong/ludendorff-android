@@ -8,7 +8,9 @@ import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import io.capstone.keeper.features.shared.components.BaseViewHolder
 
 
-class UserAdapter: BasePagingAdapter<User, UserAdapter.UserViewHolder>(User.DIFF_CALLBACK) {
+class UserAdapter(
+    private val onItemActionListener: OnItemActionListener
+): BasePagingAdapter<User, UserAdapter.UserViewHolder>(User.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = LayoutItemUserBinding.inflate(LayoutInflater.from(parent.context),

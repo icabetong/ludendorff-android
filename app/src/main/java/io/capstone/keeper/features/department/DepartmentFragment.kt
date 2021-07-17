@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnLayout
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.LoadState
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +19,7 @@ import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.components.extensions.getCountThatFitsOnScreen
+import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentDepartmentBinding
 import io.capstone.keeper.features.department.editor.DepartmentEditorFragment
 import io.capstone.keeper.features.shared.components.BaseFragment
@@ -49,11 +52,16 @@ class DepartmentFragment: BaseFragment(), BasePagingAdapter.OnItemActionListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-        setupToolbar(binding.appBar.toolbar, {
-            controller?.navigateUp()
-        }, R.string.activity_department)
+        binding.appBar.toolbar.setup(
+            titleRes = R.string.activity_department,
+            onNavigationClicked = { controller?.navigateUp() }
+        )
+
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onStart() {
@@ -78,12 +86,13 @@ class DepartmentFragment: BaseFragment(), BasePagingAdapter.OnItemActionListener
         }
 
         binding.actionButton.setOnClickListener {
-            DepartmentEditorFragment(childFragmentManager)
-                .show()
+            controller?.navigate(R.id.navigation_editor_department, null, null,
+                FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
         binding.swipeRefreshLayout.setOnRefreshListener {
             departmentAdapter.refresh()
         }
+
     }
 
     override fun onResume() {

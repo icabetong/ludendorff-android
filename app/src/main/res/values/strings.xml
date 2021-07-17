@@ -20,6 +20,16 @@
     <string name="navigation_categories">@string/activity_categories</string>
     <string name="navigation_department">@string/activity_department</string>
 
+    <string name="title_editor_asset_create">Create Asset</string>
+    <string name="title_editor_asset_update">Edit Asset</string>
+    <string name="title_editor_department_create">Create Department</string>
+    <string name="title_editor_department_update">Edit Department</string>
+    <string name="title_editor_specification_create">Create Specification</string>
+    <string name="title_editor_specification_update">Edit Specification</string>
+    <string name="title_editor_category_create">Create Category</string>
+    <string name="title_editor_category_update">Edit Category</string>
+    <string name="title_editor_category_pick">Pick Category</string>
+
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_asset_name">Asset Name</string>
@@ -87,13 +97,6 @@
     <string name="error_camera_permission_header">Camera Permission Required</string>
     <string name="error_camera_permission_summary">We need permission to access your device\'s camera to scan QR codes.</string>
 
-    <string name="dialog_department_create">Create Department</string>
-    <string name="dialog_department_edit">Edit Department</string>
-    <string name="dialog_specification_create">Create Specification</string>
-    <string name="dialog_specification_edit">Edit Specification</string>
-    <string name="dialog_category_create">Create Category</string>
-    <string name="dialog_category_edit">Edit Category</string>
-    <string name="dialog_category_pick">Pick Category</string>
     <string name="dialog_view_qr_code">View QR Code</string>
     <string name="dialog_sign_out_title">Sign out?</string>
     <string name="dialog_sign_out_message">Are you sure you want to end your session? You will need to enter your credentials again next time.</string>

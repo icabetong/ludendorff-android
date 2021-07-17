@@ -63,11 +63,13 @@ class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
             categoryAdapter.loadStateFlow.collectLatest {
                 when (it.refresh) {
                     is LoadState.Loading -> {
+                        binding.progressIndicator.isVisible = true
                         binding.recyclerView.isVisible = false
 
                     }
                     is LoadState.Error -> {
-                        binding.recyclerView.isVisible = false
+                        hideViews(binding.emptyView.root, binding.errorView.root,
+                            binding.progressIndicator, binding.recyclerView)
 
                         val errorState = when {
                             it.prepend is LoadState.Error -> it.prepend as LoadState.Error
@@ -87,9 +89,13 @@ class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
                             if (e.error is EmptySnapshotException &&
                                 categoryAdapter.itemCount < 1)
                                 binding.emptyView.root.isVisible = true
+                            else binding.errorView.root.isVisible = true
                         }
                     }
-                    is LoadState.NotLoading -> {}
+                    is LoadState.NotLoading -> {
+                        binding.progressIndicator.isVisible = false
+                        binding.recyclerView.isVisible = true
+                    }
                 }
             }
         }

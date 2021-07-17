@@ -21,6 +21,7 @@ import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.custom.SwipeItemCallback
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.components.extensions.getCountThatFitsOnScreen
+import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentCategoryBinding
 import io.capstone.keeper.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.keeper.features.shared.components.BaseFragment
@@ -55,16 +56,16 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
         super.onViewCreated(view, savedInstanceState)
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-        setupToolbar(binding.appBar.toolbar, {
-            controller?.navigateUp()
-        }, R.string.activity_categories)
+        binding.appBar.toolbar.setup (
+            titleRes = R.string.activity_categories,
+            onNavigationClicked = { controller?.navigateUp() }
+        )
 
         registerForFragmentResult(
             arrayOf(
                 CategoryEditorBottomSheet.REQUEST_KEY_CREATE,
                 CategoryEditorBottomSheet.REQUEST_KEY_UPDATE
-            ),
-            this
+            ), this
         )
     }
 

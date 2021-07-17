@@ -1,76 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/activity_margin"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="@color/keeper_background_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/icon_size_medium"
-        android:layout_height="@dimen/icon_size_medium"
-        android:layout_marginBottom="@dimen/activity_margin_small"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_hero_office_building"
-        app:tint="@color/keeper_text_primary"/>
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/layout_appbar"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/componentHeaderTextView"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_margin"
-        android:text="@string/dialog_department_create"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nameTextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_margin"
-        android:hint="@string/hint_name"
-        style="@style/Widget.Keeper.TextInput.Layout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameTextInput"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:inputType="text">
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:hint="@string/hint_name"
+            style="@style/Widget.Keeper.TextInput.Layout">
 
-            <requestFocus/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="text">
 
-        </com.google.android.material.textfield.TextInputEditText>
+                <requestFocus/>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputEditText>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_margin"
-        android:layout_marginBottom="@dimen/activity_margin_small"
-        android:text="@string/hint_manager"
-        android:textColor="@color/keeper_primary_variant"
-        android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/managerTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/activity_margin_small"
-        android:focusable="true"
-        android:clickable="true"
-        android:text="@string/hint_vacant"
-        android:textAppearance="@style/TextAppearance.Keeper.List.Title" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:text="@string/hint_manager"
+            android:textColor="@color/keeper_primary_variant"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
-    <com.google.android.material.button.MaterialButton
+        <TextView
+            android:id="@+id/managerTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/activity_margin_small"
+            android:focusable="true"
+            android:clickable="true"
+            android:text="@string/hint_vacant"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/actionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_margin="@dimen/activity_margin"
+        android:layout_gravity="bottom|end"
         android:text="@string/button_save"
-        style="@style/Widget.Keeper.Button"/>
+        app:icon="@drawable/ic_hero_check"/>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

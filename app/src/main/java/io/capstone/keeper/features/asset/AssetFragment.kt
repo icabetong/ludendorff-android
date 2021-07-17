@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.discord.panels.OverlappingPanelsLayout
 import io.capstone.keeper.R
+import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentAssetsBinding
 import io.capstone.keeper.features.shared.components.BaseFragment
 
@@ -37,16 +38,20 @@ class AssetFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
 
+        binding.appBar.toolbar.setup(
+            titleRes = R.string.activity_assets,
+            iconRes = R.drawable.ic_hero_menu,
+            onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
+            menuRes = R.menu.menu_main,
+            onMenuOptionClicked = {
+                when(it) {
+                    R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
+                }
+            }
+        )
+
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
-
-        setupToolbar(binding.appBar.toolbar, {
-            getOverlappingPanelLayout().openStartPanel()
-        }, R.string.activity_assets, R.drawable.ic_hero_menu, R.menu.menu_main, { id ->
-            when (id) {
-                R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
-            }
-        })
     }
 
     override fun onStart() {

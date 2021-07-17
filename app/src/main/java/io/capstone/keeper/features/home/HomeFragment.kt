@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.discord.panels.OverlappingPanelsLayout
 import io.capstone.keeper.R
+import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentHomeBinding
 import io.capstone.keeper.features.shared.components.BaseFragment
 
@@ -31,13 +32,12 @@ class HomeFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupToolbar(binding.appBar.toolbar, {
-            getOverlappingPanelLayout().openStartPanel()
-        }, R.string.activity_home, R.drawable.ic_hero_menu, R.menu.menu_main, { id ->
-            when (id) {
-                R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
-            }
-        })
-
+        binding.appBar.toolbar.setup(
+            titleRes = R.string.activity_home,
+            iconRes = R.drawable.ic_hero_menu,
+            onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
+            menuRes = R.menu.menu_main,
+            onMenuOptionClicked = { getOverlappingPanelLayout().openEndPanel() }
+        )
     }
 }
