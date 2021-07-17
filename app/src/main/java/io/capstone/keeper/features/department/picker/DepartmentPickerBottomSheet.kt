@@ -15,7 +15,6 @@ import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.department.DepartmentAdapter
 import io.capstone.keeper.features.department.DepartmentViewModel
 import io.capstone.keeper.features.shared.components.BaseBottomSheet
-import io.capstone.keeper.features.shared.components.BasePagingAdapter
 
 class DepartmentPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
     OnItemActionListener<Department> {
@@ -48,7 +47,11 @@ class DepartmentPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(man
         }
     }
 
-    override fun onActionPerformed(data: Department?, action: OnItemActionListener.Action) {
+    override fun onActionPerformed(
+        data: Department?,
+        action: OnItemActionListener.Action,
+        container: View?
+    ) {
         if (action == OnItemActionListener.Action.SELECT)
             setFragmentResult(REQUEST_KEY_PICK, bundleOf(EXTRA_DEPARTMENT to data))
         this.dismiss()

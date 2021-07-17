@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/appBar"
-        layout="@layout/layout_appbar"/>
+        layout="@layout/layout_appbar_flat"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

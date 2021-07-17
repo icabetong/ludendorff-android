@@ -26,7 +26,6 @@ import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentCategoryBinding
 import io.capstone.keeper.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.keeper.features.shared.components.BaseFragment
-import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -213,7 +212,11 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
         }
     }
 
-    override fun onActionPerformed(data: Category?, action: OnItemActionListener.Action) {
+    override fun onActionPerformed(
+        data: Category?,
+        action: OnItemActionListener.Action,
+        container: View?
+    ) {
         if (action == OnItemActionListener.Action.SELECT) {
             CategoryEditorBottomSheet(childFragmentManager).show {
                 arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)

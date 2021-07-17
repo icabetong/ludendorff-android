@@ -20,7 +20,6 @@ import io.capstone.keeper.features.category.Category
 import io.capstone.keeper.features.category.CategoryAdapter
 import io.capstone.keeper.features.category.CategoryViewModel
 import io.capstone.keeper.features.shared.components.BaseBottomSheet
-import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -108,7 +107,11 @@ class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
         }
     }
 
-    override fun onActionPerformed(data: Category?, action: OnItemActionListener.Action) {
+    override fun onActionPerformed(
+        data: Category?,
+        action: OnItemActionListener.Action,
+        container: View?
+    ) {
         if (action == OnItemActionListener.Action.SELECT)
             setFragmentResult(REQUEST_KEY_PICK, bundleOf(EXTRA_CATEGORY to data))
         this.dismiss()

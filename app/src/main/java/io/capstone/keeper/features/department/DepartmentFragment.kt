@@ -14,10 +14,12 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.GenericItemDecoration
+import io.capstone.keeper.components.custom.SwipeItemCallback
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.components.extensions.getCountThatFitsOnScreen
 import io.capstone.keeper.components.extensions.setup
@@ -25,7 +27,6 @@ import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentDepartmentBinding
 import io.capstone.keeper.features.department.editor.DepartmentEditorFragment
 import io.capstone.keeper.features.shared.components.BaseFragment
-import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -62,17 +63,13 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
             onNavigationClicked = { controller?.navigateUp() }
         )
 
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        with (binding.recyclerView) {
+        with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
             adapter = departmentAdapter
         }
+
+        ItemTouchHelper(SwipeItemCallback(view.context, departmentAdapter))
+            .attachToRecyclerView(binding.recyclerView)
 
         binding.rowLayout.root.doOnLayout {
             val rowCount = it.getCountThatFitsOnScreen(it.context)
@@ -87,18 +84,12 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
             }
         }
 
-        binding.actionButton.setOnClickListener {
-            controller?.navigate(R.id.navigation_editor_department, null, null,
-                FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
-        }
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            departmentAdapter.refresh()
-        }
-
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
         viewLifecycleOwner.lifecycleScope.launch {
             departmentAdapter.loadStateFlow.collectLatest {
@@ -145,7 +136,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                              */
                             hideStatusViews()
                             if (e.error is EmptySnapshotException &&
-                                    departmentAdapter.itemCount < 1)
+                                departmentAdapter.itemCount < 1)
                                 binding.emptyView.root.isVisible = true
                             else if (e.error is FirebaseFirestoreException) {
                                 when((e.error as FirebaseFirestoreException).code) {
@@ -175,6 +166,19 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                 departmentAdapter.submitData(it)
             }
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.actionButton.setOnClickListener {
+            controller?.navigate(R.id.navigation_editor_department, null, null,
+                FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
+        }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            departmentAdapter.refresh()
+        }
     }
 
     private fun hideStatusViews() {
@@ -183,11 +187,21 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
         binding.emptyView.root.isVisible = false
     }
 
-    override fun onActionPerformed(data: Department?, action: OnItemActionListener.Action) {
+    override fun onActionPerformed(
+        data: Department?,
+        action: OnItemActionListener.Action,
+        container: View?
+    ) {
         when(action) {
             OnItemActionListener.Action.SELECT -> {
-                controller?.navigate(R.id.navigation_editor_department,
-                    bundleOf(DepartmentEditorFragment.EXTRA_DEPARTMENT to data))
+                container?.let {
+                    controller?.navigate(R.id.navigation_editor_department,
+                        bundleOf(DepartmentEditorFragment.EXTRA_DEPARTMENT to data), null,
+                        FragmentNavigatorExtras(
+                            container to TRANSITION_NAME_ROOT + data?.departmentId
+                        )
+                    )
+                }
             }
             OnItemActionListener.Action.DELETE -> TODO()
         }

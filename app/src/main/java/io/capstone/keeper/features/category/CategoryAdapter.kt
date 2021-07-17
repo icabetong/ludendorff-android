@@ -24,7 +24,9 @@ class CategoryAdapter(
     }
 
     override fun onSwipe(position: Int, direction: Int) {
-        onItemActionListener.onActionPerformed(getItem(position), OnItemActionListener.Action.DELETE)
+        onItemActionListener.onActionPerformed(
+            getItem(position), OnItemActionListener.Action.DELETE, null
+        )
     }
 
     inner class CategoryViewHolder(itemView: View): BaseViewHolder<Category>(itemView) {
@@ -33,7 +35,8 @@ class CategoryAdapter(
         override fun onBind(data: Category?) {
             binding.nameTextView.text = data?.categoryName
             binding.root.setOnClickListener {
-                onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT)
+                onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
+                    null)
             }
         }
     }
