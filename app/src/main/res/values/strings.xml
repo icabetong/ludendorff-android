@@ -30,6 +30,9 @@
     <string name="title_category_create">Create Category</string>
     <string name="title_category_update">Edit Category</string>
     <string name="title_category_select">Select Category</string>
+    <string name="title_user_create">Create User</string>
+    <string name="title_user_update">Edit User</string>
+    <string name="title_user_select">Select User</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -66,6 +69,7 @@
     <string name="asset_status_option_idle">Idle</string>
     <string name="asset_status_option_under_maintenance">Under Maintenance</string>
     <string name="asset_status_option_retired">Retired</string>
+
     <string name="user_permission_read">Read</string>
     <string name="user_permission_read_summary">Allow this user to view and read records from the database.</string>
     <string name="user_permission_create">Create</string>

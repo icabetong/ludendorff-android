@@ -7,7 +7,7 @@
     <dimen name="activity_margin_large">48dp</dimen>
     <dimen name="activity_margin_huge">72dp</dimen>
 
-    <dimen name="toolbar_height">128dp</dimen>
+    <dimen name="toolbar_height">144dp</dimen>
     <dimen name="toolbar_padding_horizontal">4dp</dimen>
     <dimen name="toolbar_keyline">16dp</dimen>
 
@@ -20,4 +20,5 @@
     <dimen name="icon_size_medium">48dp</dimen>
     <dimen name="icon_size_large">64dp</dimen>
 
+    <dimen name="bottom_sheet_picker_height">256dp</dimen>
 </resources>

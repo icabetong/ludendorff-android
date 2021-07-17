@@ -6,32 +6,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/icon_size_medium"
-        android:layout_height="@dimen/icon_size_medium"
-        android:layout_marginTop="@dimen/activity_margin"
-        android:layout_marginBottom="@dimen/activity_margin_small"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_hero_tag"
-        app:tint="@color/keeper_text_primary"/>
-
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/componentHeaderTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_marginVertical="@dimen/activity_margin"
         android:text="@string/title_category_select"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/keeper_shimmer"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:minHeight="@dimen/bottom_sheet_picker_height">
 
         <ProgressBar
             android:id="@+id/progressIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/activity_margin_huge"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
