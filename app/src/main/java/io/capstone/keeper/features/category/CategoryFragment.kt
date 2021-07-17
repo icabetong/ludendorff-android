@@ -22,6 +22,7 @@ import io.capstone.keeper.components.custom.SwipeItemCallback
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.components.extensions.getCountThatFitsOnScreen
 import io.capstone.keeper.components.extensions.setup
+import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentCategoryBinding
 import io.capstone.keeper.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.keeper.features.shared.components.BaseFragment
@@ -30,7 +31,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapter.OnItemActionListener {
+class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionListener<Category> {
     private var _binding: FragmentCategoryBinding? = null
     private var controller: NavController? = null
 
@@ -212,17 +213,10 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, BasePagingAdapte
         }
     }
 
-    override fun <T> onActionPerformed(t: T, action: BasePagingAdapter.Action) {
-        if (t is Category) {
-            when (action) {
-                BasePagingAdapter.Action.SELECT -> {
-                    CategoryEditorBottomSheet(childFragmentManager).show {
-                        arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to t)
-                    }
-                }
-                BasePagingAdapter.Action.DELETE -> {
-                    viewModel.remove(t.categoryId)
-                }
+    override fun onActionPerformed(data: Category?, action: OnItemActionListener.Action) {
+        if (action == OnItemActionListener.Action.SELECT) {
+            CategoryEditorBottomSheet(childFragmentManager).show {
+                arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)
             }
         }
     }

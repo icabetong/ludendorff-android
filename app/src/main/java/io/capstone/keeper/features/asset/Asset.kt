@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Parcelable
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
+import io.capstone.keeper.components.utils.IDGenerator
 import io.capstone.keeper.features.category.Category
 import kotlinx.android.parcel.Parcelize
 import java.time.ZonedDateTime
@@ -12,7 +13,7 @@ import java.util.*
 
 @Parcelize
 data class Asset @JvmOverloads constructor(
-    var assetId: String = UUID.randomUUID().toString(),
+    var assetId: String = IDGenerator.generateRandom(),
     var assetName: String? = null,
     var dateCreated: ZonedDateTime? = ZonedDateTime.now(),
     var status: Status? = null,
@@ -22,6 +23,10 @@ data class Asset @JvmOverloads constructor(
 
     fun generateQRCode(): Bitmap {
         return Companion.generateQRCode(assetId)
+    }
+
+    fun toAssetCore(): AssetCore {
+        return AssetCore.fromAsset(this)
     }
 
     enum class Status {

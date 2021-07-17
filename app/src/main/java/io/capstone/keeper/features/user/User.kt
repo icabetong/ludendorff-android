@@ -2,6 +2,7 @@ package io.capstone.keeper.features.user
 
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
+import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.department.DepartmentCore
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -23,6 +24,14 @@ data class User @JvmOverloads constructor(
 
     companion object {
         const val COLLECTION = "users"
+        const val FIELD_ID = "userId"
+        const val FIELD_FIRST_NAME = "firstName"
+        const val FIELD_LAST_NAME = "lastName"
+        const val FIELD_EMAIL = "email"
+        const val FIELD_PERMISSIONS = "permissions"
+        const val FIELD_POSITION = "position"
+        const val FIELD_DEPARTMENT = "department"
+        const val FIELD_DEPARTMENT_ID = "${FIELD_DEPARTMENT}.${Department.FIELD_ID}"
 
         const val PERMISSION_READ = 1
         const val PERMISSION_CREATE = 2

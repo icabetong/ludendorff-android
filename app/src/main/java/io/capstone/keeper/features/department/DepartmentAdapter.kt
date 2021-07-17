@@ -3,14 +3,14 @@ package io.capstone.keeper.features.department
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.LayoutItemDepartmentBinding
 import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import io.capstone.keeper.features.shared.components.BaseViewHolder
 
 class DepartmentAdapter(
-    private val onItemActionListener: OnItemActionListener
-): BasePagingAdapter<Department, DepartmentAdapter.DepartmentViewHolder>(Companion) {
+    private val onItemActionListener: OnItemActionListener<Department>
+): BasePagingAdapter<Department, DepartmentAdapter.DepartmentViewHolder>(Department.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DepartmentViewHolder {
         val binding = LayoutItemDepartmentBinding.inflate(LayoutInflater.from(parent.context),
@@ -30,19 +30,8 @@ class DepartmentAdapter(
             binding.bodyTextView.text = data?.managerSSN?.name
 
             binding.root.setOnClickListener {
-                onItemActionListener.onActionPerformed(data, Action.SELECT)
+                onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT)
             }
         }
-    }
-
-    companion object : DiffUtil.ItemCallback<Department>() {
-        override fun areItemsTheSame(oldItem: Department, newItem: Department): Boolean {
-            return oldItem.departmentId == newItem.departmentId
-        }
-
-        override fun areContentsTheSame(oldItem: Department, newItem: Department): Boolean {
-            return oldItem == newItem
-        }
-
     }
 }

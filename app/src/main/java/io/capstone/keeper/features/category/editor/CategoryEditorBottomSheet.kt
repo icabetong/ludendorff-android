@@ -42,7 +42,7 @@ class CategoryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
             requestKey = REQUEST_KEY_UPDATE
             viewModel.category = it
 
-            binding.componentHeaderTextView.setText(R.string.title_editor_category_update)
+            binding.componentHeaderTextView.setText(R.string.title_category_update)
             binding.nameTextInput.setText(it.categoryName)
         }
 

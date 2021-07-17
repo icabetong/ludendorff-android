@@ -43,13 +43,5 @@ class AssignmentFragment: BaseFragment() {
                 }
             }
         )
-
-        setupToolbar(binding.appBar.toolbar, {
-            getOverlappingPanelLayout().openStartPanel()
-        }, R.string.activity_assignment, R.drawable.ic_hero_menu, R.menu.menu_main, { id ->
-            when (id) {
-                R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
-            }
-        })
     }
 }

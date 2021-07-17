@@ -13,4 +13,14 @@ import java.util.*
 data class DepartmentCore @JvmOverloads constructor(
     var departmentId: String = UUID.randomUUID().toString(),
     var name: String? = null
-): Parcelable
+): Parcelable {
+
+    companion object {
+        fun fromDepartment(department: Department): DepartmentCore {
+            return DepartmentCore(
+                departmentId = department.departmentId,
+                name = department.name
+            )
+        }
+    }
+}

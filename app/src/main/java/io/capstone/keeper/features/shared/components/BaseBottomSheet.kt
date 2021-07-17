@@ -34,6 +34,7 @@ abstract class BaseBottomSheet(private val manager: FragmentManager)
             }
         }
         view.minimumHeight = resources.displayMetrics.heightPixels / 2
+        view.requestLayout()
         super.onViewCreated(view, savedInstanceState)
     }
 

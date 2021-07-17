@@ -20,15 +20,16 @@
     <string name="navigation_categories">@string/activity_categories</string>
     <string name="navigation_department">@string/activity_department</string>
 
-    <string name="title_editor_asset_create">Create Asset</string>
-    <string name="title_editor_asset_update">Edit Asset</string>
-    <string name="title_editor_department_create">Create Department</string>
-    <string name="title_editor_department_update">Edit Department</string>
-    <string name="title_editor_specification_create">Create Specification</string>
-    <string name="title_editor_specification_update">Edit Specification</string>
-    <string name="title_editor_category_create">Create Category</string>
-    <string name="title_editor_category_update">Edit Category</string>
-    <string name="title_editor_category_pick">Pick Category</string>
+    <string name="title_asset_create">Create Asset</string>
+    <string name="title_asset_update">Edit Asset</string>
+    <string name="title_department_create">Create Department</string>
+    <string name="title_department_update">Edit Department</string>
+    <string name="title_department_select">Select Department</string>
+    <string name="title_specs_create">Create Specification</string>
+    <string name="title_specs_update">Edit Specification</string>
+    <string name="title_category_create">Create Category</string>
+    <string name="title_category_update">Edit Category</string>
+    <string name="title_category_select">Select Category</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>

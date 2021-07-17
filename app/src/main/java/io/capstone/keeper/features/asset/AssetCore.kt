@@ -16,4 +16,16 @@ data class AssetCore @JvmOverloads constructor(
     var assetName: String? = null,
     var status: Asset.Status? = null,
     var category: Category? = null
-): Parcelable
+): Parcelable {
+
+    companion object {
+        fun fromAsset(asset: Asset): AssetCore {
+            return AssetCore(
+                assetId = asset.assetId,
+                assetName = asset.assetName,
+                status = asset.status,
+                category = asset.category
+            )
+        }
+    }
+}

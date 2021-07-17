@@ -1,6 +1,7 @@
 package io.capstone.keeper.features.department
 
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
 import io.capstone.keeper.components.utils.IDGenerator
 import io.capstone.keeper.features.user.UserCore
 import kotlinx.android.parcel.Parcelize
@@ -13,11 +14,25 @@ data class Department @JvmOverloads constructor(
     var managerSSN: UserCore? = null
 ): Parcelable {
 
+    fun toDepartmentCore(): DepartmentCore {
+        return DepartmentCore.fromDepartment(this)
+    }
+
     companion object {
         const val COLLECTION = "departments"
         const val FIELD_ID = "departmentId"
         const val FIELD_NAME = "name"
         const val FIELD_MANAGER_SSN = "managerSSN"
         const val FIELD_TYPE = "type"
+
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Department>() {
+            override fun areItemsTheSame(oldItem: Department, newItem: Department): Boolean {
+                return oldItem.departmentId == newItem.departmentId
+            }
+
+            override fun areContentsTheSame(oldItem: Department, newItem: Department): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

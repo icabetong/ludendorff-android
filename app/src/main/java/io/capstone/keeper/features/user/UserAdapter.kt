@@ -9,7 +9,7 @@ import io.capstone.keeper.features.shared.components.BaseViewHolder
 
 
 class UserAdapter(
-    private val onItemActionListener: OnItemActionListener
+    private val onItemActionListener: OnItemActionListenerDeprecated
 ): BasePagingAdapter<User, UserAdapter.UserViewHolder>(User.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {

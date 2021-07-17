@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -20,6 +21,7 @@ import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.components.extensions.getCountThatFitsOnScreen
 import io.capstone.keeper.components.extensions.setup
+import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentDepartmentBinding
 import io.capstone.keeper.features.department.editor.DepartmentEditorFragment
 import io.capstone.keeper.features.shared.components.BaseFragment
@@ -28,7 +30,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DepartmentFragment: BaseFragment(), BasePagingAdapter.OnItemActionListener {
+class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
     private var _binding: FragmentDepartmentBinding? = null
     private var controller: NavController? = null
 
@@ -181,7 +183,13 @@ class DepartmentFragment: BaseFragment(), BasePagingAdapter.OnItemActionListener
         binding.emptyView.root.isVisible = false
     }
 
-    override fun <T> onActionPerformed(t: T, action: BasePagingAdapter.Action) {
-
+    override fun onActionPerformed(data: Department?, action: OnItemActionListener.Action) {
+        when(action) {
+            OnItemActionListener.Action.SELECT -> {
+                controller?.navigate(R.id.navigation_editor_department,
+                    bundleOf(DepartmentEditorFragment.EXTRA_DEPARTMENT to data))
+            }
+            OnItemActionListener.Action.DELETE -> TODO()
+        }
     }
 }

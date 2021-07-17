@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
-    BasePagingAdapter.OnItemActionListener {
+    BasePagingAdapter.OnItemActionListenerDeprecated {
     private var _binding: FragmentPickerUserBinding? = null
 
     private val binding get() = _binding!!

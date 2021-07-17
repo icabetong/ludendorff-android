@@ -51,7 +51,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
         controller = Navigation.findNavController(view)
         binding.appBar.toolbar.setup(
-            titleRes = R.string.title_editor_asset_create,
+            titleRes = R.string.title_asset_create,
             iconRes = R.drawable.ic_hero_x,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_editor_asset,

@@ -1,23 +1,25 @@
-package io.capstone.keeper.features.category
+package io.capstone.keeper.features.department
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.WriteBatch
 import io.capstone.keeper.features.asset.Asset
 import io.capstone.keeper.features.core.backend.FirestoreRepository
 import io.capstone.keeper.features.core.data.Response
+import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CategoryRepository @Inject constructor(
+class DepartmentRepository @Inject constructor(
     private val firestore: FirebaseFirestore
-): FirestoreRepository<Category> {
+): FirestoreRepository<Department> {
 
-    override suspend fun create(data: Category): Response<Unit> {
+    override suspend fun create(data: Department): Response<Unit> {
         return try {
-            firestore.collection(Category.COLLECTION)
-                .document(data.categoryId)
+            firestore.collection(Department.COLLECTION)
+                .document(data.departmentId)
                 .set(data)
                 .await()
             Response.Success(Unit)
@@ -28,25 +30,25 @@ class CategoryRepository @Inject constructor(
         }
     }
 
-    override suspend fun update(data: Category): Response<Unit> {
+    override suspend fun update(data: Department): Response<Unit> {
         return try {
-            firestore.collection(Category.COLLECTION)
-                .document(data.categoryId)
+            firestore.collection(Department.COLLECTION)
+                .document(data.departmentId)
                 .set(data)
                 .await()
 
             val batchWrite = firestore.batch()
-            firestore.collection(Asset.COLLECTION)
-                .whereEqualTo(Asset.FIELD_CATEGORY_ID, data.categoryId)
+            firestore.collection(User.COLLECTION)
+                .whereEqualTo(User.FIELD_DEPARTMENT_ID, data.departmentId)
                 .get().await()
                 .documents.forEach {
-                    batchWrite.update(it.reference, Asset.FIELD_CATEGORY, data)
+                    batchWrite.update(it.reference, User.FIELD_DEPARTMENT, data.toDepartmentCore())
                 }
             batchWrite.commit()
 
             Response.Success(Unit)
-        } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+        } catch (firestore: FirebaseFirestoreException) {
+            Response.Error(firestore)
         } catch (exception: Exception) {
             Response.Error(exception)
         }
@@ -54,7 +56,7 @@ class CategoryRepository @Inject constructor(
 
     override suspend fun remove(id: String): Response<Unit> {
         return try {
-            firestore.collection(Category.COLLECTION)
+            firestore.collection(Department.COLLECTION)
                 .document(id)
                 .delete()
                 .await()

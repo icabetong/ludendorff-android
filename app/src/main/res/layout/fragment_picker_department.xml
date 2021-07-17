@@ -12,7 +12,7 @@
         android:layout_marginTop="@dimen/activity_margin"
         android:layout_marginBottom="@dimen/activity_margin_small"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_hero_user"
+        app:srcCompat="@drawable/ic_hero_office_building"
         app:tint="@color/keeper_text_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_margin"
-        android:text="@string/title_category_select"
+        android:text="@string/title_department_select"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
 
@@ -46,6 +46,10 @@
         <include
             android:id="@+id/errorView"
             layout="@layout/layout_error_generic"/>
+
+        <include
+            android:id="@+id/emptyView"
+            layout="@layout/layout_empty_department"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentEditorDepartmentBinding
+import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.shared.components.BaseEditorFragment
 import io.capstone.keeper.features.user.picker.UserPickerBottomSheet
 
@@ -17,6 +18,7 @@ import io.capstone.keeper.features.user.picker.UserPickerBottomSheet
 class DepartmentEditorFragment: BaseEditorFragment() {
     private var _binding: FragmentEditorDepartmentBinding? = null
     private var controller: NavController? = null
+    private var requestKey: String = REQUEST_KEY_CREATE
 
     private val binding get() = _binding!!
 
@@ -46,7 +48,7 @@ class DepartmentEditorFragment: BaseEditorFragment() {
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
         binding.appBar.toolbar.setup(
-            titleRes = R.string.title_editor_department_create,
+            titleRes = R.string.title_department_create,
             iconRes = R.drawable.ic_hero_x,
             onNavigationClicked = { controller?.navigateUp() }
         )
@@ -54,6 +56,16 @@ class DepartmentEditorFragment: BaseEditorFragment() {
         binding.managerTextView.setOnClickListener {
             UserPickerBottomSheet(childFragmentManager).show()
         }
+
+        arguments?.getParcelable<Department>(EXTRA_DEPARTMENT)?.let {
+            requestKey = REQUEST_KEY_UPDATE
+            binding.nameTextInput.setText(it.name)
+        }
     }
 
+    companion object {
+        const val REQUEST_KEY_CREATE = "request:create"
+        const val REQUEST_KEY_UPDATE = "request:update"
+        const val EXTRA_DEPARTMENT = "extra:department"
+    }
 }

@@ -3,13 +3,14 @@ package io.capstone.keeper.features.category
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.components.interfaces.SwipeableAdapter
 import io.capstone.keeper.databinding.LayoutItemCategoryBinding
 import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import io.capstone.keeper.features.shared.components.BaseViewHolder
 
 class CategoryAdapter(
-    private val onItemActionListener: OnItemActionListener
+    private val onItemActionListener: OnItemActionListener<Category>
 ): BasePagingAdapter<Category, CategoryAdapter.CategoryViewHolder>(Category.DIFF_CALLBACK), SwipeableAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -23,7 +24,7 @@ class CategoryAdapter(
     }
 
     override fun onSwipe(position: Int, direction: Int) {
-        onItemActionListener.onActionPerformed(getItem(position), Action.DELETE)
+        onItemActionListener.onActionPerformed(getItem(position), OnItemActionListener.Action.DELETE)
     }
 
     inner class CategoryViewHolder(itemView: View): BaseViewHolder<Category>(itemView) {
@@ -32,7 +33,7 @@ class CategoryAdapter(
         override fun onBind(data: Category?) {
             binding.nameTextView.text = data?.categoryName
             binding.root.setOnClickListener {
-                onItemActionListener.onActionPerformed(data, Action.SELECT)
+                onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT)
             }
         }
     }

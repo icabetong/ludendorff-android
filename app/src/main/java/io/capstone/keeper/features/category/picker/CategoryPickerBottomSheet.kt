@@ -14,6 +14,7 @@ import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
+import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentPickerCategoryBinding
 import io.capstone.keeper.features.category.Category
 import io.capstone.keeper.features.category.CategoryAdapter
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
-    BasePagingAdapter.OnItemActionListener {
+    OnItemActionListener<Category> {
 
     private var _binding: FragmentPickerCategoryBinding? = null
 
@@ -107,18 +108,10 @@ class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
         }
     }
 
-    override fun <T> onActionPerformed(t: T, action: BasePagingAdapter.Action) {
-        if (t is Category) {
-            when (action) {
-                BasePagingAdapter.Action.SELECT -> {
-                    setFragmentResult(REQUEST_KEY_PICK, bundleOf(EXTRA_CATEGORY to t))
-                    this.dismiss()
-                }
-                BasePagingAdapter.Action.DELETE -> {
-                    return
-                }
-            }
-        }
+    override fun onActionPerformed(data: Category?, action: OnItemActionListener.Action) {
+        if (action == OnItemActionListener.Action.SELECT)
+            setFragmentResult(REQUEST_KEY_PICK, bundleOf(EXTRA_CATEGORY to data))
+        this.dismiss()
     }
 
     companion object {
