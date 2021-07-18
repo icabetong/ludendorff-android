@@ -16,7 +16,7 @@
         app:expandedTitleMarginStart="@dimen/activity_margin_medium"
         app:collapsedTitleTextAppearance="@style/TextAppearance.Keeper.Title.Emphasized"
         app:expandedTitleTextAppearance="@style/TextAppearance.Keeper.Title.Large"
-        app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed">
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"

@@ -30,14 +30,15 @@ class AssetOptionsFragment: BaseFragment() {
         _binding = null
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-    }
-
     override fun onStart() {
         super.onStart()
 
+        /**
+         *  We will retrieve the NavController here
+         *  so that if the activity is recreated
+         *  the whole application doesn't crash
+         */
+        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
         binding.categoryButton.setOnClickListener {
             controller?.navigate(R.id.to_navigation_category)
         }
