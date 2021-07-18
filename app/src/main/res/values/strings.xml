@@ -86,6 +86,7 @@
     <string name="user_permission_administrative_summary">Allow this user full control over the system and the database.</string>
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
+    <string name="feedback_specification_exists">Specification already exists</string>
 
     <string name="empty_no_categories_header">No Categories Added</string>
     <string name="empty_no_categories_summary">There are no categories available that can be used to organize the assets.</string>

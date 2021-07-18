@@ -30,6 +30,12 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <io.capstone.keeper.components.views.TwoLineSwitch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/user_permission_read"
+            app:subtitleText="@string/user_permission_read_summary" />
+
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

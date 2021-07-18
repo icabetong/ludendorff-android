@@ -4,30 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/activity_margin"
     android:orientation="vertical">
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="@dimen/activity_margin_small"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_hero_puzzle"
-        app:tint="@color/keeper_text_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_margin="@dimen/activity_margin"
         android:text="@string/title_specs_create"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/keeper_shimmer"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_margin="@dimen/activity_margin"
         android:hint="@string/hint_name"
         style="@style/Widget.Keeper.TextInput.Layout">
 
@@ -48,7 +44,8 @@
         android:id="@+id/valueTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_margin_small"
+        android:layout_marginHorizontal="@dimen/activity_margin"
+        android:layout_marginBottom="@dimen/activity_margin"
         android:hint="@string/hint_value"
         style="@style/Widget.Keeper.TextInput.Layout">
 
@@ -65,6 +62,8 @@
         android:id="@+id/actionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_marginEnd="@dimen/activity_margin"
         android:layout_gravity="end"
         android:text="@string/button_save"
         app:icon="@drawable/ic_hero_check"

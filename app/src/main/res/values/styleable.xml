@@ -4,4 +4,12 @@
         <attr name="layoutCornerRadius" format="float"/>
     </declare-styleable>
 
+    <declare-styleable name="TwoLineSwitch">
+        <attr name="titleText" format="string"/>
+        <attr name="subtitleText" format="string"/>
+        <attr name="titleTextColor" format="color"/>
+        <attr name="subtitleTextColor" format="color"/>
+        <attr name="titleTextAppearance" format="reference"/>
+        <attr name="subtitleTextAppearance" format="reference"/>
+    </declare-styleable>
 </resources>
