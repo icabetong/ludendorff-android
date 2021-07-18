@@ -10,32 +10,146 @@
         android:id="@+id/appBar"
         layout="@layout/layout_appbar_flat"/>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/activity_margin"
-        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailTextInputLayout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_email">
+            android:layout_height="match_parent"
+            android:padding="@dimen/activity_margin"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailTextInput"
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/activity_margin_small"
+                android:text="@string/hint_authentication"
+                android:textColor="@color/keeper_primary_variant"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_email">
 
-        <io.capstone.keeper.components.views.TwoLineSwitch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:titleText="@string/user_permission_read"
-            app:subtitleText="@string/user_permission_read_summary" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    </LinearLayout>
+                    <requestFocus/>
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                android:text="@string/hint_information"
+                android:textColor="@color/keeper_primary_variant"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lastNameTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/activity_margin_small"
+                android:hint="@string/hint_first_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastNameTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/firstNameTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/activity_margin_small"
+                android:hint="@string/hint_last_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/firstNameTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                android:text="@string/hint_permissions"
+                android:textColor="@color/keeper_primary_variant"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+
+            <io.capstone.keeper.components.views.TwoLineSwitch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                app:titleText="@string/user_permission_read"
+                app:subtitleText="@string/user_permission_read_summary"
+                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
+
+            <io.capstone.keeper.components.views.TwoLineSwitch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                app:titleText="@string/user_permission_create"
+                app:subtitleText="@string/user_permission_create_summary"
+                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
+
+            <io.capstone.keeper.components.views.TwoLineSwitch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                app:titleText="@string/user_permission_update"
+                app:subtitleText="@string/user_permission_update_summary"
+                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
+
+            <io.capstone.keeper.components.views.TwoLineSwitch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                app:titleText="@string/user_permission_delete"
+                app:subtitleText="@string/user_permission_delete_summary"
+                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
+
+            <io.capstone.keeper.components.views.TwoLineSwitch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                app:titleText="@string/user_permission_audit"
+                app:subtitleText="@string/user_permission_audit_summary"
+                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
+
+            <io.capstone.keeper.components.views.TwoLineSwitch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                app:titleText="@string/user_permission_manage_users"
+                app:subtitleText="@string/user_permission_manage_users_summary"
+                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
+
+            <io.capstone.keeper.components.views.TwoLineSwitch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                app:titleText="@string/user_permission_administrative"
+                app:subtitleText="@string/user_permission_administrative_summary"
+                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,9 +6,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import io.capstone.keeper.components.exceptions.EmptyCredentialsException
-import io.capstone.keeper.features.core.data.Response
 import io.capstone.keeper.features.user.User
-import io.capstone.keeper.features.user.UserRepository
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import io.capstone.keeper.R
 import io.capstone.keeper.databinding.FragmentOptionsAssetsBinding
 import io.capstone.keeper.features.shared.components.BaseFragment

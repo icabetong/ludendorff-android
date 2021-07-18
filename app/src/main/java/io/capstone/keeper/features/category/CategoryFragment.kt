@@ -21,7 +21,9 @@ import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.custom.SwipeItemCallback
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.components.extensions.getCountThatFitsOnScreen
+import io.capstone.keeper.components.extensions.hide
 import io.capstone.keeper.components.extensions.setup
+import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentCategoryBinding
 import io.capstone.keeper.features.category.editor.CategoryEditorBottomSheet
@@ -120,13 +122,13 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                      *  will show the user the progress indicators
                      */
                     is LoadState.Loading -> {
-                        binding.recyclerView.isVisible = false
-                        binding.skeletonLayout.isVisible = true
-                        binding.shimmerFrameLayout.isVisible = true
+                        binding.recyclerView.hide()
+                        binding.skeletonLayout.show()
+                        binding.shimmerFrameLayout.show()
                         binding.shimmerFrameLayout.startShimmer()
 
-                        binding.errorView.root.isVisible = false
-                        binding.emptyView.root.isVisible = false
+                        binding.errorView.root.hide()
+                        binding.emptyView.root.hide()
                     }
                     /**
                      *  The PagingAdapter or any component related to fetch
@@ -135,9 +137,9 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                      *  used in handling different types of errors.
                      */
                     is LoadState.Error -> {
-                        binding.recyclerView.isVisible = false
-                        binding.skeletonLayout.isVisible = false
-                        binding.shimmerFrameLayout.isVisible = false
+                        binding.recyclerView.hide()
+                        binding.skeletonLayout.hide()
+                        binding.shimmerFrameLayout.hide()
 
                         val errorState = when {
                             it.prepend is LoadState.Error -> it.prepend as LoadState.Error
@@ -154,27 +156,32 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                              *  will check if the adapter is also empty
                              *  and show the user the empty state.
                              */
-                            hideStatusViews()
+                            binding.permissionErrorView.root.hide()
+                            binding.errorView.root.hide()
+                            binding.emptyView.root.hide()
+
                             if (e.error is EmptySnapshotException &&
                                     categoryAdapter.itemCount < 1) {
-                                binding.emptyView.root.isVisible = true
+                                binding.emptyView.root.show()
                             } else if (e.error is FirebaseFirestoreException) {
                                 when((e.error as FirebaseFirestoreException).code) {
                                     FirebaseFirestoreException.Code.PERMISSION_DENIED ->
-                                        binding.permissionErrorView.root.isVisible = true
-                                    else -> binding.errorView.root.isVisible = true
+                                        binding.permissionErrorView.root.show()
+                                    else -> binding.errorView.root.show()
                                 }
                             }
-                            else binding.errorView.root.isVisible = true
+                            else binding.errorView.root.show()
                         }
                     }
                     is LoadState.NotLoading -> {
-                        binding.recyclerView.isVisible = true
-                        binding.skeletonLayout.isVisible = false
-                        binding.shimmerFrameLayout.isVisible = false
+                        binding.recyclerView.show()
+                        binding.skeletonLayout.hide()
+                        binding.shimmerFrameLayout.hide()
                         binding.shimmerFrameLayout.stopShimmer()
 
-                        hideStatusViews()
+                        binding.permissionErrorView.root.hide()
+                        binding.errorView.root.hide()
+                        binding.emptyView.root.hide()
                         if (it.refresh.endOfPaginationReached)
                             binding.emptyView.root.isVisible = categoryAdapter.itemCount < 1
                     }
@@ -187,12 +194,6 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                 categoryAdapter.submitData(it)
             }
         }
-    }
-
-    private fun hideStatusViews() {
-        binding.errorView.root.isVisible = false
-        binding.permissionErrorView.root.isVisible = false
-        binding.emptyView.root.isVisible = false
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.discord.panels.OverlappingPanelsLayout
 import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentAssignmentBinding

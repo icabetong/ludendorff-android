@@ -20,8 +20,6 @@
         <item name="android:windowBackground">@color/keeper_background_main</item>
         <!-- Components -->
         <item name="bottomSheetDialogTheme">@style/Component.Keeper.BottomSheet</item>
-        <!-- Widgets -->
-        <item name="android:textViewStyle">@style/Widget.Keeper.TextView</item>
         <!-- AppCompat -->
         <item name="actionOverflowButtonStyle">@style/Widget.Keeper.Toolbar.Overflow</item>
         <item name="imageButtonStyle">@style/Widget.Keeper.ImageButton</item>
@@ -35,9 +33,9 @@
         <item name="textAppearanceBody1">@style/TextAppearance.Keeper.Body</item>
         <item name="textAppearanceBody2">@style/TextAppearance.Keeper.Body.Medium</item>
         <!-- MaterialDialogs -->
-        <item name="md_font_title">@font/font_inter_bold</item>
-        <item name="md_font_body">@font/font_inter_regular</item>
-        <item name="md_font_button">@font/font_inter_medium</item>
+        <item name="md_font_title">@font/inter_semibold</item>
+        <item name="md_font_body">@font/inter_regular</item>
+        <item name="md_font_button">@font/inter_medium</item>
     </style>
 
     <!-- Components -->
@@ -120,12 +118,14 @@
     </style>
     <style name="TextAppearance.Keeper.Button">
         <item name="fontFamily">@font/font_inter_medium</item>
+        <item name="android:fontFamily">@font/font_inter_medium</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
     <style name="TextAppearance.Keeper.List">
         <item name="fontFamily">@font/font_inter_semibold</item>
+        <item name="android:fontFamily">@font/font_inter_semibold</item>
         <item name="android:textColor">@color/keeper_text_primary</item>
         <item name="android:textSize">@dimen/text_list_item</item>
     </style>
@@ -148,4 +148,11 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:letterSpacing">0.15</item>
     </style>
+    <style name="TextAppearance.Keeper.Switch">
+        <item name="fontFamily">@font/font_inter_semibold</item>
+        <item name="android:fontFamily">@font/font_inter_semibold</item>
+        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="TextAppearance.Keeper.Caption" parent="TextAppearance.AppCompat.Caption"/>
 </resources>

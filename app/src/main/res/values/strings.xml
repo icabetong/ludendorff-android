@@ -36,6 +36,8 @@
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
     <string name="hint_asset_name">Asset Name</string>
     <string name="hint_status">Status</string>
     <string name="hint_category">Category</string>
@@ -45,6 +47,9 @@
     <string name="hint_manager">Manager</string>
     <string name="hint_not_set">Not Set</string>
     <string name="hint_vacant">Vacant</string>
+    <string name="hint_authentication">Authentication</string>
+    <string name="hint_information">Information</string>
+    <string name="hint_permissions">Permissions</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>
@@ -87,6 +92,7 @@
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
     <string name="feedback_specification_exists">Specification already exists</string>
+    <string name="feedback_specification_removed">Specification removed</string>
 
     <string name="empty_no_categories_header">No Categories Added</string>
     <string name="empty_no_categories_summary">There are no categories available that can be used to organize the assets.</string>
@@ -106,6 +112,8 @@
     <string name="dialog_view_qr_code">View QR Code</string>
     <string name="dialog_sign_out_title">Sign out?</string>
     <string name="dialog_sign_out_message">Are you sure you want to end your session? You will need to enter your credentials again next time.</string>
+    <string name="dialog_remove_specification_title">Remove specification?</string>
+    <string name="dialog_remove_specification_message">Are you sure you want to remove this specification? You can\'t recover this information in the future.</string>
 
     <string name="settings_theme_title">Theme</string>
     <string name="settings_theme_option_system">System</string>

@@ -14,7 +14,8 @@
         android:theme="@style/Theme.Keeper.Core.Content" >
 
         <activity android:name=".features.core.activities.MainActivity"
-            android:theme="@style/Theme.Keeper.Core">
+            android:theme="@style/Theme.Keeper.Core"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

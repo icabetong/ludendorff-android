@@ -61,14 +61,14 @@ class TwoLineSwitch @JvmOverloads constructor(
 
             val titleTextAppearance = typedArray.getResourceId(
                 R.styleable.TwoLineSwitch_titleTextAppearance,
-                R.style.TextAppearance_AppCompat_Body2
+                R.style.TextAppearance_Keeper_Switch
             )
             titleSpan = TextAppearanceSpan(context, titleTextAppearance)
             titleTextColorSpan = ForegroundColorSpan(titleTextColor)
 
             val subtitleTextAppearance = typedArray.getResourceId(
                 R.styleable.TwoLineSwitch_subtitleTextAppearance,
-                R.style.TextAppearance_AppCompat_Caption
+                R.style.TextAppearance_Keeper_Caption
             )
             subtitleSpan = TextAppearanceSpan(context, subtitleTextAppearance)
             subtitleTextColorSpan = ForegroundColorSpan(subtitleTextColor)
@@ -87,7 +87,7 @@ class TwoLineSwitch @JvmOverloads constructor(
         val textToRender = if (subtitle.isNullOrEmpty()) title
         else "$title\n$subtitle"
 
-        val builder = SpannableStringBuilder(textToRender).apply {
+        text = SpannableStringBuilder(textToRender).apply {
             setSpan(titleSpan, 0, title.length,
                 SpannableString.SPAN_INCLUSIVE_EXCLUSIVE)
             setSpan(titleTextColorSpan, 0, title.length,
@@ -102,7 +102,6 @@ class TwoLineSwitch @JvmOverloads constructor(
                 }
             }
         }
-        text = builder
     }
 
 }

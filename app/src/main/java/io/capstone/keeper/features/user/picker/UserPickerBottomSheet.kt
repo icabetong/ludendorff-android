@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
+import io.capstone.keeper.components.extensions.hide
+import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.databinding.FragmentPickerUserBinding
 import io.capstone.keeper.features.shared.components.BaseBottomSheet
 import io.capstone.keeper.features.shared.components.BasePagingAdapter
@@ -57,12 +58,12 @@ class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
             userAdapter.loadStateFlow.collectLatest {
                 when (it.refresh) {
                     is LoadState.Loading -> {
-                        binding.progressIndicator.isVisible = true
-                        binding.recyclerView.isVisible = true
+                        binding.progressIndicator.show()
+                        binding.recyclerView.hide()
                     }
                     is LoadState.Error -> {
-                        binding.progressIndicator.isVisible = false
-                        binding.recyclerView.isVisible = false
+                        binding.progressIndicator.hide()
+                        binding.recyclerView.hide()
 
                         val errorState = when {
                             it.prepend is LoadState.Error -> it.prepend as LoadState.Error
@@ -74,13 +75,16 @@ class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
                         errorState?.let { e ->
                             if (e.error is EmptySnapshotException &&
                                     userAdapter.itemCount < 1) {
-                                binding.errorView.root.isVisible = true
+                                binding.errorView.root.show()
                             } else {
-                                binding.errorView.root.isVisible = true
+                                binding.errorView.root.show()
                             }
                         }
                     }
-                    is LoadState.NotLoading -> {}
+                    is LoadState.NotLoading -> {
+                        binding.progressIndicator.hide()
+                        binding.recyclerView.show()
+                    }
                 }
             }
         }

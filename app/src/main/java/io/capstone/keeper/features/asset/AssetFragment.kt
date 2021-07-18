@@ -8,7 +8,6 @@ import androidx.core.view.doOnPreDraw
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import com.discord.panels.OverlappingPanelsLayout
 import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentAssetsBinding

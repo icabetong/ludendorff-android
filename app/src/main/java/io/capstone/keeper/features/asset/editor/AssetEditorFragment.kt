@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.interfaces.OnItemActionListener
@@ -16,9 +18,9 @@ import io.capstone.keeper.databinding.FragmentEditorAssetBinding
 import io.capstone.keeper.features.asset.qrcode.QRCodeViewBottomSheet
 import io.capstone.keeper.features.category.Category
 import io.capstone.keeper.features.category.picker.CategoryPickerBottomSheet
-import io.capstone.keeper.features.specs.SpecsEditorBottomSheet
 import io.capstone.keeper.features.shared.components.BaseEditorFragment
 import io.capstone.keeper.features.specs.SpecsAdapter
+import io.capstone.keeper.features.specs.editor.SpecsEditorBottomSheet
 
 class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
     OnItemActionListener<Pair<String, String>> {
@@ -140,8 +142,17 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 }
             }
             OnItemActionListener.Action.DELETE -> {
-                data?.let {
-                    viewModel.removeSpecification(it)
+                MaterialDialog(requireContext()).show {
+                    lifecycleOwner(viewLifecycleOwner)
+                    title(R.string.dialog_remove_specification_title)
+                    message(R.string.dialog_remove_specification_message)
+                    positiveButton(R.string.button_remove) {
+                        data?.let {
+                            viewModel.removeSpecification(it)
+                            createSnackbar(R.string.feedback_specification_removed)
+                        }
+                    }
+                    negativeButton(R.string.button_cancel)
                 }
             }
         }

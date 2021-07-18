@@ -14,6 +14,14 @@ import me.saket.cascade.CascadePopupMenu
 import me.saket.cascade.overrideOverflowMenu
 import kotlin.math.ceil
 
+fun View.hide() {
+    visibility = View.INVISIBLE
+}
+
+fun View.show() {
+    visibility = View.VISIBLE
+}
+
 fun View.getCountThatFitsOnScreen(context: Context): Int {
     val deviceHeight = context.resources.displayMetrics.heightPixels
     val skeletonRowHeight = height

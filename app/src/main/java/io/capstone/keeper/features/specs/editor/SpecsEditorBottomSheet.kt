@@ -1,4 +1,4 @@
-package io.capstone.keeper.features.specs
+package io.capstone.keeper.features.specs.editor
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
+import io.capstone.keeper.R
 import io.capstone.keeper.databinding.FragmentEditorSpecificationBinding
 import io.capstone.keeper.features.shared.components.BaseBottomSheet
 
@@ -35,6 +36,7 @@ class SpecsEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
 
         arguments?.let {
             requestKey = REQUEST_KEY_UPDATE
+            binding.componentHeaderTextView.setText(R.string.title_specs_update)
 
             it.getString(EXTRA_KEY)?.let { key ->
                 binding.nameTextInput.setText(key)
@@ -60,6 +62,5 @@ class SpecsEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
 
         const val EXTRA_KEY = "extra:key"
         const val EXTRA_VALUE = "extra:value"
-        const val EXTRA_SPECIFICATION = "extra:specs"
     }
 }

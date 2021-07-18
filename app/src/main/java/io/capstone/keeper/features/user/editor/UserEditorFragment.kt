@@ -8,13 +8,16 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
+import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentEditorUserBinding
 import io.capstone.keeper.features.shared.components.BaseEditorFragment
+import io.capstone.keeper.features.user.User
 
 @AndroidEntryPoint
 class UserEditorFragment: BaseEditorFragment() {
     private var _binding: FragmentEditorUserBinding? = null
     private var controller: NavController? = null
+    private var requestKey = REQUEST_KEY_CREATE
 
     private val binding get() = _binding!!
 
@@ -43,8 +46,23 @@ class UserEditorFragment: BaseEditorFragment() {
         binding.root.transitionName = TRANSITION_NAME_ROOT
 
         controller = Navigation.findNavController(view)
-        setupToolbar(binding.appBar.toolbar, {
-            controller?.navigateUp()
-        }, icon = R.drawable.ic_hero_x)
+        binding.appBar.toolbar.setup(
+            titleRes = R.string.title_user_create,
+            iconRes = R.drawable.ic_hero_x,
+            onNavigationClicked = { controller?.navigateUp() }
+        )
+
+        arguments?.getParcelable<User>(EXTRA_USER)?.let {
+            requestKey = REQUEST_KEY_UPDATE
+
+            binding.appBar.toolbar.setTitle(R.string.title_user_update)
+            binding.root.transitionName = TRANSITION_NAME_ROOT + it.userId
+        }
+    }
+
+    companion object {
+        const val REQUEST_KEY_CREATE = "request:create"
+        const val REQUEST_KEY_UPDATE = "request:update"
+        const val EXTRA_USER = "extra:user"
     }
 }

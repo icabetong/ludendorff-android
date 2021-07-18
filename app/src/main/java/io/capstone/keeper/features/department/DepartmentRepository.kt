@@ -2,8 +2,6 @@ package io.capstone.keeper.features.department
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.WriteBatch
-import io.capstone.keeper.features.asset.Asset
 import io.capstone.keeper.features.core.backend.FirestoreRepository
 import io.capstone.keeper.features.core.data.Response
 import io.capstone.keeper.features.user.User

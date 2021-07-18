@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
@@ -14,6 +13,8 @@ import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
+import io.capstone.keeper.components.extensions.hide
+import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentPickerCategoryBinding
 import io.capstone.keeper.features.category.Category
@@ -63,13 +64,14 @@ class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
             categoryAdapter.loadStateFlow.collectLatest {
                 when (it.refresh) {
                     is LoadState.Loading -> {
-                        binding.progressIndicator.isVisible = true
-                        binding.recyclerView.isVisible = false
-
+                        binding.progressIndicator.show()
+                        binding.recyclerView.hide()
                     }
                     is LoadState.Error -> {
-                        hideViews(binding.emptyView.root, binding.errorView.root,
-                            binding.progressIndicator, binding.recyclerView)
+                        binding.emptyView.root.hide()
+                        binding.errorView.root.hide()
+                        binding.progressIndicator.hide()
+                        binding.recyclerView.hide()
 
                         val errorState = when {
                             it.prepend is LoadState.Error -> it.prepend as LoadState.Error
@@ -88,13 +90,13 @@ class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
                              */
                             if (e.error is EmptySnapshotException &&
                                 categoryAdapter.itemCount < 1)
-                                binding.emptyView.root.isVisible = true
-                            else binding.errorView.root.isVisible = true
+                                binding.emptyView.root.show()
+                            else binding.errorView.root.show()
                         }
                     }
                     is LoadState.NotLoading -> {
-                        binding.progressIndicator.isVisible = false
-                        binding.recyclerView.isVisible = true
+                        binding.progressIndicator.hide()
+                        binding.recyclerView.show()
                     }
                 }
             }
