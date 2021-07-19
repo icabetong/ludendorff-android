@@ -28,11 +28,4 @@ class ScanOptionsFragment: BaseFragment() {
         _binding = null
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        viewModel.decodeResult.observe(viewLifecycleOwner) {
-            binding.resultTextView.text = it
-        }
-    }
 }

@@ -10,7 +10,8 @@ import kotlinx.android.parcel.Parcelize
 data class Department @JvmOverloads constructor(
     var departmentId: String = IDGenerator.generateRandom(),
     var name: String? = null,
-    var managerSSN: UserCore? = null
+    var managerSSN: UserCore? = null,
+    var count: Int = 0
 ): Parcelable {
 
     fun toDepartmentCore(): DepartmentCore {
@@ -22,7 +23,7 @@ data class Department @JvmOverloads constructor(
         const val FIELD_ID = "departmentId"
         const val FIELD_NAME = "name"
         const val FIELD_MANAGER_SSN = "managerSSN"
-        const val FIELD_TYPE = "type"
+        const val FIELD_COUNT = "count"
 
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Department>() {
             override fun areItemsTheSame(oldItem: Department, newItem: Department): Boolean {

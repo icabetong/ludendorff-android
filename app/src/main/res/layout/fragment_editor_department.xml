@@ -67,6 +67,7 @@
         android:layout_margin="@dimen/activity_margin"
         android:layout_gravity="bottom|end"
         android:text="@string/button_save"
-        app:icon="@drawable/ic_hero_check"/>
+        app:icon="@drawable/ic_hero_check"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

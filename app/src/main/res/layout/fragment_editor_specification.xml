@@ -66,6 +66,7 @@
         android:layout_marginBottom="@dimen/activity_margin"
         android:layout_marginEnd="@dimen/activity_margin"
         android:layout_gravity="end"
+        android:enabled="false"
         android:text="@string/button_save"
         app:icon="@drawable/ic_hero_check"
         style="@style/Widget.Keeper.Button"/>

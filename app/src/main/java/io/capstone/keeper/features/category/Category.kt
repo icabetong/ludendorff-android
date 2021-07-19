@@ -8,7 +8,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Category @JvmOverloads constructor(
     var categoryId: String = IDGenerator.generateRandom(),
-    var categoryName: String? = null
+    var categoryName: String? = null,
+    var count: Int = 0
 ): Parcelable {
 
     companion object {

@@ -13,7 +13,6 @@ import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ScanMode
-import com.discord.panels.OverlappingPanelsLayout
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
@@ -85,21 +84,15 @@ class ScanFragment: BaseFragment() {
         }
 
         codeScanner.decodeCallback = DecodeCallback {
-            viewModel.setDecodeResult(it.text)
+            viewModel.setDecodedResult(it.text)
+            activity?.runOnUiThread {
+                getOverlappingPanelLayout().openEndPanel()
+            }
         }
     }
 
     override fun onStart() {
         super.onStart()
-
-        viewModel.decodeResult.observe(viewLifecycleOwner) {
-            if (it != null) {
-                val activityView: View = requireActivity().findViewById(R.id.overlappingPanels)
-
-                if (activityView is OverlappingPanelsLayout)
-                    activityView.openEndPanel()
-            }
-        }
 
         binding.codeScannerView.setOnClickListener {
             codeScanner.startPreview()

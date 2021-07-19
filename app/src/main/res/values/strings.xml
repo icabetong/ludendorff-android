@@ -91,9 +91,14 @@
     <string name="user_permission_administrative_summary">Allow this user full control over the system and the database.</string>
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
+    <string name="feedback_empty_department_name">You forgot to input the department name</string>
     <string name="feedback_specification_exists">Specification already exists</string>
     <string name="feedback_specification_removed">Specification removed</string>
 
+    <string name="empty_no_assets_header">No Assets Added</string>
+    <string name="empty_no_assets_summary">There are no assets available.</string>
+    <string name="empty_no_users_header">No Users Added</string>
+    <string name="empty_no_users_summary">There are no users available.</string>
     <string name="empty_no_categories_header">No Categories Added</string>
     <string name="empty_no_categories_summary">There are no categories available that can be used to organize the assets.</string>
     <string name="empty_no_departments_header">No Departments Added</string>

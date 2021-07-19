@@ -9,7 +9,7 @@ class AssetRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ) {
 
-    suspend fun fetchSpecific(assetId: String): Response<Asset> {
+    suspend fun fetch(assetId: String): Response<Asset> {
         return try {
             val task = firestore.collection(COLLECTION_NAME).document(assetId)
                 .get().await()

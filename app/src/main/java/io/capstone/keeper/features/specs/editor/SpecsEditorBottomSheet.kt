@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import io.capstone.keeper.R
@@ -44,6 +45,19 @@ class SpecsEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
             it.getString(EXTRA_VALUE)?.let { value ->
                 binding.valueTextInput.setText(value)
             }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        binding.nameTextInput.doAfterTextChanged {
+            binding.actionButton.isEnabled = it.toString().isNotBlank() &&
+                    binding.valueTextInput.text.toString().isNotBlank()
+        }
+        binding.valueTextInput.doAfterTextChanged {
+            binding.actionButton.isEnabled = it.toString().isNotBlank() &&
+                    binding.nameTextInput.text.toString().isNotBlank()
         }
 
         binding.actionButton.setOnClickListener {
