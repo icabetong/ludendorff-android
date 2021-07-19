@@ -68,10 +68,10 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
         with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
             adapter = departmentAdapter
-        }
 
-        ItemTouchHelper(SwipeItemCallback(view.context, departmentAdapter))
-            .attachToRecyclerView(binding.recyclerView)
+            ItemTouchHelper(SwipeItemCallback(context, departmentAdapter))
+                .attachToRecyclerView(this)
+        }
 
         binding.rowLayout.root.doOnLayout {
             val rowCount = it.getCountThatFitsOnScreen(it.context)
@@ -175,7 +175,6 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                 departmentAdapter.submitData(it)
             }
         }
-
     }
 
     override fun onResume() {
@@ -201,7 +200,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                     controller?.navigate(R.id.navigation_editor_department,
                         bundleOf(DepartmentEditorFragment.EXTRA_DEPARTMENT to data), null,
                         FragmentNavigatorExtras(
-                            container to TRANSITION_NAME_ROOT + data?.departmentId
+                            it to TRANSITION_NAME_ROOT + data?.departmentId
                         )
                     )
                 }

@@ -16,6 +16,7 @@ data class Category @JvmOverloads constructor(
         const val COLLECTION = "categories"
         const val FIELD_ID = "categoryId"
         const val FIELD_NAME = "categoryName"
+        const val FIELD_COUNT = "count"
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Category>() {
             override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {

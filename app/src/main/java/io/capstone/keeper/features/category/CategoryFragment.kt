@@ -69,12 +69,8 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                 CategoryEditorBottomSheet.REQUEST_KEY_UPDATE
             ), this
         )
-    }
 
-    override fun onStart() {
-        super.onStart()
-
-        with (binding.recyclerView) {
+        with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
             adapter = categoryAdapter
 
@@ -94,18 +90,10 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                 row.requestLayout()
             }
         }
-
-        binding.actionButton.setOnClickListener {
-            CategoryEditorBottomSheet(childFragmentManager).show()
-        }
-
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            categoryAdapter.refresh()
-        }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
         /**
          *  Use Kotlin's coroutines to fetch the current loadState of
@@ -156,17 +144,17 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                              *  will check if the adapter is also empty
                              *  and show the user the empty state.
                              */
-                            binding.permissionErrorView.root.hide()
+                            binding.permissionView.root.hide()
                             binding.errorView.root.hide()
                             binding.emptyView.root.hide()
 
                             if (e.error is EmptySnapshotException &&
-                                    categoryAdapter.itemCount < 1) {
+                                categoryAdapter.itemCount < 1) {
                                 binding.emptyView.root.show()
                             } else if (e.error is FirebaseFirestoreException) {
                                 when((e.error as FirebaseFirestoreException).code) {
                                     FirebaseFirestoreException.Code.PERMISSION_DENIED ->
-                                        binding.permissionErrorView.root.show()
+                                        binding.permissionView.root.show()
                                     else -> binding.errorView.root.show()
                                 }
                             }
@@ -179,7 +167,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                         binding.shimmerFrameLayout.hide()
                         binding.shimmerFrameLayout.stopShimmer()
 
-                        binding.permissionErrorView.root.hide()
+                        binding.permissionView.root.hide()
                         binding.errorView.root.hide()
                         binding.emptyView.root.hide()
                         if (it.refresh.endOfPaginationReached)
@@ -193,6 +181,18 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             viewModel.categories.collectLatest {
                 categoryAdapter.submitData(it)
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.actionButton.setOnClickListener {
+            CategoryEditorBottomSheet(childFragmentManager).show()
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            categoryAdapter.refresh()
         }
     }
 

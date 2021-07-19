@@ -50,7 +50,7 @@
         layout="@layout/layout_error_generic"/>
 
     <include
-        android:id="@+id/permissionErrorView"
+        android:id="@+id/permissionView"
         layout="@layout/layout_error_permission"/>
 
     <include

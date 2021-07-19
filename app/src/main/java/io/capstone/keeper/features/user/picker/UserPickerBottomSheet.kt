@@ -12,9 +12,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.components.extensions.hide
 import io.capstone.keeper.components.extensions.show
+import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentPickerUserBinding
 import io.capstone.keeper.features.shared.components.BaseBottomSheet
 import io.capstone.keeper.features.shared.components.BasePagingAdapter
+import io.capstone.keeper.features.user.User
 import io.capstone.keeper.features.user.UserAdapter
 import io.capstone.keeper.features.user.UserViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -22,7 +24,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
-    BasePagingAdapter.OnItemActionListenerDeprecated {
+    OnItemActionListener<User> {
     private var _binding: FragmentPickerUserBinding? = null
 
     private val binding get() = _binding!!
@@ -60,11 +62,15 @@ class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
                     is LoadState.Loading -> {
                         binding.progressIndicator.show()
                         binding.recyclerView.hide()
+                        binding.errorView.root.hide()
+                        binding.emptyView.root.hide()
                     }
                     is LoadState.Error -> {
                         binding.progressIndicator.hide()
                         binding.recyclerView.hide()
 
+                        binding.errorView.root.hide()
+                        binding.emptyView.root.hide()
                         val errorState = when {
                             it.prepend is LoadState.Error -> it.prepend as LoadState.Error
                             it.append is LoadState.Error -> it.append as LoadState.Error
@@ -75,15 +81,15 @@ class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
                         errorState?.let { e ->
                             if (e.error is EmptySnapshotException &&
                                     userAdapter.itemCount < 1) {
-                                binding.errorView.root.show()
-                            } else {
-                                binding.errorView.root.show()
-                            }
+                                binding.emptyView.root.show()
+                            } else binding.errorView.root.show()
                         }
                     }
                     is LoadState.NotLoading -> {
                         binding.progressIndicator.hide()
                         binding.recyclerView.show()
+                        binding.errorView.root.hide()
+                        binding.emptyView.root.hide()
                     }
                 }
             }
@@ -95,7 +101,11 @@ class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
         }
     }
 
-    override fun <T> onActionPerformed(t: T, action: BasePagingAdapter.Action) {
-
+    override fun onActionPerformed(
+        data: User?,
+        action: OnItemActionListener.Action,
+        container: View?
+    ) {
+        TODO()
     }
 }

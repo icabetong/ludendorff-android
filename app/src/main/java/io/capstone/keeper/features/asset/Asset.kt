@@ -3,18 +3,19 @@ package io.capstone.keeper.features.asset
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
+import com.google.firebase.Timestamp
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import io.capstone.keeper.components.utils.IDGenerator
 import io.capstone.keeper.features.category.Category
 import kotlinx.android.parcel.Parcelize
-import java.time.ZonedDateTime
 
 @Parcelize
 data class Asset @JvmOverloads constructor(
     var assetId: String = IDGenerator.generateRandom(),
     var assetName: String? = null,
-    var dateCreated: ZonedDateTime? = ZonedDateTime.now(),
+    var dateCreated: Timestamp? = Timestamp.now(),
     var status: Status? = null,
     var category: Category? = null,
     var specifications: Map<String, String> = emptyMap()
@@ -44,6 +45,16 @@ data class Asset @JvmOverloads constructor(
         const val FIELD_CATEGORY = "category"
         const val FIELD_CATEGORY_ID = "${FIELD_CATEGORY}.${Category.FIELD_ID}"
         const val FIELD_SPECIFICATIONS = "specifications"
+
+        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Asset>() {
+            override fun areContentsTheSame(oldItem: Asset, newItem: Asset): Boolean {
+                return oldItem.assetId == newItem.assetId
+            }
+
+            override fun areItemsTheSame(oldItem: Asset, newItem: Asset): Boolean {
+                return oldItem == newItem
+            }
+        }
 
         fun generateQRCode(id: String): Bitmap {
             val bitMatrix = QRCodeWriter().encode(id, BarcodeFormat.QR_CODE,

@@ -22,6 +22,18 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <include
+        android:id="@+id/errorView"
+        layout="@layout/layout_error_generic"/>
+
+    <include
+        android:id="@+id/permissionView"
+        layout="@layout/layout_error_permission"/>
+
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/layout_empty_user"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/actionButton"
         android:layout_width="wrap_content"

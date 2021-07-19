@@ -44,6 +44,10 @@
             android:id="@+id/errorView"
             layout="@layout/layout_error_generic"/>
 
+        <include
+            android:id="@+id/emptyView"
+            layout="@layout/layout_empty_user"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -9,25 +9,51 @@
         android:id="@+id/appBar"
         layout="@layout/layout_appbar"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+        <LinearLayout
+            android:id="@+id/skeletonLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            <include
+                android:id="@+id/rowLayout"
+                layout="@layout/layout_item_asset_skeleton"/>
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/errorView"
+        layout="@layout/layout_error_generic"/>
+
+    <include
+        android:id="@+id/permissionView"
+        layout="@layout/layout_error_permission"/>
+
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/layout_empty_asset"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/actionButton"
