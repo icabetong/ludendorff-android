@@ -1,7 +1,6 @@
 package io.capstone.keeper.components.views
 
 import android.content.Context
-import android.os.Build
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan

@@ -9,6 +9,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import io.capstone.keeper.components.utils.IDGenerator
 import io.capstone.keeper.features.category.Category
+import io.capstone.keeper.features.category.CategoryCore
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -17,7 +18,7 @@ data class Asset @JvmOverloads constructor(
     var assetName: String? = null,
     var dateCreated: Timestamp? = Timestamp.now(),
     var status: Status? = null,
-    var category: Category? = null,
+    var category: CategoryCore? = null,
     var specifications: Map<String, String> = emptyMap()
 ): Parcelable {
 

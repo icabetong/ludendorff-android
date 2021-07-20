@@ -120,6 +120,8 @@
     <string name="dialog_sign_out_message">Are you sure you want to end your session? You will need to enter your credentials again next time.</string>
     <string name="dialog_save_without_specification_title">Save without specifications?</string>
     <string name="dialog_save_without_specification_message">Specification adds bits of details of assets. Are you sure you don\'t want to add one?</string>
+    <string name="dialog_remove_asset_title">Remove asset?</string>
+    <string name="dialog_remove_asset_message">Are you sure you want to remove this asset? You can\'t recover this information in the future.</string>
     <string name="dialog_remove_specification_title">Remove specification?</string>
     <string name="dialog_remove_specification_message">Are you sure you want to remove this specification? You can\'t recover this information in the future.</string>
 

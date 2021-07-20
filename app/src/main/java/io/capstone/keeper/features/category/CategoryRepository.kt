@@ -14,12 +14,13 @@ class CategoryRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ): FirestoreRepository<Category> {
 
-    override suspend fun create(data: Category): Response<Unit> {
+    suspend fun create(data: Category): Response<Unit> {
         return try {
             firestore.collection(Category.COLLECTION)
                 .document(data.categoryId)
                 .set(data)
                 .await()
+
             Response.Success(Unit)
         } catch (firestoreException: FirebaseFirestoreException) {
             Response.Error(firestoreException)
@@ -28,14 +29,12 @@ class CategoryRepository @Inject constructor(
         }
     }
 
-    override suspend fun update(data: Category): Response<Unit> {
+    suspend fun update(data: Category): Response<Unit> {
         return try {
-            firestore.collection(Category.COLLECTION)
-                .document(data.categoryId)
-                .set(data)
-                .await()
-
             val batchWrite = firestore.batch()
+            batchWrite.set(firestore.collection(Category.COLLECTION).document(data.categoryId),
+                data)
+
             firestore.collection(Asset.COLLECTION)
                 .whereEqualTo(Asset.FIELD_CATEGORY_ID, data.categoryId)
                 .get().await()
@@ -52,10 +51,10 @@ class CategoryRepository @Inject constructor(
         }
     }
 
-    override suspend fun remove(id: String): Response<Unit> {
+    suspend fun remove(category: Category): Response<Unit> {
         return try {
             firestore.collection(Category.COLLECTION)
-                .document(id)
+                .document(category.categoryId)
                 .delete()
                 .await()
 

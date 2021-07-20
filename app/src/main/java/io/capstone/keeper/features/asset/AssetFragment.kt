@@ -8,12 +8,16 @@ import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.LoadState
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.google.android.material.dialog.MaterialDialogs
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
@@ -36,7 +40,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset> {
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val viewModel: AssetViewModel by viewModels()
+    private val viewModel: AssetViewModel by activityViewModels()
     private val assetAdapter = AssetAdapter(this)
 
     override fun onCreateView(
@@ -160,6 +164,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset> {
                                 }
                             }
                             else binding.errorView.root.show()
+                            android.util.Log.e("DEBUG", e.error.message.toString())
                         }
                     }
                     is LoadState.NotLoading -> {
@@ -213,7 +218,17 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset> {
                     )
                 }
             }
-            OnItemActionListener.Action.DELETE -> TODO()
+            OnItemActionListener.Action.DELETE -> {
+                MaterialDialog(requireContext()).show {
+                    lifecycleOwner(viewLifecycleOwner)
+                    title(R.string.dialog_remove_asset_title)
+                    message(R.string.dialog_remove_asset_message)
+                    positiveButton(R.string.button_remove) {
+                        data?.let { viewModel.remove(it) }
+                    }
+                    negativeButton(R.string.button_cancel)
+                }
+            }
         }
     }
 }

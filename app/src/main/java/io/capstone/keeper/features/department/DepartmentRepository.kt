@@ -14,12 +14,13 @@ class DepartmentRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ): FirestoreRepository<Department> {
 
-    override suspend fun create(data: Department): Response<Unit> {
+    suspend fun create(data: Department): Response<Unit> {
         return try {
             firestore.collection(Department.COLLECTION)
                 .document(data.departmentId)
                 .set(data)
                 .await()
+
             Response.Success(Unit)
         } catch (firestoreException: FirebaseFirestoreException) {
             Response.Error(firestoreException)
@@ -28,7 +29,7 @@ class DepartmentRepository @Inject constructor(
         }
     }
 
-    override suspend fun update(data: Department): Response<Unit> {
+    suspend fun update(data: Department): Response<Unit> {
         return try {
             firestore.collection(Department.COLLECTION)
                 .document(data.departmentId)
@@ -52,10 +53,10 @@ class DepartmentRepository @Inject constructor(
         }
     }
 
-    override suspend fun remove(id: String): Response<Unit> {
+    suspend fun remove(department: Department): Response<Unit> {
         return try {
             firestore.collection(Department.COLLECTION)
-                .document(id)
+                .document(department.departmentId)
                 .delete()
                 .await()
 
@@ -66,5 +67,4 @@ class DepartmentRepository @Inject constructor(
             Response.Error(exception)
         }
     }
-
 }

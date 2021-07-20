@@ -1,9 +1,9 @@
 package io.capstone.keeper.features.asset
 
 import android.os.Parcelable
-import io.capstone.keeper.features.category.Category
+import io.capstone.keeper.components.utils.IDGenerator
+import io.capstone.keeper.features.category.CategoryCore
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 /**
  *  This data class is used in querying
@@ -12,10 +12,10 @@ import java.util.*
  */
 @Parcelize
 data class AssetCore @JvmOverloads constructor(
-    var assetId: String = UUID.randomUUID().toString(),
+    var assetId: String = IDGenerator.generateRandom(),
     var assetName: String? = null,
     var status: Asset.Status? = null,
-    var category: Category? = null
+    var category: CategoryCore? = null
 ): Parcelable {
 
     companion object {

@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -36,9 +37,9 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
     private var _binding: FragmentCategoryBinding? = null
     private var controller: NavController? = null
 
-    private var categoryAdapter = CategoryAdapter(this)
     private val binding get() = _binding!!
-    private val viewModel: CategoryViewModel by viewModels()
+    private val viewModel: CategoryViewModel by activityViewModels()
+    private val categoryAdapter = CategoryAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,

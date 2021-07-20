@@ -27,13 +27,13 @@ class CategoryViewModel @Inject constructor(
         CategoryPagingSource(categoryQuery)
     }.flow.cachedIn(viewModelScope)
 
-    fun create(data: Category) = viewModelScope.launch(Dispatchers.IO) {
-        repository.create(data)
+    fun create(category: Category) = viewModelScope.launch(Dispatchers.IO) {
+        repository.create(category)
     }
-    fun update(data: Category) = viewModelScope.launch(Dispatchers.IO) {
-        repository.update(data)
+    fun update(category: Category) = viewModelScope.launch(Dispatchers.IO) {
+        repository.update(category)
     }
-    fun remove(id: String) = viewModelScope.launch(Dispatchers.IO) {
-        repository.remove(id)
+    fun remove(category: Category) = viewModelScope.launch(Dispatchers.IO) {
+        repository.remove(category)
     }
 }

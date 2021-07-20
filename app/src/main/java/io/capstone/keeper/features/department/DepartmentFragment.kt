@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -38,7 +39,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val viewModel: DepartmentViewModel by viewModels()
+    private val viewModel: DepartmentViewModel by activityViewModels()
     private val departmentAdapter = DepartmentAdapter(this)
 
     override fun onCreateView(

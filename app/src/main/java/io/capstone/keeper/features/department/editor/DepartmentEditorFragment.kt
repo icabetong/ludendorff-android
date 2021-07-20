@@ -60,8 +60,9 @@ class DepartmentEditorFragment: BaseEditorFragment() {
         arguments?.getParcelable<Department>(EXTRA_DEPARTMENT)?.let {
             requestKey = REQUEST_KEY_UPDATE
 
-            binding.appBar.toolbar.setTitle(R.string.title_department_update)
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.departmentId
+            binding.appBar.toolbar.setTitle(R.string.title_department_update)
+
             binding.nameTextInput.setText(it.name)
         }
     }

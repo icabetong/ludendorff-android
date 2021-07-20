@@ -31,8 +31,15 @@ class AssetRepository @Inject constructor(
 
     suspend fun insert(asset: Asset): Response<Unit> {
         return try {
-            firestore.collection(Asset.COLLECTION).document(asset.assetId)
-                .set(asset).await()
+            firestore.runBatch { writeBatch ->
+                writeBatch.set(firestore.collection(Asset.COLLECTION).document(asset.assetId),
+                    asset)
+
+                asset.category?.categoryId?.let {
+                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
+                        mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
+                }
+            }.await()
 
             Response.Success(Unit)
         } catch (e: Exception) {
@@ -42,29 +49,48 @@ class AssetRepository @Inject constructor(
 
     suspend fun update(asset: Asset, categoryId: String? = null): Response<Unit> {
         return try {
-            firestore.collection(Asset.COLLECTION).document(asset.assetId)
-                .set(asset).await()
+            firestore.runBatch { writeBatch ->
+                writeBatch.set(firestore.collection(Asset.COLLECTION)
+                    .document(asset.assetId), asset)
 
-            val categoryCollection = firestore.collection(Category.COLLECTION)
-            val writeBatch = firestore.batch()
+                /**
+                 *  Increment the count of the
+                 *  new category.
+                 */
+                asset.category?.categoryId?.let {
+                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
+                        mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
+                }
 
-            /**
-             *  Increment the count of the
-             *  new category.
-             */
-            asset.category?.categoryId?.let {
-                writeBatch.update(categoryCollection.document(it),
-                    mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
-            }
-            /**
-             *  At the same time, decrement the
-             *  count of the old category
-             */
-            categoryId?.let {
-                writeBatch.update(categoryCollection.document(it),
-                    mapOf(Category.FIELD_COUNT to FieldValue.increment(-1)))
-            }
-            writeBatch.commit().await()
+                /**
+                 *  At the same time, decrement the
+                 *  count of the old category
+                 */
+                categoryId?.let {
+                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
+                        mapOf(Category.FIELD_COUNT to FieldValue.increment(-1)))
+                }
+            }.await()
+
+            Response.Success(Unit)
+        } catch (firestoreException: FirebaseFirestoreException) {
+            Response.Error(firestoreException)
+        } catch (exception: Exception) {
+            Response.Error(exception)
+        }
+    }
+
+    suspend fun remove(asset: Asset): Response<Unit> {
+        return try {
+            firestore.runBatch { writeBatch ->
+                writeBatch.delete(firestore.collection(Asset.COLLECTION)
+                    .document(asset.assetId))
+
+                asset.category?.categoryId?.let {
+                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
+                        mapOf(Category.FIELD_COUNT to FieldValue.increment(-1)))
+                }
+            }.await()
 
             Response.Success(Unit)
         } catch (firestoreException: FirebaseFirestoreException) {

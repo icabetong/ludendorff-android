@@ -12,6 +12,10 @@ data class Category @JvmOverloads constructor(
     var count: Int = 0
 ): Parcelable {
 
+    fun toCategoryCore(): CategoryCore {
+        return CategoryCore.fromCategory(this)
+    }
+
     companion object {
         const val COLLECTION = "categories"
         const val FIELD_ID = "categoryId"

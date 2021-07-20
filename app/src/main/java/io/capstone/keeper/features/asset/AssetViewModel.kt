@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AssetViewModel @Inject constructor(
     firestore: FirebaseFirestore,
-    private val repository: AssetRepository
+    private val assetRepository: AssetRepository
 ): BaseViewModel() {
 
     private val assetQuery: Query = firestore.collection(Asset.COLLECTION)
@@ -27,12 +27,8 @@ class AssetViewModel @Inject constructor(
         AssetPagingSource(assetQuery)
     }.flow.cachedIn(viewModelScope)
 
-    fun insert(asset: Asset) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(asset)
-    }
-
-    fun update(asset: Asset, categoryId: String? = null) = viewModelScope.launch(Dispatchers.IO) {
-        repository.update(asset, categoryId)
+    fun remove(asset: Asset) = viewModelScope.launch(Dispatchers.IO) {
+        assetRepository.remove(asset)
     }
 
 }

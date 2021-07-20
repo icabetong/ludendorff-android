@@ -15,7 +15,6 @@ import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentPickerUserBinding
 import io.capstone.keeper.features.shared.components.BaseBottomSheet
-import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import io.capstone.keeper.features.user.User
 import io.capstone.keeper.features.user.UserAdapter
 import io.capstone.keeper.features.user.UserViewModel
