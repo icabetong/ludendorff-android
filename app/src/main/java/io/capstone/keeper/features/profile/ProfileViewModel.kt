@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.work.*
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.features.core.worker.ImageCompressWorker
 import io.capstone.keeper.features.core.worker.ProfileUploadWorker
@@ -12,11 +13,13 @@ import io.capstone.keeper.features.user.User
 import io.capstone.keeper.features.user.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val userRepository: UserRepository,
+    private val firebaseAuth: FirebaseAuth,
     private val workManager: WorkManager
 ): BaseViewModel() {
 
@@ -30,6 +33,9 @@ class ProfileViewModel @Inject constructor(
     val uploadWorkInfo: LiveData<List<WorkInfo>> = workManager
         .getWorkInfosForUniqueWorkLiveData(ProfileUploadWorker.WORKER_TAG)
 
+    fun sendPasswordResetLink(email: String) = viewModelScope.launch {
+        firebaseAuth.sendPasswordResetEmail(email).await()
+    }
     fun updateProfileImage(url: String) = viewModelScope.launch(Dispatchers.IO) {
         val field = mapOf(User.FIELD_IMAGE_URL to url)
 
