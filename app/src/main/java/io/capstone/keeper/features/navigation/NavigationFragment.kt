@@ -55,17 +55,29 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
 
         navigationAdapter = NavigationAdapter(activity, R.menu.menu_navigation, R.id.navigation_user_home,
             this@NavigationFragment)
+        with(binding.recyclerView) {
+            addItemDecoration(NavigationItemDecoration(context))
+            adapter = navigationAdapter
+        }
     }
 
     override fun onStart() {
         super.onStart()
 
-        with(binding.recyclerView) {
-            addItemDecoration(NavigationItemDecoration(context))
-            adapter = navigationAdapter
+        viewModel.destination.observe(viewLifecycleOwner) {
+            navigationAdapter?.setDestination(it)
         }
 
         binding.nameTextView.text = userProperties.getDisplayName()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.profileImageView.setOnClickListener {
+            controller?.navigate(R.id.navigation_profile)
+        }
         binding.navigationSettings.setOnClickListener {
             startActivity(Intent(context, SettingsActivity::class.java))
         }
@@ -84,6 +96,10 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
         }
     }
 
+    private fun dismissNavigationPanel() {
+        getOverlappingPanelLayout().closePanels()
+    }
+
     override fun onItemSelected(id: Int) {
         viewModel.setDestination(id)
 
@@ -91,15 +107,5 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
         dismissNavigationPanel()
     }
 
-    override fun onResume() {
-        super.onResume()
 
-        viewModel.destination.observe(viewLifecycleOwner) {
-            navigationAdapter?.setDestination(it)
-        }
-    }
-
-    private fun dismissNavigationPanel() {
-        getOverlappingPanelLayout().closePanels()
-    }
 }

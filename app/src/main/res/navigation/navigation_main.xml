@@ -13,6 +13,10 @@
         android:id="@+id/navigation_root"
         android:name="io.capstone.keeper.features.core.fragment.RootFragment"
         tools:layout="@layout/fragment_root"/>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="io.capstone.keeper.features.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
     <!-- Support Fragments -->
     <fragment
         android:id="@+id/navigation_category"
@@ -50,6 +54,9 @@
         app:popUpToInclusive="true"/>
 
     <!-- Other non-special actions -->
+    <action
+        android:id="@+id/to_navigation_profile"
+        app:destination="@id/navigation_profile"/>
     <action
         android:id="@+id/to_navigation_category"
         app:destination="@id/navigation_category"/>

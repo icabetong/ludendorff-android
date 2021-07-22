@@ -67,12 +67,17 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             menuRes = R.menu.menu_editor_asset,
             onMenuOptionClicked = {
                 when(it) {
-                    R.id.action_view_qrcode ->
+                    R.id.action_view_qrcode -> {
                         QRCodeViewBottomSheet(childFragmentManager).show {
                             arguments = bundleOf(
                                 QRCodeViewBottomSheet.EXTRA_ASSET_ID to viewModel.asset.assetId
                             )
                         }
+                    }
+                    R.id.action_remove -> {
+                        viewModel.remove()
+                        controller?.navigateUp()
+                    }
                 }
             }
         )

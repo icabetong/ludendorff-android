@@ -13,6 +13,7 @@ import java.util.*
 data class UserCore @JvmOverloads constructor(
     var userId: String = UUID.randomUUID().toString(),
     var name: String? = null,
+    var email: String? = null,
+    var imageUrl: String? = null,
     var position: String? = null,
-    var department: String? = null
 ): Parcelable

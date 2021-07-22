@@ -13,6 +13,7 @@ data class User @JvmOverloads constructor(
     var firstName: String? = null,
     var lastName: String? = null,
     var email: String? = null,
+    var imageUrl: String? = null,
     var permissions: Int = 0,
     var position: String? = null,
     var department: DepartmentCore? = null
@@ -28,6 +29,7 @@ data class User @JvmOverloads constructor(
         const val FIELD_FIRST_NAME = "firstName"
         const val FIELD_LAST_NAME = "lastName"
         const val FIELD_EMAIL = "email"
+        const val FIELD_IMAGE_URL = "imageUrl"
         const val FIELD_PERMISSIONS = "permissions"
         const val FIELD_POSITION = "position"
         const val FIELD_DEPARTMENT = "department"

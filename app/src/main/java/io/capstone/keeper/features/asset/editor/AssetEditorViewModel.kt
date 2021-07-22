@@ -66,5 +66,8 @@ class AssetEditorViewModel @Inject constructor(
     fun update() = viewModelScope.launch(Dispatchers.IO) {
         repository.update(asset, previousCategoryId)
     }
+    fun remove() = viewModelScope.launch(Dispatchers.IO) {
+        repository.remove(asset)
+    }
 
 }

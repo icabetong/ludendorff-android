@@ -116,7 +116,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                     /**
                      *  The PagingAdapter or any component related to fetch
                      *  the data have encountered an exception. Refer to the
-                     *  CategoryPagingSource class to determine the logic
+                     *  particular PagingSource class to determine the logic
                      *  used in handling different types of errors.
                      */
                     is LoadState.Error -> {

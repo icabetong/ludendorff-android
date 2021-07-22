@@ -1,12 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/resultTextView"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/headerTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin"
+        android:background="@color/keeper_toolbar"
+        android:text="@string/activity_result"
+        android:textAppearance="@style/TextAppearance.Keeper.Title.Emphasized"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical"
+        android:background="@drawable/shape_information_group">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/hint_asset_information"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/assetNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Keeper.Title.Emphasized"
+            tools:text="MacBook Air M1"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/hint_asset_name"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/assetStatusTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            tools:text="Under Maintenance"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/hint_status"
+            android:textSize="14sp"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/categoryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            tools:text="Laptops"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/hint_category"
+            android:textSize="14sp"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/activity_margin"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical"
+        android:background="@drawable/shape_information_group">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/hint_user_information"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/userNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Keeper.Title.Emphasized"
+            tools:text="Fedor von Bock"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/hint_user"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emailTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            tools:text="vonbock.fedor@clsu2.edu.ph"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/hint_email"
+            android:textSize="14sp"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/positionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            tools:text="Instructor II"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/hint_position"
+            android:textSize="14sp"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

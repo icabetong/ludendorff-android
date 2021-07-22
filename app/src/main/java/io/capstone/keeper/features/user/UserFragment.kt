@@ -5,21 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
+import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.extensions.setup
+import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentUsersBinding
 import io.capstone.keeper.features.shared.components.BaseFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class UserFragment: BaseFragment() {
+class UserFragment: BaseFragment(), OnItemActionListener<User> {
     private var _binding: FragmentUsersBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
+    private val viewModel: UserViewModel by activityViewModels()
+    private val userAdapter = UserAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +59,11 @@ class UserFragment: BaseFragment() {
             }
         )
 
+        with(binding.recyclerView) {
+            addItemDecoration(GenericItemDecoration(context))
+            adapter = userAdapter
+        }
+
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
     }
@@ -59,10 +72,28 @@ class UserFragment: BaseFragment() {
         super.onStart()
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.users.collectLatest {
+                userAdapter.submitData(it)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         binding.actionButton.setOnClickListener {
             controller?.navigate(R.id.to_navigation_editor_user, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
+    }
+
+    override fun onActionPerformed(
+        data: User?,
+        action: OnItemActionListener.Action,
+        container: View?
+    ) {
+
     }
 
 }

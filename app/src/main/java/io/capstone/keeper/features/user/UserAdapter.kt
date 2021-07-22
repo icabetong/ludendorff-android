@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.LayoutItemUserBinding
+import io.capstone.keeper.features.shared.components.BaseFragment
 import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import io.capstone.keeper.features.shared.components.BaseViewHolder
 
@@ -26,7 +27,12 @@ class UserAdapter(
         private val binding = LayoutItemUserBinding.bind(itemView)
 
         override fun onBind(data: User?) {
+            binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT
 
+            binding.root.setOnClickListener {
+                onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
+                    it)
+            }
         }
     }
 }

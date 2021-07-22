@@ -148,6 +148,13 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:letterSpacing">0.15</item>
     </style>
+    <style name="TextAppearance.Keeper.Overline.Primary">
+        <item name="fontFamily">@font/font_inter_bold</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.15</item>
+    </style>
     <style name="TextAppearance.Keeper.Switch">
         <item name="fontFamily">@font/font_inter_semibold</item>
         <item name="android:fontFamily">@font/font_inter_semibold</item>

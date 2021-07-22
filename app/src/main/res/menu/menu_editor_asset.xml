@@ -8,6 +8,13 @@
         android:title="@string/menu_view_qrcode"
         android:icon="@drawable/ic_hero_qrcode"
         app:iconTint="@color/keeper_text_primary"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_remove"
+        android:title="@string/menu_remove"
+        android:icon="@drawable/ic_hero_trash"
+        app:iconTint="@color/keeper_text_primary"
         app:showAsAction="never"/>
 
 </menu>

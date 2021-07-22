@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentAssignmentBinding
 import io.capstone.keeper.features.shared.components.BaseFragment
 
+@AndroidEntryPoint
 class AssignmentFragment: BaseFragment() {
     private var _binding: FragmentAssignmentBinding? = null
 

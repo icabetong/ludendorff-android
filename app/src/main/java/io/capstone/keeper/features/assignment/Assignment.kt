@@ -20,10 +20,11 @@ data class Assignment @JvmOverloads constructor(
 ): Parcelable {
 
     companion object {
-        const val COLLECTION = "assignment"
+        const val COLLECTION = "assignments"
         const val FIELD_ID = "assignmentId"
         const val FIELD_ASSET = "asset"
         const val FIELD_ASSET_ID = "${FIELD_ASSET}.${Asset.FIELD_ID}"
+        const val FIELD_ASSET_NAME = "${FIELD_ASSET}.${Asset.FIELD_NAME}"
         const val FIELD_USER = "user"
         const val FIELD_USER_ID = "${FIELD_USER}.${User.FIELD_ID}"
         const val FIELD_DATE_ASSIGNED = "dateAssigned"

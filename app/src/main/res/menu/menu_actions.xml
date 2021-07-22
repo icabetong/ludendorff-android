@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_change_name"
+        android:title="@string/menu_change_name"
+        android:icon="@drawable/ic_hero_pencil"/>
+
+    <item
+        android:id="@+id/action_change_password"
+        android:title="@string/menu_change_password"
+        android:icon="@drawable/ic_hero_finger_print"/>
+
+    <item
+        android:id="@+id/action_request_password_reset"
+        android:title="@string/menu_request_password_reset"
+        android:icon="@drawable/ic_hero_paper_airplane"/>
+
+    <item
+        android:id="@+id/action_view_permissions"
+        android:title="@string/menu_view_permissions"
+        android:icon="@drawable/ic_hero_key"/>
+
+</menu>

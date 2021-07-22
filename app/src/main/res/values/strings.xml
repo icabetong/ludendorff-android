@@ -11,6 +11,8 @@
     <string name="activity_categories">Categories</string>
     <string name="activity_department">Department</string>
     <string name="activity_options">Options</string>
+    <string name="activity_result">Result</string>
+    <string name="activity_profile">Profile</string>
 
     <string name="navigation_home">@string/activity_home</string>
     <string name="navigation_scan">@string/activity_scan</string>
@@ -33,6 +35,8 @@
     <string name="title_user_create">Create User</string>
     <string name="title_user_update">Edit User</string>
     <string name="title_user_select">Select User</string>
+    <string name="title_scan_result">Scan Result</string>
+    <string name="title_select_profile_picture">Select Profile Picture</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -47,9 +51,14 @@
     <string name="hint_manager">Manager</string>
     <string name="hint_not_set">Not Set</string>
     <string name="hint_vacant">Vacant</string>
+    <string name="hint_user">User</string>
+    <string name="hint_position">Position</string>
     <string name="hint_authentication">Authentication</string>
     <string name="hint_information">Information</string>
     <string name="hint_permissions">Permissions</string>
+    <string name="hint_date_created">Date Created</string>
+    <string name="hint_asset_information">Asset Information</string>
+    <string name="hint_user_information">User Information</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>
@@ -65,7 +74,12 @@
     <string name="button_departments">Departments</string>
 
     <string name="menu_menu">Menu</string>
+    <string name="menu_remove">Remove</string>
     <string name="menu_view_qrcode">View QR Code</string>
+    <string name="menu_change_name">Change Name</string>
+    <string name="menu_change_password">Change Password</string>
+    <string name="menu_request_password_reset">Request Password Reset</string>
+    <string name="menu_view_permissions">View Permissions</string>
 
     <string name="authentication_hello">Hello.</string>
     <string name="authentication_welcome_back">Welcome Back</string>
@@ -95,6 +109,7 @@
     <string name="feedback_empty_department_name">You forgot to enter the department name</string>
     <string name="feedback_specification_exists">Specification already exists</string>
     <string name="feedback_specification_removed">Specification removed</string>
+    <string name="feedback_upload_error">Error uploading profile image</string>
 
     <string name="empty_no_assets_header">No Assets Added</string>
     <string name="empty_no_assets_summary">There are no assets available.</string>
