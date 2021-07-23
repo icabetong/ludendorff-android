@@ -2,14 +2,14 @@ package io.capstone.keeper.features.user
 
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
+import io.capstone.keeper.components.utils.IDGenerator
 import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.department.DepartmentCore
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 @Parcelize
 data class User @JvmOverloads constructor(
-    var userId: String = UUID.randomUUID().toString(),
+    var userId: String = IDGenerator.generateRandom(),
     var firstName: String? = null,
     var lastName: String? = null,
     var email: String? = null,
@@ -34,6 +34,7 @@ data class User @JvmOverloads constructor(
         const val FIELD_POSITION = "position"
         const val FIELD_DEPARTMENT = "department"
         const val FIELD_DEPARTMENT_ID = "${FIELD_DEPARTMENT}.${Department.FIELD_ID}"
+        const val FIELD_DEPARTMENT_NAME = "${FIELD_DEPARTMENT}.${Department.FIELD_NAME}"
 
         const val PERMISSION_READ = 1
         const val PERMISSION_WRITE = 2

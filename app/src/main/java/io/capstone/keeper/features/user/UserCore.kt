@@ -1,6 +1,7 @@
 package io.capstone.keeper.features.user
 
 import android.os.Parcelable
+import io.capstone.keeper.components.utils.IDGenerator
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -11,7 +12,7 @@ import java.util.*
  */
 @Parcelize
 data class UserCore @JvmOverloads constructor(
-    var userId: String = UUID.randomUUID().toString(),
+    var userId: String = IDGenerator.generateRandom(),
     var name: String? = null,
     var email: String? = null,
     var imageUrl: String? = null,

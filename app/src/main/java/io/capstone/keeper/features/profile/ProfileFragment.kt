@@ -312,6 +312,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     .setTitle(getString(R.string.authentication_confirm))
                     .setSubtitle(getString(R.string.authentication_confirm_summary))
                     .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG
+                            or BiometricManager.Authenticators.BIOMETRIC_WEAK
                             or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
                     .build()
 

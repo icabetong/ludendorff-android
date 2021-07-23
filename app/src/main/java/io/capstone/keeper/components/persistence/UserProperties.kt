@@ -22,6 +22,18 @@ class UserProperties(private val context: Context) {
         }
     }
 
+    fun set(field: String, value: String) {
+        sharedPreferences.edit {
+            putString(field, value)
+        }
+    }
+
+    fun set(field: String, value: Int) {
+        sharedPreferences.edit {
+            putInt(field, value)
+        }
+    }
+
     fun clear() {
         sharedPreferences.edit {
             remove(USER_ID)
@@ -97,12 +109,13 @@ class UserProperties(private val context: Context) {
         }
 
     companion object {
-        const val USER_ID = "user:id"
-        const val USER_FIRST_NAME = "user:firstname"
-        const val USER_LAST_NAME = "user:lastname"
-        const val USER_EMAIL = "user:email"
-        const val USER_PERMISSIONS = "user:permissions"
-        const val USER_POSITION = "user:position"
-        const val USER_DEPARTMENT = "user:department"
+        const val USER_ID = User.FIELD_ID
+        const val USER_FIRST_NAME = User.FIELD_FIRST_NAME
+        const val USER_LAST_NAME = User.FIELD_LAST_NAME
+        const val USER_EMAIL = User.FIELD_EMAIL
+        const val USER_PERMISSIONS = User.FIELD_PERMISSIONS
+        const val USER_POSITION = User.FIELD_POSITION
+        const val USER_DEPARTMENT_ID = User.FIELD_DEPARTMENT_ID
+        const val USER_DEPARTMENT = User.FIELD_DEPARTMENT_NAME
     }
 }
