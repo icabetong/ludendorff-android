@@ -7,7 +7,7 @@
         <attr name="containerRadius" format="float"/>
     </declare-styleable>
 
-    <declare-styleable name="TwoLineSwitch">
+    <declare-styleable name="TwoLineCheckBox">
         <attr name="titleText" format="string"/>
         <attr name="subtitleText" format="string"/>
         <attr name="titleTextColor" format="color"/>

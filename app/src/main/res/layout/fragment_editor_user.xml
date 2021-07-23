@@ -92,50 +92,74 @@
                 android:textColor="@color/keeper_primary_variant"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
-            <io.capstone.keeper.components.views.TwoLineSwitch
+            <io.capstone.keeper.components.views.TwoLineCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin_small"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_hero_eye"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:drawablePadding="@dimen/activity_margin"
                 app:titleText="@string/user_permission_read"
                 app:subtitleText="@string/user_permission_read_summary"
                 app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
 
-            <io.capstone.keeper.components.views.TwoLineSwitch
+            <io.capstone.keeper.components.views.TwoLineCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin_small"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_hero_pencil"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:drawablePadding="@dimen/activity_margin"
                 app:titleText="@string/user_permission_write"
                 app:subtitleText="@string/user_permission_write_summary"
                 app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
 
-            <io.capstone.keeper.components.views.TwoLineSwitch
+            <io.capstone.keeper.components.views.TwoLineCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin_small"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_hero_trash"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:drawablePadding="@dimen/activity_margin"
                 app:titleText="@string/user_permission_delete"
                 app:subtitleText="@string/user_permission_delete_summary"
                 app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
 
-            <io.capstone.keeper.components.views.TwoLineSwitch
+            <io.capstone.keeper.components.views.TwoLineCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin_small"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_hero_document_search"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:drawablePadding="@dimen/activity_margin"
                 app:titleText="@string/user_permission_audit"
                 app:subtitleText="@string/user_permission_audit_summary"
                 app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
 
-            <io.capstone.keeper.components.views.TwoLineSwitch
+            <io.capstone.keeper.components.views.TwoLineCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin_small"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_hero_users"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:drawablePadding="@dimen/activity_margin"
                 app:titleText="@string/user_permission_manage_users"
                 app:subtitleText="@string/user_permission_manage_users_summary"
                 app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
 
-            <io.capstone.keeper.components.views.TwoLineSwitch
+            <io.capstone.keeper.components.views.TwoLineCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin_small"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_hero_key"
+                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                android:drawablePadding="@dimen/activity_margin"
                 app:titleText="@string/user_permission_administrative"
                 app:subtitleText="@string/user_permission_administrative_summary"
                 app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>

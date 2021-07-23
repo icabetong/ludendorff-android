@@ -6,7 +6,6 @@
         android:id="@+id/action_menu"
         android:title="@string/menu_menu"
         android:icon="@drawable/ic_hero_dots_vertical"
-        app:iconTint="@color/keeper_text_primary"
         app:showAsAction="always"/>
 
 </menu>
