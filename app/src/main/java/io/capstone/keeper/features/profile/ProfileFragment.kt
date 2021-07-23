@@ -1,11 +1,9 @@
 package io.capstone.keeper.features.profile
 
 import android.app.Activity
-import android.app.KeyguardManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +12,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.util.PatternsCompat
+import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.work.*
@@ -28,26 +28,22 @@ import com.afollestad.materialdialogs.actions.setActionButtonEnabled
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
-import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.custom.NavigationItemDecoration
-import io.capstone.keeper.components.extensions.hide
 import io.capstone.keeper.components.extensions.setup
-import io.capstone.keeper.components.extensions.show
-import io.capstone.keeper.components.persistence.UserProperties
 import io.capstone.keeper.databinding.FragmentProfileBinding
 import io.capstone.keeper.features.core.worker.ImageCompressWorker
 import io.capstone.keeper.features.core.worker.ProfileUploadWorker
+import io.capstone.keeper.features.profile.actions.ChangeNameBottomSheet
+import io.capstone.keeper.features.profile.actions.ChangePasswordBottomSheet
 import io.capstone.keeper.features.shared.components.BaseFragment
-import java.io.File
 import java.util.*
 import java.util.concurrent.Executor
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListener {
+class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListener,
+    FragmentResultListener {
     private var _binding: FragmentProfileBinding? = null
     private var controller: NavController? = null
     private var optionsAdapter: ProfileOptionsAdapter? = null
@@ -62,13 +58,12 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         executor = ContextCompat.getMainExecutor(requireContext())
         biometricPrompt = BiometricPrompt(this, executor, biometricCallback)
 
-
         imageRequestLauncher = registerForActivityResult(
-            ActivityResultContracts
-                .StartActivityForResult()
+            ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 it.data?.data?.let { source ->
@@ -108,22 +103,41 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_profile,
             iconRes = R.drawable.ic_hero_arrow_left,
-            onNavigationClicked = { controller?.navigateUp() }
+            onNavigationClicked = { controller?.navigateUp() },
+            menuRes = R.menu.menu_profile,
+            onMenuOptionClicked = {
+                when(it) {
+                    R.id.action_sign_out -> {
+                        MaterialDialog(requireContext()).show {
+                            title(R.string.dialog_sign_out_title)
+                            message(R.string.dialog_sign_out_message)
+                            positiveButton(R.string.button_continue) {
+                                viewModel.endSession()
+
+                                controller?.navigate(R.id.to_navigation_auth)
+                            }
+                            negativeButton(R.string.button_cancel)
+                        }
+                    }
+                }
+            }
         )
 
-        optionsAdapter = ProfileOptionsAdapter(
-            requireActivity(), R.menu.menu_actions,
-            this
-        )
+        optionsAdapter = ProfileOptionsAdapter(requireActivity(), R.menu.menu_actions,
+            this)
         with(binding.recyclerView) {
             addItemDecoration(NavigationItemDecoration(context))
             adapter = optionsAdapter
         }
 
-        with(UserProperties(requireContext())) {
-            binding.nameTextView.text = this.getDisplayName()
-            binding.emailTextView.text = this.email
-        }
+        binding.nameTextView.text = viewModel.fullName
+        binding.emailTextView.text = viewModel.email
+
+        registerForFragmentResult(
+            arrayOf(ChangePasswordBottomSheet.REQUEST_KEY_CHANGE,
+                ChangeNameBottomSheet.REQUEST_KEY_CHANGE),
+            this
+        )
     }
 
     override fun onStart() {
@@ -142,6 +156,83 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
             imageRequestLauncher.launch(Intent.createChooser(intent,
                 getString(R.string.title_select_profile_picture)))
+        }
+
+        viewModel.linkSendingStatus.observe(viewLifecycleOwner) {
+            when(it) {
+                ProfileViewModel.OperationStatus.REQUESTED -> {
+                    binding.appBarProgressIndicator.isVisible = true
+                    binding.nestedScrollView.isEnabled = false
+                }
+                ProfileViewModel.OperationStatus.COMPLETED -> {
+                    binding.appBarProgressIndicator.isVisible = false
+                    binding.nestedScrollView.isEnabled = true
+                    viewModel.resetLinkSendingStatus()
+
+                    createSnackbar(R.string.feedback_reset_link_sent)
+                }
+                ProfileViewModel.OperationStatus.FAILED -> {
+                    binding.appBarProgressIndicator.isVisible = false
+                    binding.nestedScrollView.isEnabled = true
+                    viewModel.resetLinkSendingStatus()
+
+                    createSnackbar(R.string.error_generic)
+                }
+                else -> {}
+            }
+        }
+
+        viewModel.passwordUpdateStatus.observe(viewLifecycleOwner) {
+            when(it) {
+                ProfileViewModel.OperationStatus.REQUESTED -> {
+                    binding.appBarProgressIndicator.isVisible = true
+                    binding.nestedScrollView.isEnabled = false
+                }
+                ProfileViewModel.OperationStatus.COMPLETED -> {
+                    binding.appBarProgressIndicator.isVisible = false
+                    binding.nestedScrollView.isEnabled = true
+                    viewModel.resetPasswordUpdateStatus()
+
+                    createSnackbar(R.string.feedback_updated_password)
+                }
+                ProfileViewModel.OperationStatus.FAILED -> {
+                    binding.appBarProgressIndicator.isVisible = false
+                    binding.nestedScrollView.isEnabled = true
+                    viewModel.resetPasswordUpdateStatus()
+
+                    createSnackbar(R.string.error_generic)
+                }
+                else -> {}
+            }
+        }
+
+        viewModel.reauthenticationStatus.observe(viewLifecycleOwner) {
+            when(it) {
+                ProfileViewModel.OperationStatus.REQUESTED -> {
+                    binding.appBarProgressIndicator.isVisible = true
+                    binding.nestedScrollView.isEnabled = false
+                }
+                ProfileViewModel.OperationStatus.COMPLETED -> {
+                    binding.appBarProgressIndicator.isVisible = false
+                    binding.nestedScrollView.isEnabled = true
+                    viewModel.resetReauthenticationStatus()
+
+                    /**
+                     *  The user have successfully authenticated
+                     *  his credentials
+                     */
+                    ChangePasswordBottomSheet(childFragmentManager)
+                        .show()
+                }
+                ProfileViewModel.OperationStatus.FAILED -> {
+                    binding.appBarProgressIndicator.isVisible = false
+                    binding.nestedScrollView.isEnabled = true
+                    viewModel.resetReauthenticationStatus()
+
+                    createSnackbar(R.string.error_invalid_credentials)
+                }
+                else -> {}
+            }
         }
 
         viewModel.compressionWorkInfo.observe(viewLifecycleOwner) { workInfo ->
@@ -210,7 +301,11 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
     override fun onProfileOptionSelected(id: Int) {
         when(id) {
             R.id.action_change_name -> {
-
+                ChangeNameBottomSheet(childFragmentManager).show {
+                    arguments = bundleOf(
+                        ChangeNameBottomSheet.EXTRA_FIRST_NAME to viewModel.firstName,
+                        ChangeNameBottomSheet.EXTRA_LAST_NAME to viewModel.lastName)
+                }
             }
             R.id.action_change_password -> {
                 promptInfo = BiometricPrompt.PromptInfo.Builder()
@@ -227,7 +322,9 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     lifecycleOwner(viewLifecycleOwner)
                     title(R.string.dialog_send_reset_link_title)
                     message(R.string.dialog_send_reset_link_message)
-                    input(waitForPositiveButton = false) { dialog, text ->
+                    input(hintRes = R.string.hint_email, waitForPositiveButton = false,
+                        inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) { dialog, text ->
+
                         val inputField = dialog.getInputField()
                         val isValid = text.isNotEmpty()
                                 && PatternsCompat.EMAIL_ADDRESS.matcher(text).matches()
@@ -244,26 +341,100 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     negativeButton(R.string.button_cancel)
                 }
             }
-            R.id.action_view_permissions -> {
+        }
+    }
 
+    override fun onFragmentResult(requestKey: String, result: Bundle) {
+        when(requestKey) {
+            ChangeNameBottomSheet.REQUEST_KEY_CHANGE -> {
+                val firstName = result.getString(ChangeNameBottomSheet.EXTRA_FIRST_NAME)
+                val lastName = result.getString(ChangeNameBottomSheet.EXTRA_LAST_NAME)
+
+                viewModel.updateNames(firstName, lastName)
+            }
+            ChangePasswordBottomSheet.REQUEST_KEY_CHANGE -> {
+                result.getString(ChangePasswordBottomSheet.EXTRA_PASSWORD)?.let {
+                    viewModel.updatePassword(it)
+                }
             }
         }
     }
 
-
     private var biometricCallback = object: BiometricPrompt.AuthenticationCallback() {
         override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
-            android.util.Log.e("BIOMETRIC ERROR", errString.toString())
+
+
+            when (errorCode) {
+                /**
+                 *  The user did not setup any screen lock
+                 *  verification
+                 */
+                BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL -> {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.authentication_confirm)
+                        message(R.string.authentication_confirm_summary)
+                        input(hintRes = R.string.hint_password, waitForPositiveButton = false,
+                            inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD) { dialog, text ->
+
+                            val inputField = dialog.getInputField()
+                            val passwordIsValid = text.isNotBlank()
+
+                            inputField.error = if (passwordIsValid) null
+                            else getString(R.string.error_empty_password)
+                            dialog.setActionButtonEnabled(WhichButton.POSITIVE, passwordIsValid)
+                        }
+                        positiveButton(R.string.button_continue) {
+                            val password = it.getInputField().text.toString()
+
+                            viewModel.reauthenticate(password)
+                        }
+                    }
+                }
+                BiometricPrompt.ERROR_LOCKOUT -> {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.error_auth_failed)
+                        message(R.string.error_auth_failed_too_many_attempts)
+                        positiveButton(android.R.string.ok)
+                    }
+                }
+                BiometricPrompt.ERROR_LOCKOUT_PERMANENT -> {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.error_auth_failed)
+                        message(R.string.error_auth_failed_too_many_attempts_permanent)
+                        positiveButton(android.R.string.ok)
+                    }
+                }
+                BiometricPrompt.ERROR_TIMEOUT -> {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.error_auth_failed)
+                        message(R.string.error_auth_failed_timeout)
+                        positiveButton(android.R.string.ok)
+                    }
+                }
+                else -> {}
+            }
         }
 
         override fun onAuthenticationFailed() {
             super.onAuthenticationFailed()
-            android.util.Log.e("BIOMETRIC FAILED", "failed")
+
+            createSnackbar(R.string.error_auth_failed)
         }
 
         override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
             super.onAuthenticationSucceeded(result)
+            /**
+             *  Biometric or other screen lock verification
+             *  is successful, we can show the user the
+             *  prompt in changing their password on
+             *  the authentication infrastructure.
+             */
+            ChangePasswordBottomSheet(childFragmentManager).show()
         }
     }
 }

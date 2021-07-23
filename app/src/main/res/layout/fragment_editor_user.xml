@@ -104,16 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin_small"
-                app:titleText="@string/user_permission_create"
-                app:subtitleText="@string/user_permission_create_summary"
-                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
-
-            <io.capstone.keeper.components.views.TwoLineSwitch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin_small"
-                app:titleText="@string/user_permission_update"
-                app:subtitleText="@string/user_permission_update_summary"
+                app:titleText="@string/user_permission_write"
+                app:subtitleText="@string/user_permission_write_summary"
                 app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
 
             <io.capstone.keeper.components.views.TwoLineSwitch

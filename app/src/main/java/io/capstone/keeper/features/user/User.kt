@@ -36,12 +36,11 @@ data class User @JvmOverloads constructor(
         const val FIELD_DEPARTMENT_ID = "${FIELD_DEPARTMENT}.${Department.FIELD_ID}"
 
         const val PERMISSION_READ = 1
-        const val PERMISSION_CREATE = 2
-        const val PERMISSION_UPDATE = 4
-        const val PERMISSION_DELETE = 8
-        const val PERMISSION_AUDIT = 16
-        const val PERMISSION_MANAGE_USERS = 32
-        const val PERMISSION_ADMINISTRATIVE = 64
+        const val PERMISSION_WRITE = 2
+        const val PERMISSION_DELETE = 4
+        const val PERMISSION_AUDIT = 8
+        const val PERMISSION_MANAGE_USERS = 16
+        const val PERMISSION_ADMINISTRATIVE = 32
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<User>() {
             override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {

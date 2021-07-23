@@ -9,16 +9,11 @@
     <item
         android:id="@+id/action_change_password"
         android:title="@string/menu_change_password"
-        android:icon="@drawable/ic_hero_finger_print"/>
+        android:icon="@drawable/ic_hero_key"/>
 
     <item
         android:id="@+id/action_request_password_reset"
         android:title="@string/menu_request_password_reset"
         android:icon="@drawable/ic_hero_paper_airplane"/>
-
-    <item
-        android:id="@+id/action_view_permissions"
-        android:title="@string/menu_view_permissions"
-        android:icon="@drawable/ic_hero_key"/>
 
 </menu>

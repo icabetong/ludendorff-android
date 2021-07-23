@@ -3,6 +3,7 @@ package io.capstone.keeper.features.user
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.keeper.features.core.data.Response
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -10,10 +11,27 @@ import javax.inject.Singleton
 class UserRepository @Inject constructor(
     val firestore: FirebaseFirestore
 ){
-
-    suspend fun update(): Response<Unit> {
+    suspend fun update(user: User): Response<Unit> {
         return try {
+            firestore.collection(User.COLLECTION)
+                .document(user.userId)
+                .set(user)
+                .await()
 
+            Response.Success(Unit)
+        } catch (firestoreException: FirebaseFirestoreException) {
+            Response.Error(firestoreException)
+        } catch (exception: Exception) {
+            Response.Error(exception)
+        }
+    }
+
+    suspend fun update(id: String, fields: Map<String, Any?>): Response<Unit> {
+        return try {
+            firestore.collection(User.COLLECTION)
+                .document(id)
+                .update(fields)
+                .await()
 
             Response.Success(Unit)
         } catch (firestoreException: FirebaseFirestoreException) {

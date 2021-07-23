@@ -38,9 +38,12 @@
     <string name="title_scan_result">Scan Result</string>
     <string name="title_select_profile_picture">Select Profile Picture</string>
     <string name="title_view_qr_code">View QR Code</string>
+    <string name="title_change_password">Change Password</string>
+    <string name="title_change_name">Change Name</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
     <string name="hint_first_name">First Name</string>
     <string name="hint_last_name">Last Name</string>
     <string name="hint_asset_name">Asset Name</string>
@@ -77,6 +80,7 @@
 
     <string name="menu_menu">Menu</string>
     <string name="menu_remove">Remove</string>
+    <string name="menu_sign_out">Sign out</string>
     <string name="menu_view_qrcode">View QR Code</string>
     <string name="menu_change_name">Change Name</string>
     <string name="menu_change_password">Change Password</string>
@@ -95,10 +99,8 @@
 
     <string name="user_permission_read">Read</string>
     <string name="user_permission_read_summary">Allow this user to view and read records from the database.</string>
-    <string name="user_permission_create">Create</string>
-    <string name="user_permission_create_summary">Allow this user to create new records in the database.</string>
-    <string name="user_permission_update">Update</string>
-    <string name="user_permission_update_summary">Allow this user to update existing records in the database.</string>
+    <string name="user_permission_write">Write</string>
+    <string name="user_permission_write_summary">Allow this user to create new and update existing records in the database.</string>
     <string name="user_permission_delete">Delete</string>
     <string name="user_permission_delete_summary">Allow this user to remove records in the database.</string>
     <string name="user_permission_audit">View Audit Logs</string>
@@ -114,6 +116,8 @@
     <string name="feedback_specification_exists">Specification already exists</string>
     <string name="feedback_specification_removed">Specification removed</string>
     <string name="feedback_upload_error">Error uploading profile image</string>
+    <string name="feedback_updated_password">Successfully changed password</string>
+    <string name="feedback_reset_link_sent">Password reset link sent</string>
 
     <string name="empty_no_assets_header">No Assets Added</string>
     <string name="empty_no_assets_summary">There are no assets available.</string>
@@ -131,7 +135,12 @@
     <string name="error_invalid_credentials">Your email or password is incorrect</string>
     <string name="error_invalid_user">The account associated with this email is either disabled or doesn\'t exist</string>
     <string name="error_invalid_email_address">Not a valid email address</string>
+    <string name="error_empty_password">Password cannot be blank</string>
     <string name="error_empty_credentials">Both the email and password fields cannot be blank</string>
+    <string name="error_auth_failed">Authentication failed</string>
+    <string name="error_auth_failed_too_many_attempts">You tried too many attempts! Try again later</string>
+    <string name="error_auth_failed_too_many_attempts_permanent">You tried too many attempts! You need to enter either your Pattern/PIN or Password from now on to authenticate.</string>
+    <string name="error_auth_failed_timeout">Timeout error</string>
     <string name="error_camera_permission_header">Camera Permission Required</string>
     <string name="error_camera_permission_summary">We need permission to access your device\'s camera to scan QR codes.</string>
 

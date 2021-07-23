@@ -11,7 +11,15 @@
         android:id="@+id/appBar"
         layout="@layout/layout_appbar"/>
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/appBarProgressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
