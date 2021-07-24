@@ -38,7 +38,6 @@ class ProfileUploadWorker @AssistedInject constructor(
                     .putFile(Uri.fromFile(image))
                     .addOnProgressListener {
                         val currentProgress = (100 * it.bytesTransferred) / it.totalByteCount
-                        android.util.Log.e("DEBUG", currentProgress.toString())
 
                         setProgressAsync(workDataOf(TASK_PROGRESS to currentProgress))
                     }.await()

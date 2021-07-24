@@ -132,6 +132,10 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
         binding.nameTextView.text = viewModel.fullName
         binding.emailTextView.text = viewModel.email
+        binding.imageView.load(viewModel.imageUrl) {
+            error(R.drawable.ic_hero_user)
+            placeholder(R.drawable.ic_hero_user)
+        }
 
         registerForFragmentResult(
             arrayOf(ChangePasswordBottomSheet.REQUEST_KEY_CHANGE,
@@ -144,19 +148,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         super.onStart()
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-    }
 
-    override fun onResume() {
-        super.onResume()
-
-        binding.imageView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "image/*"
-            }
-
-            imageRequestLauncher.launch(Intent.createChooser(intent,
-                getString(R.string.title_select_profile_picture)))
-        }
 
         viewModel.linkSendingStatus.observe(viewLifecycleOwner) {
             when(it) {
@@ -295,6 +287,19 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     else -> {}
                 }
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.imageView.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+                type = "image/*"
+            }
+
+            imageRequestLauncher.launch(Intent.createChooser(intent,
+                getString(R.string.title_select_profile_picture)))
         }
     }
 

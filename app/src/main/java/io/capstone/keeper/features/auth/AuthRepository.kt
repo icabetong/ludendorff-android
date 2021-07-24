@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import io.capstone.keeper.components.exceptions.EmptyCredentialsException
+import io.capstone.keeper.components.persistence.UserProperties
 import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -13,6 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AuthRepository @Inject constructor(
+    private val userProperties: UserProperties,
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore
 ){
@@ -70,7 +72,10 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    fun endSession() = firebaseAuth.signOut()
+    fun endSession() {
+        firebaseAuth.signOut()
+        userProperties.clear()
+    }
     fun checkCurrentUser(): FirebaseUser? = firebaseAuth.currentUser
 
 }

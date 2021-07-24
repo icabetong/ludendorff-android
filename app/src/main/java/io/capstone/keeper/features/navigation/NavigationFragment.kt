@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
@@ -28,10 +29,6 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
 
     private val binding get() = _binding!!
     private val viewModel: NavigationViewModel by activityViewModels()
-    private val authViewModel: AuthViewModel by viewModels()
-
-    @Inject
-    lateinit var userProperties: UserProperties
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +56,12 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
             addItemDecoration(NavigationItemDecoration(context))
             adapter = navigationAdapter
         }
+
+        binding.nameTextView.text = viewModel.fullName
+        binding.profileImageView.load(viewModel.imageUrl) {
+            error(R.drawable.ic_hero_user)
+            placeholder(R.drawable.ic_hero_user)
+        }
     }
 
     override fun onStart() {
@@ -67,9 +70,6 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
         viewModel.destination.observe(viewLifecycleOwner) {
             navigationAdapter?.setDestination(it)
         }
-
-        binding.nameTextView.text = userProperties.getDisplayName()
-
     }
 
     override fun onResume() {
@@ -86,8 +86,7 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
                 title(R.string.dialog_sign_out_title)
                 message(R.string.dialog_sign_out_message)
                 positiveButton(R.string.button_continue) {
-                    authViewModel.endSession()
-                    userProperties.clear()
+                    viewModel.endSession()
 
                     controller?.navigate(R.id.to_navigation_auth)
                 }

@@ -84,6 +84,14 @@ class UserProperties(private val context: Context) {
             }
         }
 
+    var imageUrl: String?
+        get() = sharedPreferences.getString(USER_IMAGE_URL, null)
+        set(value) {
+            sharedPreferences.edit {
+                putString(USER_IMAGE_URL, value)
+            }
+        }
+
     var permissions: Int
         get() = sharedPreferences.getInt(USER_PERMISSIONS, 0)
         set(value) {
@@ -113,6 +121,7 @@ class UserProperties(private val context: Context) {
         const val USER_FIRST_NAME = User.FIELD_FIRST_NAME
         const val USER_LAST_NAME = User.FIELD_LAST_NAME
         const val USER_EMAIL = User.FIELD_EMAIL
+        const val USER_IMAGE_URL = User.FIELD_IMAGE_URL
         const val USER_PERMISSIONS = User.FIELD_PERMISSIONS
         const val USER_POSITION = User.FIELD_POSITION
         const val USER_DEPARTMENT_ID = User.FIELD_DEPARTMENT_ID
