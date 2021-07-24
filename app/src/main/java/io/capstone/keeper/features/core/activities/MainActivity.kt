@@ -31,4 +31,23 @@ class MainActivity: BaseActivity() {
 
     override fun onSupportNavigateUp(): Boolean = controller.navigateUp()
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        controller.currentDestination?.let {
+            outState.putInt(EXTRA_CURRENT_DESTINATION, it.id)
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        savedInstanceState.getInt(EXTRA_CURRENT_DESTINATION).let {
+            controller.navigate(it)
+        }
+    }
+
+    companion object {
+        const val EXTRA_CURRENT_DESTINATION = "extra:current:destination"
+    }
 }

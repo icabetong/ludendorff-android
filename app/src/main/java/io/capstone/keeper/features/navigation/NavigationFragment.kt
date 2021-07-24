@@ -16,12 +16,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.NavigationItemDecoration
-import io.capstone.keeper.components.persistence.UserProperties
 import io.capstone.keeper.databinding.FragmentNavigationBinding
-import io.capstone.keeper.features.auth.AuthViewModel
-import io.capstone.keeper.features.settings.SettingsActivity
 import io.capstone.keeper.features.shared.components.BaseFragment
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListener {
