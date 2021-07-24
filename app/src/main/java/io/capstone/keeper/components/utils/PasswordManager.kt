@@ -2,15 +2,25 @@ package io.capstone.keeper.components.utils
 
 import java.security.SecureRandom
 
-class PasswordManager {
+class PasswordManager private constructor() {
 
-    val letters : String = "abcdefghijklmnopqrstuvwxyz"
-    val uppercaseLetters : String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    val numbers : String = "0123456789"
-    val special : String = "@#=+!£$%&?"
-    val maxPasswordLength : Float = 20F //Max password lenght that my app creates
-    val maxPasswordFactor : Float = 10F
+    companion object {
+        fun generateRandom(isWithLetters: Boolean,
+                           isWithUppercase: Boolean,
+                           isWithNumbers: Boolean,
+                           isWithSpecial: Boolean,
+                           length: Int) : String {
+            return PasswordManager().generatePassword(isWithLetters, isWithUppercase,
+                isWithNumbers, isWithSpecial, length)
+        }
+    }
 
+    private val letters : String = "abcdefghijklmnopqrstuvwxyz"
+    private val uppercaseLetters : String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    private val numbers : String = "0123456789"
+    private val special : String = "@#=+!£$%&?"
+    private val maxPasswordLength : Float = 20F //Max password lenght that my app creates
+    private val maxPasswordFactor : Float = 10F
 
     /**
      * Generate a random password

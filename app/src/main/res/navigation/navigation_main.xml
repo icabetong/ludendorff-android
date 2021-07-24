@@ -17,6 +17,10 @@
         android:id="@+id/navigation_profile"
         android:name="io.capstone.keeper.features.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="io.capstone.keeper.features.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
     <!-- Support Fragments -->
     <fragment
         android:id="@+id/navigation_category"
@@ -54,6 +58,9 @@
         app:popUpToInclusive="true"/>
 
     <!-- Other non-special actions -->
+    <action
+        android:id="@+id/to_navigation_settings"
+        app:destination="@id/navigation_settings"/>
     <action
         android:id="@+id/to_navigation_profile"
         app:destination="@id/navigation_profile"/>

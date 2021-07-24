@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/activity_margin_small"
-                android:text="@string/hint_authentication"
+                android:text="@string/hint_credentials"
                 android:textColor="@color/keeper_primary_variant"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
@@ -45,6 +45,80 @@
                 </com.google.android.material.textfield.TextInputEditText>
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin_small"
+                android:hint="@string/hint_password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textVisiblePassword"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                android:text="@string/hint_permissions"
+                android:textColor="@color/keeper_primary_variant"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/permissionsChipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/readChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_permission_read"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/writeChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_permission_write"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/deleteChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_permission_delete"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/auditChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_permission_audit"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/managerUsersChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_permission_manage_users"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/administrativeChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_permission_administrative"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
+
+            </com.google.android.material.chip.ChipGroup>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -82,87 +156,6 @@
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/activity_margin_small"
-                android:text="@string/hint_permissions"
-                android:textColor="@color/keeper_primary_variant"
-                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
-
-            <io.capstone.keeper.components.views.TwoLineCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin_small"
-                android:button="@null"
-                android:drawableStart="@drawable/ic_hero_eye"
-                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                android:drawablePadding="@dimen/activity_margin"
-                app:titleText="@string/user_permission_read"
-                app:subtitleText="@string/user_permission_read_summary"
-                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
-
-            <io.capstone.keeper.components.views.TwoLineCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin_small"
-                android:button="@null"
-                android:drawableStart="@drawable/ic_hero_pencil"
-                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                android:drawablePadding="@dimen/activity_margin"
-                app:titleText="@string/user_permission_write"
-                app:subtitleText="@string/user_permission_write_summary"
-                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
-
-            <io.capstone.keeper.components.views.TwoLineCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin_small"
-                android:button="@null"
-                android:drawableStart="@drawable/ic_hero_trash"
-                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                android:drawablePadding="@dimen/activity_margin"
-                app:titleText="@string/user_permission_delete"
-                app:subtitleText="@string/user_permission_delete_summary"
-                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
-
-            <io.capstone.keeper.components.views.TwoLineCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin_small"
-                android:button="@null"
-                android:drawableStart="@drawable/ic_hero_document_search"
-                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                android:drawablePadding="@dimen/activity_margin"
-                app:titleText="@string/user_permission_audit"
-                app:subtitleText="@string/user_permission_audit_summary"
-                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
-
-            <io.capstone.keeper.components.views.TwoLineCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin_small"
-                android:button="@null"
-                android:drawableStart="@drawable/ic_hero_users"
-                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                android:drawablePadding="@dimen/activity_margin"
-                app:titleText="@string/user_permission_manage_users"
-                app:subtitleText="@string/user_permission_manage_users_summary"
-                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
-
-            <io.capstone.keeper.components.views.TwoLineCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin_small"
-                android:button="@null"
-                android:drawableStart="@drawable/ic_hero_key"
-                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                android:drawablePadding="@dimen/activity_margin"
-                app:titleText="@string/user_permission_administrative"
-                app:subtitleText="@string/user_permission_administrative_summary"
-                app:titleTextAppearance="@style/TextAppearance.Keeper.Switch"/>
 
         </LinearLayout>
 

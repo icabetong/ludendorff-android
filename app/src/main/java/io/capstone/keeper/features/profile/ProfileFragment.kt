@@ -135,6 +135,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         binding.imageView.load(viewModel.imageUrl) {
             error(R.drawable.ic_hero_user)
             placeholder(R.drawable.ic_hero_user)
+            scale(Scale.FILL)
         }
 
         registerForFragmentResult(

@@ -61,9 +61,11 @@ class AssetEditorViewModel @Inject constructor(
     }
 
     fun insert() = viewModelScope.launch(Dispatchers.IO) {
+        asset.specifications = _specifications.value?.toMap() ?: emptyMap()
         repository.insert(asset)
     }
     fun update() = viewModelScope.launch(Dispatchers.IO) {
+        asset.specifications = _specifications.value?.toMap() ?: emptyMap()
         repository.update(asset, previousCategoryId)
     }
     fun remove() = viewModelScope.launch(Dispatchers.IO) {

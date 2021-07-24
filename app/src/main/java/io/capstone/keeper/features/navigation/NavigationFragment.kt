@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
+import coil.size.Scale
+import coil.transform.CircleCropTransformation
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
@@ -61,6 +63,8 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
         binding.profileImageView.load(viewModel.imageUrl) {
             error(R.drawable.ic_hero_user)
             placeholder(R.drawable.ic_hero_user)
+            transformations(CircleCropTransformation())
+            scale(Scale.FILL)
         }
     }
 
@@ -79,7 +83,7 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
             controller?.navigate(R.id.navigation_profile)
         }
         binding.navigationSettings.setOnClickListener {
-            startActivity(Intent(context, SettingsActivity::class.java))
+            controller?.navigate(R.id.navigation_settings)
         }
         binding.navigationEndSession.setOnClickListener {
             MaterialDialog(requireContext()).show {

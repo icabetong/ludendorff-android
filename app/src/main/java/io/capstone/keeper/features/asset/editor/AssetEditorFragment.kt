@@ -133,6 +133,13 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
         binding.actionButton.setOnClickListener {
             viewModel.asset.assetName = binding.assetNameTextInput.text.toString()
+            viewModel.asset.status = when(binding.statusChipGroup.checkedChipId) {
+                R.id.operationalChip -> Asset.Status.OPERATIONAL
+                R.id.idleChip -> Asset.Status.IDLE
+                R.id.underMaintenanceChip -> Asset.Status.UNDER_MAINTENANCE
+                R.id.retiredChip -> Asset.Status.RETIRED
+                else -> throw NullPointerException()
+            }
 
             if (viewModel.asset.assetName.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_asset_name)

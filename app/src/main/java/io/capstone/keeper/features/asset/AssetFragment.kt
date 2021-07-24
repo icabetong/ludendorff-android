@@ -164,7 +164,6 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset> {
                                 }
                             }
                             else binding.errorView.root.show()
-                            android.util.Log.e("DEBUG", e.error.message.toString())
                         }
                     }
                     is LoadState.NotLoading -> {

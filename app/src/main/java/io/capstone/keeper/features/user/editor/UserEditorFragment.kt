@@ -8,7 +8,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
+import io.capstone.keeper.components.extensions.hide
 import io.capstone.keeper.components.extensions.setup
+import io.capstone.keeper.components.utils.PasswordManager
 import io.capstone.keeper.databinding.FragmentEditorUserBinding
 import io.capstone.keeper.features.shared.components.BaseEditorFragment
 import io.capstone.keeper.features.user.User
@@ -52,12 +54,24 @@ class UserEditorFragment: BaseEditorFragment() {
             onNavigationClicked = { controller?.navigateUp() }
         )
 
+        binding.passwordTextInput.setText(PasswordManager.generateRandom(
+            isWithLetters = true,
+            isWithUppercase = true,
+            isWithNumbers = true,
+            isWithSpecial = true,
+            length = 10
+        ))
         arguments?.getParcelable<User>(EXTRA_USER)?.let {
             requestKey = REQUEST_KEY_UPDATE
 
             binding.appBar.toolbar.setTitle(R.string.title_user_update)
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.userId
+            binding.passwordTextInputLayout.hide()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     companion object {

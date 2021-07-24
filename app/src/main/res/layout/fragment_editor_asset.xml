@@ -48,6 +48,7 @@
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/statusChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:singleSelection="true"
@@ -59,28 +60,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/asset_status_option_operational"
-                style="@style/Widget.MaterialComponents.Chip.Choice"/>
+                style="@style/Widget.Keeper.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/idleChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/asset_status_option_idle"
-                style="@style/Widget.MaterialComponents.Chip.Choice"/>
+                style="@style/Widget.Keeper.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/underMaintenanceChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/asset_status_option_under_maintenance"
-                style="@style/Widget.MaterialComponents.Chip.Choice"/>
+                style="@style/Widget.Keeper.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/retiredChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/asset_status_option_retired"
-                style="@style/Widget.MaterialComponents.Chip.Choice"/>
+                style="@style/Widget.Keeper.Chip.Choice"/>
 
         </com.google.android.material.chip.ChipGroup>
 

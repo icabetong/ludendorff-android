@@ -57,7 +57,7 @@
     <string name="hint_vacant">Vacant</string>
     <string name="hint_user">User</string>
     <string name="hint_position">Position</string>
-    <string name="hint_authentication">Authentication</string>
+    <string name="hint_credentials">Credentials</string>
     <string name="hint_information">Information</string>
     <string name="hint_permissions">Permissions</string>
     <string name="hint_date_created">Date Created</string>
@@ -98,17 +98,11 @@
     <string name="asset_status_option_retired">Retired</string>
 
     <string name="user_permission_read">Read</string>
-    <string name="user_permission_read_summary">Allow this user to view and read records from the database.</string>
     <string name="user_permission_write">Write</string>
-    <string name="user_permission_write_summary">Allow this user to create new and update existing records in the database.</string>
     <string name="user_permission_delete">Delete</string>
-    <string name="user_permission_delete_summary">Allow this user to remove records in the database.</string>
-    <string name="user_permission_audit">View Audit Logs</string>
-    <string name="user_permission_audit_summary">Allow this user to review logs that reflect the changes made in the database.</string>
+    <string name="user_permission_audit">Audit</string>
     <string name="user_permission_manage_users">Manage Users</string>
-    <string name="user_permission_manage_users_summary">Allow this user to create, remove, and administer their roles in the system.</string>
     <string name="user_permission_administrative">Administrative</string>
-    <string name="user_permission_administrative_summary">Allow this user full control over the system and the database.</string>
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
     <string name="feedback_empty_asset_name">You forgot to enter the asset name</string>

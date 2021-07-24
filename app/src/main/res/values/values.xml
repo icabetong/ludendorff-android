@@ -89,6 +89,7 @@
     <style name="Widget.Keeper.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textAppearance">@style/TextAppearance.Keeper.Button</item>
     </style>
+    <style name="Widget.Keeper.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice"/>
 
     <!-- TextAppearances -->
     <style name="TextAppearance.Keeper" parent="TextAppearance.AppCompat">
