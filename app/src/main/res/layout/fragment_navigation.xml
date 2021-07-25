@@ -19,6 +19,7 @@
             android:paddingBottom="@dimen/activity_margin"
             android:gravity="bottom"
             android:orientation="vertical"
+            android:clipToPadding="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/endPanel">
 
@@ -38,7 +39,7 @@
 
         </LinearLayout>
 
-        <io.capstone.keeper.components.views.RoundedFrameLayout
+        <FrameLayout
             android:id="@+id/endPanel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -78,7 +79,7 @@
 
             </LinearLayout>
 
-        </io.capstone.keeper.components.views.RoundedFrameLayout>
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="RoundedFrameLayout">
-        <attr name="layoutCornerRadius" format="float"/>
+        <attr name="frameCornerRadius" format="float"/>
     </declare-styleable>
     <declare-styleable name="RoundedImageButton">
         <attr name="containerRadius" format="float"/>
