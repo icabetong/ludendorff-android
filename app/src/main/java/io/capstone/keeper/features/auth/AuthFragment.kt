@@ -1,27 +1,33 @@
 package io.capstone.keeper.features.auth
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.util.PatternsCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.actions.setActionButtonEnabled
+import com.afollestad.materialdialogs.input.getInputField
+import com.afollestad.materialdialogs.input.input
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.exceptions.EmptyCredentialsException
-import io.capstone.keeper.components.persistence.UserProperties
 import io.capstone.keeper.databinding.FragmentAuthBinding
+import io.capstone.keeper.features.core.backend.OperationStatus
 import io.capstone.keeper.features.shared.components.BaseFragment
-import javax.inject.Inject
-
 @AndroidEntryPoint
 class AuthFragment: BaseFragment() {
     private var _binding: FragmentAuthBinding? = null
@@ -29,8 +35,6 @@ class AuthFragment: BaseFragment() {
 
     private val binding get() = _binding!!
     private val viewModel: AuthViewModel by viewModels()
-
-    @Inject lateinit var userProperties: UserProperties
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +82,30 @@ class AuthFragment: BaseFragment() {
             }
             return@setOnEditorActionListener false
         }
+        binding.forgotPasswordButton.setOnClickListener {
+            MaterialDialog(requireContext()).show {
+                lifecycleOwner(viewLifecycleOwner)
+                title(R.string.dialog_send_reset_link_title)
+                message(R.string.dialog_send_reset_link_message)
+                input(hintRes = R.string.hint_email, waitForPositiveButton = false,
+                    inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) { dialog, text ->
+
+                    val inputField = dialog.getInputField()
+                    val isValid = text.isNotEmpty()
+                            && PatternsCompat.EMAIL_ADDRESS.matcher(text).matches()
+
+                    inputField.error = if (isValid) null
+                    else getString(R.string.error_invalid_email_address)
+                    dialog.setActionButtonEnabled(WhichButton.POSITIVE, isValid)
+                }
+                positiveButton(R.string.button_send) {
+                    val input = it.getInputField().text.toString()
+
+                    viewModel.requestPasswordResetEmail(input)
+                }
+                negativeButton(R.string.button_cancel)
+            }
+        }
     }
 
     override fun onStart() {
@@ -85,24 +113,11 @@ class AuthFragment: BaseFragment() {
 
         setSystemBarColor(R.color.keeper_background_content)
 
-        binding.emailTextInput.doAfterTextChanged { resetErrors() }
-        binding.passwordTextInput.doAfterTextChanged { resetErrors() }
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        setSystemBarColor(R.color.keeper_background_main)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
         viewModel.currentUser.observe(viewLifecycleOwner) {
             when (it) {
                 is AuthStatus.Success -> {
                     createSnackbar(R.string.feedback_sign_in_success)
-                    userProperties.set(it.user)
+                    viewModel.setUserProperties(it.user)
 
                     controller?.navigate(AuthFragmentDirections.toNavigationRoot())
                     binding.errorTextView.isVisible = false
@@ -132,6 +147,38 @@ class AuthFragment: BaseFragment() {
                 }
             }
         }
+
+        viewModel.resetEmailSendingStatus.observe(viewLifecycleOwner) {
+            when(it) {
+                OperationStatus.REQUESTED -> {
+                    binding.root.isEnabled = false
+                }
+                OperationStatus.COMPLETED -> {
+                    binding.root.isEnabled = true
+                    viewModel.setPasswordResetRequestAsIdle()
+                    createSnackbar(R.string.feedback_reset_link_sent)
+                }
+                OperationStatus.ERROR -> {
+                    viewModel.setPasswordResetRequestAsIdle()
+                    binding.root.isEnabled = true
+                    createSnackbar(R.string.error_generic)
+                }
+                else -> binding.root.isEnabled = true
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        setSystemBarColor(R.color.keeper_background_main)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.emailTextInput.doAfterTextChanged { resetErrors() }
+        binding.passwordTextInput.doAfterTextChanged { resetErrors() }
     }
 
     private fun resetProgress() {

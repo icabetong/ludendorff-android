@@ -2,7 +2,6 @@ package io.capstone.keeper.features.navigation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.R
 import io.capstone.keeper.components.persistence.UserProperties

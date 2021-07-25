@@ -132,10 +132,11 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
         binding.nameTextView.text = viewModel.fullName
         binding.emailTextView.text = viewModel.email
-        binding.imageView.load(viewModel.imageUrl) {
-            error(R.drawable.ic_hero_user)
-            placeholder(R.drawable.ic_hero_user)
-            scale(Scale.FILL)
+        viewModel.imageUrl?.let {
+            binding.imageView.load(it) {
+                error(R.drawable.ic_hero_user)
+                scale(Scale.FILL)
+            }
         }
 
         registerForFragmentResult(
@@ -149,7 +150,6 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         super.onStart()
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-
 
         viewModel.linkSendingStatus.observe(viewLifecycleOwner) {
             when(it) {

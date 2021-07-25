@@ -3,7 +3,6 @@ package io.capstone.keeper.features.user
 import android.os.Parcelable
 import io.capstone.keeper.components.utils.IDGenerator
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 /**
  *  This data class is used in querying

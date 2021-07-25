@@ -2,7 +2,6 @@ package io.capstone.keeper
 
 import android.app.Application
 import android.content.pm.ApplicationInfo
-import android.content.pm.ConfigurationInfo
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.google.firebase.analytics.FirebaseAnalytics

@@ -1,12 +1,7 @@
 package io.capstone.keeper.features.core.activities
 
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.viewModels
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,14 +1,13 @@
 package io.capstone.keeper.features.navigation
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
@@ -58,7 +57,7 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
         binding.nameTextView.text = viewModel.fullName
         binding.profileImageView.load(viewModel.imageUrl) {
             error(R.drawable.ic_hero_user)
-            placeholder(R.drawable.ic_hero_user)
+            placeholder(CircularProgressDrawable(requireContext()))
             transformations(CircleCropTransformation())
             scale(Scale.FILL)
         }

@@ -2,10 +2,8 @@ package io.capstone.keeper.features.core.worker
 
 import android.content.Context
 import android.net.Uri
-import androidx.core.net.toUri
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
-import androidx.work.Data
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.google.firebase.auth.FirebaseAuth
