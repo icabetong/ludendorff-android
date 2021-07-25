@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.doOnLayout
-import androidx.core.view.doOnPreDraw
-import androidx.core.view.isVisible
+import androidx.core.view.*
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope

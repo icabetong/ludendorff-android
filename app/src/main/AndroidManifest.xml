@@ -28,6 +28,6 @@
             android:authorities="${applicationId}.workmanager-init"
             tools:node="remove" />
 
-</application>
+    </application>
 
 </manifest>

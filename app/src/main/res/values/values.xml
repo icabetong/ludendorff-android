@@ -18,6 +18,7 @@
         <item name="colorOnSurface">@color/keeper_on_surface</item>
         <!-- Others -->
         <item name="android:windowBackground">@color/keeper_background_main</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!-- Components -->
         <item name="bottomSheetDialogTheme">@style/Component.Keeper.BottomSheet</item>
         <!-- AppCompat -->

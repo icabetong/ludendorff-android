@@ -1,78 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
-        android:id="@+id/startPanel"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="@dimen/activity_margin_tiny"
-        android:paddingBottom="@dimen/activity_margin"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/endPanel">
-
-        <io.capstone.keeper.components.views.RoundedImageButton
-            android:id="@+id/navigation_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/activity_margin_tiny"
-            app:srcCompat="@drawable/ic_hero_cog"/>
-
-        <io.capstone.keeper.components.views.RoundedImageButton
-            android:id="@+id/navigation_end_session"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/activity_margin_tiny"
-            app:srcCompat="@drawable/ic_hero_logout"/>
-
-    </LinearLayout>
-
-    <io.capstone.keeper.components.views.RoundedFrameLayout
-        android:id="@+id/endPanel"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@id/startPanel"
-        app:layout_constraintEnd_toEndOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/startPanel"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/activity_margin_tiny"
+            android:paddingHorizontal="@dimen/activity_margin_tiny"
+            android:paddingBottom="@dimen/activity_margin"
+            android:gravity="bottom"
             android:orientation="vertical"
-            android:gravity="center"
-            android:background="@color/keeper_background_content">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/endPanel">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/profileImageView"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_marginTop="@dimen/activity_margin_huge"
-                app:srcCompat="@drawable/ic_hero_user"/>
-
-            <TextView
-                android:id="@+id/nameTextView"
-                android:layout_width="match_parent"
+            <io.capstone.keeper.components.views.RoundedImageButton
+                android:id="@+id/navigation_settings"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin_small"
-                android:layout_marginBottom="@dimen/activity_margin_medium"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
-                tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
+                android:layout_marginVertical="@dimen/activity_margin_tiny"
+                app:srcCompat="@drawable/ic_hero_cog"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <io.capstone.keeper.components.views.RoundedImageButton
+                android:id="@+id/navigation_end_session"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/activity_margin_tiny"
+                app:srcCompat="@drawable/ic_hero_logout"/>
 
         </LinearLayout>
 
-    </io.capstone.keeper.components.views.RoundedFrameLayout>
+        <io.capstone.keeper.components.views.RoundedFrameLayout
+            android:id="@+id/endPanel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/startPanel"
+            app:layout_constraintEnd_toEndOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/activity_margin_tiny"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@color/keeper_background_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/profileImageView"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginTop="@dimen/activity_margin_huge"
+                    app:srcCompat="@drawable/ic_hero_user"/>
+
+                <TextView
+                    android:id="@+id/nameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_small"
+                    android:layout_marginBottom="@dimen/activity_margin_medium"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
+                    tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </LinearLayout>
+
+        </io.capstone.keeper.components.views.RoundedFrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

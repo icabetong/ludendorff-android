@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.discord.panels.OverlappingPanelsLayout
+import com.discord.panels.PanelState
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R

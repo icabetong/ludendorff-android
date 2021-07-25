@@ -1,4 +1,4 @@
-package io.capstone.keeper.features.settings
+package io.capstone.keeper.features.settings.preferences
 
 import android.os.Bundle
 import android.view.View

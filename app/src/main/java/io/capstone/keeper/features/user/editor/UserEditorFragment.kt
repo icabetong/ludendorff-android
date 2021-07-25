@@ -61,6 +61,7 @@ class UserEditorFragment: BaseEditorFragment() {
             isWithSpecial = true,
             length = 10
         ))
+
         arguments?.getParcelable<User>(EXTRA_USER)?.let {
             requestKey = REQUEST_KEY_UPDATE
 
@@ -68,10 +69,6 @@ class UserEditorFragment: BaseEditorFragment() {
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.userId
             binding.passwordTextInputLayout.hide()
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     companion object {
