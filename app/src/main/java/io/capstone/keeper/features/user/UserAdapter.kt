@@ -3,6 +3,8 @@ package io.capstone.keeper.features.user
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
+import io.capstone.keeper.R
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.LayoutItemUserBinding
 import io.capstone.keeper.features.shared.components.BaseFragment
@@ -27,7 +29,15 @@ class UserAdapter(
         private val binding = LayoutItemUserBinding.bind(itemView)
 
         override fun onBind(data: User?) {
-            binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT
+            data?.let {
+                binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + it.userId
+                binding.headerTextView.text = it.getDisplayName()
+                binding.informationTextView.text = it.email
+                binding.imageView.load(it.imageUrl) {
+                    error(R.drawable.ic_hero_user)
+                    placeholder(R.drawable.ic_hero_user)
+                }
+            }
 
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
