@@ -65,21 +65,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             iconRes = R.drawable.ic_hero_x,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_editor_asset,
-            onMenuOptionClicked = {
-                when(it) {
-                    R.id.action_view_qrcode -> {
-                        QRCodeViewBottomSheet(childFragmentManager).show {
-                            arguments = bundleOf(
-                                QRCodeViewBottomSheet.EXTRA_ASSET_ID to viewModel.asset.assetId
-                            )
-                        }
-                    }
-                    R.id.action_remove -> {
-                        viewModel.remove()
-                        controller?.navigateUp()
-                    }
-                }
-            }
+            onMenuOptionClicked = ::onMenuItemClicked
         )
 
         arguments?.getParcelable<Asset>(EXTRA_ASSET)?.let {
@@ -89,6 +75,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.assetId
             binding.appBar.toolbar.setTitle(R.string.title_asset_update)
+            binding.appBar.toolbar.menu.findItem(R.id.action_disable).isVisible = true
 
             binding.assetNameTextInput.setText(it.assetName)
             binding.categoryTextView.text = it.category?.categoryName
@@ -218,6 +205,32 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                         }
                     }
                     negativeButton(R.string.button_cancel)
+                }
+            }
+        }
+    }
+
+    private fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_view_qrcode -> {
+                QRCodeViewBottomSheet(childFragmentManager).show {
+                    arguments = bundleOf(
+                        QRCodeViewBottomSheet.EXTRA_ASSET_ID to viewModel.asset.assetId
+                    )
+                }
+            }
+            R.id.action_disable -> {
+                if (requestKey == REQUEST_KEY_UPDATE) {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.dialog_remove_asset_title)
+                        message(R.string.dialog_remove_asset_message)
+                        positiveButton(R.string.button_remove) {
+                            viewModel.remove()
+                            controller?.navigateUp()
+                        }
+                        negativeButton(R.string.button_cancel)
+                    }
                 }
             }
         }

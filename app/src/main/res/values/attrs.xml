@@ -3,6 +3,9 @@
     <declare-styleable name="RoundedFrameLayout">
         <attr name="frameCornerRadius" format="float"/>
     </declare-styleable>
+    <declare-styleable name="RoundedLinearLayout">
+        <attr name="layoutCornerRadius" format="float"/>
+    </declare-styleable>
     <declare-styleable name="RoundedImageButton">
         <attr name="containerRadius" format="float"/>
     </declare-styleable>

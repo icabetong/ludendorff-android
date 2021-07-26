@@ -58,7 +58,8 @@ data class Asset @JvmOverloads constructor(
         }
 
         fun generateQRCode(id: String): Bitmap {
-            val bitMatrix = QRCodeWriter().encode(id, BarcodeFormat.QR_CODE,
+            val bitMatrix = QRCodeWriter().encode(
+                "clsu://keeper/${id}", BarcodeFormat.QR_CODE,
                 128, 128)
             val bitmap = Bitmap.createBitmap(bitMatrix.width, bitMatrix.height,
                 Bitmap.Config.RGB_565)

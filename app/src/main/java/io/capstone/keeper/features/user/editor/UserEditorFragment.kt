@@ -9,7 +9,6 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentResultListener
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -21,7 +20,6 @@ import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
-import io.capstone.keeper.components.extensions.hide
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.utils.PasswordManager
 import io.capstone.keeper.databinding.FragmentEditorUserBinding

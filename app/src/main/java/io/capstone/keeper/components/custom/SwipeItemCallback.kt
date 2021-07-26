@@ -28,6 +28,10 @@ class SwipeItemCallback<T: SwipeableAdapter>(context: Context, private var adapt
         backgroundTrash = ColorDrawable(backgroundColor)
     }
 
+    override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+        return defaultValue * 10
+    }
+
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
@@ -41,7 +45,7 @@ class SwipeItemCallback<T: SwipeableAdapter>(context: Context, private var adapt
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
-    ): Int = makeMovementFlags(0, ItemTouchHelper.START or ItemTouchHelper.END)
+    ): Int = makeMovementFlags(0, ItemTouchHelper.START)
 
     override fun onChildDraw(
         c: Canvas,

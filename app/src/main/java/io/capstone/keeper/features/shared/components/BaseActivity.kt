@@ -10,7 +10,6 @@ abstract class BaseActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         window.sharedElementsUseOverlay = false
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
     }
 
     override fun onResume() {

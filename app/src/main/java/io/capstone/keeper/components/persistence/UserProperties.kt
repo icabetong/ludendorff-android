@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import io.capstone.keeper.features.user.User
+import kotlinx.coroutines.flow.flow
 
 class UserProperties(private val context: Context) {
     private val sharedPreferences by lazy {

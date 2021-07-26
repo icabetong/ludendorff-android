@@ -7,9 +7,9 @@
         <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
         <item name="colorOnPrimary">@android:color/white</item>
         <!-- Secondary brand color -->
-        <item name="colorSecondary">@color/keeper_secondary</item>
-        <item name="colorSecondaryVariant">@color/keeper_secondary_variant</item>
-        <item name="colorOnSecondary">@android:color/black</item>
+        <item name="colorSecondary">@color/keeper_primary</item>
+        <item name="colorSecondaryVariant">@color/keeper_primary_variant</item>
+        <item name="colorOnSecondary">@android:color/white</item>
         <!-- Error related colors -->
         <item name="colorError">@color/keeper_error</item>
         <item name="colorOnError">@color/keeper_on_error</item>
@@ -42,8 +42,8 @@
     <style name="Component.Keeper.BottomSheet" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
         <item name="colorPrimary">@color/keeper_primary</item>
         <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
-        <item name="colorSecondary">@color/keeper_secondary</item>
-        <item name="colorSecondaryVariant">@color/keeper_secondary_variant</item>
+        <item name="colorSecondary">@color/keeper_primary</item>
+        <item name="colorSecondaryVariant">@color/keeper_primary_variant</item>
         <item name="colorSurface">@color/keeper_surface</item>
         <item name="colorOnSurface">@color/keeper_on_surface</item>
         <item name="bottomSheetStyle">@style/Component.Keeper.BottomSheet.Base</item>

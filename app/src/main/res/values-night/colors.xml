@@ -11,6 +11,7 @@
     <color name="keeper_status_bar">@color/keeper_background_main</color>
     <color name="keeper_navigation_bar">@color/keeper_background_main</color>
     <color name="keeper_toolbar">@color/keeper_surface</color>
+    <color name="keeper_menu">#2d2d2d</color>
 
     <color name="keeper_highlight_background">#212121</color>
     <color name="keeper_highlight_content">#cfcfcf</color>
