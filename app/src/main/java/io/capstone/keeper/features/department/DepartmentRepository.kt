@@ -14,11 +14,11 @@ class DepartmentRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ): FirestoreRepository<Department> {
 
-    suspend fun create(data: Department): Response<Unit> {
+    suspend fun create(department: Department): Response<Unit> {
         return try {
             firestore.collection(Department.COLLECTION)
-                .document(data.departmentId)
-                .set(data)
+                .document(department.departmentId)
+                .set(department)
                 .await()
 
             Response.Success(Unit)
@@ -29,19 +29,19 @@ class DepartmentRepository @Inject constructor(
         }
     }
 
-    suspend fun update(data: Department): Response<Unit> {
+    suspend fun update(department: Department): Response<Unit> {
         return try {
             firestore.collection(Department.COLLECTION)
-                .document(data.departmentId)
-                .set(data)
+                .document(department.departmentId)
+                .set(department)
                 .await()
 
             val batchWrite = firestore.batch()
             firestore.collection(User.COLLECTION)
-                .whereEqualTo(User.FIELD_DEPARTMENT_ID, data.departmentId)
+                .whereEqualTo(User.FIELD_DEPARTMENT_ID, department.departmentId)
                 .get().await()
                 .documents.forEach {
-                    batchWrite.update(it.reference, User.FIELD_DEPARTMENT, data.toDepartmentCore())
+                    batchWrite.update(it.reference, User.FIELD_DEPARTMENT, department.minimize())
                 }
             batchWrite.commit()
 

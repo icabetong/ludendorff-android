@@ -29,7 +29,7 @@ class AssetEditorViewModel @Inject constructor(
         hasCategoryChanged = true
 
         previousCategoryId = asset.category?.categoryId
-        asset.category = newCategory.toCategoryCore()
+        asset.category = newCategory.minimize()
     }
 
     fun setSpecifications(specifications: MutableList<Pair<String, String>>) {

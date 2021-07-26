@@ -33,6 +33,7 @@ import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.NavigationItemDecoration
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentProfileBinding
+import io.capstone.keeper.features.core.backend.OperationStatus
 import io.capstone.keeper.features.core.worker.ImageCompressWorker
 import io.capstone.keeper.features.core.worker.ProfileUploadWorker
 import io.capstone.keeper.features.profile.actions.ChangeNameBottomSheet
@@ -153,18 +154,18 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
         viewModel.linkSendingStatus.observe(viewLifecycleOwner) {
             when(it) {
-                ProfileViewModel.OperationStatus.REQUESTED -> {
+                OperationStatus.REQUESTED -> {
                     binding.appBarProgressIndicator.isVisible = true
                     binding.nestedScrollView.isEnabled = false
                 }
-                ProfileViewModel.OperationStatus.COMPLETED -> {
+                OperationStatus.COMPLETED -> {
                     binding.appBarProgressIndicator.isVisible = false
                     binding.nestedScrollView.isEnabled = true
                     viewModel.resetLinkSendingStatus()
 
                     createSnackbar(R.string.feedback_reset_link_sent)
                 }
-                ProfileViewModel.OperationStatus.FAILED -> {
+                OperationStatus.ERROR -> {
                     binding.appBarProgressIndicator.isVisible = false
                     binding.nestedScrollView.isEnabled = true
                     viewModel.resetLinkSendingStatus()
@@ -177,18 +178,18 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
         viewModel.passwordUpdateStatus.observe(viewLifecycleOwner) {
             when(it) {
-                ProfileViewModel.OperationStatus.REQUESTED -> {
+                OperationStatus.REQUESTED -> {
                     binding.appBarProgressIndicator.isVisible = true
                     binding.nestedScrollView.isEnabled = false
                 }
-                ProfileViewModel.OperationStatus.COMPLETED -> {
+                OperationStatus.COMPLETED -> {
                     binding.appBarProgressIndicator.isVisible = false
                     binding.nestedScrollView.isEnabled = true
                     viewModel.resetPasswordUpdateStatus()
 
                     createSnackbar(R.string.feedback_updated_password)
                 }
-                ProfileViewModel.OperationStatus.FAILED -> {
+                OperationStatus.ERROR -> {
                     binding.appBarProgressIndicator.isVisible = false
                     binding.nestedScrollView.isEnabled = true
                     viewModel.resetPasswordUpdateStatus()
@@ -201,11 +202,11 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
         viewModel.reauthenticationStatus.observe(viewLifecycleOwner) {
             when(it) {
-                ProfileViewModel.OperationStatus.REQUESTED -> {
+                OperationStatus.REQUESTED -> {
                     binding.appBarProgressIndicator.isVisible = true
                     binding.nestedScrollView.isEnabled = false
                 }
-                ProfileViewModel.OperationStatus.COMPLETED -> {
+                OperationStatus.COMPLETED -> {
                     binding.appBarProgressIndicator.isVisible = false
                     binding.nestedScrollView.isEnabled = true
                     viewModel.resetReauthenticationStatus()
@@ -217,7 +218,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     ChangePasswordBottomSheet(childFragmentManager)
                         .show()
                 }
-                ProfileViewModel.OperationStatus.FAILED -> {
+                OperationStatus.ERROR -> {
                     binding.appBarProgressIndicator.isVisible = false
                     binding.nestedScrollView.isEnabled = true
                     viewModel.resetReauthenticationStatus()
@@ -318,7 +319,6 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     .setTitle(getString(R.string.authentication_confirm))
                     .setSubtitle(getString(R.string.authentication_confirm_summary))
                     .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG
-                            or BiometricManager.Authenticators.BIOMETRIC_WEAK
                             or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
                     .build()
 

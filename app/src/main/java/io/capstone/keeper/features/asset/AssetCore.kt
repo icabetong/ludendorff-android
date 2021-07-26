@@ -19,7 +19,7 @@ data class AssetCore @JvmOverloads constructor(
 ): Parcelable {
 
     companion object {
-        fun fromAsset(asset: Asset): AssetCore {
+        fun from(asset: Asset): AssetCore {
             return AssetCore(
                 assetId = asset.assetId,
                 assetName = asset.assetName,

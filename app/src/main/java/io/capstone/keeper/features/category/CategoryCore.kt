@@ -11,7 +11,7 @@ data class CategoryCore @JvmOverloads constructor(
 ): Parcelable {
 
     companion object {
-        fun fromCategory(category: Category): CategoryCore {
+        fun from(category: Category): CategoryCore {
             return CategoryCore(
                 categoryId = category.categoryId,
                 categoryName = category.categoryName

@@ -12,8 +12,8 @@ data class Category @JvmOverloads constructor(
     var count: Int = 0
 ): Parcelable {
 
-    fun toCategoryCore(): CategoryCore {
-        return CategoryCore.fromCategory(this)
+    fun minimize(): CategoryCore {
+        return CategoryCore.from(this)
     }
 
     companion object {

@@ -8,14 +8,23 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.components.custom.GenericItemDecoration
+import io.capstone.keeper.components.exceptions.EmptySnapshotException
+import io.capstone.keeper.components.extensions.hide
+import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentPickerDepartmentBinding
 import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.department.DepartmentAdapter
 import io.capstone.keeper.features.department.DepartmentViewModel
 import io.capstone.keeper.features.shared.components.BaseBottomSheet
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class DepartmentPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
     OnItemActionListener<Department> {
     private var _binding: FragmentPickerDepartmentBinding? = null
@@ -44,6 +53,57 @@ class DepartmentPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(man
         with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
             adapter = departmentAdapter
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            departmentAdapter.loadStateFlow.collectLatest {
+                when (it.refresh) {
+                    is LoadState.Loading -> {
+                        binding.progressIndicator.show()
+                        binding.recyclerView.hide()
+                    }
+                    is LoadState.Error -> {
+                        binding.emptyView.root.hide()
+                        binding.errorView.root.hide()
+                        binding.progressIndicator.hide()
+                        binding.recyclerView.hide()
+
+                        val errorState = when {
+                            it.prepend is LoadState.Error -> it.prepend as LoadState.Error
+                            it.append is LoadState.Error -> it.append as LoadState.Error
+                            it.refresh is LoadState.Error -> it.refresh as LoadState.Error
+                            else -> null
+                        }
+
+                        errorState?.let { e ->
+                            /**
+                             *  Check if the error that have returned is
+                             *  EmptySnapshotException, which is used if
+                             *  QuerySnapshot is empty. Therefore, we
+                             *  will check if the adapter is also empty
+                             *  and show the user the empty state.
+                             */
+                            if (e.error is EmptySnapshotException &&
+                                departmentAdapter.itemCount < 1)
+                                binding.emptyView.root.show()
+                            else binding.errorView.root.show()
+                        }
+                    }
+                    is LoadState.NotLoading -> {
+                        binding.progressIndicator.hide()
+                        binding.recyclerView.show()
+                    }
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.departments.collectLatest {
+                departmentAdapter.submitData(it)
+            }
         }
     }
 

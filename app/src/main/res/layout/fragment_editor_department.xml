@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -57,6 +58,14 @@
             android:clickable="true"
             android:text="@string/hint_vacant"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emailTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"
+            tools:text="isaiahcollins02@gmail.com"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

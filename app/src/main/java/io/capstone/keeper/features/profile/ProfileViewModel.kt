@@ -8,6 +8,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.components.persistence.UserProperties
+import io.capstone.keeper.features.core.backend.OperationStatus
 import io.capstone.keeper.features.core.worker.ImageCompressWorker
 import io.capstone.keeper.features.core.worker.ProfileUploadWorker
 import io.capstone.keeper.features.shared.components.BaseViewModel
@@ -24,10 +25,6 @@ class ProfileViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val workManager: WorkManager
 ): BaseViewModel() {
-
-    enum class OperationStatus {
-        IDLE, REQUESTED, COMPLETED, FAILED
-    }
 
     private val _reauthenticationStatus = MutableLiveData(OperationStatus.IDLE)
     internal val reauthenticationStatus: LiveData<OperationStatus> = _reauthenticationStatus
@@ -62,34 +59,34 @@ class ProfileViewModel @Inject constructor(
     fun sendPasswordResetLink(email: String?) = viewModelScope.launch {
         _linkSendingStatus.value = OperationStatus.REQUESTED
         if (email.isNullOrBlank()) {
-            _linkSendingStatus.value = OperationStatus.FAILED
+            _linkSendingStatus.value = OperationStatus.ERROR
             return@launch
         }
 
         firebaseAuth.sendPasswordResetEmail(email)
             .addOnCompleteListener {
                 _linkSendingStatus.value = if (it.isSuccessful) OperationStatus.COMPLETED
-                    else OperationStatus.FAILED
+                    else OperationStatus.ERROR
             }
     }
     fun updatePassword(password: String?) = viewModelScope.launch {
         _passwordUpdateStatus.value = OperationStatus.REQUESTED
         if (password.isNullOrBlank()) {
-            _passwordUpdateStatus.value = OperationStatus.FAILED
+            _passwordUpdateStatus.value = OperationStatus.ERROR
             return@launch
         }
 
         firebaseAuth.currentUser?.updatePassword(password)
             ?.addOnCompleteListener {
                 _passwordUpdateStatus.value = if (it.isSuccessful) OperationStatus.COMPLETED
-                    else OperationStatus.FAILED
+                    else OperationStatus.ERROR
             }
     }
     fun reauthenticate(password: String?) = viewModelScope.launch {
         _reauthenticationStatus.value = OperationStatus.REQUESTED
         val email = userProperties.email
         if (email.isNullOrBlank() || password.isNullOrBlank()) {
-            _reauthenticationStatus.value = OperationStatus.FAILED
+            _reauthenticationStatus.value = OperationStatus.ERROR
             return@launch
         }
 
@@ -97,7 +94,7 @@ class ProfileViewModel @Inject constructor(
         firebaseAuth.currentUser?.reauthenticate(credential)
             ?.addOnCompleteListener {
                 _reauthenticationStatus.value = if (it.isSuccessful) OperationStatus.COMPLETED
-                    else OperationStatus.FAILED
+                    else OperationStatus.ERROR
             }
     }
     fun resetReauthenticationStatus() {

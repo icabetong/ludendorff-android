@@ -19,8 +19,16 @@ data class User @JvmOverloads constructor(
     var department: DepartmentCore? = null
 ): Parcelable {
 
+    fun hasPermission(permission: Int): Boolean {
+        return permissions and permission == permission
+    }
+
     fun getDisplayName(): String {
         return "$firstName $lastName"
+    }
+
+    fun minimize(): UserCore {
+        return UserCore.from(this)
     }
 
     companion object {

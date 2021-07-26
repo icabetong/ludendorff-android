@@ -15,6 +15,22 @@ class UserRepository @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val userProperties: UserProperties
 ){
+
+    suspend fun create(user: User): Response<Unit> {
+        return try {
+            firestore.collection(User.COLLECTION)
+                .document(user.userId)
+                .set(user)
+                .await()
+
+            Response.Success(Unit)
+        } catch (firestoreException: FirebaseFirestoreException) {
+            Response.Error(firestoreException)
+        } catch (exception: Exception) {
+            Response.Error(exception)
+        }
+    }
+
     suspend fun update(user: User): Response<Unit> {
         return try {
             firestore.collection(User.COLLECTION)

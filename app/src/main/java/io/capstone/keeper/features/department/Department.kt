@@ -14,8 +14,8 @@ data class Department @JvmOverloads constructor(
     var count: Int = 0
 ): Parcelable {
 
-    fun toDepartmentCore(): DepartmentCore {
-        return DepartmentCore.fromDepartment(this)
+    fun minimize(): DepartmentCore {
+        return DepartmentCore.from(this)
     }
 
     companion object {

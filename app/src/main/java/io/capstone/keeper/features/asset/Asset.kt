@@ -26,8 +26,8 @@ data class Asset @JvmOverloads constructor(
         return Companion.generateQRCode(assetId)
     }
 
-    fun toAssetCore(): AssetCore {
-        return AssetCore.fromAsset(this)
+    fun minimize(): AssetCore {
+        return AssetCore.from(this)
     }
 
     enum class Status {

@@ -16,7 +16,7 @@ data class DepartmentCore @JvmOverloads constructor(
 ): Parcelable {
 
     companion object {
-        fun fromDepartment(department: Department): DepartmentCore {
+        fun from(department: Department): DepartmentCore {
             return DepartmentCore(
                 departmentId = department.departmentId,
                 name = department.name

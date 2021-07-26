@@ -55,6 +55,7 @@
     <string name="hint_manager">Manager</string>
     <string name="hint_not_set">Not Set</string>
     <string name="hint_vacant">Vacant</string>
+    <string name="hint_department">Department</string>
     <string name="hint_user">User</string>
     <string name="hint_position">Position</string>
     <string name="hint_credentials">Credentials</string>
@@ -108,6 +109,11 @@
     <string name="feedback_sign_in_success">Signed-in successfully</string>
     <string name="feedback_empty_asset_name">You forgot to enter the asset name</string>
     <string name="feedback_empty_department_name">You forgot to enter the department name</string>
+    <string name="feedback_empty_first_name">You forgot to enter the first name</string>
+    <string name="feedback_empty_last_name">You forgot to enter the last name</string>
+    <string name="feedback_empty_department">You forgot to department</string>
+    <string name="feedback_empty_position">You forgot to enter the position</string>
+    <string name="feedback_empty_email">You forgot to enter the email address</string>
     <string name="feedback_specification_exists">Specification already exists</string>
     <string name="feedback_specification_removed">Specification removed</string>
     <string name="feedback_upload_error">Error uploading profile image</string>

@@ -1,5 +1,8 @@
 package io.capstone.keeper.features.core.activities
 
+import android.net.ConnectivityManager
+import android.net.Network
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.navigation.NavController
@@ -9,11 +12,14 @@ import io.capstone.keeper.R
 import io.capstone.keeper.databinding.ActivityMainBinding
 import io.capstone.keeper.features.auth.AuthViewModel
 import io.capstone.keeper.features.shared.components.BaseActivity
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity: BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var controller: NavController
+
+    @Inject lateinit var connectivityManager: ConnectivityManager
 
     private val authViewModel: AuthViewModel by viewModels()
 

@@ -16,4 +16,17 @@ data class UserCore @JvmOverloads constructor(
     var email: String? = null,
     var imageUrl: String? = null,
     var position: String? = null,
-): Parcelable
+): Parcelable {
+
+    companion object {
+        fun from(user: User): UserCore {
+            return UserCore(
+                userId = user.userId,
+                name = user.getDisplayName(),
+                email = user.email,
+                imageUrl = user.imageUrl,
+                position = user.position
+            )
+        }
+    }
+}

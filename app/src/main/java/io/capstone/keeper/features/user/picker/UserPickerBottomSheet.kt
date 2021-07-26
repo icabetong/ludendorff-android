@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -105,6 +107,17 @@ class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        TODO()
+        when(action) {
+            OnItemActionListener.Action.SELECT -> {
+                setFragmentResult(REQUEST_KEY_PICK, bundleOf(EXTRA_USER to data))
+                this.dismiss()
+            }
+            OnItemActionListener.Action.DELETE -> {}
+        }
+    }
+
+    companion object {
+        const val REQUEST_KEY_PICK = "request:pick"
+        const val EXTRA_USER = "extra:user"
     }
 }

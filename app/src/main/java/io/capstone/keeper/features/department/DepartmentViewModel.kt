@@ -24,5 +24,4 @@ class DepartmentViewModel @Inject constructor(
         DepartmentPagingSource(departmentQuery)
     }.flow.cachedIn(viewModelScope)
 
-
 }

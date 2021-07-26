@@ -1,6 +1,8 @@
 package io.capstone.keeper.components.modules
 
 import android.content.Context
+import android.net.ConnectivityManager
+import androidx.core.net.ConnectivityManagerCompat
 import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
@@ -11,6 +13,11 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 class ExternalModules {
+
+    @Provides
+    fun provideConnectivityManager(@ApplicationContext context: Context): ConnectivityManager {
+        return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
 
     @Provides
     fun provideWorkManager(@ApplicationContext context: Context): WorkManager {
