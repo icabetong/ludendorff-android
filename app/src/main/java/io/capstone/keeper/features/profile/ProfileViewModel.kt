@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -70,7 +71,7 @@ class ProfileViewModel @Inject constructor(
                         _passwordResetEmailSent.send(Operation.Success(null))
                     else _passwordResetEmailSent.send(Operation.Error(it.exception))
                 }
-            }
+            }.await()
     }
     fun updatePassword(password: String?) = viewModelScope.launch(IO) {
         if (password.isNullOrBlank()) {
@@ -85,7 +86,7 @@ class ProfileViewModel @Inject constructor(
                         _passwordUpdate.send(Operation.Success(null))
                     else _passwordUpdate.send(Operation.Error(it.exception))
                 }
-            }
+            }?.await()
     }
     fun reauthenticate(password: String?) = viewModelScope.launch(IO) {
         val email = userProperties.email
@@ -102,7 +103,7 @@ class ProfileViewModel @Inject constructor(
                         _reauthentication.send(Operation.Success(null))
                     else _reauthentication.send(Operation.Error(it.exception))
                 }
-            }
+            }?.await()
     }
 
     /**

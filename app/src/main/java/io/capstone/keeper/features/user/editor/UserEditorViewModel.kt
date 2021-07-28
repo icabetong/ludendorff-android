@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,7 +41,7 @@ class UserEditorViewModel @Inject constructor(
                         _reauthentication.send(Operation.Success(null))
                     else _reauthentication.send(Operation.Error(it.exception))
                 }
-            }
+            }?.await()
     }
 
     var user = User()
