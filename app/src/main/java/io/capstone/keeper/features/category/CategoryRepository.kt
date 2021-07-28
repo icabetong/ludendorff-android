@@ -14,22 +14,22 @@ class CategoryRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ): FirestoreRepository<Category> {
 
-    suspend fun create(data: Category): Response<Unit> {
+    suspend fun create(data: Category): Response<FirestoreRepository.Action> {
         return try {
             firestore.collection(Category.COLLECTION)
                 .document(data.categoryId)
                 .set(data)
                 .await()
 
-            Response.Success(Unit)
+            Response.Success(FirestoreRepository.Action.CREATE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, FirestoreRepository.Action.CREATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, FirestoreRepository.Action.CREATE)
         }
     }
 
-    suspend fun update(data: Category): Response<Unit> {
+    suspend fun update(data: Category): Response<FirestoreRepository.Action> {
         return try {
             val batchWrite = firestore.batch()
             batchWrite.set(firestore.collection(Category.COLLECTION).document(data.categoryId),
@@ -43,26 +43,26 @@ class CategoryRepository @Inject constructor(
                 }
             batchWrite.commit()
 
-            Response.Success(Unit)
+            Response.Success(FirestoreRepository.Action.UPDATE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, FirestoreRepository.Action.UPDATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, FirestoreRepository.Action.UPDATE)
         }
     }
 
-    suspend fun remove(category: Category): Response<Unit> {
+    suspend fun remove(category: Category): Response<FirestoreRepository.Action> {
         return try {
             firestore.collection(Category.COLLECTION)
                 .document(category.categoryId)
                 .delete()
                 .await()
 
-            Response.Success(Unit)
+            Response.Success(FirestoreRepository.Action.REMOVE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, FirestoreRepository.Action.REMOVE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, FirestoreRepository.Action.REMOVE)
         }
     }
 

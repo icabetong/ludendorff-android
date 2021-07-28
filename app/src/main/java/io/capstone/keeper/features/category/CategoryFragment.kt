@@ -27,7 +27,10 @@ import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentCategoryBinding
 import io.capstone.keeper.features.category.editor.CategoryEditorBottomSheet
+import io.capstone.keeper.features.core.backend.FirestoreRepository
+import io.capstone.keeper.features.core.data.Response
 import io.capstone.keeper.features.shared.components.BaseFragment
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -178,6 +181,33 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.action.collect {
+                when(it) {
+                    is Response.Error -> {
+                        when(it.data) {
+                            FirestoreRepository.Action.CREATE ->
+                                createSnackbar(R.string.feedback_category_create_error)
+                            FirestoreRepository.Action.UPDATE ->
+                                createSnackbar(R.string.feedback_category_update_error)
+                            FirestoreRepository.Action.REMOVE ->
+                                createSnackbar(R.string.feedback_category_remove_error)
+                        }
+                    }
+                    is Response.Success -> {
+                        when(it.data) {
+                            FirestoreRepository.Action.CREATE ->
+                                createSnackbar(R.string.feedback_category_created)
+                            FirestoreRepository.Action.UPDATE ->
+                                createSnackbar(R.string.feedback_category_updated)
+                            FirestoreRepository.Action.REMOVE ->
+                                createSnackbar(R.string.feedback_category_removed)
+                        }
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.categories.collectLatest {
                 categoryAdapter.submitData(it)
             }
@@ -218,9 +248,15 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        if (action == OnItemActionListener.Action.SELECT) {
-            CategoryEditorBottomSheet(childFragmentManager).show {
-                arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)
+        when(action) {
+            OnItemActionListener.Action.SELECT -> {
+                CategoryEditorBottomSheet(childFragmentManager).show {
+                    arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)
+                }
+            }
+            OnItemActionListener.Action.DELETE -> {
+                data?.let { viewModel.remove(it) }
+                categoryAdapter.refresh()
             }
         }
     }

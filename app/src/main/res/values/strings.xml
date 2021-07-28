@@ -119,6 +119,12 @@
     <string name="feedback_upload_error">Error uploading profile image</string>
     <string name="feedback_updated_password">Successfully changed password</string>
     <string name="feedback_reset_link_sent">Password reset link sent</string>
+    <string name="feedback_category_created">Category successfully created</string>
+    <string name="feedback_category_removed">Category successfully removed</string>
+    <string name="feedback_category_updated">Category successfully updated</string>
+    <string name="feedback_category_create_error">Error creating category</string>
+    <string name="feedback_category_remove_error">Error removing category</string>
+    <string name="feedback_category_update_error">Error updating category</string>
 
     <string name="empty_no_assets_header">No Assets Added</string>
     <string name="empty_no_assets_summary">There are no assets available.</string>

@@ -8,8 +8,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.features.core.backend.FirestoreRepository
+import io.capstone.keeper.features.core.data.Response
 import io.capstone.keeper.features.shared.components.BaseViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,13 +30,16 @@ class CategoryViewModel @Inject constructor(
         CategoryPagingSource(categoryQuery)
     }.flow.cachedIn(viewModelScope)
 
-    fun create(category: Category) = viewModelScope.launch(Dispatchers.IO) {
-        repository.create(category)
+    private val _action = Channel<Response<FirestoreRepository.Action>>(Channel.BUFFERED)
+    val action = _action.receiveAsFlow()
+
+    fun create(category: Category) = viewModelScope.launch(IO) {
+        _action.send(repository.create(category))
     }
-    fun update(category: Category) = viewModelScope.launch(Dispatchers.IO) {
-        repository.update(category)
+    fun update(category: Category) = viewModelScope.launch(IO) {
+        _action.send(repository.update(category))
     }
-    fun remove(category: Category) = viewModelScope.launch(Dispatchers.IO) {
-        repository.remove(category)
+    fun remove(category: Category) = viewModelScope.launch(IO) {
+        _action.send(repository.remove(category))
     }
 }

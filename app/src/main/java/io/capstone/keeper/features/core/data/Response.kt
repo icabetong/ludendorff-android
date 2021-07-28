@@ -6,8 +6,9 @@ sealed class Response<out T> {
         val data: R
     ): Response<R>()
 
-    data class Error(
-        val throwable: Throwable?
-    ): Response<Nothing>()
+    data class Error<out R>(
+        val throwable: Throwable?,
+        val data: R? = null
+    ): Response<R>()
 
 }
