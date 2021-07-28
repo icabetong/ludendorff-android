@@ -10,6 +10,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.afollestad.materialdialogs.MaterialDialog
@@ -23,11 +24,13 @@ import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.utils.PasswordManager
 import io.capstone.keeper.databinding.FragmentEditorUserBinding
-import io.capstone.keeper.features.core.backend.OperationStatus
+import io.capstone.keeper.features.core.backend.Operation
 import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.keeper.features.shared.components.BaseEditorFragment
 import io.capstone.keeper.features.user.User
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executor
 
 @AndroidEntryPoint
@@ -117,26 +120,22 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
     override fun onStart() {
         super.onStart()
 
-        viewModel.reauthenticationStatus.observe(viewLifecycleOwner) {
-            when(it) {
-                OperationStatus.COMPLETED -> {
-                    binding.root.isEnabled = true
-                    viewModel.setReauthenticationStatusAsIdle()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.reauthentication.collect {
+                when(it) {
+                    is Operation.Error -> {
+                        binding.root.isEnabled = true
+                        createSnackbar(R.string.error_auth_failed)
+                    }
+                    is Operation.Success -> {
+                        binding.root.isEnabled = true
 
-                    if (requestKey == REQUEST_KEY_UPDATE)
-                        viewModel.update()
-                    else viewModel.create()
-                    controller?.navigateUp()
+                        if (requestKey == REQUEST_KEY_UPDATE)
+                            viewModel.update()
+                        else viewModel.create()
+                        controller?.navigateUp()
+                    }
                 }
-                OperationStatus.ERROR -> {
-                    binding.root.isEnabled = true
-                    viewModel.setReauthenticationStatusAsIdle()
-                    createSnackbar(R.string.error_auth_failed)
-                }
-                OperationStatus.REQUESTED -> {
-                    binding.root.isEnabled = false
-                }
-                else -> { /** Idle Status; no work to do **/ }
             }
         }
     }

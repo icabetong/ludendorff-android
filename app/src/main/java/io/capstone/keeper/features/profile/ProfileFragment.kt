@@ -17,6 +17,7 @@ import androidx.core.util.PatternsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.work.*
@@ -33,12 +34,14 @@ import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.NavigationItemDecoration
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentProfileBinding
-import io.capstone.keeper.features.core.backend.OperationStatus
+import io.capstone.keeper.features.core.backend.Operation
 import io.capstone.keeper.features.core.worker.ImageCompressWorker
 import io.capstone.keeper.features.core.worker.ProfileUploadWorker
 import io.capstone.keeper.features.profile.actions.ChangeNameBottomSheet
 import io.capstone.keeper.features.profile.actions.ChangePasswordBottomSheet
 import io.capstone.keeper.features.shared.components.BaseFragment
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -152,80 +155,65 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
-        viewModel.linkSendingStatus.observe(viewLifecycleOwner) {
-            when(it) {
-                OperationStatus.REQUESTED -> {
-                    binding.appBarProgressIndicator.isVisible = true
-                    binding.nestedScrollView.isEnabled = false
-                }
-                OperationStatus.COMPLETED -> {
-                    binding.appBarProgressIndicator.isVisible = false
-                    binding.nestedScrollView.isEnabled = true
-                    viewModel.resetLinkSendingStatus()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.passwordResetEmailSent.collect {
+                when(it) {
+                    is Operation.Error -> {
+                        binding.appBarProgressIndicator.isVisible = false
+                        binding.nestedScrollView.isEnabled = true
 
-                    createSnackbar(R.string.feedback_reset_link_sent)
-                }
-                OperationStatus.ERROR -> {
-                    binding.appBarProgressIndicator.isVisible = false
-                    binding.nestedScrollView.isEnabled = true
-                    viewModel.resetLinkSendingStatus()
+                        createSnackbar(R.string.error_generic)
+                    }
+                    is Operation.Success -> {
+                        binding.appBarProgressIndicator.isVisible = false
+                        binding.nestedScrollView.isEnabled = true
 
-                    createSnackbar(R.string.error_generic)
+                        createSnackbar(R.string.feedback_reset_link_sent)
+                    }
                 }
-                else -> {}
             }
         }
 
-        viewModel.passwordUpdateStatus.observe(viewLifecycleOwner) {
-            when(it) {
-                OperationStatus.REQUESTED -> {
-                    binding.appBarProgressIndicator.isVisible = true
-                    binding.nestedScrollView.isEnabled = false
-                }
-                OperationStatus.COMPLETED -> {
-                    binding.appBarProgressIndicator.isVisible = false
-                    binding.nestedScrollView.isEnabled = true
-                    viewModel.resetPasswordUpdateStatus()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.passwordUpdate.collect {
+                when(it) {
+                    is Operation.Error -> {
+                        binding.appBarProgressIndicator.isVisible = false
+                        binding.nestedScrollView.isEnabled = true
 
-                    createSnackbar(R.string.feedback_updated_password)
-                }
-                OperationStatus.ERROR -> {
-                    binding.appBarProgressIndicator.isVisible = false
-                    binding.nestedScrollView.isEnabled = true
-                    viewModel.resetPasswordUpdateStatus()
+                        createSnackbar(R.string.error_generic)
+                    }
+                    is Operation.Success -> {
+                        binding.appBarProgressIndicator.isVisible = false
+                        binding.nestedScrollView.isEnabled = true
 
-                    createSnackbar(R.string.error_generic)
+                        createSnackbar(R.string.feedback_updated_password)
+                    }
                 }
-                else -> {}
             }
         }
 
-        viewModel.reauthenticationStatus.observe(viewLifecycleOwner) {
-            when(it) {
-                OperationStatus.REQUESTED -> {
-                    binding.appBarProgressIndicator.isVisible = true
-                    binding.nestedScrollView.isEnabled = false
-                }
-                OperationStatus.COMPLETED -> {
-                    binding.appBarProgressIndicator.isVisible = false
-                    binding.nestedScrollView.isEnabled = true
-                    viewModel.resetReauthenticationStatus()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.reauthentication.collect {
+                when(it) {
+                    is Operation.Error -> {
+                        binding.appBarProgressIndicator.isVisible = false
+                        binding.nestedScrollView.isEnabled = true
 
-                    /**
-                     *  The user have successfully authenticated
-                     *  his credentials
-                     */
-                    ChangePasswordBottomSheet(childFragmentManager)
-                        .show()
-                }
-                OperationStatus.ERROR -> {
-                    binding.appBarProgressIndicator.isVisible = false
-                    binding.nestedScrollView.isEnabled = true
-                    viewModel.resetReauthenticationStatus()
+                        createSnackbar(R.string.error_invalid_credentials)
+                    }
+                    is Operation.Success -> {
+                        binding.appBarProgressIndicator.isVisible = false
+                        binding.nestedScrollView.isEnabled = true
 
-                    createSnackbar(R.string.error_invalid_credentials)
+                        /**
+                         *  The user have successfully authenticated
+                         *  his credentials
+                         */
+                        ChangePasswordBottomSheet(childFragmentManager)
+                            .show()
+                    }
                 }
-                else -> {}
             }
         }
 
@@ -343,6 +331,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     positiveButton(R.string.button_send) {
                         val input = it.getInputField().text.toString()
 
+                        binding.appBarProgressIndicator.isVisible = true
+                        binding.nestedScrollView.isEnabled = false
                         viewModel.sendPasswordResetLink(input)
                     }
                     negativeButton(R.string.button_cancel)
@@ -361,6 +351,9 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
             }
             ChangePasswordBottomSheet.REQUEST_KEY_CHANGE -> {
                 result.getString(ChangePasswordBottomSheet.EXTRA_PASSWORD)?.let {
+                    binding.appBarProgressIndicator.isVisible = true
+                    binding.nestedScrollView.isEnabled = false
+
                     viewModel.updatePassword(it)
                 }
             }
@@ -396,6 +389,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                             val password = it.getInputField().text.toString()
 
                             viewModel.reauthenticate(password)
+                            binding.appBarProgressIndicator.isVisible = true
+                            binding.nestedScrollView.isEnabled = false
                         }
                     }
                 }

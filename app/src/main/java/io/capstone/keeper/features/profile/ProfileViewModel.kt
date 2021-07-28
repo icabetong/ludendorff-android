@@ -1,20 +1,21 @@
 package io.capstone.keeper.features.profile
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.work.*
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.components.persistence.UserProperties
-import io.capstone.keeper.features.core.backend.OperationStatus
+import io.capstone.keeper.features.core.backend.Operation
 import io.capstone.keeper.features.core.worker.ImageCompressWorker
 import io.capstone.keeper.features.core.worker.ProfileUploadWorker
 import io.capstone.keeper.features.shared.components.BaseViewModel
 import io.capstone.keeper.features.user.User
 import io.capstone.keeper.features.user.UserRepository
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,14 +27,14 @@ class ProfileViewModel @Inject constructor(
     private val workManager: WorkManager
 ): BaseViewModel() {
 
-    private val _reauthenticationStatus = MutableLiveData(OperationStatus.IDLE)
-    internal val reauthenticationStatus: LiveData<OperationStatus> = _reauthenticationStatus
+    private val _reauthentication = Channel<Operation<Nothing>>(Channel.BUFFERED)
+    val reauthentication = _reauthentication.receiveAsFlow()
 
-    private val _passwordUpdateStatus = MutableLiveData(OperationStatus.IDLE)
-    internal val passwordUpdateStatus: LiveData<OperationStatus> = _passwordUpdateStatus
+    private val _passwordUpdate = Channel<Operation<Nothing>>(Channel.BUFFERED)
+    val passwordUpdate = _passwordUpdate.receiveAsFlow()
 
-    private val _linkSendingStatus = MutableLiveData(OperationStatus.IDLE)
-    internal val linkSendingStatus: LiveData<OperationStatus> = _linkSendingStatus
+    private val _passwordResetEmailSent = Channel<Operation<Nothing>>(Channel.BUFFERED)
+    val passwordResetEmailSent = _passwordResetEmailSent.receiveAsFlow()
 
     val firstName: String?
         get() = userProperties.firstName
@@ -56,55 +57,52 @@ class ProfileViewModel @Inject constructor(
         firebaseAuth.signOut()
         userProperties.clear()
     }
-    fun sendPasswordResetLink(email: String?) = viewModelScope.launch {
-        _linkSendingStatus.value = OperationStatus.REQUESTED
+    fun sendPasswordResetLink(email: String?) = viewModelScope.launch(IO) {
         if (email.isNullOrBlank()) {
-            _linkSendingStatus.value = OperationStatus.ERROR
+            _passwordResetEmailSent.send(Operation.Error(NullPointerException()))
             return@launch
         }
 
         firebaseAuth.sendPasswordResetEmail(email)
             .addOnCompleteListener {
-                _linkSendingStatus.value = if (it.isSuccessful) OperationStatus.COMPLETED
-                    else OperationStatus.ERROR
+                this.launch {
+                    if (it.isSuccessful)
+                        _passwordResetEmailSent.send(Operation.Success(null))
+                    else _passwordResetEmailSent.send(Operation.Error(it.exception))
+                }
             }
     }
-    fun updatePassword(password: String?) = viewModelScope.launch {
-        _passwordUpdateStatus.value = OperationStatus.REQUESTED
+    fun updatePassword(password: String?) = viewModelScope.launch(IO) {
         if (password.isNullOrBlank()) {
-            _passwordUpdateStatus.value = OperationStatus.ERROR
+            _passwordUpdate.send(Operation.Error(NullPointerException()))
             return@launch
         }
 
         firebaseAuth.currentUser?.updatePassword(password)
             ?.addOnCompleteListener {
-                _passwordUpdateStatus.value = if (it.isSuccessful) OperationStatus.COMPLETED
-                    else OperationStatus.ERROR
+                this.launch {
+                    if (it.isSuccessful)
+                        _passwordUpdate.send(Operation.Success(null))
+                    else _passwordUpdate.send(Operation.Error(it.exception))
+                }
             }
     }
-    fun reauthenticate(password: String?) = viewModelScope.launch {
-        _reauthenticationStatus.value = OperationStatus.REQUESTED
+    fun reauthenticate(password: String?) = viewModelScope.launch(IO) {
         val email = userProperties.email
         if (email.isNullOrBlank() || password.isNullOrBlank()) {
-            _reauthenticationStatus.value = OperationStatus.ERROR
+            _reauthentication.send(Operation.Error(NullPointerException()))
             return@launch
         }
 
         val credential = EmailAuthProvider.getCredential(email, password)
         firebaseAuth.currentUser?.reauthenticate(credential)
             ?.addOnCompleteListener {
-                _reauthenticationStatus.value = if (it.isSuccessful) OperationStatus.COMPLETED
-                    else OperationStatus.ERROR
+                this.launch {
+                    if (it.isSuccessful)
+                        _reauthentication.send(Operation.Success(null))
+                    else _reauthentication.send(Operation.Error(it.exception))
+                }
             }
-    }
-    fun resetReauthenticationStatus() {
-        _reauthenticationStatus.value = OperationStatus.IDLE
-    }
-    fun resetPasswordUpdateStatus() {
-        _passwordUpdateStatus.value = OperationStatus.IDLE
-    }
-    fun resetLinkSendingStatus() {
-        _linkSendingStatus.value = OperationStatus.IDLE
     }
 
     /**
