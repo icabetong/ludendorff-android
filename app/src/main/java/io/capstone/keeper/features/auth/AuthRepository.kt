@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import io.capstone.keeper.components.exceptions.EmptyCredentialsException
 import io.capstone.keeper.components.persistence.UserProperties
+import io.capstone.keeper.features.core.backend.Operation
 import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class AuthRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ){
 
-    suspend fun authenticate(email: String, password: String): AuthStatus {
+    suspend fun authenticate(email: String, password: String): Operation<User> {
         return try {
             return if (email.isNotBlank() && password.isNotBlank()) {
                 /**
@@ -40,17 +41,17 @@ class AuthRepository @Inject constructor(
                     if (userTask != null) {
                         val user = userTask.toObject(User::class.java)
                         if (user != null)
-                            AuthStatus.Success(user)
-                        else AuthStatus.Error(NullPointerException())
-                    } else AuthStatus.Error(NullPointerException())
-                } else AuthStatus.Error(NullPointerException())
+                            Operation.Success(user)
+                        else Operation.Error(NullPointerException())
+                    } else Operation.Error(NullPointerException())
+                } else Operation.Error(NullPointerException())
             } else {
                 /**
                  *  Return a custom exception that specifies that
                  *  the user has no credentials inputted in the fields
                  *  provided.
                  */
-                AuthStatus.Error(EmptyCredentialsException())
+                Operation.Error(EmptyCredentialsException())
             }
 
         } catch (invalidUserException: FirebaseAuthInvalidUserException) {
@@ -58,17 +59,17 @@ class AuthRepository @Inject constructor(
              *  Exception raised when the user doesn't yet exists
              *  or the user account has been disabled.
              */
-            AuthStatus.Error(invalidUserException)
+            Operation.Error(invalidUserException)
 
         } catch (invalidCredentialsException: FirebaseAuthInvalidCredentialsException) {
             /**
              *  Exception raised when invalid credentials are inputted
              *  by the user, either email, username or password
              */
-            AuthStatus.Error(invalidCredentialsException)
+            Operation.Error(invalidCredentialsException)
 
         } catch (e: Exception) {
-            AuthStatus.Error(e)
+            Operation.Error(e)
         }
     }
 
