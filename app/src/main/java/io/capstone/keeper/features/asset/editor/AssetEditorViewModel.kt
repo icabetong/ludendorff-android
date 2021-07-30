@@ -2,20 +2,11 @@ package io.capstone.keeper.features.asset.editor
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.features.asset.Asset
-import io.capstone.keeper.features.asset.AssetRepository
 import io.capstone.keeper.features.category.Category
 import io.capstone.keeper.features.shared.components.BaseViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class AssetEditorViewModel @Inject constructor(
-    private val repository: AssetRepository
-): BaseViewModel() {
+class AssetEditorViewModel: BaseViewModel() {
 
     private var _specifications = MutableLiveData(mutableListOf<Pair<String, String>>())
     internal val specifications: LiveData<MutableList<Pair<String, String>>> = _specifications
@@ -58,18 +49,6 @@ class AssetEditorViewModel @Inject constructor(
     fun checkSpecificationIfExists(specification: Pair<String, String>): Boolean {
         val temp = getSpecifications()
         return temp.any { it.first.lowercase() == specification.first.lowercase() }
-    }
-
-    fun insert() = viewModelScope.launch(Dispatchers.IO) {
-        asset.specifications = _specifications.value?.toMap() ?: emptyMap()
-        repository.insert(asset)
-    }
-    fun update() = viewModelScope.launch(Dispatchers.IO) {
-        asset.specifications = _specifications.value?.toMap() ?: emptyMap()
-        repository.update(asset, previousCategoryId)
-    }
-    fun remove() = viewModelScope.launch(Dispatchers.IO) {
-        repository.remove(asset)
     }
 
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -25,7 +26,8 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
     private var requestKey: String = REQUEST_KEY_CREATE
 
     private val binding get() = _binding!!
-    private val viewModel: DepartmentEditorViewModel by viewModels()
+    private val editorViewModel: DepartmentEditorViewModel by viewModels()
+    private val viewModel: DepartmentViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +62,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
         arguments?.getParcelable<Department>(EXTRA_DEPARTMENT)?.let {
             requestKey = REQUEST_KEY_UPDATE
-            viewModel.department = it
+            editorViewModel.department = it
 
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.departmentId
             binding.appBar.toolbar.setTitle(R.string.title_department_update)
@@ -77,16 +79,16 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         super.onResume()
 
         binding.actionButton.setOnClickListener {
-            viewModel.department.name = binding.nameTextInput.text.toString()
+            editorViewModel.department.name = binding.nameTextInput.text.toString()
 
-            if (viewModel.department.name.isNullOrBlank()) {
+            if (editorViewModel.department.name.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_department_name)
                 return@setOnClickListener
             }
 
             if (requestKey == REQUEST_KEY_CREATE)
-                viewModel.create()
-            else viewModel.update()
+                viewModel.create(editorViewModel.department)
+            else viewModel.update(editorViewModel.department)
             controller?.navigateUp()
         }
 
@@ -102,7 +104,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
                     binding.managerTextView.text = it.getDisplayName()
                     binding.emailTextView.text = it.email
 
-                    viewModel.triggerManagerChanged(it)
+                    editorViewModel.triggerManagerChanged(it)
                 }
             }
         }

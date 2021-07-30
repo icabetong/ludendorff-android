@@ -5,7 +5,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.components.persistence.UserProperties
-import io.capstone.keeper.features.core.backend.Operation
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.shared.components.BaseViewModel
 import io.capstone.keeper.features.user.User
 import io.capstone.keeper.features.user.UserRepository
@@ -23,13 +23,13 @@ class UserEditorViewModel @Inject constructor(
     private val userProperties: UserProperties
 ): BaseViewModel() {
 
-    private val _reauthentication = Channel<Operation<Nothing>>(Channel.BUFFERED)
+    private val _reauthentication = Channel<Response<Unit>>(Channel.BUFFERED)
     val reauthentication = _reauthentication.receiveAsFlow()
 
     fun reauthenticate(password: String?) = viewModelScope.launch(IO) {
         val email = userProperties.email
         if (email.isNullOrBlank() || password.isNullOrBlank()) {
-            _reauthentication.send(Operation.Success(null))
+            _reauthentication.send(Response.Success(Unit))
             return@launch
         }
 
@@ -38,8 +38,8 @@ class UserEditorViewModel @Inject constructor(
             ?.addOnCompleteListener {
                 this.launch {
                     if (it.isSuccessful)
-                        _reauthentication.send(Operation.Success(null))
-                    else _reauthentication.send(Operation.Error(it.exception))
+                        _reauthentication.send(Response.Success(Unit))
+                    else _reauthentication.send(Response.Error(it.exception))
                 }
             }?.await()
     }

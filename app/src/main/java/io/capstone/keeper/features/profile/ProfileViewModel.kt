@@ -7,7 +7,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.components.persistence.UserProperties
-import io.capstone.keeper.features.core.backend.Operation
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.core.worker.ImageCompressWorker
 import io.capstone.keeper.features.core.worker.ProfileUploadWorker
 import io.capstone.keeper.features.shared.components.BaseViewModel
@@ -28,13 +28,13 @@ class ProfileViewModel @Inject constructor(
     private val workManager: WorkManager
 ): BaseViewModel() {
 
-    private val _reauthentication = Channel<Operation<Nothing>>(Channel.BUFFERED)
+    private val _reauthentication = Channel<Response<Unit>>(Channel.BUFFERED)
     val reauthentication = _reauthentication.receiveAsFlow()
 
-    private val _passwordUpdate = Channel<Operation<Nothing>>(Channel.BUFFERED)
+    private val _passwordUpdate = Channel<Response<Unit>>(Channel.BUFFERED)
     val passwordUpdate = _passwordUpdate.receiveAsFlow()
 
-    private val _passwordResetEmailSent = Channel<Operation<Nothing>>(Channel.BUFFERED)
+    private val _passwordResetEmailSent = Channel<Response<Unit>>(Channel.BUFFERED)
     val passwordResetEmailSent = _passwordResetEmailSent.receiveAsFlow()
 
     val firstName: String?
@@ -60,7 +60,7 @@ class ProfileViewModel @Inject constructor(
     }
     fun sendPasswordResetLink(email: String?) = viewModelScope.launch(IO) {
         if (email.isNullOrBlank()) {
-            _passwordResetEmailSent.send(Operation.Error(NullPointerException()))
+            _passwordResetEmailSent.send(Response.Error(NullPointerException()))
             return@launch
         }
 
@@ -68,14 +68,14 @@ class ProfileViewModel @Inject constructor(
             .addOnCompleteListener {
                 this.launch {
                     if (it.isSuccessful)
-                        _passwordResetEmailSent.send(Operation.Success(null))
-                    else _passwordResetEmailSent.send(Operation.Error(it.exception))
+                        _passwordResetEmailSent.send(Response.Success(Unit))
+                    else _passwordResetEmailSent.send(Response.Error(it.exception))
                 }
             }.await()
     }
     fun updatePassword(password: String?) = viewModelScope.launch(IO) {
         if (password.isNullOrBlank()) {
-            _passwordUpdate.send(Operation.Error(NullPointerException()))
+            _passwordUpdate.send(Response.Error(NullPointerException()))
             return@launch
         }
 
@@ -83,15 +83,15 @@ class ProfileViewModel @Inject constructor(
             ?.addOnCompleteListener {
                 this.launch {
                     if (it.isSuccessful)
-                        _passwordUpdate.send(Operation.Success(null))
-                    else _passwordUpdate.send(Operation.Error(it.exception))
+                        _passwordUpdate.send(Response.Success(Unit))
+                    else _passwordUpdate.send(Response.Error(it.exception))
                 }
             }?.await()
     }
     fun reauthenticate(password: String?) = viewModelScope.launch(IO) {
         val email = userProperties.email
         if (email.isNullOrBlank() || password.isNullOrBlank()) {
-            _reauthentication.send(Operation.Error(NullPointerException()))
+            _reauthentication.send(Response.Error(NullPointerException()))
             return@launch
         }
 
@@ -100,8 +100,8 @@ class ProfileViewModel @Inject constructor(
             ?.addOnCompleteListener {
                 this.launch {
                     if (it.isSuccessful)
-                        _reauthentication.send(Operation.Success(null))
-                    else _reauthentication.send(Operation.Error(it.exception))
+                        _reauthentication.send(Response.Success(Unit))
+                    else _reauthentication.send(Response.Error(it.exception))
                 }
             }?.await()
     }

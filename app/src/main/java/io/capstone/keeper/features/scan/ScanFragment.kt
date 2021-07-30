@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.IdRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.budiyev.android.codescanner.AutoFocusMode
@@ -64,11 +65,7 @@ class ScanFragment: BaseFragment() {
             iconRes = R.drawable.ic_hero_menu,
             onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
             menuRes = R.menu.menu_main,
-            onMenuOptionClicked = {
-                when (it) {
-                    R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
-                }
-            }
+            onMenuOptionClicked = ::onMenuItemClicked
         )
 
         codeScanner = CodeScanner(view.context, binding.codeScannerView)
@@ -119,5 +116,13 @@ class ScanFragment: BaseFragment() {
     private fun switchViews(permissionGranted: Boolean) {
         binding.codeScannerView.isVisible = permissionGranted
         binding.errorView.isVisible = !permissionGranted
+    }
+
+    private fun onMenuItemClicked(@IdRes id: Int) {
+        when(id) {
+            R.id.action_menu -> {
+                getOverlappingPanelLayout().openEndPanel()
+            }
+        }
     }
 }

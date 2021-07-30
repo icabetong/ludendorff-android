@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.components.persistence.UserProperties
-import io.capstone.keeper.features.core.backend.Operation
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.shared.components.BaseViewModel
 import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.Dispatchers.IO
@@ -22,10 +22,10 @@ class AuthViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth
 ): BaseViewModel() {
 
-    private val _authStatus = Channel<Operation<User>>(Channel.BUFFERED)
+    private val _authStatus = Channel<Response<User>>(Channel.BUFFERED)
     val authStatus = _authStatus.receiveAsFlow()
 
-    private val _passwordResetEmailSent = Channel<Operation<Nothing>>(Channel.BUFFERED)
+    private val _passwordResetEmailSent = Channel<Response<Unit>>(Channel.BUFFERED)
     val passwordResetEmail = _passwordResetEmailSent.receiveAsFlow()
 
     fun authenticate(email: String, password: String) = viewModelScope.launch(IO) {
@@ -42,7 +42,7 @@ class AuthViewModel @Inject constructor(
     }
     fun requestPasswordResetEmail(email: String?) = viewModelScope.launch(IO) {
         if (email.isNullOrBlank()) {
-            _passwordResetEmailSent.send(Operation.Error(NullPointerException()))
+            _passwordResetEmailSent.send(Response.Error(NullPointerException()))
             return@launch
         }
 
@@ -50,8 +50,8 @@ class AuthViewModel @Inject constructor(
             .addOnCompleteListener {
                 this.launch {
                     if (it.isSuccessful)
-                        _passwordResetEmailSent.send(Operation.Success(null))
-                    else _passwordResetEmailSent.send(Operation.Error(it.exception))
+                        _passwordResetEmailSent.send(Response.Success(Unit))
+                    else _passwordResetEmailSent.send(Response.Error(it.exception))
                 }
             }.await()
     }

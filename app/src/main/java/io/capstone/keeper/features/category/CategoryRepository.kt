@@ -4,7 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.keeper.features.asset.Asset
 import io.capstone.keeper.features.core.backend.FirestoreRepository
-import io.capstone.keeper.features.core.data.Response
+import io.capstone.keeper.features.core.backend.Response
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,22 +14,22 @@ class CategoryRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ): FirestoreRepository<Category> {
 
-    suspend fun create(data: Category): Response<FirestoreRepository.Action> {
+    suspend fun create(data: Category): Response<Response.Action> {
         return try {
             firestore.collection(Category.COLLECTION)
                 .document(data.categoryId)
                 .set(data)
                 .await()
 
-            Response.Success(FirestoreRepository.Action.CREATE)
+            Response.Success(Response.Action.CREATE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException, FirestoreRepository.Action.CREATE)
+            Response.Error(firestoreException, Response.Action.CREATE)
         } catch (exception: Exception) {
-            Response.Error(exception, FirestoreRepository.Action.CREATE)
+            Response.Error(exception, Response.Action.CREATE)
         }
     }
 
-    suspend fun update(data: Category): Response<FirestoreRepository.Action> {
+    suspend fun update(data: Category): Response<Response.Action> {
         return try {
             val batchWrite = firestore.batch()
             batchWrite.set(firestore.collection(Category.COLLECTION).document(data.categoryId),
@@ -43,26 +43,26 @@ class CategoryRepository @Inject constructor(
                 }
             batchWrite.commit()
 
-            Response.Success(FirestoreRepository.Action.UPDATE)
+            Response.Success(Response.Action.UPDATE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException, FirestoreRepository.Action.UPDATE)
+            Response.Error(firestoreException, Response.Action.UPDATE)
         } catch (exception: Exception) {
-            Response.Error(exception, FirestoreRepository.Action.UPDATE)
+            Response.Error(exception, Response.Action.UPDATE)
         }
     }
 
-    suspend fun remove(category: Category): Response<FirestoreRepository.Action> {
+    suspend fun remove(category: Category): Response<Response.Action> {
         return try {
             firestore.collection(Category.COLLECTION)
                 .document(category.categoryId)
                 .delete()
                 .await()
 
-            Response.Success(FirestoreRepository.Action.REMOVE)
+            Response.Success(Response.Action.REMOVE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException, FirestoreRepository.Action.REMOVE)
+            Response.Error(firestoreException, Response.Action.REMOVE)
         } catch (exception: Exception) {
-            Response.Error(exception, FirestoreRepository.Action.REMOVE)
+            Response.Error(exception, Response.Action.REMOVE)
         }
     }
 

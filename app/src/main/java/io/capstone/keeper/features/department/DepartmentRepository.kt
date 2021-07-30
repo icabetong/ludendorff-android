@@ -2,8 +2,7 @@ package io.capstone.keeper.features.department
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import io.capstone.keeper.features.core.backend.FirestoreRepository
-import io.capstone.keeper.features.core.data.Response
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -12,24 +11,24 @@ import javax.inject.Singleton
 @Singleton
 class DepartmentRepository @Inject constructor(
     private val firestore: FirebaseFirestore
-): FirestoreRepository<Department> {
+) {
 
-    suspend fun create(department: Department): Response<Unit> {
+    suspend fun create(department: Department): Response<Response.Action> {
         return try {
             firestore.collection(Department.COLLECTION)
                 .document(department.departmentId)
                 .set(department)
                 .await()
 
-            Response.Success(Unit)
+            Response.Success(Response.Action.CREATE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, Response.Action.CREATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.CREATE)
         }
     }
 
-    suspend fun update(department: Department): Response<Unit> {
+    suspend fun update(department: Department): Response<Response.Action> {
         return try {
             firestore.collection(Department.COLLECTION)
                 .document(department.departmentId)
@@ -45,26 +44,26 @@ class DepartmentRepository @Inject constructor(
                 }
             batchWrite.commit()
 
-            Response.Success(Unit)
+            Response.Success(Response.Action.UPDATE)
         } catch (firestore: FirebaseFirestoreException) {
-            Response.Error(firestore)
+            Response.Error(firestore, Response.Action.UPDATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.UPDATE)
         }
     }
 
-    suspend fun remove(department: Department): Response<Unit> {
+    suspend fun remove(department: Department): Response<Response.Action> {
         return try {
             firestore.collection(Department.COLLECTION)
                 .document(department.departmentId)
                 .delete()
                 .await()
 
-            Response.Success(Unit)
+            Response.Success(Response.Action.REMOVE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, Response.Action.REMOVE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.REMOVE)
         }
     }
 }

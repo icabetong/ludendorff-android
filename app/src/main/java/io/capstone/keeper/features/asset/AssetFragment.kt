@@ -28,7 +28,9 @@ import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentAssetsBinding
 import io.capstone.keeper.features.asset.editor.AssetEditorFragment
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.shared.components.BaseFragment
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -175,6 +177,34 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset> {
                         binding.emptyView.root.hide()
                         if (it.refresh.endOfPaginationReached)
                             binding.emptyView.root.isVisible = assetAdapter.itemCount < 1
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.action.collect {
+                when(it) {
+                    is Response.Error -> {
+                        when(it.action) {
+                            Response.Action.CREATE ->
+                                createSnackbar(R.string.feedback_asset_create_error)
+                            Response.Action.UPDATE ->
+                                createSnackbar(R.string.feedback_asset_update_error)
+                            Response.Action.REMOVE ->
+                                createSnackbar(R.string.feedback_asset_remove_error)
+                            else -> {}
+                        }
+                    }
+                    is Response.Success -> {
+                        when(it.data) {
+                            Response.Action.CREATE ->
+                                createSnackbar(R.string.feedback_asset_created)
+                            Response.Action.UPDATE ->
+                                createSnackbar(R.string.feedback_asset_updated)
+                            Response.Action.REMOVE ->
+                                createSnackbar(R.string.feedback_asset_removed)
+                        }
                     }
                 }
             }

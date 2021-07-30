@@ -27,8 +27,7 @@ import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentCategoryBinding
 import io.capstone.keeper.features.category.editor.CategoryEditorBottomSheet
-import io.capstone.keeper.features.core.backend.FirestoreRepository
-import io.capstone.keeper.features.core.data.Response
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.shared.components.BaseFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -120,6 +119,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
                         binding.errorView.root.hide()
                         binding.emptyView.root.hide()
+                        binding.permissionView.root.hide()
                     }
                     /**
                      *  The PagingAdapter or any component related to fetch
@@ -184,22 +184,22 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             viewModel.action.collect {
                 when(it) {
                     is Response.Error -> {
-                        when(it.data) {
-                            FirestoreRepository.Action.CREATE ->
+                        when(it.action) {
+                            Response.Action.CREATE ->
                                 createSnackbar(R.string.feedback_category_create_error)
-                            FirestoreRepository.Action.UPDATE ->
+                            Response.Action.UPDATE ->
                                 createSnackbar(R.string.feedback_category_update_error)
-                            FirestoreRepository.Action.REMOVE ->
+                            Response.Action.REMOVE ->
                                 createSnackbar(R.string.feedback_category_remove_error)
                         }
                     }
                     is Response.Success -> {
                         when(it.data) {
-                            FirestoreRepository.Action.CREATE ->
+                            Response.Action.CREATE ->
                                 createSnackbar(R.string.feedback_category_created)
-                            FirestoreRepository.Action.UPDATE ->
+                            Response.Action.UPDATE ->
                                 createSnackbar(R.string.feedback_category_updated)
-                            FirestoreRepository.Action.REMOVE ->
+                            Response.Action.REMOVE ->
                                 createSnackbar(R.string.feedback_category_removed)
                         }
                     }

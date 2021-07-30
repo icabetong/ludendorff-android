@@ -4,7 +4,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.keeper.features.category.Category
-import io.capstone.keeper.features.core.data.Response
+import io.capstone.keeper.features.core.backend.Response
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -29,7 +29,7 @@ class AssetRepository @Inject constructor(
         }
     }
 
-    suspend fun insert(asset: Asset): Response<Unit> {
+    suspend fun create(asset: Asset): Response<Response.Action> {
         return try {
             firestore.runBatch { writeBatch ->
                 writeBatch.set(firestore.collection(Asset.COLLECTION).document(asset.assetId),
@@ -41,13 +41,13 @@ class AssetRepository @Inject constructor(
                 }
             }.await()
 
-            Response.Success(Unit)
+            Response.Success(Response.Action.CREATE)
         } catch (e: Exception) {
-            Response.Error(e)
+            Response.Error(e, Response.Action.CREATE)
         }
     }
 
-    suspend fun update(asset: Asset, categoryId: String? = null): Response<Unit> {
+    suspend fun update(asset: Asset, categoryId: String? = null): Response<Response.Action> {
         return try {
             firestore.runBatch { writeBatch ->
                 writeBatch.set(firestore.collection(Asset.COLLECTION)
@@ -72,15 +72,15 @@ class AssetRepository @Inject constructor(
                 }
             }.await()
 
-            Response.Success(Unit)
+            Response.Success(Response.Action.UPDATE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, Response.Action.UPDATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.UPDATE)
         }
     }
 
-    suspend fun remove(asset: Asset): Response<Unit> {
+    suspend fun remove(asset: Asset): Response<Response.Action> {
         return try {
             firestore.runBatch { writeBatch ->
                 writeBatch.delete(firestore.collection(Asset.COLLECTION)
@@ -92,11 +92,11 @@ class AssetRepository @Inject constructor(
                 }
             }.await()
 
-            Response.Success(Unit)
+            Response.Success(Response.Action.REMOVE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, Response.Action.REMOVE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.REMOVE)
         }
     }
 }

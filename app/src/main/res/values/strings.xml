@@ -79,6 +79,7 @@
     <string name="button_categories">Categories</string>
     <string name="button_departments">Departments</string>
     <string name="button_forgot_password">Forgot Password</string>
+    <string name="button_select_image">Select Image</string>
 
     <string name="menu_menu">Menu</string>
     <string name="menu_remove">Remove</string>
@@ -125,6 +126,12 @@
     <string name="feedback_category_create_error">Error creating category</string>
     <string name="feedback_category_remove_error">Error removing category</string>
     <string name="feedback_category_update_error">Error updating category</string>
+    <string name="feedback_asset_created">Asset successfully created</string>
+    <string name="feedback_asset_removed">Asset successfully removed</string>
+    <string name="feedback_asset_updated">Asset successfully updated</string>
+    <string name="feedback_asset_create_error">Error creating asset</string>
+    <string name="feedback_asset_remove_error">Error removing asset</string>
+    <string name="feedback_asset_update_error">Error updating asset</string>
 
     <string name="empty_no_assets_header">No Assets Added</string>
     <string name="empty_no_assets_summary">There are no assets available.</string>

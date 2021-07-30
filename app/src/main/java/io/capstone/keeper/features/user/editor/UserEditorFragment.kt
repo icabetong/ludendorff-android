@@ -24,7 +24,7 @@ import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.utils.PasswordManager
 import io.capstone.keeper.databinding.FragmentEditorUserBinding
-import io.capstone.keeper.features.core.backend.Operation
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.keeper.features.shared.components.BaseEditorFragment
@@ -109,7 +109,8 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
             binding.writeChip.isChecked = it.hasPermission(User.PERMISSION_WRITE)
             binding.deleteChip.isChecked = it.hasPermission(User.PERMISSION_DELETE)
             binding.auditChip.isChecked = it.hasPermission(User.PERMISSION_AUDIT)
-            binding.administrativeChip.isChecked = it.hasPermission(User.PERMISSION_MANAGE_USERS)
+            binding.managerUsersChip.isChecked = it.hasPermission(User.PERMISSION_MANAGE_USERS)
+            binding.administrativeChip.isChecked = it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
         }
 
         registerForFragmentResult(
@@ -123,11 +124,11 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.reauthentication.collect {
                 when(it) {
-                    is Operation.Error -> {
+                    is Response.Error -> {
                         binding.root.isEnabled = true
                         createSnackbar(R.string.error_auth_failed)
                     }
-                    is Operation.Success -> {
+                    is Response.Success -> {
                         binding.root.isEnabled = true
 
                         if (requestKey == REQUEST_KEY_UPDATE)
@@ -153,6 +154,22 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
             viewModel.user.lastName = binding.lastNameTextInput.text.toString()
             viewModel.user.position = binding.positionTextInput.text.toString()
             viewModel.user.email = binding.emailTextInput.text.toString()
+
+            val permissions = mutableListOf<Int>()
+            if (binding.readChip.isChecked)
+                permissions.add(User.PERMISSION_READ)
+            if (binding.writeChip.isChecked)
+                permissions.add(User.PERMISSION_WRITE)
+            if (binding.deleteChip.isChecked)
+                permissions.add(User.PERMISSION_DELETE)
+            if (binding.auditChip.isChecked)
+                permissions.add(User.PERMISSION_AUDIT)
+            if (binding.managerUsersChip.isChecked)
+                permissions.add(User.PERMISSION_MANAGE_USERS)
+            if (binding.administrativeChip.isChecked)
+                permissions.add(User.PERMISSION_ADMINISTRATIVE)
+            
+            viewModel.user.permissions = permissions
 
             if (viewModel.user.firstName.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_first_name)

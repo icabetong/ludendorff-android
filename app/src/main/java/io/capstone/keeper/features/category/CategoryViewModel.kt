@@ -7,8 +7,7 @@ import androidx.paging.cachedIn
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.capstone.keeper.features.core.backend.FirestoreRepository
-import io.capstone.keeper.features.core.data.Response
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.shared.components.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel
@@ -24,13 +23,13 @@ class CategoryViewModel @Inject constructor(
 
     private val categoryQuery: Query = firestore.collection(Category.COLLECTION)
         .orderBy(Category.FIELD_NAME, Query.Direction.ASCENDING)
-        .limit(FirestoreRepository.QUERY_LIMIT)
+        .limit(Response.QUERY_LIMIT.toLong())
 
-    val categories = Pager(PagingConfig(pageSize = FirestoreRepository.QUERY_LIMIT.toInt())) {
+    val categories = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
         CategoryPagingSource(categoryQuery)
     }.flow.cachedIn(viewModelScope)
 
-    private val _action = Channel<Response<FirestoreRepository.Action>>(Channel.BUFFERED)
+    private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()
 
     fun create(category: Category) = viewModelScope.launch(IO) {

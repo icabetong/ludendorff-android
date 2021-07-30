@@ -10,56 +10,60 @@
         android:id="@+id/appBar"
         layout="@layout/layout_appbar"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/codeScannerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/errorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.budiyev.android.codescanner.CodeScannerView
-            android:id="@+id/codeScannerView"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/icon_size_large"
+            android:layout_height="@dimen/icon_size_large"
+            android:layout_marginBottom="@dimen/activity_margin_medium"
+            app:srcCompat="@drawable/ic_hero_camera"/>
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:visibility="gone"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:text="@string/error_camera_permission_header"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
 
-        <LinearLayout
-            android:id="@+id/errorView"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/activity_margin"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/error_camera_permission_summary"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/icon_size_large"
-                android:layout_height="@dimen/icon_size_large"
-                android:layout_marginBottom="@dimen/activity_margin_medium"
-                app:srcCompat="@drawable/ic_hero_camera"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/permissionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_grant_permission"
+            style="@style/Widget.Keeper.Button.Outlined"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin_tiny"
-                android:text="@string/error_camera_permission_header"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin"
-                android:text="@string/error_camera_permission_summary"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.Keeper.Body"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/permissionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_grant_permission"
-                style="@style/Widget.Keeper.Button.Outlined"/>
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/actionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        android:layout_gravity="bottom|end"
+        android:contentDescription="@string/button_select_image"
+        app:srcCompat="@drawable/ic_hero_photograph"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

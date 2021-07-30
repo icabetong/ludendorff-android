@@ -34,7 +34,7 @@ import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.NavigationItemDecoration
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentProfileBinding
-import io.capstone.keeper.features.core.backend.Operation
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.core.worker.ImageCompressWorker
 import io.capstone.keeper.features.core.worker.ProfileUploadWorker
 import io.capstone.keeper.features.profile.actions.ChangeNameBottomSheet
@@ -158,13 +158,13 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.passwordResetEmailSent.collect {
                 when(it) {
-                    is Operation.Error -> {
+                    is Response.Error -> {
                         binding.appBarProgressIndicator.isVisible = false
                         binding.nestedScrollView.isEnabled = true
 
                         createSnackbar(R.string.error_generic)
                     }
-                    is Operation.Success -> {
+                    is Response.Success -> {
                         binding.appBarProgressIndicator.isVisible = false
                         binding.nestedScrollView.isEnabled = true
 
@@ -177,13 +177,13 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.passwordUpdate.collect {
                 when(it) {
-                    is Operation.Error -> {
+                    is Response.Error -> {
                         binding.appBarProgressIndicator.isVisible = false
                         binding.nestedScrollView.isEnabled = true
 
                         createSnackbar(R.string.error_generic)
                     }
-                    is Operation.Success -> {
+                    is Response.Success -> {
                         binding.appBarProgressIndicator.isVisible = false
                         binding.nestedScrollView.isEnabled = true
 
@@ -196,13 +196,13 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.reauthentication.collect {
                 when(it) {
-                    is Operation.Error -> {
+                    is Response.Error -> {
                         binding.appBarProgressIndicator.isVisible = false
                         binding.nestedScrollView.isEnabled = true
 
                         createSnackbar(R.string.error_invalid_credentials)
                     }
-                    is Operation.Success -> {
+                    is Response.Success -> {
                         binding.appBarProgressIndicator.isVisible = false
                         binding.nestedScrollView.isEnabled = true
 

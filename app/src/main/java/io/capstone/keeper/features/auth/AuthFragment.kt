@@ -27,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.exceptions.EmptyCredentialsException
 import io.capstone.keeper.databinding.FragmentAuthBinding
-import io.capstone.keeper.features.core.backend.Operation
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.shared.components.BaseFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -83,11 +83,11 @@ class AuthFragment: BaseFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.authStatus.collect {
                 when(it) {
-                    is Operation.Error -> {
+                    is Response.Error -> {
                         resetProgress()
 
                         binding.errorTextView.isVisible = true
-                        when(it.error) {
+                        when(it.throwable) {
                             is FirebaseAuthInvalidUserException ->
                                 binding.errorTextView.setText(R.string.error_invalid_user)
                             is FirebaseAuthInvalidCredentialsException ->
@@ -100,11 +100,9 @@ class AuthFragment: BaseFragment() {
                         binding.passwordTextInputLayout.error = " "
                         binding.emailTextInputLayout.error = " "
                     }
-                    is Operation.Success -> {
+                    is Response.Success -> {
                         createSnackbar(R.string.feedback_sign_in_success)
-                        it.data?.let { user ->
-                            viewModel.setUserProperties(user)
-                        }
+                        viewModel.setUserProperties(it.data)
 
                         controller?.navigate(AuthFragmentDirections.toNavigationRoot())
                         binding.errorTextView.isVisible = false
@@ -116,11 +114,11 @@ class AuthFragment: BaseFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.passwordResetEmail.collect {
                 when(it) {
-                    is Operation.Error -> {
+                    is Response.Error -> {
                         binding.root.isEnabled = true
                         createSnackbar(R.string.error_generic)
                     }
-                    is Operation.Success -> {
+                    is Response.Success -> {
                         binding.root.isEnabled = true
                         createSnackbar(R.string.feedback_reset_link_sent)
                     }

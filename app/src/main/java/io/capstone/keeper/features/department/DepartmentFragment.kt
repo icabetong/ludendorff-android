@@ -194,18 +194,15 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        when(action) {
-            OnItemActionListener.Action.SELECT -> {
-                container?.let {
-                    controller?.navigate(R.id.navigation_editor_department,
-                        bundleOf(DepartmentEditorFragment.EXTRA_DEPARTMENT to data), null,
-                        FragmentNavigatorExtras(
-                            it to TRANSITION_NAME_ROOT + data?.departmentId
-                        )
+        if (action == OnItemActionListener.Action.SELECT) {
+            container?.let {
+                controller?.navigate(R.id.navigation_editor_department,
+                    bundleOf(DepartmentEditorFragment.EXTRA_DEPARTMENT to data), null,
+                    FragmentNavigatorExtras(
+                        it to TRANSITION_NAME_ROOT + data?.departmentId
                     )
-                }
+                )
             }
-            OnItemActionListener.Action.DELETE -> TODO()
         }
     }
 }

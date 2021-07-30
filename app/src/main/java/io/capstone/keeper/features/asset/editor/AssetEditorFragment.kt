@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -17,6 +18,7 @@ import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentEditorAssetBinding
 import io.capstone.keeper.features.asset.Asset
+import io.capstone.keeper.features.asset.AssetViewModel
 import io.capstone.keeper.features.asset.qrcode.QRCodeViewBottomSheet
 import io.capstone.keeper.features.category.Category
 import io.capstone.keeper.features.category.picker.CategoryPickerBottomSheet
@@ -32,7 +34,8 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
     private var requestKey = REQUEST_KEY_CREATE
 
     private val binding get() = _binding!!
-    private val viewModel: AssetEditorViewModel by viewModels()
+    private val editorViewModel: AssetEditorViewModel by viewModels()
+    private val viewModel: AssetViewModel by activityViewModels()
     private val specsAdapter = SpecsAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,8 +73,8 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
         arguments?.getParcelable<Asset>(EXTRA_ASSET)?.let {
             requestKey = REQUEST_KEY_UPDATE
-            viewModel.asset = it
-            viewModel.setSpecifications(ArrayList(it.specifications.toList()))
+            editorViewModel.asset = it
+            editorViewModel.setSpecifications(ArrayList(it.specifications.toList()))
 
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.assetId
             binding.appBar.toolbar.setTitle(R.string.title_asset_update)
@@ -103,7 +106,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
     override fun onStart() {
         super.onStart()
 
-        viewModel.specifications.observe(viewLifecycleOwner) {
+        editorViewModel.specifications.observe(viewLifecycleOwner) {
             specsAdapter.submitList(it)
         }
 
@@ -119,8 +122,9 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         super.onResume()
 
         binding.actionButton.setOnClickListener {
-            viewModel.asset.assetName = binding.assetNameTextInput.text.toString()
-            viewModel.asset.status = when(binding.statusChipGroup.checkedChipId) {
+            editorViewModel.asset.assetName = binding.assetNameTextInput.text.toString()
+            editorViewModel.asset.specifications = editorViewModel.getSpecifications().toMap()
+            editorViewModel.asset.status = when(binding.statusChipGroup.checkedChipId) {
                 R.id.operationalChip -> Asset.Status.OPERATIONAL
                 R.id.idleChip -> Asset.Status.IDLE
                 R.id.underMaintenanceChip -> Asset.Status.UNDER_MAINTENANCE
@@ -128,11 +132,11 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 else -> throw NullPointerException()
             }
 
-            if (viewModel.asset.assetName.isNullOrBlank()) {
+            if (editorViewModel.asset.assetName.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_asset_name)
                 return@setOnClickListener
             }
-            if (viewModel.getSpecifications().isNullOrEmpty()) {
+            if (editorViewModel.getSpecifications().isNullOrEmpty()) {
                 MaterialDialog(requireContext()).show {
                     lifecycleOwner(viewLifecycleOwner)
                     title(R.string.dialog_save_without_specification_title)
@@ -143,8 +147,8 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             }
 
             if (requestKey == REQUEST_KEY_CREATE)
-                viewModel.insert()
-            else viewModel.update()
+                viewModel.create(editorViewModel.asset)
+            else viewModel.update(editorViewModel.asset)
             controller?.navigateUp()
         }
     }
@@ -155,8 +159,8 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
                     binding.categoryTextView.text = it.categoryName
 
-                    if (viewModel.previousCategoryId != it.categoryId)
-                        viewModel.triggerCategoryChanged(it)
+                    if (editorViewModel.previousCategoryId != it.categoryId)
+                        editorViewModel.triggerCategoryChanged(it)
                 }
             }
             SpecsEditorBottomSheet.REQUEST_KEY_CREATE -> {
@@ -164,16 +168,16 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 val value = result.getString(SpecsEditorBottomSheet.EXTRA_VALUE)
                 if (!key.isNullOrBlank() && !value.isNullOrBlank()) {
                     val specification = Pair(key, value)
-                    if (viewModel.checkSpecificationIfExists(specification))
+                    if (editorViewModel.checkSpecificationIfExists(specification))
                         createSnackbar(R.string.feedback_specification_exists)
-                    else viewModel.addSpecification(specification)
+                    else editorViewModel.addSpecification(specification)
                 }
             }
             SpecsEditorBottomSheet.REQUEST_KEY_UPDATE -> {
                 val key = result.getString(SpecsEditorBottomSheet.EXTRA_KEY)
                 val value = result.getString(SpecsEditorBottomSheet.EXTRA_VALUE)
                 if (!key.isNullOrBlank() && !value.isNullOrBlank()) {
-                    viewModel.updateSpecification(Pair(key, value))
+                    editorViewModel.updateSpecification(Pair(key, value))
                 }
             }
         }
@@ -200,7 +204,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                     message(R.string.dialog_remove_specification_message)
                     positiveButton(R.string.button_remove) {
                         data?.let {
-                            viewModel.removeSpecification(it)
+                            editorViewModel.removeSpecification(it)
                             createSnackbar(R.string.feedback_specification_removed)
                         }
                     }
@@ -215,7 +219,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             R.id.action_view_qrcode -> {
                 QRCodeViewBottomSheet(childFragmentManager).show {
                     arguments = bundleOf(
-                        QRCodeViewBottomSheet.EXTRA_ASSET_ID to viewModel.asset.assetId
+                        QRCodeViewBottomSheet.EXTRA_ASSET_ID to editorViewModel.asset.assetId
                     )
                 }
             }
@@ -226,7 +230,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                         title(R.string.dialog_remove_asset_title)
                         message(R.string.dialog_remove_asset_message)
                         positiveButton(R.string.button_remove) {
-                            viewModel.remove()
+                            viewModel.remove(editorViewModel.asset)
                             controller?.navigateUp()
                         }
                         negativeButton(R.string.button_cancel)

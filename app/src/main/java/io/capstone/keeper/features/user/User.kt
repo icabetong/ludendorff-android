@@ -14,13 +14,13 @@ data class User @JvmOverloads constructor(
     var lastName: String? = null,
     var email: String? = null,
     var imageUrl: String? = null,
-    var permissions: Int = 0,
+    var permissions: List<Int> = emptyList(),
     var position: String? = null,
     var department: DepartmentCore? = null
 ): Parcelable {
 
     fun hasPermission(permission: Int): Boolean {
-        return permissions and permission == permission
+        return permissions.contains(permission)
     }
 
     fun getDisplayName(): String {

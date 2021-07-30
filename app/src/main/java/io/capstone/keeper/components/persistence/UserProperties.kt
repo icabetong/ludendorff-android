@@ -19,7 +19,13 @@ class UserProperties(private val context: Context) {
             putString(USER_EMAIL, user.email)
             putString(USER_POSITION, user.position)
             putString(USER_DEPARTMENT, user.department?.departmentId)
-            putInt(USER_PERMISSIONS, user.permissions)
+
+            putBoolean(USER_PERMISSION_READ, user.hasPermission(User.PERMISSION_READ))
+            putBoolean(USER_PERMISSION_WRITE, user.hasPermission(User.PERMISSION_WRITE))
+            putBoolean(USER_PERMISSION_DELETE, user.hasPermission(User.PERMISSION_DELETE))
+            putBoolean(USER_PERMISSION_AUDIT, user.hasPermission(User.PERMISSION_AUDIT))
+            putBoolean(USER_PERMISSION_MANAGE_USER, user.hasPermission(User.PERMISSION_MANAGE_USERS))
+            putBoolean(USER_PERMISSION_ADMINISTRATIVE, user.hasPermission(User.PERMISSION_ADMINISTRATIVE))
         }
     }
 
@@ -43,7 +49,12 @@ class UserProperties(private val context: Context) {
             remove(USER_EMAIL)
             remove(USER_POSITION)
             remove(USER_DEPARTMENT)
-            remove(USER_PERMISSIONS)
+            remove(USER_PERMISSION_READ)
+            remove(USER_PERMISSION_WRITE)
+            remove(USER_PERMISSION_DELETE)
+            remove(USER_PERMISSION_AUDIT)
+            remove(USER_PERMISSION_MANAGE_USER)
+            remove(USER_PERMISSION_ADMINISTRATIVE)
         }
     }
 
@@ -93,14 +104,6 @@ class UserProperties(private val context: Context) {
             }
         }
 
-    var permissions: Int
-        get() = sharedPreferences.getInt(USER_PERMISSIONS, 0)
-        set(value) {
-            sharedPreferences.edit {
-                putInt(USER_PERMISSIONS, value)
-            }
-        }
-
     var position: String?
         get() = sharedPreferences.getString(USER_POSITION, null)
         set(value) {
@@ -117,15 +120,70 @@ class UserProperties(private val context: Context) {
             }
         }
 
+
+    var hasReadPermissions: Boolean
+        get() = sharedPreferences.getBoolean(USER_PERMISSION_READ, false)
+        set(value) {
+            sharedPreferences.edit {
+                putBoolean(USER_PERMISSION_READ, value)
+            }
+        }
+
+    var hasWritePermission: Boolean
+        get() = sharedPreferences.getBoolean(USER_PERMISSION_WRITE, false)
+        set(value) {
+            sharedPreferences.edit {
+                putBoolean(USER_PERMISSION_WRITE, value)
+            }
+        }
+
+    var hasDeletePermission: Boolean
+        get() = sharedPreferences.getBoolean(USER_PERMISSION_DELETE, false)
+        set(value) {
+            sharedPreferences.edit {
+                putBoolean(USER_PERMISSION_DELETE, value)
+            }
+        }
+
+    var hasAuditPermission: Boolean
+        get() = sharedPreferences.getBoolean(USER_PERMISSION_AUDIT, false)
+        set(value) {
+            sharedPreferences.edit {
+                putBoolean(USER_PERMISSION_AUDIT, false)
+            }
+        }
+
+    var hasManageUserPermissions: Boolean
+        get() = sharedPreferences.getBoolean(USER_PERMISSION_MANAGE_USER, false)
+        set(value) {
+            sharedPreferences.edit {
+                putBoolean(USER_PERMISSION_MANAGE_USER, false)
+            }
+        }
+
+    var hasAdministrativePermissions: Boolean
+        get() = sharedPreferences.getBoolean(USER_PERMISSION_ADMINISTRATIVE, false)
+        set(value) {
+            sharedPreferences.edit {
+                putBoolean(USER_PERMISSION_ADMINISTRATIVE, false)
+            }
+        }
+
     companion object {
         const val USER_ID = User.FIELD_ID
         const val USER_FIRST_NAME = User.FIELD_FIRST_NAME
         const val USER_LAST_NAME = User.FIELD_LAST_NAME
         const val USER_EMAIL = User.FIELD_EMAIL
         const val USER_IMAGE_URL = User.FIELD_IMAGE_URL
-        const val USER_PERMISSIONS = User.FIELD_PERMISSIONS
         const val USER_POSITION = User.FIELD_POSITION
         const val USER_DEPARTMENT_ID = User.FIELD_DEPARTMENT_ID
         const val USER_DEPARTMENT = User.FIELD_DEPARTMENT_NAME
+
+        const val USER_PERMISSION_READ = "canRead"
+        const val USER_PERMISSION_WRITE = "canWrite"
+        const val USER_PERMISSION_DELETE = "canDelete"
+        const val USER_PERMISSION_AUDIT = "canAudit"
+        const val USER_PERMISSION_MANAGE_USER = "canManageUsers"
+        const val USER_PERMISSION_ADMINISTRATIVE = "isAdmin"
     }
 }
