@@ -14,6 +14,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.LoadState
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
@@ -25,8 +27,10 @@ import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentUsersBinding
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.shared.components.BaseFragment
 import io.capstone.keeper.features.user.editor.UserEditorFragment
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -96,6 +100,42 @@ class UserFragment: BaseFragment(), OnItemActionListener<User> {
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.action.collect {
+                when(it) {
+                    is Response.Error -> {
+                        if (it.throwable is FirebaseFirestoreException &&
+                                it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+
+                            MaterialDialog(requireContext()).show {
+                                lifecycleOwner(viewLifecycleOwner)
+                                title(R.string.error_no_permission)
+                                message(R.string.error_no_permission_summary_write)
+                                positiveButton()
+                            }
+                        } else {
+                            when(it.action) {
+                                Response.Action.CREATE ->
+                                    createSnackbar(R.string.feedback_user_create_error)
+                                Response.Action.UPDATE ->
+                                    createSnackbar(R.string.feedback_user_update_error)
+                                else -> {}
+                            }
+                        }
+                    }
+                    is Response.Success -> {
+                        when(it.data) {
+                            Response.Action.CREATE ->
+                                createSnackbar(R.string.feedback_user_created)
+                            Response.Action.UPDATE ->
+                                createSnackbar(R.string.feedback_user_updated)
+                            else -> {}
+                        }
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             userAdapter.loadStateFlow.collectLatest {
                 binding.swipeRefreshLayout.isRefreshing = false
 
@@ -112,6 +152,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User> {
 
                         binding.errorView.root.hide()
                         binding.emptyView.root.hide()
+                        binding.permissionView.root.hide()
                     }
                     /**
                      *  The PagingAdapter or any component related to fetch
@@ -185,6 +226,9 @@ class UserFragment: BaseFragment(), OnItemActionListener<User> {
             controller?.navigate(R.id.to_navigation_editor_user, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            userAdapter.refresh()
+        }
     }
 
     override fun onActionPerformed(
@@ -192,17 +236,14 @@ class UserFragment: BaseFragment(), OnItemActionListener<User> {
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        when(action) {
-            OnItemActionListener.Action.SELECT -> {
-                container?.let {
-                    controller?.navigate(R.id.navigation_editor_user,
-                        bundleOf(UserEditorFragment.EXTRA_USER to data), null,
-                        FragmentNavigatorExtras(
-                            it to TRANSITION_NAME_ROOT + data?.userId)
-                    )
-                }
+        if (action == OnItemActionListener.Action.SELECT) {
+            container?.let {
+                controller?.navigate(R.id.navigation_editor_user,
+                    bundleOf(UserEditorFragment.EXTRA_USER to data), null,
+                    FragmentNavigatorExtras(
+                        it to TRANSITION_NAME_ROOT + data?.userId)
+                )
             }
-            OnItemActionListener.Action.DELETE -> TODO()
         }
     }
 

@@ -186,14 +186,25 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset> {
             viewModel.action.collect {
                 when(it) {
                     is Response.Error -> {
-                        when(it.action) {
-                            Response.Action.CREATE ->
-                                createSnackbar(R.string.feedback_asset_create_error)
-                            Response.Action.UPDATE ->
-                                createSnackbar(R.string.feedback_asset_update_error)
-                            Response.Action.REMOVE ->
-                                createSnackbar(R.string.feedback_asset_remove_error)
-                            else -> {}
+                        if (it.throwable is FirebaseFirestoreException &&
+                            it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+
+                            MaterialDialog(requireContext()).show {
+                                lifecycleOwner(viewLifecycleOwner)
+                                title(R.string.error_no_permission)
+                                message(R.string.error_no_permission_summary_write)
+                                positiveButton()
+                            }
+                        } else {
+                            when(it.action) {
+                                Response.Action.CREATE ->
+                                    createSnackbar(R.string.feedback_asset_create_error)
+                                Response.Action.UPDATE ->
+                                    createSnackbar(R.string.feedback_asset_update_error)
+                                Response.Action.REMOVE ->
+                                    createSnackbar(R.string.feedback_asset_remove_error)
+                                else -> {}
+                            }
                         }
                     }
                     is Response.Success -> {

@@ -12,13 +12,10 @@ class AssetEditorViewModel: BaseViewModel() {
     internal val specifications: LiveData<MutableList<Pair<String, String>>> = _specifications
 
     var asset = Asset()
-    var hasCategoryChanged: Boolean = false
     var previousCategoryId: String? = null
 
 
     fun triggerCategoryChanged(newCategory: Category) {
-        hasCategoryChanged = true
-
         previousCategoryId = asset.category?.categoryId
         asset.category = newCategory.minimize()
     }

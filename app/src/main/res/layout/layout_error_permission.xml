@@ -30,7 +30,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/error_no_permission_summary"
+        android:text="@string/error_no_permission_summary_read"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Body"/>
 

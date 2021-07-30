@@ -35,8 +35,8 @@ class AssetViewModel @Inject constructor(
     fun create(asset: Asset) = viewModelScope.launch(IO) {
         _action.send(repository.create(asset))
     }
-    fun update(asset: Asset) = viewModelScope.launch(IO) {
-        _action.send(repository.update(asset))
+    fun update(asset: Asset, previousCategoryId: String? = null) = viewModelScope.launch(IO) {
+        _action.send(repository.update(asset, previousCategoryId))
     }
     fun remove(asset: Asset) = viewModelScope.launch(IO) {
         _action.send(repository.remove(asset))

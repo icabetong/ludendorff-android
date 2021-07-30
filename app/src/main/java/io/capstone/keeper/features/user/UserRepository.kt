@@ -16,22 +16,33 @@ class UserRepository @Inject constructor(
     private val userProperties: UserProperties
 ){
 
-    suspend fun create(user: User): Response<Unit> {
+    suspend fun create(user: User, password: String?): Response<Response.Action> {
         return try {
+            if (user.email.isNullOrBlank() || password.isNullOrBlank())
+                throw NullPointerException()
+
+            firebaseAuth.createUserWithEmailAndPassword(user.email!!, password)
+                .addOnCompleteListener {
+                    if (!it.isSuccessful)
+                        Response.Error(it.exception, Response.Action.CREATE)
+                }.await()
+
             firestore.collection(User.COLLECTION)
                 .document(user.userId)
                 .set(user)
                 .await()
 
-            Response.Success(Unit)
+            Response.Success(Response.Action.CREATE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, Response.Action.CREATE)
+        } catch (nullPointerException: NullPointerException) {
+            Response.Error(nullPointerException, Response.Action.CREATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.CREATE)
         }
     }
 
-    suspend fun update(user: User): Response<Unit> {
+    suspend fun update(user: User): Response<Response.Action> {
         return try {
             firestore.collection(User.COLLECTION)
                 .document(user.userId)
@@ -44,15 +55,15 @@ class UserRepository @Inject constructor(
                 }
             }
 
-            Response.Success(Unit)
+            Response.Success(Response.Action.UPDATE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, Response.Action.UPDATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.REMOVE)
         }
     }
 
-    suspend fun update(id: String, fields: Map<String, Any?>): Response<Unit> {
+    suspend fun update(id: String, fields: Map<String, Any?>): Response<Response.Action> {
         return try {
             firestore.collection(User.COLLECTION)
                 .document(id)
@@ -70,11 +81,11 @@ class UserRepository @Inject constructor(
                 }
             }
 
-            Response.Success(Unit)
+            Response.Success(Response.Action.UPDATE)
         } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException)
+            Response.Error(firestoreException, Response.Action.UPDATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.UPDATE)
         }
     }
 

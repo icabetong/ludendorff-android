@@ -8,7 +8,6 @@ import io.capstone.keeper.components.persistence.UserProperties
 import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.shared.components.BaseViewModel
 import io.capstone.keeper.features.user.User
-import io.capstone.keeper.features.user.UserRepository
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -18,10 +17,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserEditorViewModel @Inject constructor(
-    private val userRepository: UserRepository,
     private val firebaseAuth: FirebaseAuth,
     private val userProperties: UserProperties
 ): BaseViewModel() {
+
+    var user = User()
+    var password: String? = null
 
     private val _reauthentication = Channel<Response<Unit>>(Channel.BUFFERED)
     val reauthentication = _reauthentication.receiveAsFlow()
@@ -44,12 +45,4 @@ class UserEditorViewModel @Inject constructor(
             }?.await()
     }
 
-    var user = User()
-
-    fun create() = viewModelScope.launch(IO) {
-        userRepository.create(user)
-    }
-    fun update() = viewModelScope.launch(IO) {
-        userRepository.update(user)
-    }
 }

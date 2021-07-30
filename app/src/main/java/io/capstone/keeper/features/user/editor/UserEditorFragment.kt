@@ -9,6 +9,7 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -29,6 +30,7 @@ import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.keeper.features.shared.components.BaseEditorFragment
 import io.capstone.keeper.features.user.User
+import io.capstone.keeper.features.user.UserViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.concurrent.Executor
@@ -44,7 +46,8 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
     private val binding get() = _binding!!
-    private val viewModel: UserEditorViewModel by viewModels()
+    private val editorViewModel: UserEditorViewModel by viewModels()
+    private val viewModel: UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +93,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
         arguments?.getParcelable<User>(EXTRA_USER)?.let {
             requestKey = REQUEST_KEY_UPDATE
-            viewModel.user = it
+            editorViewModel.user = it
 
             binding.appBar.toolbar.setTitle(R.string.title_user_update)
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.userId
@@ -122,7 +125,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
         super.onStart()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.reauthentication.collect {
+            editorViewModel.reauthentication.collect {
                 when(it) {
                     is Response.Error -> {
                         binding.root.isEnabled = true
@@ -132,8 +135,8 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
                         binding.root.isEnabled = true
 
                         if (requestKey == REQUEST_KEY_UPDATE)
-                            viewModel.update()
-                        else viewModel.create()
+                            viewModel.update(editorViewModel.user)
+                        else viewModel.create(editorViewModel.user, editorViewModel.password)
                         controller?.navigateUp()
                     }
                 }
@@ -150,10 +153,12 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
         }
 
         binding.actionButton.setOnClickListener {
-            viewModel.user.firstName = binding.firstNameTextInput.text.toString()
-            viewModel.user.lastName = binding.lastNameTextInput.text.toString()
-            viewModel.user.position = binding.positionTextInput.text.toString()
-            viewModel.user.email = binding.emailTextInput.text.toString()
+            editorViewModel.password = binding.passwordTextInput.text.toString()
+
+            editorViewModel.user.firstName = binding.firstNameTextInput.text.toString()
+            editorViewModel.user.lastName = binding.lastNameTextInput.text.toString()
+            editorViewModel.user.position = binding.positionTextInput.text.toString()
+            editorViewModel.user.email = binding.emailTextInput.text.toString()
 
             val permissions = mutableListOf<Int>()
             if (binding.readChip.isChecked)
@@ -169,25 +174,25 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
             if (binding.administrativeChip.isChecked)
                 permissions.add(User.PERMISSION_ADMINISTRATIVE)
             
-            viewModel.user.permissions = permissions
+            editorViewModel.user.permissions = permissions
 
-            if (viewModel.user.firstName.isNullOrBlank()) {
+            if (editorViewModel.user.firstName.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_first_name)
                 return@setOnClickListener
             }
-            if (viewModel.user.lastName.isNullOrBlank()) {
+            if (editorViewModel.user.lastName.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_last_name)
                 return@setOnClickListener
             }
-            if (viewModel.user.position.isNullOrBlank()) {
+            if (editorViewModel.user.position.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_position)
                 return@setOnClickListener
             }
-            if (viewModel.user.email.isNullOrBlank()) {
+            if (editorViewModel.user.email.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_email)
                 return@setOnClickListener
             }
-            if (viewModel.user.department == null) {
+            if (editorViewModel.user.department == null) {
                 createSnackbar(R.string.feedback_empty_department)
                 return@setOnClickListener
             }
@@ -209,7 +214,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
         when(requestKey) {
             DepartmentPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Department>(DepartmentPickerBottomSheet.EXTRA_DEPARTMENT)?.let {
-                    viewModel.user.department = it.minimize()
+                    editorViewModel.user.department = it.minimize()
 
                     binding.departmentTextView.text = it.name
                 }
@@ -239,7 +244,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
                         positiveButton(R.string.button_continue) {
                             val password = it.getInputField().text.toString()
 
-                            viewModel.reauthenticate(password)
+                            editorViewModel.reauthenticate(password)
                         }
                     }
                 }
@@ -281,8 +286,8 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
             super.onAuthenticationSucceeded(result)
 
             if (requestKey == REQUEST_KEY_UPDATE)
-                viewModel.update()
-            else viewModel.create()
+                viewModel.update(editorViewModel.user)
+            else viewModel.create(editorViewModel.user, editorViewModel.password)
             controller?.navigateUp()
         }
     }

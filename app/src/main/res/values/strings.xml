@@ -132,6 +132,10 @@
     <string name="feedback_asset_create_error">Error creating asset</string>
     <string name="feedback_asset_remove_error">Error removing asset</string>
     <string name="feedback_asset_update_error">Error updating asset</string>
+    <string name="feedback_user_created">User successfully created</string>
+    <string name="feedback_user_updated">User successfully updated</string>
+    <string name="feedback_user_create_error">Error creating user</string>
+    <string name="feedback_user_update_error">Error updating user</string>
 
     <string name="empty_no_assets_header">No Assets Added</string>
     <string name="empty_no_assets_summary">There are no assets available.</string>
@@ -144,8 +148,9 @@
 
     <string name="error_generic">An error occurred</string>
     <string name="error_generic_summary">Oops, something went wrong; in the meantime, try grabbing a cup of coffee, and try again.</string>
-    <string name="error_no_permission">Access Denied</string>
-    <string name="error_no_permission_summary">The page you are trying to reach are restricted. Contact the system administrator for assistance.</string>
+    <string name="error_no_permission">Insufficient Permissions</string>
+    <string name="error_no_permission_summary_read">The page you are trying to reach is restricted. Contact the system administrator for assistance.</string>
+    <string name="error_no_permission_summary_write">Unfortunately, you do not have the proper permissions to perform this operation. Contact the system administrators for assistance.</string>
     <string name="error_invalid_credentials">Your email or password is incorrect</string>
     <string name="error_invalid_user">The account associated with this email is either disabled or doesn\'t exist</string>
     <string name="error_invalid_email_address">Not a valid email address</string>

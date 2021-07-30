@@ -148,7 +148,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
             if (requestKey == REQUEST_KEY_CREATE)
                 viewModel.create(editorViewModel.asset)
-            else viewModel.update(editorViewModel.asset)
+            else viewModel.update(editorViewModel.asset, editorViewModel.previousCategoryId)
             controller?.navigateUp()
         }
     }

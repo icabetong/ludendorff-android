@@ -2,6 +2,7 @@ package io.capstone.keeper.features.user
 
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
+import com.google.firebase.firestore.DocumentSnapshot
 import io.capstone.keeper.components.utils.IDGenerator
 import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.department.DepartmentCore
@@ -59,6 +60,10 @@ data class User @JvmOverloads constructor(
             override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
                 return oldItem == newItem
             }
+        }
+
+        fun from(documentSnapshot: DocumentSnapshot): User? {
+            return documentSnapshot.toObject(User::class.java)
         }
     }
 }
