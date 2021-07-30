@@ -103,6 +103,10 @@ abstract class BaseFragment: Fragment() {
             ))
     }
 
+    interface CascadeMenuDelegate {
+        fun onMenuItemClicked(@IdRes id: Int)
+    }
+
     companion object {
         const val TRANSITION_DURATION = 300L
         const val TRANSITION_NAME_ROOT = "transition:root:"

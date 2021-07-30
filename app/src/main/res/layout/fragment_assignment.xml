@@ -9,7 +9,27 @@
         android:id="@+id/appBar"
         layout="@layout/layout_appbar"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/skeletonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/rowLayout"
+                layout="@layout/layout_item_asset_skeleton"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -20,7 +40,7 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/actionButton"
@@ -30,5 +50,17 @@
         android:contentDescription="@string/button_add"
         android:layout_gravity="bottom|end"
         app:srcCompat="@drawable/ic_hero_plus"/>
+
+    <include
+        android:id="@+id/errorView"
+        layout="@layout/layout_error_generic"/>
+
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/layout_empty_assignment"/>
+
+    <include
+        android:id="@+id/permissionView"
+        layout="@layout/layout_error_permission"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

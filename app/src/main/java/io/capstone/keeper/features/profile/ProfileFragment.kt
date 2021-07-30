@@ -1,7 +1,5 @@
 package io.capstone.keeper.features.profile
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -47,7 +45,8 @@ import java.util.concurrent.Executor
 
 @AndroidEntryPoint
 class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListener,
-    FragmentResultListener {
+    FragmentResultListener, BaseFragment.CascadeMenuDelegate {
+
     private var _binding: FragmentProfileBinding? = null
     private var controller: NavController? = null
     private var optionsAdapter: ProfileOptionsAdapter? = null
@@ -55,7 +54,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
     private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by activityViewModels()
 
-    private lateinit var imageRequestLauncher: ActivityResultLauncher<Intent>
+    private lateinit var imageRequestLauncher: ActivityResultLauncher<String>
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
@@ -66,14 +65,11 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         executor = ContextCompat.getMainExecutor(requireContext())
         biometricPrompt = BiometricPrompt(this, executor, biometricCallback)
 
-        imageRequestLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                it.data?.data?.let { source ->
-
+        imageRequestLauncher =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+                uri?.let {
                     val data = Data.Builder()
-                        .putString(ImageCompressWorker.EXTRA_SOURCE, source.toString())
+                        .putString(ImageCompressWorker.EXTRA_SOURCE, uri.toString())
                         .build()
 
                     val request = OneTimeWorkRequestBuilder<ImageCompressWorker>()
@@ -84,7 +80,6 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     viewModel.enqueueToWorkManager(request, ImageCompressWorker.WORKER_TAG)
                 }
             }
-        }
     }
 
     override fun onCreateView(
@@ -109,22 +104,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
             iconRes = R.drawable.ic_hero_arrow_left,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_profile,
-            onMenuOptionClicked = {
-                when(it) {
-                    R.id.action_sign_out -> {
-                        MaterialDialog(requireContext()).show {
-                            title(R.string.dialog_sign_out_title)
-                            message(R.string.dialog_sign_out_message)
-                            positiveButton(R.string.button_continue) {
-                                viewModel.endSession()
-
-                                controller?.navigate(R.id.to_navigation_auth)
-                            }
-                            negativeButton(R.string.button_cancel)
-                        }
-                    }
-                }
-            }
+            onMenuOptionClicked = ::onMenuItemClicked
         )
 
         optionsAdapter = ProfileOptionsAdapter(requireActivity(), R.menu.menu_actions,
@@ -284,12 +264,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         super.onResume()
 
         binding.imageView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "image/*"
-            }
-
-            imageRequestLauncher.launch(Intent.createChooser(intent,
-                getString(R.string.title_select_profile_picture)))
+            imageRequestLauncher.launch("image/*")
         }
     }
 
@@ -437,6 +412,23 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
              *  the authentication infrastructure.
              */
             ChangePasswordBottomSheet(childFragmentManager).show()
+        }
+    }
+
+    override fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_sign_out -> {
+                MaterialDialog(requireContext()).show {
+                    title(R.string.dialog_sign_out_title)
+                    message(R.string.dialog_sign_out_message)
+                    positiveButton(R.string.button_continue) {
+                        viewModel.endSession()
+
+                        controller?.navigate(R.id.to_navigation_auth)
+                    }
+                    negativeButton(R.string.button_cancel)
+                }
+            }
         }
     }
 }

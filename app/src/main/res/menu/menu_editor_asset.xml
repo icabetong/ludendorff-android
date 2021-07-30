@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/action_disable"
+        android:id="@+id/action_remove"
         android:title="@string/menu_remove"
         android:icon="@drawable/ic_hero_trash"
         android:visible="false"

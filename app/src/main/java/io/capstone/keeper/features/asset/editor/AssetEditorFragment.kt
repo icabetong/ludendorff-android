@@ -23,12 +23,13 @@ import io.capstone.keeper.features.asset.qrcode.QRCodeViewBottomSheet
 import io.capstone.keeper.features.category.Category
 import io.capstone.keeper.features.category.picker.CategoryPickerBottomSheet
 import io.capstone.keeper.features.shared.components.BaseEditorFragment
+import io.capstone.keeper.features.shared.components.BaseFragment
 import io.capstone.keeper.features.specs.SpecsAdapter
 import io.capstone.keeper.features.specs.editor.SpecsEditorBottomSheet
 
 @AndroidEntryPoint
 class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
-    OnItemActionListener<Pair<String, String>> {
+    OnItemActionListener<Pair<String, String>>, BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentEditorAssetBinding? = null
     private var controller: NavController? = null
     private var requestKey = REQUEST_KEY_CREATE
@@ -78,7 +79,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.assetId
             binding.appBar.toolbar.setTitle(R.string.title_asset_update)
-            binding.appBar.toolbar.menu.findItem(R.id.action_disable).isVisible = true
+            binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
 
             binding.assetNameTextInput.setText(it.assetName)
             binding.categoryTextView.text = it.category?.categoryName
@@ -214,7 +215,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         }
     }
 
-    private fun onMenuItemClicked(id: Int) {
+    override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_view_qrcode -> {
                 QRCodeViewBottomSheet(childFragmentManager).show {
@@ -223,7 +224,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                     )
                 }
             }
-            R.id.action_disable -> {
+            R.id.action_remove -> {
                 if (requestKey == REQUEST_KEY_UPDATE) {
                     MaterialDialog(requireContext()).show {
                         lifecycleOwner(viewLifecycleOwner)

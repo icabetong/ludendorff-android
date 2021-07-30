@@ -15,6 +15,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
@@ -27,8 +29,10 @@ import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentDepartmentBinding
+import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.department.editor.DepartmentEditorFragment
 import io.capstone.keeper.features.shared.components.BaseFragment
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -92,6 +96,45 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
 
     override fun onStart() {
         super.onStart()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.action.collect {
+                when(it) {
+                    is Response.Error -> {
+                        if (it.throwable is FirebaseFirestoreException &&
+                            it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+
+                            MaterialDialog(requireContext()).show {
+                                lifecycleOwner(viewLifecycleOwner)
+                                title(R.string.error_no_permission)
+                                message(R.string.error_no_permission_summary_write)
+                                positiveButton()
+                            }
+                        } else {
+                            when(it.action) {
+                                Response.Action.CREATE ->
+                                    createSnackbar(R.string.feedback_department_create_error)
+                                Response.Action.UPDATE ->
+                                    createSnackbar(R.string.feedback_department_update_error)
+                                Response.Action.REMOVE ->
+                                    createSnackbar(R.string.feedback_department_remove_error)
+                                else -> {}
+                            }
+                        }
+                    }
+                    is Response.Success -> {
+                        when(it.data) {
+                            Response.Action.CREATE ->
+                                createSnackbar(R.string.feedback_department_created)
+                            Response.Action.UPDATE ->
+                                createSnackbar(R.string.feedback_department_updated)
+                            Response.Action.REMOVE ->
+                                createSnackbar(R.string.feedback_department_removed)
+                        }
+                    }
+                }
+            }
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             departmentAdapter.loadStateFlow.collectLatest {

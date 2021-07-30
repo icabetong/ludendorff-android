@@ -4,14 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
+import io.capstone.keeper.components.exceptions.EmptySnapshotException
+import io.capstone.keeper.components.extensions.hide
 import io.capstone.keeper.components.extensions.setup
+import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.databinding.FragmentAssignmentBinding
 import io.capstone.keeper.features.shared.components.BaseFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AssignmentFragment: BaseFragment() {
+class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentAssignmentBinding? = null
 
     private val binding get() = _binding!!
@@ -38,11 +47,13 @@ class AssignmentFragment: BaseFragment() {
             iconRes = R.drawable.ic_hero_menu,
             onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
             menuRes = R.menu.menu_main,
-            onMenuOptionClicked = {
-                when(it) {
-                    R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
-                }
-            }
+            onMenuOptionClicked = ::onMenuItemClicked
         )
+    }
+
+    override fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
+        }
     }
 }

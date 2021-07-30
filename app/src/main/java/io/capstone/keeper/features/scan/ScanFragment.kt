@@ -1,6 +1,7 @@
 package io.capstone.keeper.features.scan
 
 import android.Manifest
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ScanMode
+import com.google.zxing.*
+import com.google.zxing.common.HybridBinarizer
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
@@ -23,10 +26,11 @@ import io.capstone.keeper.features.shared.components.BaseFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ScanFragment: BaseFragment() {
+class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentScanBinding? = null
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
     private lateinit var codeScanner: CodeScanner
 
     private val binding get() = _binding!!
@@ -40,6 +44,31 @@ class ScanFragment: BaseFragment() {
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) {
                 switchViews(it)
+            }
+
+        imagePickerLauncher =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+                requireContext().contentResolver.openInputStream(uri)?.use {
+                    val bitmap = BitmapFactory.decodeStream(it)
+                    val reader = MultiFormatReader()
+                    try {
+                        val width = bitmap.width
+                        val height = bitmap.height
+                        val pixels = IntArray(width * height)
+                        bitmap.getPixels(pixels, 0, width, 0, 0, width, height)
+
+                        val source = RGBLuminanceSource(width, height, pixels)
+                        val binaryBitmap = BinaryBitmap(HybridBinarizer(source))
+                        val decodeResult = reader.decode(binaryBitmap)
+                        android.util.Log.e("DEBUG", decodeResult.text)
+                    } catch (exception: NotFoundException) {
+                        android.util.Log.e("DEBUG", exception.toString())
+                    } catch (exception: ChecksumException) {
+                        android.util.Log.e("DEBUG", exception.toString())
+                    } catch (exception: FormatException) {
+                        android.util.Log.e("DEBUG", exception.toString())
+                    }
+                }
             }
     }
 
@@ -60,6 +89,7 @@ class ScanFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.appBar.appBar.setExpanded(false)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_scan,
             iconRes = R.drawable.ic_hero_menu,
@@ -91,6 +121,9 @@ class ScanFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
+        binding.actionButton.setOnClickListener {
+            imagePickerLauncher.launch("image/*")
+        }
         binding.codeScannerView.setOnClickListener {
             codeScanner.startPreview()
         }
@@ -118,7 +151,7 @@ class ScanFragment: BaseFragment() {
         binding.errorView.isVisible = !permissionGranted
     }
 
-    private fun onMenuItemClicked(@IdRes id: Int) {
+    override fun onMenuItemClicked(@IdRes id: Int) {
         when(id) {
             R.id.action_menu -> {
                 getOverlappingPanelLayout().openEndPanel()

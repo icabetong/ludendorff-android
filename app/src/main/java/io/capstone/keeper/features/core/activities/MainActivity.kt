@@ -22,9 +22,6 @@ class MainActivity: BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        android.util.Log.e("DEBUG", intent?.action.toString())
-        android.util.Log.e("DEBUG", intent?.data.toString())
-
         controller = Navigation.findNavController(this, R.id.navHostFragment)
 
         if (authViewModel.checkCurrentUser() != null)

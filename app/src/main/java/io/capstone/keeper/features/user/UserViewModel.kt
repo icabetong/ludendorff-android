@@ -7,7 +7,6 @@ import androidx.paging.cachedIn
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.capstone.keeper.features.core.backend.FirestoreRepository
 import io.capstone.keeper.features.core.backend.Response
 import io.capstone.keeper.features.shared.components.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -24,9 +23,9 @@ class UserViewModel @Inject constructor(
 
     private val userQuery: Query = firestore.collection(User.COLLECTION)
         .orderBy("lastName", Query.Direction.ASCENDING)
-        .limit(FirestoreRepository.QUERY_LIMIT)
+        .limit(Response.QUERY_LIMIT.toLong())
 
-    val users = Pager(PagingConfig(pageSize = FirestoreRepository.QUERY_LIMIT.toInt())) {
+    val users = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
         UserPagingSource(userQuery)
     }.flow.cachedIn(viewModelScope)
 

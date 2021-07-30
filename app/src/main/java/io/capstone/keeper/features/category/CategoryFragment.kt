@@ -14,6 +14,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
@@ -184,13 +186,24 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             viewModel.action.collect {
                 when(it) {
                     is Response.Error -> {
-                        when(it.action) {
-                            Response.Action.CREATE ->
-                                createSnackbar(R.string.feedback_category_create_error)
-                            Response.Action.UPDATE ->
-                                createSnackbar(R.string.feedback_category_update_error)
-                            Response.Action.REMOVE ->
-                                createSnackbar(R.string.feedback_category_remove_error)
+                        if (it.throwable is FirebaseFirestoreException &&
+                                it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+
+                            MaterialDialog(requireContext()).show {
+                                lifecycleOwner(viewLifecycleOwner)
+                                title(R.string.error_no_permission)
+                                message(R.string.error_no_permission_summary_write)
+                                positiveButton()
+                            }
+                        } else {
+                            when(it.action) {
+                                Response.Action.CREATE ->
+                                    createSnackbar(R.string.feedback_category_create_error)
+                                Response.Action.UPDATE ->
+                                    createSnackbar(R.string.feedback_category_update_error)
+                                Response.Action.REMOVE ->
+                                    createSnackbar(R.string.feedback_category_remove_error)
+                            }
                         }
                     }
                     is Response.Success -> {

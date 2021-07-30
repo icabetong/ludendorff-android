@@ -3,7 +3,6 @@ package io.capstone.keeper.features.category
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.keeper.features.asset.Asset
-import io.capstone.keeper.features.core.backend.FirestoreRepository
 import io.capstone.keeper.features.core.backend.Response
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -12,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 class CategoryRepository @Inject constructor(
     private val firestore: FirebaseFirestore
-): FirestoreRepository<Category> {
+) {
 
     suspend fun create(data: Category): Response<Response.Action> {
         return try {

@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class UserFragment: BaseFragment(), OnItemActionListener<User> {
+class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentUsersBinding? = null
     private var controller: NavController? = null
 
@@ -66,11 +66,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User> {
             iconRes = R.drawable.ic_hero_menu,
             onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
             menuRes = R.menu.menu_main,
-            onMenuOptionClicked = {
-                when(it) {
-                    R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
-                }
-            }
+            onMenuOptionClicked = ::onMenuItemClicked
         )
 
         with(binding.recyclerView) {
@@ -244,6 +240,12 @@ class UserFragment: BaseFragment(), OnItemActionListener<User> {
                         it to TRANSITION_NAME_ROOT + data?.userId)
                 )
             }
+        }
+    }
+
+    override fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
         }
     }
 
