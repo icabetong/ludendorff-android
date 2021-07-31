@@ -24,6 +24,7 @@
 
     <string name="title_asset_create">Create Asset</string>
     <string name="title_asset_update">Edit Asset</string>
+    <string name="title_asset_select">Select Asset</string>
     <string name="title_department_create">Create Department</string>
     <string name="title_department_update">Edit Department</string>
     <string name="title_department_select">Select Department</string>
@@ -35,6 +36,8 @@
     <string name="title_user_create">Create User</string>
     <string name="title_user_update">Edit User</string>
     <string name="title_user_select">Select User</string>
+    <string name="title_assignment_create">Create Assignment</string>
+    <string name="title_assignment_update">Edit Assignment</string>
     <string name="title_scan_result">Scan Result</string>
     <string name="title_select_profile_picture">Select Profile Picture</string>
     <string name="title_view_qr_code">View QR Code</string>
@@ -63,8 +66,13 @@
     <string name="hint_information">Information</string>
     <string name="hint_permissions">Permissions</string>
     <string name="hint_date_created">Date Created</string>
+    <string name="hint_asset">Asset</string>
     <string name="hint_asset_information">Asset Information</string>
     <string name="hint_user_information">User Information</string>
+    <string name="hint_date_assigned">Date Assigned</string>
+    <string name="hint_date_returned">Date Returned</string>
+    <string name="hint_location">Location</string>
+    <string name="hint_remarks">Remarks</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>
@@ -122,6 +130,7 @@
     <string name="feedback_upload_error">Error uploading profile image</string>
     <string name="feedback_updated_password">Successfully changed password</string>
     <string name="feedback_reset_link_sent">Password reset link sent</string>
+    <string name="feedback_qr_code_saved_as_image">QR-Code saved as image</string>
     <string name="feedback_category_created">Category successfully created</string>
     <string name="feedback_category_removed">Category successfully removed</string>
     <string name="feedback_category_updated">Category successfully updated</string>
@@ -183,6 +192,8 @@
     <string name="dialog_remove_asset_message">Are you sure you want to remove this asset? You can\'t recover this information in the future.</string>
     <string name="dialog_remove_specification_title">Remove specification?</string>
     <string name="dialog_remove_specification_message">Are you sure you want to remove this specification? You can\'t recover this information in the future.</string>
+
+    <string name="settings_group_interface">Interface</string>
 
     <string name="settings_theme_title">Theme</string>
     <string name="settings_theme_option_system">System</string>

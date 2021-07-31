@@ -2,12 +2,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ListPreference
-        android:key="preference:theme"
-        android:title="@string/settings_theme_title"
-        android:entries="@array/settings_theme_options"
-        android:entryValues="@array/settings_theme_options_values"
-        android:defaultValue="system"
-        app:useSimpleSummaryProvider="true"/>
+    <PreferenceCategory
+        android:title="@string/settings_group_interface">
+
+        <ListPreference
+            android:key="preference:theme"
+            android:title="@string/settings_theme_title"
+            android:entries="@array/settings_theme_options"
+            android:entryValues="@array/settings_theme_options_values"
+            android:defaultValue="system"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

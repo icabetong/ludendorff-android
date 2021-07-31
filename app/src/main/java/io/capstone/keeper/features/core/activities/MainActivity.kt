@@ -1,6 +1,7 @@
 package io.capstone.keeper.features.core.activities
 
 import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -8,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.databinding.ActivityMainBinding
 import io.capstone.keeper.features.auth.AuthViewModel
+import io.capstone.keeper.features.scan.ScanViewModel
 import io.capstone.keeper.features.shared.components.BaseActivity
 
 @AndroidEntryPoint

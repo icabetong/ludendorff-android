@@ -16,7 +16,8 @@
 
         <activity android:name=".features.core.activities.MainActivity"
             android:theme="@style/Theme.Keeper.Core"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -68,7 +68,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             binding.appBar.toolbar.setTitle(R.string.title_department_update)
 
             binding.nameTextInput.setText(it.name)
-            binding.managerTextView.text = it.managerSSN?.name
+            binding.managerTextInput.setText(it.managerSSN?.name)
             binding.emailTextView.text = it.managerSSN?.email
         }
 
@@ -92,7 +92,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             controller?.navigateUp()
         }
 
-        binding.managerTextView.setOnClickListener {
+        binding.managerTextInput.setOnClickListener {
             UserPickerBottomSheet(childFragmentManager).show()
         }
     }
@@ -101,7 +101,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         when(requestKey) {
             UserPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<User>(UserPickerBottomSheet.EXTRA_USER)?.let {
-                    binding.managerTextView.text = it.getDisplayName()
+                    binding.managerTextInput.setText(it.getDisplayName())
                     binding.emailTextView.text = it.email
 
                     editorViewModel.triggerManagerChanged(it)

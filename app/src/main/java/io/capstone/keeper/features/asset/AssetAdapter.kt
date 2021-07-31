@@ -32,8 +32,7 @@ class AssetAdapter(
             binding.informationTextView.text = data?.category?.categoryName
 
             binding.root.setOnClickListener {
-                onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
-                    binding.root)
+                onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT, it)
             }
         }
     }

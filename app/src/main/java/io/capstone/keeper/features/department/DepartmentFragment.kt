@@ -72,9 +72,6 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
         with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
             adapter = departmentAdapter
-
-            ItemTouchHelper(SwipeItemCallback(context, departmentAdapter))
-                .attachToRecyclerView(this)
         }
 
         binding.rowLayout.root.doOnLayout {

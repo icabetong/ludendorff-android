@@ -39,31 +39,35 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/managerTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:text="@string/hint_manager"
-            android:textColor="@color/keeper_primary_variant"
-            android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+            android:layout_marginTop="@dimen/activity_margin_small"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:hint="@string/hint_manager"
+            style="@style/Widget.Keeper.TextInput.Layout">
 
-        <TextView
-            android:id="@+id/managerTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/activity_margin_small"
-            android:focusable="true"
-            android:clickable="true"
-            android:text="@string/hint_vacant"
-            android:textAppearance="@style/TextAppearance.Keeper.List.Title" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/managerTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="none"
+                android:focusable="false"
+                android:text="@string/hint_vacant"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/emailTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/activity_margin_small"
             android:gravity="center_vertical"
             android:textAppearance="@style/TextAppearance.Keeper.Body"
+            android:drawableStart="@drawable/ic_hero_mail_open"
+            android:drawablePadding="@dimen/activity_margin"
             tools:text="isaiahcollins02@gmail.com"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

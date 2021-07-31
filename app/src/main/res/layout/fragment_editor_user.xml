@@ -173,24 +173,25 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/departmentTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/activity_margin_small"
-                android:text="@string/hint_department"
-                android:textColor="@color/keeper_primary_variant"
-                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+                android:layout_marginTop="@dimen/activity_margin_small"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_department"
+                style="@style/Widget.Keeper.TextInput.Layout">
 
-            <TextView
-                android:id="@+id/departmentTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/activity_margin_small"
-                android:focusable="true"
-                android:clickable="true"
-                android:text="@string/hint_not_set"
-                android:textAppearance="@style/TextAppearance.Keeper.List.Title" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/departmentTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:text="@string/hint_not_set"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

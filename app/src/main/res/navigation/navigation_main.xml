@@ -43,6 +43,10 @@
         android:id="@+id/navigation_editor_department"
         android:name="io.capstone.keeper.features.department.editor.DepartmentEditorFragment"
         tools:layout="@layout/fragment_editor_department" />
+    <fragment
+        android:id="@+id/navigation_editor_assignment"
+        android:name="io.capstone.keeper.features.assignment.editor.AssignmentEditorFragment"
+        tools:layout="@layout/fragment_editor_assignment"/>
 
     <action
         android:id="@+id/to_navigation_auth"
@@ -79,6 +83,9 @@
         app:destination="@id/navigation_editor_user"/>
     <action
         android:id="@+id/to_navigation_editor_department"
+        app:destination="@id/navigation_editor_department"/>
+    <action
+        android:id="@+id/to_navigation_editor_assignment"
         app:destination="@id/navigation_editor_department"/>
 
 </navigation>

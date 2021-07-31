@@ -19,7 +19,7 @@ data class Asset @JvmOverloads constructor(
     var dateCreated: Timestamp? = Timestamp.now(),
     var status: Status? = null,
     var category: CategoryCore? = null,
-    var specifications: Map<String, String> = emptyMap()
+    var specifications: Map<String, String> = emptyMap(),
 ): Parcelable {
 
     fun generateQRCode(): Bitmap {

@@ -85,25 +85,24 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/categoryTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:text="@string/hint_category"
-            android:textColor="@color/keeper_primary_variant"
-            android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+            android:hint="@string/hint_category"
+            style="@style/Widget.Keeper.TextInput.Layout">
 
-        <TextView
-            android:id="@+id/categoryTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/activity_margin_small"
-            android:focusable="true"
-            android:clickable="true"
-            android:text="@string/hint_not_set"
-            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
-            tools:text="Desktop"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/categoryTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="none"
+                android:focusable="false"
+                android:text="@string/hint_not_set"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="match_parent"

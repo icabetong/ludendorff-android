@@ -105,7 +105,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
             binding.positionTextInput.setText(it.position)
 
             it.department?.name?.let { departmentName ->
-                binding.departmentTextView.text = departmentName
+                binding.departmentTextInput.setText(departmentName)
             }
 
             binding.readChip.isChecked = it.hasPermission(User.PERMISSION_READ)
@@ -147,7 +147,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
     override fun onResume() {
         super.onResume()
 
-        binding.departmentTextView.setOnClickListener {
+        binding.departmentTextInput.setOnClickListener {
             DepartmentPickerBottomSheet(childFragmentManager)
                 .show()
         }
@@ -216,7 +216,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
                 result.getParcelable<Department>(DepartmentPickerBottomSheet.EXTRA_DEPARTMENT)?.let {
                     editorViewModel.user.department = it.minimize()
 
-                    binding.departmentTextView.text = it.name
+                    binding.departmentTextInput.setText(it.name)
                 }
             }
         }

@@ -30,7 +30,7 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentScanBinding? = null
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
+    private lateinit var imageRequestLauncher: ActivityResultLauncher<String>
     private lateinit var codeScanner: CodeScanner
 
     private val binding get() = _binding!!
@@ -41,12 +41,7 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requestPermissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-                switchViews(it)
-            }
-
-        imagePickerLauncher =
+        imageRequestLauncher =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
                 requireContext().contentResolver.openInputStream(uri)?.use {
                     val bitmap = BitmapFactory.decodeStream(it)
@@ -69,6 +64,11 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
                         android.util.Log.e("DEBUG", exception.toString())
                     }
                 }
+            }
+
+        requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+                switchViews(it)
             }
     }
 
@@ -122,7 +122,7 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
         super.onStart()
 
         binding.actionButton.setOnClickListener {
-            imagePickerLauncher.launch("image/*")
+            imageRequestLauncher.launch("*/*")
         }
         binding.codeScannerView.setOnClickListener {
             codeScanner.startPreview()
@@ -158,4 +158,5 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
             }
         }
     }
+
 }

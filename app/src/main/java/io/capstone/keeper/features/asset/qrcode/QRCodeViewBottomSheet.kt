@@ -36,6 +36,7 @@ class QRCodeViewBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
                 try {
                     requireContext().contentResolver.openOutputStream(it.data?.data!!).use { outputStream ->
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                        createToast(R.string.feedback_qr_code_saved_as_image)
                     }
                 } catch (e: Exception) {
                     createToast(R.string.error_generic)

@@ -82,7 +82,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
 
             binding.assetNameTextInput.setText(it.assetName)
-            binding.categoryTextView.text = it.category?.categoryName
+            binding.categoryTextInput.setText(it.category?.categoryName)
             when(it.status) {
                 Asset.Status.OPERATIONAL -> binding.operationalChip.isChecked = true
                 Asset.Status.IDLE -> binding.idleChip.isChecked = true
@@ -114,7 +114,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.addAction.addActionButton.setOnClickListener {
             SpecsEditorBottomSheet(childFragmentManager).show()
         }
-        binding.categoryTextView.setOnClickListener {
+        binding.categoryTextInput.setOnClickListener {
             CategoryPickerBottomSheet(childFragmentManager).show()
         }
     }
@@ -158,7 +158,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         when (requestKey) {
             CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
-                    binding.categoryTextView.text = it.categoryName
+                    binding.categoryTextInput.setText(it.categoryName)
 
                     if (editorViewModel.previousCategoryId != it.categoryId)
                         editorViewModel.triggerCategoryChanged(it)
