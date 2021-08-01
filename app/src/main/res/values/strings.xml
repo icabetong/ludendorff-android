@@ -164,6 +164,8 @@
     <string name="empty_no_departments_summary">There are no departments available that can be used to assign the users from.</string>
     <string name="empty_no_assignments_header">No Assignments Available</string>
     <string name="empty_no_assignments_summary">There are currently no records of assigned assets to the users.</string>
+    <string name="empty_no_scanned_code_header">Scan a QR-Code</string>
+    <string name="empty_no_scanned_code_summary">You\'ll need to scan a valid QR-Code first to view its embedded data.</string>
 
     <string name="error_generic">An error occurred</string>
     <string name="error_generic_summary">Oops, something went wrong; in the meantime, try grabbing a cup of coffee, and try again.</string>
@@ -181,6 +183,8 @@
     <string name="error_auth_failed_timeout">Timeout error</string>
     <string name="error_camera_permission_header">Camera Permission Required</string>
     <string name="error_camera_permission_summary">We need permission to access your device\'s camera to scan QR codes.</string>
+    <string name="error_code_parsing_header">QR-Code Decode Failed</string>
+    <string name="error_code_parsing_summary">The data embedded in the scanned QR-code is unrecognizable by this application.</string>
 
     <string name="dialog_send_reset_link_title">Send Password Reset Link</string>
     <string name="dialog_send_reset_link_message">Enter your email address below to receive a link that you can use to reset your password.</string>

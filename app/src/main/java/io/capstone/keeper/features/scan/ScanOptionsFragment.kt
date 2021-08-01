@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.databinding.FragmentOptionsScanBinding
 import io.capstone.keeper.features.shared.components.BaseFragment
 
@@ -30,6 +31,7 @@ class ScanOptionsFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.emptyView.root.show()
     }
 
 }

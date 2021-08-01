@@ -7,8 +7,7 @@ Keeper is our capstone project that is a client app used in asset tracking and m
 ## Built with
 
 * Kotlin
-* Room
-* AndroidX
+* Android Jetpack
 * Other cool open-source libraries (see Acknowledgements)
 
 ## Versioning

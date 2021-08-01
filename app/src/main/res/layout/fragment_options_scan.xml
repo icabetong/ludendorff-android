@@ -15,7 +15,8 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -158,5 +159,13 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/decodeErrorView"
+        layout="@layout/layout_error_decode"/>
+
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/layout_empty_scan"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

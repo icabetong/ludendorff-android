@@ -1,6 +1,7 @@
 package io.capstone.keeper.features.scan
 
 import android.Manifest
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,6 +32,7 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var imageRequestLauncher: ActivityResultLauncher<String>
+    private lateinit var genericLauncher: ActivityResultLauncher<Intent>
     private lateinit var codeScanner: CodeScanner
 
     private val binding get() = _binding!!
@@ -40,6 +42,11 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        genericLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                throw Exception()
+            }
 
         imageRequestLauncher =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -122,7 +129,11 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
         super.onStart()
 
         binding.actionButton.setOnClickListener {
-            imageRequestLauncher.launch("*/*")
+            //imageRequestLauncher.launch("*/*")
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "*/*"
+
+            genericLauncher.launch(Intent.createChooser(intent, "S"))
         }
         binding.codeScannerView.setOnClickListener {
             codeScanner.startPreview()
