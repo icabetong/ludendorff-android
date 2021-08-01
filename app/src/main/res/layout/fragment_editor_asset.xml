@@ -14,7 +14,6 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/activity_margin"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -22,6 +21,8 @@
             android:id="@+id/assetNameTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:layout_marginHorizontal="@dimen/activity_margin"
             android:hint="@string/hint_asset_name"
             style="@style/Widget.Keeper.TextInput.Layout">
 
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginBottom="@dimen/activity_margin_small"
+            android:layout_marginHorizontal="@dimen/activity_margin"
             android:text="@string/hint_status"
             android:textColor="@color/keeper_primary_variant"
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
@@ -51,6 +53,7 @@
             android:id="@+id/statusChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/activity_margin"
             app:singleSelection="true"
             app:selectionRequired="true"
             app:checkedChip="@id/idleChip">
@@ -90,6 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin"
+            android:layout_marginHorizontal="@dimen/activity_margin"
             android:hint="@string/hint_category"
             style="@style/Widget.Keeper.TextInput.Layout">
 
@@ -109,6 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginBottom="@dimen/activity_margin_small"
+            android:layout_marginHorizontal="@dimen/activity_margin"
             android:text="@string/hint_specifications"
             android:textColor="@color/keeper_primary_variant"
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>

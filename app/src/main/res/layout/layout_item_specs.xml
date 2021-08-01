@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/activity_margin_small">
+        android:paddingVertical="@dimen/activity_margin_small"
+        android:paddingHorizontal="@dimen/activity_margin">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/valueTextView"
