@@ -47,20 +47,21 @@ class NavigationFragment: BaseFragment() {
 
         controller = requireActivity().supportFragmentManager.findFragmentById(R.id.navHostFragment)
             ?.findNavController()
-
-        binding.nameTextView.text = viewModel.fullName
-        binding.profileImageView.load(viewModel.imageUrl) {
-            error(R.drawable.ic_hero_user)
-            placeholder(CircularProgressDrawable(requireContext()))
-            transformations(CircleCropTransformation())
-            scale(Scale.FILL)
-        }
     }
 
     override fun onStart() {
         super.onStart()
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
+
+            binding.nameTextView.text = it.getDisplayName()
+            binding.profileImageView.load(it.imageUrl) {
+                error(R.drawable.ic_hero_user)
+                placeholder(CircularProgressDrawable(requireContext()))
+                transformations(CircleCropTransformation())
+                scale(Scale.FILL)
+            }
+
             with(binding.navigationView.menu) {
                 findItem(R.id.navigation_users)
                     .isVisible = it.hasPermission(User.PERMISSION_MANAGE_USERS) ||
@@ -71,6 +72,11 @@ class NavigationFragment: BaseFragment() {
 
                 findItem(R.id.navigation_assets)
                     .isVisible = it.hasPermission(User.PERMISSION_READ)
+                        || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+
+                findItem(R.id.navigation_scan)
+                    .isVisible = it.hasPermission(User.PERMISSION_READ)
+                        || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
             }
         }
     }

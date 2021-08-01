@@ -4,21 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.keeper.R
-import io.capstone.keeper.components.persistence.UserProperties
 import io.capstone.keeper.features.auth.AuthRepository
 import io.capstone.keeper.features.shared.components.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class NavigationViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
-    private val userProperties: UserProperties
+    private val authRepository: AuthRepository
 ): BaseViewModel() {
-
-    val fullName: String?
-        get() = userProperties.getDisplayName()
-    val imageUrl: String?
-        get() = userProperties.imageUrl
 
     fun endSession() {
         authRepository.endSession()

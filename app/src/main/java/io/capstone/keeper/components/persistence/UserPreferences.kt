@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import io.capstone.keeper.features.settings.preferences.CorePreferences
 import java.util.*
 
 class UserPreferences(private val context: Context?) {
@@ -28,16 +29,15 @@ class UserPreferences(private val context: Context?) {
     }
 
     var theme: Theme
-        get() = Theme.parse(sharedPreference.getString(PREFERENCE_THEME, Theme.SYSTEM.toString()))
+        get() = Theme.parse(sharedPreference.getString(CorePreferences.PREFERENCE_KEY_THEME,
+            Theme.SYSTEM.toString()))
         set(value) {
             sharedPreference.edit {
-                putString(PREFERENCE_THEME, value.toString())
+                putString(CorePreferences.PREFERENCE_KEY_THEME, value.toString())
             }
         }
 
     companion object {
-        const val PREFERENCE_THEME = "preference:theme"
-
         fun notifyThemeChanged(theme: Theme) {
             when(theme) {
                 Theme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

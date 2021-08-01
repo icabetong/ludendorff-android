@@ -14,14 +14,12 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.ItemTouchHelper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.GenericItemDecoration
-import io.capstone.keeper.components.custom.SwipeItemCallback
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
 import io.capstone.keeper.components.extensions.getCountThatFitsOnScreen
 import io.capstone.keeper.components.extensions.hide
@@ -30,8 +28,10 @@ import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentDepartmentBinding
 import io.capstone.keeper.features.core.backend.Response
+import io.capstone.keeper.features.core.viewmodel.CoreViewModel
 import io.capstone.keeper.features.department.editor.DepartmentEditorFragment
 import io.capstone.keeper.features.shared.components.BaseFragment
+import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -43,6 +43,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
 
     private val binding get() = _binding!!
     private val viewModel: DepartmentViewModel by activityViewModels()
+    private val coreViewModel: CoreViewModel by activityViewModels()
     private val departmentAdapter = DepartmentAdapter(this)
 
     override fun onCreateView(
@@ -94,6 +95,16 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
     override fun onStart() {
         super.onStart()
 
+        coreViewModel.userData.observe(viewLifecycleOwner) {
+            binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
+                    || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+        }
+
+        /**
+         *  Use Kotlin's coroutines to fetch the current loadState of
+         *  the PagingAdapter; we will use the viewLifecycleOwner to
+         *  avoid memory leaks as we are using fragments as the presenter.
+         */
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.action.collect {
                 when(it) {

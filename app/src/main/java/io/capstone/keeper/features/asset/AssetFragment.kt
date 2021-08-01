@@ -29,7 +29,9 @@ import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentAssetsBinding
 import io.capstone.keeper.features.asset.editor.AssetEditorFragment
 import io.capstone.keeper.features.core.backend.Response
+import io.capstone.keeper.features.core.viewmodel.CoreViewModel
 import io.capstone.keeper.features.shared.components.BaseFragment
+import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -41,6 +43,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
     private val binding get() = _binding!!
     private val viewModel: AssetViewModel by activityViewModels()
+    private val coreViewModel: CoreViewModel by activityViewModels()
     private val assetAdapter = AssetAdapter(this)
 
     override fun onCreateView(
@@ -95,6 +98,11 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         super.onStart()
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+
+        coreViewModel.userData.observe(viewLifecycleOwner) {
+            binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
+                    || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+        }
 
         /**
          *  Use Kotlin's coroutines to fetch the current loadState of

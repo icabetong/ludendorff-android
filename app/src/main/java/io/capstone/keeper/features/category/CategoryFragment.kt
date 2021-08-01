@@ -30,7 +30,9 @@ import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentCategoryBinding
 import io.capstone.keeper.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.keeper.features.core.backend.Response
+import io.capstone.keeper.features.core.viewmodel.CoreViewModel
 import io.capstone.keeper.features.shared.components.BaseFragment
+import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -42,6 +44,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
     private val binding get() = _binding!!
     private val viewModel: CategoryViewModel by activityViewModels()
+    private val coreViewModel: CoreViewModel by activityViewModels()
     private val categoryAdapter = CategoryAdapter(this)
 
     override fun onCreateView(
@@ -98,6 +101,11 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
     override fun onStart() {
         super.onStart()
+
+        coreViewModel.userData.observe(viewLifecycleOwner) {
+            binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
+                    || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+        }
 
         /**
          *  Use Kotlin's coroutines to fetch the current loadState of

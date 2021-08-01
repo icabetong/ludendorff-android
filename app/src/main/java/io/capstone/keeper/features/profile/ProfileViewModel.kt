@@ -41,12 +41,6 @@ class ProfileViewModel @Inject constructor(
         get() = userProperties.firstName
     val lastName: String?
         get() = userProperties.lastName
-    val fullName: String?
-        get() = userProperties.getDisplayName()
-    val email: String?
-        get() = userProperties.email
-    val imageUrl: String?
-        get() = userProperties.imageUrl
 
     val compressionWorkInfo: LiveData<List<WorkInfo>> = workManager
         .getWorkInfosForUniqueWorkLiveData(ImageCompressWorker.WORKER_TAG)

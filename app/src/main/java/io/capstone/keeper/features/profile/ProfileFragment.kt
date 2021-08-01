@@ -33,6 +33,7 @@ import io.capstone.keeper.components.custom.NavigationItemDecoration
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.databinding.FragmentProfileBinding
 import io.capstone.keeper.features.core.backend.Response
+import io.capstone.keeper.features.core.viewmodel.CoreViewModel
 import io.capstone.keeper.features.core.worker.ImageCompressWorker
 import io.capstone.keeper.features.core.worker.ProfileUploadWorker
 import io.capstone.keeper.features.profile.actions.ChangeNameBottomSheet
@@ -53,6 +54,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
     private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by activityViewModels()
+    private val coreViewModel: CoreViewModel by activityViewModels()
 
     private lateinit var imageRequestLauncher: ActivityResultLauncher<String>
     private lateinit var executor: Executor
@@ -114,15 +116,6 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
             adapter = optionsAdapter
         }
 
-        binding.nameTextView.text = viewModel.fullName
-        binding.emailTextView.text = viewModel.email
-        viewModel.imageUrl?.let {
-            binding.imageView.load(it) {
-                error(R.drawable.ic_hero_user)
-                scale(Scale.FILL)
-            }
-        }
-
         registerForFragmentResult(
             arrayOf(ChangePasswordBottomSheet.REQUEST_KEY_CHANGE,
                 ChangeNameBottomSheet.REQUEST_KEY_CHANGE),
@@ -134,6 +127,15 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         super.onStart()
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+
+        coreViewModel.userData.observe(viewLifecycleOwner) {
+            binding.nameTextView.text = it.getDisplayName()
+            binding.emailTextView.text = it.email
+            binding.imageView.load(it.imageUrl) {
+                error(R.drawable.ic_hero_user)
+                scale(Scale.FILL)
+            }
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.passwordResetEmailSent.collect {
