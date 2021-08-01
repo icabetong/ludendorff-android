@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/activity_margin_small"
             android:orientation="vertical"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:background="@color/keeper_background_content"
             app:layout_constraintStart_toEndOf="@id/navigation_settings"
             app:layout_constraintEnd_toEndOf="parent">
@@ -58,11 +58,13 @@
                 android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
                 tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/navigationView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:elevation="0dp"
+                app:menu="@menu/menu_navigation"/>
 
         </io.capstone.keeper.components.views.RoundedLinearLayout>
 

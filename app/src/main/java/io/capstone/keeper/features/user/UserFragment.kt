@@ -28,6 +28,7 @@ import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentUsersBinding
 import io.capstone.keeper.features.core.backend.Response
+import io.capstone.keeper.features.core.viewmodel.CoreViewModel
 import io.capstone.keeper.features.shared.components.BaseFragment
 import io.capstone.keeper.features.user.editor.UserEditorFragment
 import kotlinx.coroutines.flow.collect
@@ -41,6 +42,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
     private val binding get() = _binding!!
     private val viewModel: UserViewModel by activityViewModels()
+    private val coreViewModel: CoreViewModel by activityViewModels()
     private val userAdapter = UserAdapter(this)
 
     override fun onCreateView(
@@ -94,6 +96,11 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     override fun onStart() {
         super.onStart()
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+
+        coreViewModel.userData.observe(viewLifecycleOwner) {
+            binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_MANAGE_USERS)
+                    || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.action.collect {

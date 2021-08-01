@@ -11,6 +11,7 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.setup
+import io.capstone.keeper.components.extensions.toTimestamp
 import io.capstone.keeper.databinding.FragmentEditorAssignmentBinding
 import io.capstone.keeper.features.asset.picker.AssetPickerBottomSheet
 import io.capstone.keeper.features.assignment.Assignment
@@ -74,9 +75,18 @@ class AssignmentEditorFragment: BaseEditorFragment() {
             AssetPickerBottomSheet(childFragmentManager)
                 .show()
         }
+        binding.userTextInput.setOnClickListener {
+            UserPickerBottomSheet(childFragmentManager)
+                .show()
+        }
         binding.dateReturnedTextInput.setOnClickListener {
             MaterialDialog(requireContext()).show {
                 lifecycleOwner(viewLifecycleOwner)
+                datePicker(requireFutureDate = true) { _, date ->
+                    binding.dateReturnedTextInput.setText(date.toTimestamp().toString())
+                }
+                positiveButton(R.string.button_continue)
+                negativeButton(R.string.button_cancel)
             }
         }
     }

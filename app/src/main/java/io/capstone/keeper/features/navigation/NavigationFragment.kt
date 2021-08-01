@@ -14,18 +14,19 @@ import coil.transform.CircleCropTransformation
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
-import io.capstone.keeper.components.custom.NavigationItemDecoration
 import io.capstone.keeper.databinding.FragmentNavigationBinding
+import io.capstone.keeper.features.core.viewmodel.CoreViewModel
 import io.capstone.keeper.features.shared.components.BaseFragment
+import io.capstone.keeper.features.user.User
 
 @AndroidEntryPoint
-class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListener {
+class NavigationFragment: BaseFragment() {
     private var _binding: FragmentNavigationBinding? = null
-    private var navigationAdapter: NavigationAdapter? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
     private val viewModel: NavigationViewModel by activityViewModels()
+    private val coreViewModel: CoreViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,13 +48,6 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
         controller = requireActivity().supportFragmentManager.findFragmentById(R.id.navHostFragment)
             ?.findNavController()
 
-        navigationAdapter = NavigationAdapter(activity, R.menu.menu_navigation, R.id.navigation_user_home,
-            this@NavigationFragment)
-        with(binding.recyclerView) {
-            addItemDecoration(NavigationItemDecoration(context))
-            adapter = navigationAdapter
-        }
-
         binding.nameTextView.text = viewModel.fullName
         binding.profileImageView.load(viewModel.imageUrl) {
             error(R.drawable.ic_hero_user)
@@ -66,8 +60,18 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
     override fun onStart() {
         super.onStart()
 
-        viewModel.destination.observe(viewLifecycleOwner) {
-            navigationAdapter?.setDestination(it)
+        coreViewModel.userData.observe(viewLifecycleOwner) {
+            with(binding.navigationView.menu) {
+                findItem(R.id.navigation_users)
+                    .isVisible = it.hasPermission(User.PERMISSION_MANAGE_USERS) ||
+                        it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+
+                findItem(R.id.navigation_assignments)
+                    .isVisible = it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+
+                findItem(R.id.navigation_assets)
+                    .isVisible = it.hasPermission(User.PERMISSION_READ)
+            }
         }
     }
 
@@ -76,6 +80,12 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
 
         binding.profileImageView.setOnClickListener {
             controller?.navigate(R.id.navigation_profile)
+        }
+        binding.navigationView.setNavigationItemSelectedListener {
+            viewModel.setDestination(it.itemId)
+            dismissNavigationPanel()
+
+            true
         }
         binding.navigationSettings.setOnClickListener {
             controller?.navigate(R.id.navigation_settings)
@@ -97,13 +107,5 @@ class NavigationFragment: BaseFragment(), NavigationAdapter.NavigationItemListen
     private fun dismissNavigationPanel() {
         getOverlappingPanelLayout().closePanels()
     }
-
-    override fun onItemSelected(id: Int) {
-        viewModel.setDestination(id)
-
-        navigationAdapter?.setDestination(id)
-        dismissNavigationPanel()
-    }
-
 
 }

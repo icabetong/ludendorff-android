@@ -20,7 +20,5 @@
     <color name="keeper_toolbar">@color/keeper_surface</color>
     <color name="keeper_menu">?attr/colorSurface</color>
 
-    <color name="keeper_highlight_background">#eeeeee</color>
-    <color name="keeper_highlight_content">#373737</color>
     <color name="keeper_shimmer">#dddddd</color>
 </resources>

@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/navigation_user_home"
-        android:title="@string/navigation_home"
-        android:icon="@drawable/ic_hero_home"/>
+    <group
+        android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/navigation_scan"
-        android:title="@string/navigation_scan"
-        android:icon="@drawable/ic_hero_qrcode"/>
+        <item
+            android:id="@+id/navigation_user_home"
+            android:title="@string/navigation_home"
+            android:icon="@drawable/ic_hero_home"
+            android:checked="true"/>
 
-    <item
-        android:id="@+id/navigation_assets"
-        android:title="@string/navigation_assets"
-        android:icon="@drawable/ic_hero_desktop_computer"/>
+        <item
+            android:id="@+id/navigation_scan"
+            android:title="@string/navigation_scan"
+            android:icon="@drawable/ic_hero_qrcode"/>
 
-    <item
-        android:id="@+id/navigation_users"
-        android:title="@string/navigation_users"
-        android:icon="@drawable/ic_hero_users"/>
+        <item
+            android:id="@+id/navigation_assets"
+            android:title="@string/navigation_assets"
+            android:icon="@drawable/ic_hero_desktop_computer"/>
 
-    <item
-        android:id="@+id/navigation_assignments"
-        android:title="@string/navigation_assignment"
-        android:icon="@drawable/ic_hero_identification"/>
+        <item
+            android:id="@+id/navigation_users"
+            android:title="@string/navigation_users"
+            android:icon="@drawable/ic_hero_users"/>
+
+        <item
+            android:id="@+id/navigation_assignments"
+            android:title="@string/navigation_assignment"
+            android:icon="@drawable/ic_hero_identification"/>
+
+    </group>
 
 </menu>
