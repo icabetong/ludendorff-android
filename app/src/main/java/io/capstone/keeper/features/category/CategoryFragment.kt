@@ -84,19 +84,6 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             ItemTouchHelper(SwipeItemCallback(requireContext(), categoryAdapter))
                 .attachToRecyclerView(this)
         }
-
-        binding.rowLayout.root.doOnLayout {
-            val rowCount = it.getCountThatFitsOnScreen(it.context)
-            binding.skeletonLayout.removeView(it)
-
-            for (i in 0 until rowCount) {
-                val row = LayoutInflater.from(requireContext())
-                    .inflate(R.layout.layout_item_category_skeleton,
-                        binding.skeletonLayout, false) as ViewGroup
-                binding.skeletonLayout.addView(row)
-                row.requestLayout()
-            }
-        }
     }
 
     override fun onStart() {

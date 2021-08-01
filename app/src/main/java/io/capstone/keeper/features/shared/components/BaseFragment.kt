@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
@@ -16,11 +17,21 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialFadeThrough
 import io.capstone.keeper.R
 import me.saket.cascade.CascadePopupMenu
 import me.saket.cascade.overrideOverflowMenu
 
 abstract class BaseFragment: Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // add a transition effect between the
+        // fragments to make it less dull
+        enterTransition = MaterialFadeThrough()
+        returnTransition = MaterialFadeThrough()
+    }
 
     protected fun registerForFragmentResult(keys: Array<String>, listener: FragmentResultListener) {
         keys.forEach {
@@ -47,7 +58,7 @@ abstract class BaseFragment: Fragment() {
         }
     }
 
-    protected fun getParentView(): View? {
+    private fun getParentView(): View? {
         return parentFragment?.parentFragment?.view
     }
 
@@ -59,6 +70,12 @@ abstract class BaseFragment: Fragment() {
         return getParentView()?.findViewById(R.id.overlappingPanels) as OverlappingPanelsLayout
     }
 
+    /**
+     *  Creates a snackbar and shows it in the fragment
+     *  @param textRes the string resource that will be used in the snackbar
+     *  @param length  the length of the duration of the snackbar, either
+     *                 Snackbar.LENGTH_SHORT, Snackbar.LENGTH_LONG or Snackbar.LENGTH_INDEFINITE
+     */
     protected fun createSnackbar(@StringRes textRes: Int, length: Int = Snackbar.LENGTH_SHORT): Snackbar {
         return Snackbar.make(requireView(), textRes, length).apply {
             show()
@@ -82,6 +99,9 @@ abstract class BaseFragment: Fragment() {
         }
     }
 
+    /**
+     *  @param id the view id that will be used as the drawingViewId
+     */
     protected fun buildContainerTransform(@IdRes id: Int = R.id.navHostFragment) =
         MaterialContainerTransform().apply {
             drawingViewId = id

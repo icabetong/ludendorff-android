@@ -77,19 +77,6 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
             adapter = assetAdapter
         }
 
-        binding.rowLayout.root.doOnLayout {
-            val rowCount = it.getCountThatFitsOnScreen(it.context)
-            binding.skeletonLayout.removeView(it)
-
-            for (i in 0 until rowCount) {
-                val row = LayoutInflater.from(requireContext())
-                    .inflate(R.layout.layout_item_asset_skeleton,
-                        binding.skeletonLayout, false) as ViewGroup
-                binding.skeletonLayout.addView(row)
-                row.requestLayout()
-            }
-        }
-
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
     }

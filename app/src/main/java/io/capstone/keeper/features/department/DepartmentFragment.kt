@@ -75,19 +75,6 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
             adapter = departmentAdapter
         }
 
-        binding.rowLayout.root.doOnLayout {
-            val rowCount = it.getCountThatFitsOnScreen(it.context)
-            binding.skeletonLayout.removeView(it)
-
-            for (i in 0 until rowCount) {
-                val row = LayoutInflater.from(requireContext())
-                    .inflate(R.layout.layout_item_department_skeleton,
-                        binding.skeletonLayout, false) as ViewGroup
-                binding.skeletonLayout.addView(row)
-                row.requestLayout()
-            }
-        }
-
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
     }
