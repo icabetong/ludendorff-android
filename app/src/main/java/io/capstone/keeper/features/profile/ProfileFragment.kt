@@ -369,6 +369,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                             binding.appBarProgressIndicator.isVisible = true
                             binding.nestedScrollView.isEnabled = false
                         }
+                        negativeButton(R.string.button_cancel)
                     }
                 }
                 BiometricPrompt.ERROR_LOCKOUT -> {

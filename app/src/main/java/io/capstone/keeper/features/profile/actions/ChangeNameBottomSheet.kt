@@ -38,6 +38,9 @@ class ChangeNameBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
         arguments?.let {
             currentFirstName = it.getString(EXTRA_FIRST_NAME)
             currentLastName = it.getString(EXTRA_LAST_NAME)
+
+            binding.firstNameTextInput.setText(currentFirstName)
+            binding.lastNameTextInput.setText(currentLastName)
         }
     }
 

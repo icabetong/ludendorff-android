@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -21,8 +22,10 @@ import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentAssignmentBinding
+import io.capstone.keeper.features.core.viewmodel.CoreViewModel
 import io.capstone.keeper.features.shared.components.BaseFragment
 import io.capstone.keeper.features.shared.components.BasePagingAdapter
+import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -34,6 +37,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
     private val binding get() = _binding!!
     private val assignmentAdapter = AssignmentAdapter(this)
+    private val coreViewModel: CoreViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,6 +78,11 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         super.onStart()
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+
+        coreViewModel.userData.observe(viewLifecycleOwner) {
+            binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
+                    || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+        }
     }
 
     override fun onResume() {
