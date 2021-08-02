@@ -8,7 +8,7 @@
     <color name="keeper_secondary">#ff5555</color>
     <color name="keeper_secondary_variant">#c5162c</color>
 
-    <color name="keeper_error">#ff79c6</color>
+    <color name="keeper_error">#ffb86c</color>
     <color name="keeper_on_error">@android:color/black</color>
 
     <color name="keeper_surface">@android:color/white</color>
