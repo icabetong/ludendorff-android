@@ -117,7 +117,7 @@ class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
     }
 
     companion object {
-        const val REQUEST_KEY_PICK = "request:pick"
+        const val REQUEST_KEY_PICK = "request:pick:user"
         const val EXTRA_USER = "extra:user"
     }
 }

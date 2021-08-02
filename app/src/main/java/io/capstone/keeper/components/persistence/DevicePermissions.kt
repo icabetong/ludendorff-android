@@ -10,7 +10,8 @@ class DevicePermissions(private val context: Context) {
     val cameraPermissionGranted: Boolean
         get() {
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                context.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED
+                context.checkSelfPermission(Manifest.permission.CAMERA) ==
+                        PackageManager.PERMISSION_GRANTED
             else true
         }
 }

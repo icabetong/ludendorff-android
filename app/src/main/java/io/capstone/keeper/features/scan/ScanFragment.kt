@@ -1,7 +1,6 @@
 package io.capstone.keeper.features.scan
 
 import android.Manifest
-import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,9 +29,8 @@ import javax.inject.Inject
 class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentScanBinding? = null
 
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var cameraPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var imageRequestLauncher: ActivityResultLauncher<String>
-    private lateinit var genericLauncher: ActivityResultLauncher<Intent>
     private lateinit var codeScanner: CodeScanner
 
     private val binding get() = _binding!!
@@ -43,10 +41,6 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        genericLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                throw Exception()
-            }
 
         imageRequestLauncher =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -73,7 +67,7 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
                 }
             }
 
-        requestPermissionLauncher =
+        cameraPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) {
                 switchViews(it)
             }
@@ -123,33 +117,27 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate {
                 getOverlappingPanelLayout().openEndPanel()
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        binding.actionButton.setOnClickListener {
-            //imageRequestLauncher.launch("*/*")
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "*/*"
-
-            genericLauncher.launch(Intent.createChooser(intent, "S"))
-        }
-        binding.codeScannerView.setOnClickListener {
-            codeScanner.startPreview()
-        }
-        binding.permissionButton.setOnClickListener {
-            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         if (permissions.cameraPermissionGranted) {
             switchViews(true)
             codeScanner.startPreview()
         } else switchViews(false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.actionButton.setOnClickListener {
+
+
+            //imageRequestLauncher.launch("*/*")
+        }
+        binding.codeScannerView.setOnClickListener {
+            codeScanner.startPreview()
+        }
+        binding.permissionButton.setOnClickListener {
+            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+        }
     }
 
     override fun onPause() {

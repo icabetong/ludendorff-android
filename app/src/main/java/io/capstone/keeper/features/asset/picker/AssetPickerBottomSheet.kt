@@ -123,7 +123,7 @@ class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
     }
 
     companion object {
-        const val REQUEST_KEY_PICK = "request:pick"
+        const val REQUEST_KEY_PICK = "request:pick:asset"
         const val EXTRA_ASSET = "extra:asset"
     }
 }

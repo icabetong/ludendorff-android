@@ -5,10 +5,10 @@
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/keeper_primary</item>
         <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
-        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorOnPrimary">@color/keeper_on_primary</item>
         <!-- Secondary brand color -->
-        <item name="colorSecondary">@color/keeper_primary</item>
-        <item name="colorSecondaryVariant">@color/keeper_primary_variant</item>
+        <item name="colorSecondary">@color/keeper_secondary</item>
+        <item name="colorSecondaryVariant">@color/keeper_secondary_variant</item>
         <item name="colorOnSecondary">@android:color/white</item>
         <!-- Error related colors -->
         <item name="colorError">@color/keeper_error</item>

@@ -3,6 +3,7 @@ package io.capstone.keeper.features.user
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Exclude
 import io.capstone.keeper.components.utils.IDGenerator
 import io.capstone.keeper.features.department.Department
 import io.capstone.keeper.features.department.DepartmentCore
@@ -24,6 +25,7 @@ data class User @JvmOverloads constructor(
         return permissions.contains(permission)
     }
 
+    @Exclude
     fun getDisplayName(): String {
         return "$firstName $lastName"
     }

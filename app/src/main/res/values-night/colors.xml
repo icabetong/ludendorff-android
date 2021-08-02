@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="keeper_surface">#161616</color>
+    <color name="keeper_primary">#bd93f9</color>
+    <color name="keeper_primary_variant">#8b65c6</color>
+    <color name="keeper_on_primary">@android:color/black</color>
+
+    <color name="keeper_surface">#44475a</color>
     <color name="keeper_on_surface">@android:color/white</color>
 
     <color name="keeper_text_primary">@android:color/white</color>
     <color name="keeper_text_secondary">#e0e0e0</color>
 
-    <color name="keeper_background_content">#1b1b1b</color>
-    <color name="keeper_background_main">#111111</color>
+    <color name="keeper_background_content">#282a36</color>
+    <color name="keeper_background_main">#1e1f29</color>
     <color name="keeper_status_bar">@color/keeper_background_main</color>
     <color name="keeper_navigation_bar">@color/keeper_background_main</color>
-    <color name="keeper_toolbar">@color/keeper_surface</color>
-    <color name="keeper_menu">#2d2d2d</color>
+    <color name="keeper_toolbar">@color/keeper_background_content</color>
+    <color name="keeper_menu">#44475a</color>
 
-    <color name="keeper_shimmer">#424242</color>
+    <color name="keeper_shimmer">#44475a</color>
 </resources>
