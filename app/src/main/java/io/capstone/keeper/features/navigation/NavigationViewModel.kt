@@ -15,6 +15,7 @@ class NavigationViewModel @Inject constructor(
 
     fun endSession() {
         authRepository.endSession()
+        _destination.value = R.id.navigation_user_home
     }
 
     private var _destination: MutableLiveData<Int> = MutableLiveData(R.id.navigation_user_home)
