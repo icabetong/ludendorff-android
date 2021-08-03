@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -69,6 +70,6 @@
         android:enabled="false"
         android:text="@string/button_save"
         app:icon="@drawable/ic_hero_check"
-        style="@style/Widget.Keeper.Button"/>
+        tools:enabled="true"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

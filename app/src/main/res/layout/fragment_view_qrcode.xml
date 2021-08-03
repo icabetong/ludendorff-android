@@ -41,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@id/qrCodeImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/saveButton"
-            style="@style/Widget.Keeper.Button.Outlined"/>
+            style="@style/Widget.Keeper.Button.Outlined.Secondary"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveButton"
@@ -51,7 +51,7 @@
             android:text="@string/button_save"
             app:layout_constraintTop_toBottomOf="@id/qrCodeImageView"
             app:layout_constraintStart_toEndOf="@id/shareButton"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -49,7 +49,6 @@
         android:layout_marginEnd="@dimen/activity_margin"
         android:layout_gravity="end"
         android:text="@string/button_save"
-        app:icon="@drawable/ic_hero_check"
-        style="@style/Widget.Keeper.Button"/>
+        app:icon="@drawable/ic_hero_check"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

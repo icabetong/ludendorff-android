@@ -42,11 +42,13 @@
     <style name="Component.Keeper.BottomSheet" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
         <item name="colorPrimary">@color/keeper_primary</item>
         <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
-        <item name="colorSecondary">@color/keeper_primary</item>
-        <item name="colorSecondaryVariant">@color/keeper_primary_variant</item>
+        <item name="colorSecondary">@color/keeper_secondary</item>
+        <item name="colorSecondaryVariant">@color/keeper_secondary_variant</item>
         <item name="colorSurface">@color/keeper_surface</item>
         <item name="colorOnSurface">@color/keeper_on_surface</item>
         <item name="bottomSheetStyle">@style/Component.Keeper.BottomSheet.Base</item>
+        <item name="materialButtonStyle">@style/Widget.Keeper.Button.Secondary</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.Keeper.Button.Outlined.Secondary</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
@@ -86,7 +88,16 @@
     <style name="Widget.Keeper.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:textAppearance">@style/TextAppearance.Keeper.Button</item>
     </style>
+    <style name="Widget.Keeper.Button.Secondary" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?attr/colorSecondary</item>
+        <item name="iconTint">?attr/colorOnSecondary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Keeper.Button</item>
+    </style>
     <style name="Widget.Keeper.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAppearance">@style/TextAppearance.Keeper.Button</item>
+    </style>
+    <style name="Widget.Keeper.Button.Outlined.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">?attr/colorSecondary</item>
         <item name="android:textAppearance">@style/TextAppearance.Keeper.Button</item>
     </style>
     <style name="Widget.Keeper.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice"/>
