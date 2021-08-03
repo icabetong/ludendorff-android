@@ -47,6 +47,8 @@ data class Asset @JvmOverloads constructor(
         const val FIELD_CATEGORY_ID = "${FIELD_CATEGORY}.${Category.FIELD_ID}"
         const val FIELD_SPECIFICATIONS = "specifications"
 
+        const val ID_PREFIX = "clsu://keeper/"
+
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Asset>() {
             override fun areContentsTheSame(oldItem: Asset, newItem: Asset): Boolean {
                 return oldItem.assetId == newItem.assetId
@@ -59,7 +61,7 @@ data class Asset @JvmOverloads constructor(
 
         fun generateQRCode(id: String): Bitmap {
             val bitMatrix = QRCodeWriter().encode(
-                "clsu://keeper/${id}", BarcodeFormat.QR_CODE,
+                "${ID_PREFIX}${id}", BarcodeFormat.QR_CODE,
                 128, 128)
             val bitmap = Bitmap.createBitmap(bitMatrix.width, bitMatrix.height,
                 Bitmap.Config.RGB_565)

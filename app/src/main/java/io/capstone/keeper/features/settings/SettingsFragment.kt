@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import io.capstone.keeper.R
@@ -39,6 +40,9 @@ class SettingsFragment: BaseFragment() {
             iconRes = R.drawable.ic_hero_arrow_left,
             onNavigationClicked = { controller?.navigateUp() }
         )
+
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onStart() {

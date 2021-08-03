@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -21,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.GenericItemDecoration
 import io.capstone.keeper.components.exceptions.EmptySnapshotException
-import io.capstone.keeper.components.extensions.getCountThatFitsOnScreen
 import io.capstone.keeper.components.extensions.hide
 import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.extensions.show

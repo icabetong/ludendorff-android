@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import io.capstone.keeper.components.persistence.DevicePermissions
 import io.capstone.keeper.components.persistence.UserPreferences
 import io.capstone.keeper.components.persistence.UserProperties
+import io.capstone.keeper.features.scan.image.ImageRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -27,5 +28,10 @@ class InternalModules {
     @Provides
     fun provideDevicePermissions(@ApplicationContext context: Context): DevicePermissions {
         return DevicePermissions(context)
+    }
+
+    @Provides
+    fun provideImageRepository(@ApplicationContext context: Context): ImageRepository {
+        return ImageRepository(context)
     }
 }
