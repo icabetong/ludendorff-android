@@ -3,10 +3,12 @@ package io.capstone.keeper.features.asset
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Parcelable
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
+import io.capstone.keeper.R
 import io.capstone.keeper.components.utils.IDGenerator
 import io.capstone.keeper.features.category.Category
 import io.capstone.keeper.features.category.CategoryCore
@@ -34,7 +36,17 @@ data class Asset @JvmOverloads constructor(
         OPERATIONAL,
         IDLE,
         UNDER_MAINTENANCE,
-        RETIRED,
+        RETIRED;
+
+        @StringRes
+        fun getStringRes(): Int {
+            return when(this) {
+                OPERATIONAL -> R.string.asset_status_option_operational
+                IDLE -> R.string.asset_status_option_idle
+                UNDER_MAINTENANCE -> R.string.asset_status_option_under_maintenance
+                RETIRED -> R.string.asset_status_option_retired
+            }
+        }
     }
 
     companion object {

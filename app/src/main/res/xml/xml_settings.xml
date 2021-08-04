@@ -11,10 +11,25 @@
         <ListPreference
             android:key="preference:theme"
             android:title="@string/settings_theme_title"
+            android:icon="@drawable/ic_hero_color_swatch"
             android:entries="@array/settings_theme_options"
             android:entryValues="@array/settings_theme_options_values"
             android:defaultValue="system"
             app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_group_about">
+
+        <Preference
+            android:key="preference:build"
+            android:title="@string/settings_build_version"/>
+
+        <Preference
+            android:key="preference:notices"
+            android:title="@string/settings_third_party_notices"
+            android:icon="@drawable/ic_hero_scale"/>
 
     </PreferenceCategory>
 

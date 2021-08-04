@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import io.capstone.keeper.BuildConfig
 import io.capstone.keeper.R
 import io.capstone.keeper.components.persistence.UserPreferences
 import io.capstone.keeper.features.core.viewmodel.CoreViewModel
@@ -36,6 +37,9 @@ class CorePreferences: BasePreference() {
                     UserPreferences.notifyThemeChanged(UserPreferences.Theme.parse(newTheme.toString()))
                 true
             }
+
+        findPreference<Preference>(PREFERENCE_KEY_BUILD)
+            ?.summary = BuildConfig.VERSION_NAME
     }
 
     override fun onStart() {
@@ -54,6 +58,8 @@ class CorePreferences: BasePreference() {
     companion object {
         const val PREFERENCE_KEY_USER = "preference:user"
         const val PREFERENCE_KEY_THEME = "preference:theme"
+        const val PREFERENCE_KEY_BUILD = "preference:build"
+        const val PREFERENCE_KEY_NOTICE = "preference:notices"
     }
 
 }

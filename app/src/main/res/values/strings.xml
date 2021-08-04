@@ -201,11 +201,15 @@
     <string name="dialog_remove_specification_message">Are you sure you want to remove this specification? You can\'t recover this information in the future.</string>
 
     <string name="settings_group_interface">Interface</string>
+    <string name="settings_group_about">About</string>
 
     <string name="settings_theme_title">Theme</string>
     <string name="settings_theme_option_system">System</string>
     <string name="settings_theme_option_light">Light</string>
     <string name="settings_theme_option_dark">Dark</string>
+
+    <string name="settings_build_version">Build Version</string>
+    <string name="settings_third_party_notices">Third Party Notices</string>
 
     <string name="notification_channel_general">General</string>
 </resources>

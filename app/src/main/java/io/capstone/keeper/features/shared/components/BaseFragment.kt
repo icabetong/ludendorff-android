@@ -130,5 +130,6 @@ abstract class BaseFragment: Fragment() {
     companion object {
         const val TRANSITION_DURATION = 300L
         const val TRANSITION_NAME_ROOT = "transition:root:"
+        const val STATE_TOOLBAR_COLLAPSED = "state:collapsed"
     }
 }

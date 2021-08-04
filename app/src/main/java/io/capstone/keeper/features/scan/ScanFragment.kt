@@ -164,6 +164,7 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
                             val decodeResult = reader.decode(binaryBitmap)
 
                             viewModel.setDecodedResult(decodeResult.text)
+                            getOverlappingPanelLayout().openEndPanel()
                         } catch (exception: NotFoundException) {
                             createSnackbar(R.string.error_decode_not_found)
 

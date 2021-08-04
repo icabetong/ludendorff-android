@@ -18,15 +18,21 @@ class ScanViewModel @Inject constructor(
 ): BaseViewModel() {
     private var decodedAssetId: String? = null
 
+    private val _assetId = MutableLiveData<String?>(null)
+    val assetId: LiveData<String?> = _assetId
+
     private val _asset: MutableLiveData<Response<Asset>> = MutableLiveData(null)
-    internal val asset: LiveData<Response<Asset>> = _asset
+    val asset: LiveData<Response<Asset>> = _asset
 
     fun setDecodedResult(result: String) {
         val id = result.replace(Asset.ID_PREFIX, "")
         decodedAssetId = id
+        _assetId.value = id
+
+        fetchAssetRecord(id)
     }
 
-    fun fetchAssetRecord(id: String) = viewModelScope.launch(Dispatchers.IO) {
+    private fun fetchAssetRecord(id: String) = viewModelScope.launch(Dispatchers.IO) {
         _asset.postValue(assetRepository.fetch(id))
     }
 }
