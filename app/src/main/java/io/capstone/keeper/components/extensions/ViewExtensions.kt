@@ -15,7 +15,7 @@ import me.saket.cascade.overrideOverflowMenu
 import kotlin.math.ceil
 
 fun View.hide() {
-    visibility = View.INVISIBLE
+    visibility = View.GONE
 }
 
 fun View.show() {
