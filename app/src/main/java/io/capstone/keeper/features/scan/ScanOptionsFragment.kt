@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import coil.load
+import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.hide
 import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.databinding.FragmentOptionsScanBinding
@@ -40,6 +42,33 @@ class ScanOptionsFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
+        viewModel.assignment.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is Response.Error -> {
+                    binding.decodeErrorView.root.show()
+                    binding.nestedScrollView.hide()
+                }
+                is Response.Success -> {
+                    binding.decodeErrorView.root.hide()
+                    binding.nestedScrollView.show()
+
+                    response.data?.let {
+                        binding.assetNameTextView.text = it.asset?.assetName
+                        binding.categoryTextView.text = it.asset?.category?.categoryName
+                        it.asset?.status?.let { status ->
+                            binding.assetStatusTextView.setText(status.getStringRes())
+                        }
+
+                        it.user?.let { user ->
+                            binding.profileImageView.load(user.imageUrl)
+                            binding.userNameTextView.text = user.name
+                            binding.emailTextView.text = user.email
+                        }
+                    }
+                }
+            }
+        }
+
         viewModel.asset.observe(viewLifecycleOwner) { response ->
             when(response) {
                 is Response.Error -> {
@@ -49,6 +78,10 @@ class ScanOptionsFragment: BaseFragment() {
                 is Response.Success -> {
                     binding.decodeErrorView.root.hide()
                     binding.nestedScrollView.show()
+
+                    binding.profileImageView.setImageResource(R.drawable.ic_hero_exclamation)
+                    binding.userNameTextView.setText(R.string.error_assignment_not_exist_header)
+                    binding.emailTextView.setText(R.string.error_assignment_not_exist_summary)
 
                     response.data.let {
                         binding.assetNameTextView.text = it.assetName

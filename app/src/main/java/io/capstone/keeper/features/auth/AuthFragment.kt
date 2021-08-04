@@ -143,6 +143,7 @@ class AuthFragment: BaseFragment() {
             binding.emailTextInputLayout.isEnabled = false
             binding.passwordTextInputLayout.isEnabled = false
             binding.authenticateButton.isEnabled = false
+            binding.progressIndicator.show()
             binding.authenticateButton.setText(R.string.button_authenticating)
 
             viewModel.authenticate(binding.emailTextInput.text.toString(),
@@ -192,6 +193,9 @@ class AuthFragment: BaseFragment() {
 
         if (!binding.authenticateButton.isEnabled)
             binding.authenticateButton.isEnabled = true
+
+        if (!binding.progressIndicator.isVisible)
+            binding.progressIndicator.hide()
 
         binding.authenticateButton.setText(R.string.button_sign_in)
     }

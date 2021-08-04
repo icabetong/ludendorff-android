@@ -3,6 +3,7 @@ package io.capstone.keeper.features.assignment
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentSnapshot
 import io.capstone.keeper.features.asset.Asset
 import io.capstone.keeper.features.asset.AssetCore
 import io.capstone.keeper.features.category.Category
@@ -37,6 +38,10 @@ data class Assignment @JvmOverloads constructor(
         const val FIELD_DATE_RETURNED = "dateReturned"
         const val LOCATION = "location"
         const val REMARKS = "remarks"
+
+        fun from(documentSnapshot: DocumentSnapshot): Assignment? {
+            return documentSnapshot.toObject(Assignment::class.java)
+        }
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Assignment>() {
             override fun areContentsTheSame(oldItem: Assignment, newItem: Assignment): Boolean {
