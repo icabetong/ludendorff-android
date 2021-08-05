@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -22,9 +23,9 @@ import io.capstone.keeper.components.extensions.setup
 import io.capstone.keeper.components.extensions.show
 import io.capstone.keeper.components.interfaces.OnItemActionListener
 import io.capstone.keeper.databinding.FragmentAssignmentBinding
+import io.capstone.keeper.features.assignment.editor.AssignmentEditorFragment
 import io.capstone.keeper.features.core.viewmodel.CoreViewModel
 import io.capstone.keeper.features.shared.components.BaseFragment
-import io.capstone.keeper.features.shared.components.BasePagingAdapter
 import io.capstone.keeper.features.user.User
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -37,6 +38,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
     private val binding get() = _binding!!
     private val assignmentAdapter = AssignmentAdapter(this)
+    private val viewModel: AssignmentViewModel by activityViewModels()
     private val coreViewModel: CoreViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -83,6 +85,94 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
                     || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
         }
+
+        /**
+         *  Use Kotlin's coroutines to fetch the current loadState of
+         *  the PagingAdapter; we will use the viewLifecycleOwner to
+         *  avoid memory leaks as we are using fragments as the presenter.
+         */
+        viewLifecycleOwner.lifecycleScope.launch {
+            assignmentAdapter.loadStateFlow.collectLatest {
+                binding.swipeRefreshLayout.isRefreshing = false
+
+                when (it.refresh) {
+                    /**
+                     *  The current data is loading, we
+                     *  will show the user the progress indicators
+                     */
+                    is LoadState.Loading -> {
+                        binding.recyclerView.hide()
+                        binding.skeletonLayout.show()
+                        binding.shimmerFrameLayout.show()
+                        binding.shimmerFrameLayout.startShimmer()
+
+                        binding.errorView.root.hide()
+                        binding.emptyView.root.hide()
+                    }
+                    /**
+                     *  The PagingAdapter or any component related to fetch
+                     *  the data have encountered an exception. Refer to the
+                     *  particular PagingSource class to determine the logic
+                     *  used in handling different types of errors.
+                     */
+                    is LoadState.Error -> {
+                        binding.recyclerView.hide()
+                        binding.skeletonLayout.hide()
+                        binding.shimmerFrameLayout.hide()
+
+                        val errorState = when {
+                            it.prepend is LoadState.Error -> it.prepend as LoadState.Error
+                            it.append is LoadState.Error -> it.append as LoadState.Error
+                            it.refresh is LoadState.Error -> it.refresh as LoadState.Error
+                            else -> null
+                        }
+
+                        errorState?.let { e ->
+                            /**
+                             *  Check if the error that have returned is
+                             *  EmptySnapshotException, which is used if
+                             *  QuerySnapshot is empty. Therefore, we
+                             *  will check if the adapter is also empty
+                             *  and show the user the empty state.
+                             */
+                            binding.permissionView.root.hide()
+                            binding.errorView.root.hide()
+                            binding.emptyView.root.hide()
+
+                            if (e.error is EmptySnapshotException &&
+                                assignmentAdapter.itemCount < 1) {
+                                binding.emptyView.root.show()
+                            } else if (e.error is FirebaseFirestoreException) {
+                                when((e.error as FirebaseFirestoreException).code) {
+                                    FirebaseFirestoreException.Code.PERMISSION_DENIED ->
+                                        binding.permissionView.root.show()
+                                    else -> binding.errorView.root.show()
+                                }
+                            }
+                            else binding.errorView.root.show()
+                        }
+                    }
+                    is LoadState.NotLoading -> {
+                        binding.recyclerView.show()
+                        binding.skeletonLayout.hide()
+                        binding.shimmerFrameLayout.hide()
+                        binding.shimmerFrameLayout.stopShimmer()
+
+                        binding.permissionView.root.hide()
+                        binding.errorView.root.hide()
+                        binding.emptyView.root.hide()
+                        if (it.refresh.endOfPaginationReached)
+                            binding.emptyView.root.isVisible = assignmentAdapter.itemCount < 1
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.assignments.collectLatest {
+                assignmentAdapter.submitData(it)
+            }
+        }
     }
 
     override fun onResume() {
@@ -99,7 +189,20 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         action: OnItemActionListener.Action,
         container: View?
     ) {
-
+        when (action) {
+            OnItemActionListener.Action.SELECT -> {
+                container?.let {
+                    controller?.navigate(R.id.navigation_editor_assignment,
+                        bundleOf(AssignmentEditorFragment.EXTRA_ASSIGNMENT to data),
+                        null,
+                        FragmentNavigatorExtras(
+                            it to TRANSITION_NAME_ROOT + data?.assignmentId
+                        )
+                    )
+                }
+            }
+            OnItemActionListener.Action.DELETE -> TODO()
+        }
     }
 
     override fun onMenuItemClicked(id: Int) {

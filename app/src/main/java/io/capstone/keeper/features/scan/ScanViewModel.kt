@@ -21,7 +21,7 @@ class ScanViewModel @Inject constructor(
 ): BaseViewModel() {
     private var decodedAssetId: String? = null
 
-    private val _assetId = MutableLiveData<String?>(null)
+    private val _assetId = MutableLiveData<String>(null)
     val assetId: LiveData<String?> = _assetId
 
     private val _assignment: MutableLiveData<Response<Assignment?>> = MutableLiveData(null)

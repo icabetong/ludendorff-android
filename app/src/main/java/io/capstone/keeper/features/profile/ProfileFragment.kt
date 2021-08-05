@@ -18,6 +18,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import androidx.work.*
 import coil.load
 import coil.size.Scale
@@ -27,7 +28,6 @@ import com.afollestad.materialdialogs.actions.setActionButtonEnabled
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
-import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.keeper.R
 import io.capstone.keeper.components.custom.NavigationItemDecoration
@@ -129,11 +129,19 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
+        val progressDrawable = CircularProgressDrawable(requireContext()).apply {
+            strokeWidth = 4f
+            centerRadius = 24f
+            setTint(ContextCompat.getColor(requireContext(), R.color.keeper_primary))
+            start()
+        }
+
         coreViewModel.userData.observe(viewLifecycleOwner) {
             binding.nameTextView.text = it.getDisplayName()
             binding.emailTextView.text = it.email
             binding.imageView.load(it.imageUrl) {
                 error(R.drawable.ic_hero_user)
+                placeholder(progressDrawable)
                 scale(Scale.FILL)
             }
         }

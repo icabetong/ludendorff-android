@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -53,12 +54,19 @@ class NavigationFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
+        val progressDrawable = CircularProgressDrawable(requireContext()).apply {
+            strokeWidth = 4f
+            centerRadius = 24f
+            setTint(ContextCompat.getColor(requireContext(), R.color.keeper_primary))
+            start()
+        }
+
         coreViewModel.userData.observe(viewLifecycleOwner) {
 
             binding.nameTextView.text = it.getDisplayName()
             binding.profileImageView.load(it.imageUrl) {
                 error(R.drawable.ic_hero_user)
-                placeholder(CircularProgressDrawable(requireContext()))
+                placeholder(progressDrawable)
                 transformations(CircleCropTransformation())
                 scale(Scale.FILL)
             }

@@ -194,7 +194,7 @@ class AuthFragment: BaseFragment() {
         if (!binding.authenticateButton.isEnabled)
             binding.authenticateButton.isEnabled = true
 
-        if (!binding.progressIndicator.isVisible)
+        if (binding.progressIndicator.isVisible)
             binding.progressIndicator.hide()
 
         binding.authenticateButton.setText(R.string.button_sign_in)

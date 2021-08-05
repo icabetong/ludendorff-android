@@ -25,7 +25,7 @@
 
             <include
                 android:id="@+id/rowLayout"
-                layout="@layout/layout_item_category_skeleton"/>
+                layout="@layout/layout_skeleton_category"/>
 
         </LinearLayout>
 

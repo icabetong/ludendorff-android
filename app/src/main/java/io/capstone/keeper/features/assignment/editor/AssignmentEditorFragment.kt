@@ -62,6 +62,13 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             requestKey = REQUEST_KEY_UPDATE
 
             binding.appBar.toolbar.setTitle(R.string.title_assignment_update)
+
+            binding.assetTextInput.setText(it.asset?.assetName)
+            binding.userTextInput.setText(it.user?.name)
+            binding.dateAssignedTextInput.setText(it.formatDateAssigned(requireContext()))
+            binding.dateReturnedTextInput.setText(it.formatDateReturned(requireContext()))
+            binding.locationTextInput.setText(it.location)
+            binding.remarksTextInput.setText(it.remarks)
         }
 
         registerForFragmentResult(
@@ -91,8 +98,10 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         binding.dateReturnedTextInput.setOnClickListener {
             MaterialDialog(requireContext()).show {
                 lifecycleOwner(viewLifecycleOwner)
-                datePicker(requireFutureDate = true) { _, date ->
-                    binding.dateReturnedTextInput.setText(date.toTimestamp().toString())
+                datePicker { _, date ->
+                    val formattedDate = Assignment.formatTimestamp(date.toTimestamp(), it.context)
+
+                    binding.dateReturnedTextInput.setText(formattedDate)
                 }
                 positiveButton(R.string.button_continue)
                 negativeButton(R.string.button_cancel)

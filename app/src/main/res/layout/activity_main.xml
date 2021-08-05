@@ -20,10 +20,12 @@
             android:layout_gravity="center"
             android:gravity="center_vertical"
             android:padding="@dimen/activity_margin_small"
+            android:visibility="gone"
             android:text="@string/feedback_network_limited_or_unavailable"
             android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
             android:drawablePadding="@dimen/activity_margin_small"
-            app:drawableStartCompat="@drawable/ic_hero_status_offline" />
+            app:drawableStartCompat="@drawable/ic_hero_status_offline"
+            tools:visibility="visible"/>
 
         <fragment
             android:id="@+id/navHostFragment"

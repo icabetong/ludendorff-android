@@ -214,5 +214,5 @@
     <string name="settings_build_version">Build Version</string>
     <string name="settings_third_party_notices">Third Party Notices</string>
 
-    <string name="notification_channel_general">General</string>
+    <string name="concat_today_at">Today at %1$s</string>
 </resources>

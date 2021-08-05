@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import coil.load
+import coil.transform.CircleCropTransformation
 import io.capstone.keeper.R
 import io.capstone.keeper.components.extensions.hide
 import io.capstone.keeper.components.extensions.show
@@ -47,9 +48,11 @@ class ScanOptionsFragment: BaseFragment() {
                 is Response.Error -> {
                     binding.decodeErrorView.root.show()
                     binding.nestedScrollView.hide()
+                    binding.progressIndicator.hide()
                 }
                 is Response.Success -> {
                     binding.decodeErrorView.root.hide()
+                    binding.progressIndicator.hide()
                     binding.nestedScrollView.show()
 
                     response.data?.let {
@@ -60,7 +63,11 @@ class ScanOptionsFragment: BaseFragment() {
                         }
 
                         it.user?.let { user ->
-                            binding.profileImageView.load(user.imageUrl)
+                            binding.profileImageView.load(user.imageUrl) {
+                                placeholder(R.drawable.ic_hero_user)
+                                error(R.drawable.ic_hero_user)
+                                transformations(CircleCropTransformation())
+                            }
                             binding.userNameTextView.text = user.name
                             binding.emailTextView.text = user.email
                         }
@@ -74,9 +81,11 @@ class ScanOptionsFragment: BaseFragment() {
                 is Response.Error -> {
                     binding.decodeErrorView.root.show()
                     binding.nestedScrollView.hide()
+                    binding.progressIndicator.hide()
                 }
                 is Response.Success -> {
                     binding.decodeErrorView.root.hide()
+                    binding.progressIndicator.hide()
                     binding.nestedScrollView.show()
 
                     binding.profileImageView.setImageResource(R.drawable.ic_hero_exclamation)
@@ -96,8 +105,8 @@ class ScanOptionsFragment: BaseFragment() {
         }
 
         viewModel.assetId.observe(viewLifecycleOwner) {
-            binding.emptyView.root.isVisible = it.isNullOrBlank()
+            binding.progressIndicator.isVisible = it != null
+            binding.emptyView.root.isVisible = it == null
         }
     }
-
 }

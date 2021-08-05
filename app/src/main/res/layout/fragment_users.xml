@@ -23,7 +23,7 @@
 
             <include
                 android:id="@+id/rowLayout"
-                layout="@layout/layout_item_user_skeleton"/>
+                layout="@layout/layout_skeleton_user"/>
 
         </LinearLayout>
 

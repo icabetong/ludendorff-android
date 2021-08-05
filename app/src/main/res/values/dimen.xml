@@ -23,4 +23,17 @@
     <dimen name="bottom_sheet_picker_height">256dp</dimen>
 
     <dimen name="image_container">140dp</dimen>
+
+    <!-- skeleton item widths -->
+    <!-- just random numbers; put it here for standardization -->
+    <dimen name="skeleton_header_width_1">144dp</dimen>
+    <dimen name="skeleton_header_width_2">320dp</dimen>
+    <dimen name="skeleton_header_width_3">256dp</dimen>
+    <dimen name="skeleton_header_width_4">128dp</dimen>
+    <dimen name="skeleton_header_width_5">96dp</dimen>
+    <dimen name="skeleton_summary_width_1">64dp</dimen>
+    <dimen name="skeleton_summary_width_2">112dp</dimen>
+    <dimen name="skeleton_summary_width_3">48dp</dimen>
+    <dimen name="skeleton_summary_width_4">360dp</dimen>
+    <dimen name="skeleton_summary_width_5">260dp</dimen>
 </resources>

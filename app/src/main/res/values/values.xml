@@ -17,6 +17,8 @@
         <item name="colorSurface">@color/keeper_surface</item>
         <item name="colorOnSurface">@color/keeper_on_surface</item>
         <!-- Others -->
+        <item name="colorBackgroundFloating">@color/keeper_surface</item>
+        <item name="android:colorBackgroundFloating">@color/keeper_surface</item>
         <item name="android:windowBackground">@color/keeper_background_main</item>
         <!-- Components -->
         <item name="bottomSheetDialogTheme">@style/Component.Keeper.BottomSheet</item>
