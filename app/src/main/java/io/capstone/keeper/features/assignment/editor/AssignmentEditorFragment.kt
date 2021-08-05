@@ -55,13 +55,14 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_assignment_create,
             iconRes = R.drawable.ic_hero_x,
-            onNavigationClicked = { controller?.navigateUp() }
+            onNavigationClicked = { controller?.navigateUp() },
+            customTitleView = binding.appBar.toolbarTitleTextView
         )
 
         arguments?.getParcelable<Assignment>(EXTRA_ASSIGNMENT)?.let {
             requestKey = REQUEST_KEY_UPDATE
 
-            binding.appBar.toolbar.setTitle(R.string.title_assignment_update)
+            binding.appBar.toolbarTitleTextView.setText(R.string.title_assignment_update)
 
             binding.assetTextInput.setText(it.asset?.assetName)
             binding.userTextInput.setText(it.user?.name)

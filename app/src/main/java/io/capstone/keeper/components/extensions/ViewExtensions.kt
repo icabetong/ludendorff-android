@@ -33,10 +33,14 @@ fun Toolbar.setup(
     @DrawableRes iconRes: Int = R.drawable.ic_hero_arrow_left,
     onNavigationClicked: (() -> Unit)? = null,
     @MenuRes menuRes: Int = 0,
-    onMenuOptionClicked: ((itemId: Int) -> Unit)? = null
+    onMenuOptionClicked: ((itemId: Int) -> Unit)? = null,
+    customTitleView: TextView? = null
 ) {
-    if (titleRes != 0)
+    if (titleRes != 0 && customTitleView == null)
         setTitle(titleRes)
+    else if (titleRes != 0 && customTitleView != null)
+        customTitleView.setText(titleRes)
+
     if (iconRes != 0)
         setNavigationIcon(iconRes)
     if (menuRes != 0)

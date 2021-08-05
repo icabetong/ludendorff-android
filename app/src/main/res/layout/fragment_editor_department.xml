@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/appBar"
-        layout="@layout/layout_appbar_flat"/>
+        layout="@layout/layout_appbar_editor"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -59,27 +59,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/emailTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/activity_margin_small"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.Keeper.Body"
-            android:drawableStart="@drawable/ic_hero_mail_open"
-            android:drawablePadding="@dimen/activity_margin"
-            tools:text="isaiahcollins02@gmail.com"/>
-
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/actionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
-        android:layout_gravity="bottom|end"
-        android:text="@string/button_save"
-        app:icon="@drawable/ic_hero_check"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

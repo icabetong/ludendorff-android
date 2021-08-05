@@ -69,7 +69,8 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             iconRes = R.drawable.ic_hero_x,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_editor_asset,
-            onMenuOptionClicked = ::onMenuItemClicked
+            onMenuOptionClicked = ::onMenuItemClicked,
+            customTitleView = binding.appBar.toolbarTitleTextView
         )
 
         arguments?.getParcelable<Asset>(EXTRA_ASSET)?.let {
@@ -78,7 +79,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             editorViewModel.setSpecifications(ArrayList(it.specifications.toList()))
 
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.assetId
-            binding.appBar.toolbar.setTitle(R.string.title_asset_update)
+            binding.appBar.toolbarTitleTextView.setText(R.string.title_asset_update)
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
 
             binding.assetNameTextInput.setText(it.assetName)
@@ -122,7 +123,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
     override fun onResume() {
         super.onResume()
 
-        binding.actionButton.setOnClickListener {
+        binding.appBar.toolbarActionButton.setOnClickListener {
             editorViewModel.asset.assetName = binding.assetNameTextInput.text.toString()
             editorViewModel.asset.specifications = editorViewModel.getSpecifications().toMap()
             editorViewModel.asset.status = when(binding.statusChipGroup.checkedChipId) {

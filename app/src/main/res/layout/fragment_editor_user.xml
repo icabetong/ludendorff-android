@@ -8,11 +8,11 @@
 
     <include
         android:id="@+id/appBar"
-        layout="@layout/layout_appbar_flat"/>
+        layout="@layout/layout_appbar_editor"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -196,15 +196,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/actionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
-        android:layout_gravity="bottom|end"
-        android:text="@string/button_save"
-        app:icon="@drawable/ic_hero_check"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

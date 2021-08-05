@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.core.view.MarginLayoutParamsCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -80,7 +84,8 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_user_create,
             iconRes = R.drawable.ic_hero_x,
-            onNavigationClicked = { controller?.navigateUp() }
+            onNavigationClicked = { controller?.navigateUp() },
+            customTitleView = binding.appBar.toolbarTitleTextView
         )
 
         binding.passwordTextInput.setText(PasswordManager.generateRandom(
@@ -95,7 +100,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
             requestKey = REQUEST_KEY_UPDATE
             editorViewModel.user = it
 
-            binding.appBar.toolbar.setTitle(R.string.title_user_update)
+            binding.appBar.toolbarTitleTextView.setText(R.string.title_user_update)
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.userId
             binding.passwordTextInputLayout.visibility = View.GONE
 
@@ -152,7 +157,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
                 .show()
         }
 
-        binding.actionButton.setOnClickListener {
+        binding.appBar.toolbarActionButton.setOnClickListener {
             editorViewModel.password = binding.passwordTextInput.text.toString()
 
             editorViewModel.user.firstName = binding.firstNameTextInput.text.toString()
@@ -246,6 +251,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
                             editorViewModel.reauthenticate(password)
                         }
+                        negativeButton(R.string.button_cancel)
                     }
                 }
                 BiometricPrompt.ERROR_LOCKOUT -> {

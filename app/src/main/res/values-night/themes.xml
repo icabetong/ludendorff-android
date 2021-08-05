@@ -2,7 +2,7 @@
 
     <style name="Theme.Keeper.Core" parent="Theme.Keeper">
         <item name="android:statusBarColor">@color/keeper_status_bar</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/keeper_navigation_bar</item>
     </style>
 
 </resources>

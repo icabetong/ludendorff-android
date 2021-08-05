@@ -7,7 +7,7 @@
         android:id="@+id/action_view_qrcode"
         android:title="@string/menu_view_qrcode"
         android:icon="@drawable/ic_hero_qrcode"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_remove"

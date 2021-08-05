@@ -2,14 +2,13 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/keeper_background_content">
 
     <include
         android:id="@+id/appBar"
-        layout="@layout/layout_appbar_flat"/>
+        layout="@layout/layout_appbar_editor"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -129,16 +128,5 @@
             layout="@layout/layout_item_add"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/actionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
-        android:layout_gravity="bottom|end"
-        android:contentDescription="@string/button_save"
-        android:text="@string/button_save"
-        app:icon="@drawable/ic_hero_check"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

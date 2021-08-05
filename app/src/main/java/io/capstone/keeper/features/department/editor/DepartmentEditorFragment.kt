@@ -57,7 +57,8 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_department_create,
             iconRes = R.drawable.ic_hero_x,
-            onNavigationClicked = { controller?.navigateUp() }
+            onNavigationClicked = { controller?.navigateUp() },
+            customTitleView = binding.appBar.toolbarTitleTextView
         )
 
         arguments?.getParcelable<Department>(EXTRA_DEPARTMENT)?.let {
@@ -65,11 +66,10 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             editorViewModel.department = it
 
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.departmentId
-            binding.appBar.toolbar.setTitle(R.string.title_department_update)
+            binding.appBar.toolbarTitleTextView.setText(R.string.title_department_update)
 
             binding.nameTextInput.setText(it.name)
             binding.managerTextInput.setText(it.managerSSN?.name)
-            binding.emailTextView.text = it.managerSSN?.email
         }
 
         registerForFragmentResult(arrayOf(UserPickerBottomSheet.REQUEST_KEY_PICK), this)
@@ -78,7 +78,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
     override fun onResume() {
         super.onResume()
 
-        binding.actionButton.setOnClickListener {
+        binding.appBar.toolbarActionButton.setOnClickListener {
             editorViewModel.department.name = binding.nameTextInput.text.toString()
 
             if (editorViewModel.department.name.isNullOrBlank()) {
@@ -102,7 +102,6 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             UserPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<User>(UserPickerBottomSheet.EXTRA_USER)?.let {
                     binding.managerTextInput.setText(it.getDisplayName())
-                    binding.emailTextView.text = it.email
 
                     editorViewModel.triggerManagerChanged(it)
                 }
