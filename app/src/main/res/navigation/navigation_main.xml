@@ -7,45 +7,49 @@
 
     <fragment
         android:id="@+id/navigation_auth"
-        android:name="io.capstone.keeper.features.auth.AuthFragment"
+        android:name="io.capstone.ludendorff.features.auth.AuthFragment"
         tools:layout="@layout/fragment_auth"/>
     <fragment
         android:id="@+id/navigation_root"
-        android:name="io.capstone.keeper.features.core.fragment.RootFragment"
+        android:name="io.capstone.ludendorff.features.core.fragment.RootFragment"
         tools:layout="@layout/fragment_root"/>
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="io.capstone.keeper.features.profile.ProfileFragment"
+        android:name="io.capstone.ludendorff.features.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
     <fragment
-        android:id="@+id/navigation_settings"
-        android:name="io.capstone.keeper.features.settings.SettingsFragment"
-        tools:layout="@layout/fragment_settings"/>
+        android:id="@+id/navigation_core_settings"
+        android:name="io.capstone.ludendorff.features.settings.core.CoreSettingsFragment"
+        tools:layout="@layout/fragment_settings_core"/>
+    <fragment
+        android:id="@+id/navigation_notices_settings"
+        android:name="io.capstone.ludendorff.features.settings.notices.NoticeSettingsFragment"
+        tools:layout="@layout/fragment_settings_notices"/>
     <!-- Support Fragments -->
     <fragment
         android:id="@+id/navigation_category"
-        android:name="io.capstone.keeper.features.category.CategoryFragment"
+        android:name="io.capstone.ludendorff.features.category.CategoryFragment"
         tools:layout="@layout/fragment_category"/>
     <fragment
         android:id="@+id/navigation_department"
-        android:name="io.capstone.keeper.features.department.DepartmentFragment"
+        android:name="io.capstone.ludendorff.features.department.DepartmentFragment"
         tools:layout="@layout/fragment_department"/>
     <!-- Editor Fragments -->
     <fragment
         android:id="@+id/navigation_editor_asset"
-        android:name="io.capstone.keeper.features.asset.editor.AssetEditorFragment"
+        android:name="io.capstone.ludendorff.features.asset.editor.AssetEditorFragment"
         tools:layout="@layout/fragment_editor_asset"/>
     <fragment
         android:id="@+id/navigation_editor_user"
-        android:name="io.capstone.keeper.features.user.editor.UserEditorFragment"
+        android:name="io.capstone.ludendorff.features.user.editor.UserEditorFragment"
         tools:layout="@layout/fragment_editor_user"/>
     <fragment
         android:id="@+id/navigation_editor_department"
-        android:name="io.capstone.keeper.features.department.editor.DepartmentEditorFragment"
+        android:name="io.capstone.ludendorff.features.department.editor.DepartmentEditorFragment"
         tools:layout="@layout/fragment_editor_department" />
     <fragment
         android:id="@+id/navigation_editor_assignment"
-        android:name="io.capstone.keeper.features.assignment.editor.AssignmentEditorFragment"
+        android:name="io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment"
         tools:layout="@layout/fragment_editor_assignment"/>
 
     <action
@@ -64,7 +68,10 @@
     <!-- Other non-special actions -->
     <action
         android:id="@+id/to_navigation_settings"
-        app:destination="@id/navigation_settings"/>
+        app:destination="@id/navigation_core_settings"/>
+    <action
+        android:id="@+id/to_navigation_settings_notices"
+        app:destination="@id/navigation_notices_settings"/>
     <action
         android:id="@+id/to_navigation_profile"
         app:destination="@id/navigation_profile"/>

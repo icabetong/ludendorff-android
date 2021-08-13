@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Keeper</string>
+    <string name="app_name">Ludendorff</string>
 
     <string name="activity_authentication">Authentication</string>
     <string name="activity_home">Home</string>
@@ -44,6 +44,7 @@
     <string name="title_change_password">Change Password</string>
     <string name="title_change_name">Change Name</string>
     <string name="title_image_select">Select Image</string>
+    <string name="title_third_party_notices">Third Party Notices</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>

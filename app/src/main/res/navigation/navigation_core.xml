@@ -7,23 +7,23 @@
 
     <fragment
         android:id="@+id/navigation_user_home"
-        android:name="io.capstone.keeper.features.home.HomeFragment"
+        android:name="io.capstone.ludendorff.features.home.HomeFragment"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/navigation_scan"
-        android:name="io.capstone.keeper.features.scan.ScanFragment"
+        android:name="io.capstone.ludendorff.features.scan.ScanFragment"
         tools:layout="@layout/fragment_scan"/>
     <fragment
         android:id="@+id/navigation_assets"
-        android:name="io.capstone.keeper.features.asset.AssetFragment"
+        android:name="io.capstone.ludendorff.features.asset.AssetFragment"
         tools:layout="@layout/fragment_assets"/>
     <fragment
         android:id="@+id/navigation_users"
-        android:name="io.capstone.keeper.features.user.UserFragment"
+        android:name="io.capstone.ludendorff.features.user.UserFragment"
         tools:layout="@layout/fragment_users"/>
     <fragment
         android:id="@+id/navigation_assignments"
-        android:name="io.capstone.keeper.features.assignment.AssignmentFragment"
+        android:name="io.capstone.ludendorff.features.assignment.AssignmentFragment"
         tools:layout="@layout/fragment_assignment"/>
 
     <action

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="io.capstone.keeper">
+    package="io.capstone.ludendorff">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name=".Keeper"
+        android:name="io.capstone.ludendorff.Ludendorff"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Keeper.Core.Content" >
 
-        <activity android:name=".features.core.activities.MainActivity"
+        <activity android:name="io.capstone.ludendorff.features.core.activities.MainActivity"
             android:theme="@style/Theme.Keeper.Core"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="standard">

@@ -10,14 +10,14 @@
 
     <fragment
         android:id="@+id/navigationFragment"
-        android:name="io.capstone.keeper.features.navigation.NavigationFragment"
+        android:name="io.capstone.ludendorff.features.navigation.NavigationFragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/activity_margin_tiny"
         android:layout_gravity="start"
         tools:ignore="FragmentTagUsage" />
 
-    <io.capstone.keeper.components.views.RoundedFrameLayout
+    <io.capstone.ludendorff.components.views.RoundedFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/keeper_background_content">
@@ -31,9 +31,9 @@
             app:navGraph="@navigation/navigation_core"
             tools:ignore="FragmentTagUsage" />
 
-    </io.capstone.keeper.components.views.RoundedFrameLayout>
+    </io.capstone.ludendorff.components.views.RoundedFrameLayout>
 
-    <io.capstone.keeper.components.views.RoundedFrameLayout
+    <io.capstone.ludendorff.components.views.RoundedFrameLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/activity_margin_tiny"
@@ -49,6 +49,6 @@
             app:navGraph="@navigation/navigation_options"
             tools:ignore="FragmentTagUsage"/>
 
-    </io.capstone.keeper.components.views.RoundedFrameLayout>
+    </io.capstone.ludendorff.components.views.RoundedFrameLayout>
 
 </com.discord.panels.OverlappingPanelsLayout>

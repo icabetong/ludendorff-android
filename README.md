@@ -1,8 +1,8 @@
-# Keeper
+# Ludendorff
 
 **Warning: Construction Ahead!**
 
-Keeper is our capstone project that is a client app used in asset tracking and management of the CLIRDEC in Central Luzon State University.
+Ludendorff is our capstone project that is a client app used in asset tracking and management of the CLIRDEC in Central Luzon State University.
 
 ## Built with
 
@@ -20,4 +20,4 @@ This project is licensed under the GPL-3.0 - see the license file for more detai
 
 ## Contributing
 
-This is an open-source project, anyone can fork and use the code. However, contributions are not open yet as the moment.
+This is an open-source project, anyone can fork and use the code. However, contributions are not open yet at the moment.
