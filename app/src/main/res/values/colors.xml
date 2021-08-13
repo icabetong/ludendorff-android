@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Adapter Launcher Icon -->
+    <color name="ic_launcher_background">#282A36</color>
+
     <color name="keeper_primary">#6272a4</color>
     <color name="keeper_primary_variant">#344775</color>
     <color name="keeper_on_primary">@android:color/white</color>
