@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
@@ -18,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.FragmentNavigationBinding
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
+import io.capstone.ludendorff.features.profile.ProfileFragment
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
 
@@ -46,6 +48,7 @@ class NavigationFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.profileImageView.transitionName = ProfileFragment.TRANSITION_IMAGE
 
         controller = requireActivity().supportFragmentManager.findFragmentById(R.id.navHostFragment)
             ?.findNavController()
@@ -94,7 +97,8 @@ class NavigationFragment: BaseFragment() {
         super.onResume()
 
         binding.profileImageView.setOnClickListener {
-            controller?.navigate(R.id.navigation_profile)
+            controller?.navigate(R.id.navigation_profile, null, null,
+                FragmentNavigatorExtras(it to ProfileFragment.TRANSITION_IMAGE))
         }
         binding.navigationView.setNavigationItemSelectedListener {
             viewModel.setDestination(it.itemId)

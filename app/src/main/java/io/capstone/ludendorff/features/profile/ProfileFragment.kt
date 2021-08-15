@@ -65,6 +65,9 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        sharedElementEnterTransition = buildContainerTransform()
+        sharedElementReturnTransition = buildContainerTransform()
+
         executor = ContextCompat.getMainExecutor(requireContext())
         biometricPrompt = BiometricPrompt(this, executor, biometricCallback)
 
@@ -101,6 +104,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.imageView.transitionName = TRANSITION_IMAGE
 
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_profile,
@@ -442,5 +446,9 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                 }
             }
         }
+    }
+
+    companion object {
+        const val TRANSITION_IMAGE = "transition:image"
     }
 }
