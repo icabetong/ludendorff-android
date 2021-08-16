@@ -13,6 +13,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.LoadState
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
@@ -24,6 +26,7 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentAssignmentBinding
 import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
+import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
@@ -169,6 +172,45 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.action.collectLatest {
+                when(it) {
+                    is Response.Error -> {
+                        if (it.throwable is FirebaseFirestoreException &&
+                            it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+
+                            MaterialDialog(requireContext()).show {
+                                lifecycleOwner(viewLifecycleOwner)
+                                title(R.string.error_no_permission)
+                                message(R.string.error_no_permission_summary_write)
+                                positiveButton()
+                            }
+                        } else {
+                            when(it.action) {
+                                Response.Action.CREATE ->
+                                    createSnackbar(R.string.feedback_assignment_create_error)
+                                Response.Action.UPDATE ->
+                                    createSnackbar(R.string.feedback_assignment_update_error)
+                                Response.Action.REMOVE ->
+                                    createSnackbar(R.string.feedback_assignment_remove_error)
+                                else -> {}
+                            }
+                        }
+                    }
+                    is Response.Success -> {
+                        when(it.data) {
+                            Response.Action.CREATE ->
+                                createSnackbar(R.string.feedback_assignment_created)
+                            Response.Action.UPDATE ->
+                                createSnackbar(R.string.feedback_assignment_updated)
+                            Response.Action.REMOVE ->
+                                createSnackbar(R.string.feedback_assignment_removed)
+                        }
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.assignments.collectLatest {
                 assignmentAdapter.submitData(it)
             }
@@ -182,6 +224,9 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
             controller?.navigate(R.id.navigation_editor_assignment, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            assignmentAdapter.refresh()
+        }
     }
 
     override fun onActionPerformed(
@@ -189,19 +234,16 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        when (action) {
-            OnItemActionListener.Action.SELECT -> {
-                container?.let {
-                    controller?.navigate(R.id.navigation_editor_assignment,
-                        bundleOf(AssignmentEditorFragment.EXTRA_ASSIGNMENT to data),
-                        null,
-                        FragmentNavigatorExtras(
-                            it to TRANSITION_NAME_ROOT + data?.assignmentId
-                        )
+        if (action == OnItemActionListener.Action.SELECT) {
+            container?.let {
+                controller?.navigate(R.id.navigation_editor_assignment,
+                    bundleOf(AssignmentEditorFragment.EXTRA_ASSIGNMENT to data),
+                    null,
+                    FragmentNavigatorExtras(
+                        it to TRANSITION_NAME_ROOT + data?.assignmentId
                     )
-                }
+                )
             }
-            OnItemActionListener.Action.DELETE -> TODO()
         }
     }
 

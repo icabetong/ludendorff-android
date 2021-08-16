@@ -80,7 +80,6 @@
                     android:id="@+id/readChip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
                     android:text="@string/user_permission_read"
                     style="@style/Widget.Keeper.Chip.Choice"/>
 

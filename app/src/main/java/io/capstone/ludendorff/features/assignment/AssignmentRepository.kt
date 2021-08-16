@@ -1,5 +1,6 @@
 package io.capstone.ludendorff.features.assignment
 
+import com.google.firebase.FirebaseException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
@@ -14,6 +15,54 @@ import javax.inject.Singleton
 class AssignmentRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ) {
+
+    suspend fun create(assignment: Assignment): Response<Response.Action> {
+        return try {
+            firestore.collection(Assignment.COLLECTION)
+                .document(assignment.assignmentId)
+                .set(assignment)
+                .await()
+
+            Response.Success(Response.Action.CREATE)
+        } catch (exception: FirebaseFirestoreException) {
+            android.util.Log.e("DEBUG", exception.toString())
+            Response.Error(exception)
+        } catch (exception: Exception) {
+            android.util.Log.e("DEBUG", exception.toString())
+            Response.Error(exception)
+        }
+    }
+
+    suspend fun update(assignment: Assignment): Response<Response.Action> {
+        return try {
+            firestore.collection(Assignment.COLLECTION)
+                .document(assignment.assignmentId)
+                .set(assignment)
+                .await()
+
+            Response.Success(Response.Action.UPDATE)
+        } catch (exception: FirebaseFirestoreException) {
+            android.util.Log.e("DEBUG", exception.toString())
+            Response.Error(exception)
+        } catch (exception: Exception) {
+            Response.Error(exception)
+        }
+    }
+
+    suspend fun remove(assignment: Assignment): Response<Response.Action> {
+        return try {
+            firestore.collection(Assignment.COLLECTION)
+                .document(assignment.assignmentId)
+                .set(assignment)
+                .await()
+
+            Response.Success(Response.Action.REMOVE)
+        } catch (exception: FirebaseFirestoreException) {
+            Response.Error(exception)
+        } catch (exception: Exception) {
+            Response.Error(exception)
+        }
+    }
 
     suspend fun fetchUsingAssetId(assetId: String): Response<Assignment?> = withContext(IO) {
         return@withContext try {

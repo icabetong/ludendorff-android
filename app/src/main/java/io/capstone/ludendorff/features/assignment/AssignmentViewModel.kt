@@ -9,11 +9,16 @@ import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.components.BaseViewModel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class AssignmentViewModel @Inject constructor(
-    firestore: FirebaseFirestore
+    firestore: FirebaseFirestore,
+    private val repository: AssignmentRepository
 ): BaseViewModel() {
 
     private val assignmentQuery: Query = firestore.collection(Assignment.COLLECTION)
@@ -23,5 +28,15 @@ class AssignmentViewModel @Inject constructor(
     val assignments = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
         AssignmentPagingSource(assignmentQuery)
     }.flow.cachedIn(viewModelScope)
+
+    private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
+    val action = _action.receiveAsFlow()
+
+    fun create(assignment: Assignment) = viewModelScope.launch(IO) {
+        _action.send(repository.create(assignment))
+    }
+    fun update(assignment: Assignment) = viewModelScope.launch(IO) {
+        _action.send(repository.update(assignment))
+    }
 
 }

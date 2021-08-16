@@ -90,6 +90,8 @@
     <string name="button_departments">Departments</string>
     <string name="button_forgot_password">Forgot Password</string>
     <string name="button_select_image">Select Image</string>
+    <string name="button_use_today">Use Today\'s Date</string>
+    <string name="button_pick_date">Pick Date</string>
 
     <string name="menu_save">@string/button_save</string>
     <string name="menu_menu">Menu</string>
@@ -126,6 +128,8 @@
     <string name="feedback_empty_department">You forgot to department</string>
     <string name="feedback_empty_position">You forgot to enter the position</string>
     <string name="feedback_empty_email">You forgot to enter the email address</string>
+    <string name="feedback_empty_asset">You forgot to select an asset</string>
+    <string name="feedback_empty_user">You forgot to select an user</string>
     <string name="feedback_specification_exists">Specification already exists</string>
     <string name="feedback_specification_removed">Specification removed</string>
     <string name="feedback_upload_error">Error uploading profile image</string>
@@ -154,6 +158,12 @@
     <string name="feedback_department_create_error">Error creating department</string>
     <string name="feedback_department_remove_error">Error removing department</string>
     <string name="feedback_department_update_error">Error updating department</string>
+    <string name="feedback_assignment_created">Assignment successfully created</string>
+    <string name="feedback_assignment_removed">Assignment successfully removed</string>
+    <string name="feedback_assignment_updated">Assignment successfully updated</string>
+    <string name="feedback_assignment_create_error">Error creating assignment</string>
+    <string name="feedback_assignment_remove_error">Error removing assignment</string>
+    <string name="feedback_assignment_update_error">Error updating assignment</string>
     <string name="feedback_network_limited_or_unavailable">Network is limited or unavailable</string>
 
     <string name="empty_no_assets_header">No Assets Added</string>
@@ -203,6 +213,10 @@
     <string name="dialog_remove_asset_message">Are you sure you want to remove this asset? You can\'t recover this information in the future.</string>
     <string name="dialog_remove_specification_title">Remove specification?</string>
     <string name="dialog_remove_specification_message">Are you sure you want to remove this specification? You can\'t recover this information in the future.</string>
+    <string name="dialog_confirm_location_empty_title">Leave \"Location\" empty?</string>
+    <string name="dialog_confirm_location_empty_message">It is recommended that you provide the location data for the assignment. To easier track the asset later on. However, there are circumstances that a location data is not applicable.</string>
+    <string name="dialog_no_date_assigned_title">Default to this date?</string>
+    <string name="dialog_no_date_assignment_message">You left the \"Date Assigned\" attribute empty, do you want to default it to today\'s date or pick another one instead?</string>
 
     <string name="settings_group_interface">Interface</string>
     <string name="settings_group_about">About</string>
