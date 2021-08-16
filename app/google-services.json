@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "783396412369",
-    "project_id": "keeper-io",
-    "storage_bucket": "keeper-io.appspot.com"
+    "project_number": "714424681363",
+    "project_id": "ludendorff-io",
+    "storage_bucket": "ludendorff-io.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:783396412369:android:363eab589e645e92251ef0",
+        "mobilesdk_app_id": "1:714424681363:android:ac17418f160e2b0e171e66",
         "android_client_info": {
           "package_name": "io.capstone.ludendorff"
         }
       },
       "oauth_client": [
         {
-          "client_id": "783396412369-0nakncv73uo0faujgug9leue5qbmtg0a.apps.googleusercontent.com",
+          "client_id": "714424681363-he058nqbjhv5ik2olne73l74lriho5df.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.capstone.ludendorff",
+            "certificate_hash": "87aa26418462684bbbf8e9d4d638e33ab5378e42"
+          }
+        },
+        {
+          "client_id": "714424681363-br44i7k90419thfopo1rlr95re1h9cfr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyATqsiJWjQqc3uvfi--5OMuDcnilzP6omI"
+          "current_key": "AIzaSyA-Teubo_WjobdL9S1GL3_qG6IX_WPxX5E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "783396412369-0nakncv73uo0faujgug9leue5qbmtg0a.apps.googleusercontent.com",
+              "client_id": "714424681363-br44i7k90419thfopo1rlr95re1h9cfr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
