@@ -85,6 +85,7 @@ class AuthFragment: BaseFragment() {
                 when(it) {
                     is Response.Error -> {
                         resetProgress()
+                        android.util.Log.e("AUTH", it.throwable.toString())
 
                         binding.errorTextView.isVisible = true
                         when(it.throwable) {

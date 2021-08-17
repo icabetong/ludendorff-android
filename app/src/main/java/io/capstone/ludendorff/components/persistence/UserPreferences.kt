@@ -28,6 +28,14 @@ class UserPreferences(private val context: Context?) {
         }
     }
 
+    var isFirstTime: Boolean
+        get() = sharedPreference.getBoolean(PREFERENCE_FIRST_TIME, true)
+        set(value) {
+            sharedPreference.edit {
+                putBoolean(PREFERENCE_FIRST_TIME, value)
+            }
+        }
+
     var theme: Theme
         get() = Theme.parse(sharedPreference.getString(
             CorePreferences.PREFERENCE_KEY_THEME,
@@ -39,6 +47,8 @@ class UserPreferences(private val context: Context?) {
         }
 
     companion object {
+        const val PREFERENCE_FIRST_TIME = "preference:first_time"
+
         fun notifyThemeChanged(theme: Theme) {
             when(theme) {
                 Theme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
