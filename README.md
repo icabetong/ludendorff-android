@@ -1,7 +1,7 @@
 # Ludendorff
 
 <p align="center">
-	<img width="128" height="128" src="art/ic_launcher.png"/>
+	<img width="144" height="144" src="art/ic_launcher.png"/>
 </p>
 
 **Warning: Construction Ahead!**
