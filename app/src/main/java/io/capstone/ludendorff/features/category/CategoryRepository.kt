@@ -22,8 +22,8 @@ class CategoryRepository @Inject constructor(
                 .await()
 
             Response.Success(Response.Action.CREATE)
-        } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException, Response.Action.CREATE)
+        } catch (exception: FirebaseFirestoreException) {
+            Response.Error(exception, Response.Action.CREATE)
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.CREATE)
         }
@@ -52,8 +52,8 @@ class CategoryRepository @Inject constructor(
             batchWrite.commit()
 
             Response.Success(Response.Action.UPDATE)
-        } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException, Response.Action.UPDATE)
+        } catch (exception: FirebaseFirestoreException) {
+            Response.Error(exception, Response.Action.UPDATE)
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.UPDATE)
         }
@@ -67,8 +67,8 @@ class CategoryRepository @Inject constructor(
                 .await()
 
             Response.Success(Response.Action.REMOVE)
-        } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException, Response.Action.REMOVE)
+        } catch (exception: FirebaseFirestoreException) {
+            Response.Error(exception, Response.Action.REMOVE)
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.REMOVE)
         }

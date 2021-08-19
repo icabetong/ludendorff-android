@@ -81,7 +81,6 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
     override fun onStart() {
         super.onStart()
-
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         coreViewModel.userData.observe(viewLifecycleOwner) {

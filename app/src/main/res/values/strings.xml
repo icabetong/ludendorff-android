@@ -3,6 +3,7 @@
 
     <string name="activity_authentication">Authentication</string>
     <string name="activity_home">Home</string>
+    <string name="activity_notifications">Notifications</string>
     <string name="activity_scan">Scan</string>
     <string name="activity_assets">Assets</string>
     <string name="activity_users">Users</string>
@@ -15,6 +16,7 @@
     <string name="activity_profile">Profile</string>
 
     <string name="navigation_home">@string/activity_home</string>
+    <string name="navigation_notification">@string/activity_notifications</string>
     <string name="navigation_scan">@string/activity_scan</string>
     <string name="navigation_assets">@string/activity_assets</string>
     <string name="navigation_users">@string/activity_users</string>

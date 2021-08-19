@@ -1,5 +1,9 @@
 # Ludendorff
 
+<p align="center">
+	<img width="128" height="128" src="art/ic_launcher.png"/>
+</p>
+
 **Warning: Construction Ahead!**
 
 Ludendorff is our capstone project that is a client app used in asset tracking and management of the CLIRDEC in Central Luzon State University.

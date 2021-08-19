@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.user.UserCore
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Department @JvmOverloads constructor(

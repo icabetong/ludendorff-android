@@ -12,7 +12,7 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.CategoryCore
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Asset @JvmOverloads constructor(

@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
@@ -83,6 +83,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     kapt 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
+
+    implementation 'androidx.room:room-runtime:2.3.0'
+    implementation 'androidx.room:room-ktx:2.3.0'
+    kapt 'androidx.room:room-compiler:2.3.0'
 
     implementation 'androidx.hilt:hilt-work:1.0.0'
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'

@@ -7,7 +7,7 @@ import com.google.firebase.firestore.Exclude
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.DepartmentCore
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User @JvmOverloads constructor(

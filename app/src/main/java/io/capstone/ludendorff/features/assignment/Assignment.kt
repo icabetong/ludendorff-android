@@ -15,7 +15,7 @@ import io.capstone.ludendorff.features.asset.AssetCore
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.user.User
 import io.capstone.ludendorff.features.user.UserCore
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Assignment @JvmOverloads constructor(
@@ -52,8 +52,8 @@ data class Assignment @JvmOverloads constructor(
         const val FIELD_USER_ID = "${FIELD_USER}.${User.FIELD_ID}"
         const val FIELD_DATE_ASSIGNED = "dateAssigned"
         const val FIELD_DATE_RETURNED = "dateReturned"
-        const val LOCATION = "location"
-        const val REMARKS = "remarks"
+        const val FIELD_LOCATION = "location"
+        const val FIELD_REMARKS = "remarks"
 
         fun formatTimestamp(timestamp: Timestamp?, context: Context): String? {
             if (timestamp == null)
