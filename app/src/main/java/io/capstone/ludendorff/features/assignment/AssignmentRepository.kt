@@ -25,10 +25,8 @@ class AssignmentRepository @Inject constructor(
 
             Response.Success(Response.Action.CREATE)
         } catch (exception: FirebaseFirestoreException) {
-            android.util.Log.e("DEBUG", exception.toString())
             Response.Error(exception)
         } catch (exception: Exception) {
-            android.util.Log.e("DEBUG", exception.toString())
             Response.Error(exception)
         }
     }
@@ -42,7 +40,6 @@ class AssignmentRepository @Inject constructor(
 
             Response.Success(Response.Action.UPDATE)
         } catch (exception: FirebaseFirestoreException) {
-            android.util.Log.e("DEBUG", exception.toString())
             Response.Error(exception)
         } catch (exception: Exception) {
             Response.Error(exception)

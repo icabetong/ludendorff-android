@@ -3,6 +3,7 @@ package io.capstone.ludendorff.features.asset
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
+import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.core.backend.Response
 import kotlinx.coroutines.tasks.await
@@ -42,39 +43,49 @@ class AssetRepository @Inject constructor(
             }.await()
 
             Response.Success(Response.Action.CREATE)
-        } catch (e: Exception) {
-            Response.Error(e, Response.Action.CREATE)
+        } catch (exception: FirebaseFirestoreException) {
+            Response.Error(exception, Response.Action.CREATE)
+        } catch (exception: Exception) {
+            Response.Error(exception, Response.Action.CREATE)
         }
     }
 
     suspend fun update(asset: Asset, categoryId: String? = null): Response<Response.Action> {
         return try {
-            firestore.runBatch { writeBatch ->
-                writeBatch.set(firestore.collection(Asset.COLLECTION)
-                    .document(asset.assetId), asset)
+            val batchWrite = firestore.batch()
+            batchWrite.set(firestore.collection(Asset.COLLECTION)
+                .document(asset.assetId), asset)
 
-                /**
-                 *  Increment the count of the
-                 *  new category.
-                 */
-                asset.category?.categoryId?.let {
-                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
-                        mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
+            /**
+             *  Increment the count of the
+             *  new category.
+             */
+            categoryId?.let {
+                batchWrite.update(firestore.collection(Category.COLLECTION).document(it),
+                    mapOf(Category.FIELD_COUNT to FieldValue.increment(-1)))
+            }
+
+            /**
+             *  At the same time, decrement the
+             *  count of the old category
+             */
+            asset.category?.categoryId?.let {
+                batchWrite.update(firestore.collection(Category.COLLECTION).document(it),
+                    mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
+            }
+
+            firestore.collection(Assignment.COLLECTION)
+                .whereEqualTo(Assignment.FIELD_ASSET_ID, asset.assetId)
+                .get().await()
+                .documents.forEach {
+                    batchWrite.update(it.reference, Assignment.FIELD_ASSET, asset.minimize())
                 }
 
-                /**
-                 *  At the same time, decrement the
-                 *  count of the old category
-                 */
-                categoryId?.let {
-                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
-                        mapOf(Category.FIELD_COUNT to FieldValue.increment(-1)))
-                }
-            }.await()
+            batchWrite.commit().await()
 
             Response.Success(Response.Action.UPDATE)
-        } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException, Response.Action.UPDATE)
+        } catch (exception: FirebaseFirestoreException) {
+            Response.Error(exception, Response.Action.UPDATE)
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.UPDATE)
         }

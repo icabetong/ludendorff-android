@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.ludendorff.components.persistence.UserProperties
+import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -44,10 +45,19 @@ class UserRepository @Inject constructor(
 
     suspend fun update(user: User): Response<Response.Action> {
         return try {
-            firestore.collection(User.COLLECTION)
-                .document(user.userId)
-                .set(user)
-                .await()
+            val batchWrite = firestore.batch()
+
+            batchWrite.set(firestore.collection(User.COLLECTION)
+                .document(user.userId), user)
+
+            firestore.collection(Assignment.COLLECTION)
+                .whereEqualTo(Assignment.FIELD_USER_ID, user.userId)
+                .get().await()
+                .documents.forEach {
+                    batchWrite.update(it.reference, Assignment.FIELD_USER, user.minimize())
+                }
+
+            batchWrite.commit().await()
 
             firebaseAuth.currentUser?.uid?.let {
                 if (it == user.userId) {
