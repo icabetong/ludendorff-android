@@ -37,7 +37,7 @@ class NotificationFragment: BaseFragment() {
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_notifications,
             iconRes = R.drawable.ic_hero_menu,
-            onNavigationClicked = { controller?.navigateUp() }
+            onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() }
         )
     }
 

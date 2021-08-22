@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_hero_camera.xml" value="0.21217105263157895" />
+        <entry key="app/src/main/res/drawable/ic_outline_arrow_back_24.xml" value="0.10592105263157894" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2019736842105263" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2019736842105263" />
         <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.2019736842105263" />
+        <entry key="app/src/main/res/xml/xml_settings.xml" value="0.5" />
       </map>
     </option>
   </component>

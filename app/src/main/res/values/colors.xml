@@ -8,10 +8,10 @@
     <color name="keeper_primary_variant">#344775</color>
     <color name="keeper_on_primary">@android:color/white</color>
 
-    <color name="keeper_secondary">#ff5555</color>
-    <color name="keeper_secondary_variant">#c5162c</color>
+    <color name="keeper_secondary">#ff79c6</color>
+    <color name="keeper_secondary_variant">#c94695</color>
 
-    <color name="keeper_error">#ffb86c</color>
+    <color name="keeper_error">#ff5555</color>
     <color name="keeper_on_error">@android:color/black</color>
 
     <color name="keeper_surface">@android:color/white</color>
