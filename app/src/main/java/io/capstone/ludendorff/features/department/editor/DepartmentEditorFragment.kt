@@ -69,7 +69,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             binding.appBar.toolbarTitleTextView.setText(R.string.title_department_update)
 
             binding.nameTextInput.setText(it.name)
-            binding.managerTextInput.setText(it.managerSSN?.name)
+            binding.managerTextInput.setText(it.manager?.name)
         }
 
         registerForFragmentResult(arrayOf(UserPickerBottomSheet.REQUEST_KEY_PICK), this)

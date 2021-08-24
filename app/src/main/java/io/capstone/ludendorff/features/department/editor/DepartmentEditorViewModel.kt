@@ -9,7 +9,7 @@ class DepartmentEditorViewModel: BaseViewModel() {
     var department = Department()
 
     fun triggerManagerChanged(user: User) {
-        department.managerSSN = user.minimize()
+        department.manager = user.minimize()
     }
 
 }

@@ -2,7 +2,7 @@ package io.capstone.ludendorff.features.category
 
 import android.os.Parcelable
 import io.capstone.ludendorff.components.utils.IDGenerator
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CategoryCore @JvmOverloads constructor(

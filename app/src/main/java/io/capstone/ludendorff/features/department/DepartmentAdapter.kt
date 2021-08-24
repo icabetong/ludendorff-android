@@ -36,7 +36,7 @@ class DepartmentAdapter(
         override fun onBind(data: Department?) {
             binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.departmentId
             binding.titleTextView.text = data?.name
-            binding.bodyTextView.text = data?.managerSSN?.name
+            binding.bodyTextView.text = data?.manager?.name
 
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,

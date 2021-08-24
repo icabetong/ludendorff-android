@@ -15,10 +15,17 @@ class DepartmentRepository @Inject constructor(
 
     suspend fun create(department: Department): Response<Response.Action> {
         return try {
-            firestore.collection(Department.COLLECTION)
-                .document(department.departmentId)
-                .set(department)
-                .await()
+            val batchWrite = firestore.batch()
+
+            batchWrite.set(firestore.collection(Department.COLLECTION)
+                .document(department.departmentId), department)
+
+            if (department.manager != null)
+                batchWrite.update(firestore.collection(User.COLLECTION)
+                    .document(department.manager!!.userId), User.FIELD_DEPARTMENT,
+                    department.minimize())
+
+            batchWrite.commit().await()
 
             Response.Success(Response.Action.CREATE)
         } catch (firestoreException: FirebaseFirestoreException) {
@@ -30,19 +37,17 @@ class DepartmentRepository @Inject constructor(
 
     suspend fun update(department: Department): Response<Response.Action> {
         return try {
-            firestore.collection(Department.COLLECTION)
-                .document(department.departmentId)
-                .set(department)
-                .await()
-
             val batchWrite = firestore.batch()
-            firestore.collection(User.COLLECTION)
-                .whereEqualTo(User.FIELD_DEPARTMENT_ID, department.departmentId)
-                .get().await()
-                .documents.forEach {
-                    batchWrite.update(it.reference, User.FIELD_DEPARTMENT, department.minimize())
-                }
-            batchWrite.commit()
+
+            batchWrite.set(firestore.collection(Department.COLLECTION)
+                .document(department.departmentId), department)
+
+            if (department.manager != null)
+                batchWrite.update(firestore.collection(User.COLLECTION)
+                    .document(department.manager!!.userId), User.FIELD_DEPARTMENT,
+                    department.minimize())
+
+            batchWrite.commit().await()
 
             Response.Success(Response.Action.UPDATE)
         } catch (firestore: FirebaseFirestoreException) {

@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.department.Department
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -49,6 +50,18 @@ class UserRepository @Inject constructor(
 
             batchWrite.set(firestore.collection(User.COLLECTION)
                 .document(user.userId), user)
+
+            if (user.department != null) {
+                firestore.collection(Department.COLLECTION)
+                    .whereEqualTo(Department.FIELD_MANAGER_ID, user.userId)
+                    .get().await()
+                    .documents.forEach {
+                        val department = it.toObject(Department::class.java)
+
+                        if (department?.departmentId != user.department?.departmentId)
+                            batchWrite.update(it.reference, Department.FIELD_MANAGER, null)
+                    }
+            }
 
             firestore.collection(Assignment.COLLECTION)
                 .whereEqualTo(Assignment.FIELD_USER_ID, user.userId)
