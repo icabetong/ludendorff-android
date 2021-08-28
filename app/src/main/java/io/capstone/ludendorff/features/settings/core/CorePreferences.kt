@@ -57,24 +57,25 @@ class CorePreferences: BasePreference() {
             ?.setOnPreferenceClickListener {
                 isTriggered = true
                 firebaseMessaging.token.addOnCompleteListener {
-                        if (!it.isSuccessful) {
-                            createSnackbar(R.string.error_generic)
-                            return@addOnCompleteListener
-                        }
-
-                        userPreferences.deviceToken = it.result
-                        val deviceTokenRequest = OneTimeWorkRequestBuilder<TokenUpdateWorker>()
-                            .addTag(TokenUpdateWorker.WORKER_TAG)
-                            .setInputData(
-                                workDataOf(
-                                    TokenUpdateWorker.EXTRA_TOKEN_ID to userPreferences.deviceToken
-                                )
-                            )
-                            .build()
-                        workManager.enqueueUniqueWork(
-                            TokenUpdateWorker.WORKER_TAG,
-                            ExistingWorkPolicy.REPLACE, deviceTokenRequest)
+                    if (!it.isSuccessful) {
+                        createSnackbar(R.string.feedback_token_update_error)
+                        return@addOnCompleteListener
                     }
+
+                    userPreferences.deviceToken = it.result
+                    val deviceTokenRequest = OneTimeWorkRequestBuilder<TokenUpdateWorker>()
+                        .addTag(TokenUpdateWorker.WORKER_TAG)
+                        .setInputData(
+                            workDataOf(
+                                TokenUpdateWorker.EXTRA_TOKEN_ID to userPreferences.deviceToken
+                            )
+                        )
+                        .build()
+                    workManager.enqueueUniqueWork(
+                        TokenUpdateWorker.WORKER_TAG,
+                        ExistingWorkPolicy.REPLACE, deviceTokenRequest)
+                    createSnackbar(R.string.feedback_token_update_success)
+                }
                 true
             }
 
@@ -97,24 +98,6 @@ class CorePreferences: BasePreference() {
             findPreference<Preference>(PREFERENCE_KEY_USER)?.run {
                 title = it.getDisplayName()
                 summary = it.email
-            }
-        }
-
-        coreViewModel.tokenUpdateInfo.observe(viewLifecycleOwner) { workInfo ->
-            if (workInfo.isNullOrEmpty())
-                return@observe
-
-            workInfo[0].let {
-                when(it.state) {
-                    WorkInfo.State.SUCCEEDED ->
-                        if (isTriggered) {
-                            createSnackbar(R.string.feedback_token_update_success)
-                            isTriggered = false
-                        }
-                    WorkInfo.State.FAILED ->
-                        createSnackbar(R.string.feedback_token_update_error)
-                    else -> {}
-                }
             }
         }
     }

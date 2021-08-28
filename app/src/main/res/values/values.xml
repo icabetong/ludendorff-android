@@ -95,7 +95,7 @@
     <style name="Widget.Keeper.Button.Secondary" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">?attr/colorSecondary</item>
         <item name="iconTint">?attr/colorOnSecondary</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="android:textAppearance">@style/TextAppearance.Keeper.Button</item>
     </style>
     <style name="Widget.Keeper.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
