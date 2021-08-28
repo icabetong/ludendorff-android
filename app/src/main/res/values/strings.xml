@@ -166,6 +166,8 @@
     <string name="feedback_assignment_create_error">Error creating assignment</string>
     <string name="feedback_assignment_remove_error">Error removing assignment</string>
     <string name="feedback_assignment_update_error">Error updating assignment</string>
+    <string name="feedback_token_update_success">Default device registered</string>
+    <string name="feedback_token_update_error">Error registering as default device</string>
     <string name="feedback_network_limited_or_unavailable">Network is limited or unavailable</string>
 
     <string name="empty_no_assets_header">No Assets Added</string>
@@ -221,12 +223,16 @@
     <string name="dialog_no_date_assignment_message">You left the \"Date Assigned\" attribute empty, do you want to default it to today\'s date or pick another one instead?</string>
 
     <string name="settings_group_interface">Interface</string>
+    <string name="settings_group_notifications">Notifications</string>
     <string name="settings_group_about">About</string>
 
     <string name="settings_theme_title">Theme</string>
     <string name="settings_theme_option_system">System</string>
     <string name="settings_theme_option_light">Light</string>
     <string name="settings_theme_option_dark">Dark</string>
+
+    <string name="settings_default_notification_device_title">Use this device for notifications</string>
+    <string name="settings_default_notification_device_summary">Make this device the default receiver for notifications.</string>
 
     <string name="settings_build_version">Build Version</string>
     <string name="settings_third_party_notices">Third Party Notices</string>

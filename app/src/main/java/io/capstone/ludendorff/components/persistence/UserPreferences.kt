@@ -36,6 +36,14 @@ class UserPreferences(private val context: Context?) {
             }
         }
 
+    var deviceToken: String?
+        get() = sharedPreference.getString(PREFERENCE_DEVICE_TOKEN, null)
+        set(value) {
+            sharedPreference.edit {
+                putString(PREFERENCE_DEVICE_TOKEN, value)
+            }
+        }
+
     var theme: Theme
         get() = Theme.parse(sharedPreference.getString(
             CorePreferences.PREFERENCE_KEY_THEME,
@@ -48,6 +56,7 @@ class UserPreferences(private val context: Context?) {
 
     companion object {
         const val PREFERENCE_FIRST_TIME = "preference:first_time"
+        const val PREFERENCE_DEVICE_TOKEN = "preference:device_token"
 
         fun notifyThemeChanged(theme: Theme) {
             when(theme) {

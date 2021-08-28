@@ -20,6 +20,16 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/settings_group_notifications">
+
+        <Preference
+            android:key="preference:device_default"
+            android:title="@string/settings_default_notification_device_title"
+            android:summary="@string/settings_default_notification_device_summary"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/settings_group_about">
 
         <Preference
