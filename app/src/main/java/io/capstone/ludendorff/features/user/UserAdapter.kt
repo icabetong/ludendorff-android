@@ -33,10 +33,12 @@ class UserAdapter(
                 binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + it.userId
                 binding.headerTextView.text = it.getDisplayName()
                 binding.informationTextView.text = it.email
-                binding.imageView.load(it.imageUrl) {
-                    error(R.drawable.ic_hero_user)
-                    placeholder(R.drawable.ic_hero_user)
-                }
+                if (it.imageUrl != null)
+                    binding.imageView.load(it.imageUrl) {
+                        error(R.drawable.ic_hero_user)
+                        placeholder(R.drawable.ic_hero_user)
+                    }
+                else binding.imageView.setImageResource(R.drawable.ic_flaticon_user)
             }
 
             binding.root.setOnClickListener {

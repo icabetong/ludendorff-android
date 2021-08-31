@@ -8,4 +8,8 @@ class NoticePreferences: BasePreference() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 
     }
+
+    companion object {
+        const val URL_AVATAR_AUTHOR = "https://www.flaticon.com/free-icon/user_149071"
+    }
 }

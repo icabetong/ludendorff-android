@@ -10,10 +10,6 @@
         android:name="io.capstone.ludendorff.features.home.HomeFragment"
         tools:layout="@layout/fragment_home"/>
     <fragment
-        android:id="@+id/navigation_notification"
-        android:name="io.capstone.ludendorff.features.notification.NotificationFragment"
-        tools:layout="@layout/fragment_notification"/>
-    <fragment
         android:id="@+id/navigation_scan"
         android:name="io.capstone.ludendorff.features.scan.ScanFragment"
         tools:layout="@layout/fragment_scan"/>
@@ -33,9 +29,6 @@
     <action
         android:id="@+id/to_navigation_user_home"
         app:destination="@id/navigation_user_home"/>
-    <action
-        android:id="@+id/to_navigation_notification"
-        app:destination="@id/navigation_notification"/>
     <action
         android:id="@+id/to_navigation_scan"
         app:destination="@id/navigation_scan"/>

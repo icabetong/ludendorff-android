@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import io.capstone.ludendorff.R
@@ -41,6 +42,17 @@ class AssetOptionsFragment: BaseFragment() {
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
         binding.categoryButton.setOnClickListener {
             controller?.navigate(R.id.to_navigation_category)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.filterCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            binding.filterOptionsLayout.isVisible = isChecked
+        }
+        binding.sortCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            binding.sortOptionsLayout.isVisible = isChecked
         }
     }
 }

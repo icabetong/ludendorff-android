@@ -24,11 +24,13 @@ import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.assignment.AssignmentViewModel
 import io.capstone.ludendorff.features.shared.components.BaseEditorFragment
+import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import io.capstone.ludendorff.features.user.picker.UserPickerBottomSheet
 
 @AndroidEntryPoint
-class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
+class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
+    BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentEditorAssignmentBinding? = null
     private var controller: NavController? = null
     private var requestKey = REQUEST_KEY_CREATE
@@ -65,13 +67,17 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             titleRes = R.string.title_assignment_create,
             iconRes = R.drawable.ic_hero_x,
             onNavigationClicked = { controller?.navigateUp() },
+            menuRes = R.menu.menu_editor,
+            onMenuOptionClicked = ::onMenuItemClicked,
             customTitleView = binding.appBar.toolbarTitleTextView
         )
 
         arguments?.getParcelable<Assignment>(EXTRA_ASSIGNMENT)?.let {
             requestKey = REQUEST_KEY_UPDATE
+            editorViewModel.assignment = it
 
             binding.appBar.toolbarTitleTextView.setText(R.string.title_assignment_update)
+            binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.assignmentId
 
             binding.assetTextInput.setText(it.asset?.assetName)
@@ -181,6 +187,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             if (requestKey == REQUEST_KEY_UPDATE)
                 viewModel.update(editorViewModel.assignment)
             else viewModel.create(editorViewModel.assignment)
+
             controller?.navigateUp()
         }
     }
@@ -196,7 +203,26 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             UserPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<User>(UserPickerBottomSheet.EXTRA_USER)?.let {
                     editorViewModel.assignment.user = it.minimize()
+                    editorViewModel.targetUserDeviceToken = it.deviceToken
                     binding.userTextInput.setText(it.getDisplayName())
+                }
+            }
+        }
+    }
+
+    override fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_remove -> {
+                if (requestKey == REQUEST_KEY_UPDATE) {
+                    MaterialDialog(requireContext()).show {
+                        title(R.string.dialog_remove_assignment_title)
+                        message(R.string.dialog_remove_assignment_message)
+                        positiveButton(R.string.button_remove) {
+                            viewModel.remove(editorViewModel.assignment)
+                            controller?.navigateUp()
+                        }
+                        negativeButton(R.string.button_cancel)
+                    }
                 }
             }
         }

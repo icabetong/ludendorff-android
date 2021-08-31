@@ -105,6 +105,7 @@
         <item name="android:textColor">?attr/colorSecondary</item>
         <item name="android:textAppearance">@style/TextAppearance.Keeper.Button</item>
     </style>
+    <style name="Widget.Keeper.Button.Text" parent="Widget.MaterialComponents.Button.TextButton"/>
     <style name="Widget.Keeper.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice"/>
 
     <!-- TextAppearances -->

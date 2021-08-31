@@ -11,6 +11,16 @@
         android:layout_height="match_parent">
 
         <io.capstone.ludendorff.components.views.RoundedImageButton
+            android:id="@+id/navigation_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:layout_marginHorizontal="@dimen/activity_margin_small"
+            app:srcCompat="@drawable/ic_hero_bell"
+            app:layout_constraintBottom_toTopOf="@id/navigation_core_settings"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <io.capstone.ludendorff.components.views.RoundedImageButton
             android:id="@+id/navigation_core_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

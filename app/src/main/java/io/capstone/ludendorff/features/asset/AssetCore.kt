@@ -3,7 +3,7 @@ package io.capstone.ludendorff.features.asset
 import android.os.Parcelable
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.category.CategoryCore
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  *  This data class is used in querying

@@ -65,14 +65,15 @@ class NavigationFragment: BaseFragment() {
         }
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
-
             binding.nameTextView.text = it.getDisplayName()
-            binding.profileImageView.load(it.imageUrl) {
-                error(R.drawable.ic_hero_user)
-                placeholder(progressDrawable)
-                transformations(CircleCropTransformation())
-                scale(Scale.FILL)
-            }
+            if (it.imageUrl != null)
+                binding.profileImageView.load(it.imageUrl) {
+                    error(R.drawable.ic_hero_user)
+                    placeholder(progressDrawable)
+                    transformations(CircleCropTransformation())
+                    scale(Scale.FILL)
+                }
+            else binding.profileImageView.setImageResource(R.drawable.ic_flaticon_user)
 
             with(binding.navigationView.menu) {
                 findItem(R.id.navigation_users)
@@ -105,6 +106,9 @@ class NavigationFragment: BaseFragment() {
             dismissNavigationPanel()
 
             true
+        }
+        binding.navigationNotification.setOnClickListener {
+            controller?.navigate(R.id.navigation_notification)
         }
         binding.navigationCoreSettings.setOnClickListener {
             controller?.navigate(R.id.navigation_core_settings)

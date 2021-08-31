@@ -38,5 +38,8 @@ class AssignmentViewModel @Inject constructor(
     fun update(assignment: Assignment) = viewModelScope.launch(IO) {
         _action.send(repository.update(assignment))
     }
+    fun remove(assignment: Assignment) = viewModelScope.launch(IO) {
+        _action.send(repository.remove(assignment))
+    }
 
 }

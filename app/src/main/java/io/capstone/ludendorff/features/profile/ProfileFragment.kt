@@ -1,5 +1,6 @@
 package io.capstone.ludendorff.features.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -143,11 +144,13 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         coreViewModel.userData.observe(viewLifecycleOwner) {
             binding.nameTextView.text = it.getDisplayName()
             binding.emailTextView.text = it.email
-            binding.imageView.load(it.imageUrl) {
-                error(R.drawable.ic_hero_user)
-                placeholder(progressDrawable)
-                scale(Scale.FILL)
-            }
+            if (it.imageUrl != null)
+                binding.imageView.load(it.imageUrl) {
+                    error(R.drawable.ic_hero_user)
+                    placeholder(progressDrawable)
+                    scale(Scale.FILL)
+                }
+            else binding.imageView.setImageResource(R.drawable.ic_flaticon_user)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -283,6 +286,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         }
     }
 
+    @SuppressLint("CheckResult")
     override fun onProfileOptionSelected(id: Int) {
         when(id) {
             R.id.action_change_name -> {
@@ -351,6 +355,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
     }
 
     private var biometricCallback = object: BiometricPrompt.AuthenticationCallback() {
+        @SuppressLint("CheckResult")
         override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
 
