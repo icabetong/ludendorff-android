@@ -43,12 +43,14 @@ class AssignmentRepository @Inject constructor(
             val notificationRequest = NotificationRequest(
                 token = token!!,
                 deviceToken = targetDeviceToken!!,
-                notificationTitle = "Sample Notification Title",
-                notificationBody = "Sample Body"
+                notificationTitle = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_TITLE,
+                notificationBody = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_BODY,
+                data = mapOf(NotificationRequest.FIELD_DATA_PAYLOAD to assignment.assignmentId)
             )
 
             val response = backend.newNotificationPost(notificationRequest)
-            android.util.Log.e("RESPONSE", "${response.code()}")
+            if (response.code() != 200)
+                Response.Error(Exception(), Response.Action.CREATE)
 
             Response.Success(Response.Action.CREATE)
         } catch (exception: FirebaseFirestoreException) {

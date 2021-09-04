@@ -12,7 +12,7 @@ data class NotificationRequest (
     var deviceToken: String,
     var notificationTitle: String?,
     var notificationBody: String?,
-    var data: Map<String, String>
+    var data: Map<String, String?>
 ): Parcelable {
 
     fun toRequestBody(): RequestBody {
@@ -40,5 +40,9 @@ data class NotificationRequest (
         const val FIELD_NOTIFICATION_TITLE = "title"
         const val FIELD_NOTIFICATION_BODY = "body"
         const val FIELD_DATA = "data"
+        const val FIELD_DATA_PAYLOAD = "payload"
+
+        const val NOTIFICATION_ASSIGNED_ASSET_TITLE = "notification-assigned-asset-title"
+        const val NOTIFICATION_ASSIGNED_ASSET_BODY = "notification-assigned-asset-body"
     }
 }
