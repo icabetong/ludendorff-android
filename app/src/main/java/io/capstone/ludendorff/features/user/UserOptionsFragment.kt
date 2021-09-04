@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import io.capstone.ludendorff.R
@@ -34,7 +35,6 @@ class UserOptionsFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
     }
@@ -50,6 +50,17 @@ class UserOptionsFragment: BaseFragment() {
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
         binding.departmentButton.setOnClickListener {
             controller?.navigate(R.id.navigation_department)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.filterCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            binding.filterOptionsLayout.isVisible = isChecked
+        }
+        binding.sortCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            binding.sortOptionsLayout.isVisible = isChecked
         }
     }
 }

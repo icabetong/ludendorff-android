@@ -4,14 +4,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.RemoteMessage
-import com.google.firebase.messaging.RemoteMessageCreator
+import io.capstone.ludendorff.api.Backend
+import io.capstone.ludendorff.api.NotificationRequest
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.core.backend.Response
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.tasks.await
+import okhttp3.*
+import org.json.JSONObject
+import ru.gildor.coroutines.okhttp.await
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,10 +21,10 @@ import javax.inject.Singleton
 class AssignmentRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
-    private val firebaseMessaging: FirebaseMessaging
+    private val backend: Backend
 ) {
 
-    suspend fun create(assignment: Assignment): Response<Response.Action> {
+    suspend fun create(assignment: Assignment, targetDeviceToken: String?): Response<Response.Action> {
         return try {
             firestore.runBatch {
                 it.set(firestore.collection(Assignment.COLLECTION)
@@ -33,6 +35,20 @@ class AssignmentRepository @Inject constructor(
                         .document(id), Asset.FIELD_STATUS, Asset.Status.OPERATIONAL)
                 }
             }.await()
+
+            val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
+            if (token == null || targetDeviceToken == null)
+                Response.Error(NullPointerException(), Response.Action.CREATE)
+
+            val notificationRequest = NotificationRequest(
+                token = token!!,
+                deviceToken = targetDeviceToken!!,
+                notificationTitle = "Sample Notification Title",
+                notificationBody = "Sample Body"
+            )
+
+            val response = backend.newNotificationPost(notificationRequest)
+            android.util.Log.e("RESPONSE", "${response.code()}")
 
             Response.Success(Response.Action.CREATE)
         } catch (exception: FirebaseFirestoreException) {

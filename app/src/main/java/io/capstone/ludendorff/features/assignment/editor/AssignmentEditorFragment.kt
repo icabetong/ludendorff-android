@@ -186,7 +186,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
             if (requestKey == REQUEST_KEY_UPDATE)
                 viewModel.update(editorViewModel.assignment)
-            else viewModel.create(editorViewModel.assignment)
+            else viewModel.create(editorViewModel.assignment, editorViewModel.targetUserDeviceToken)
 
             controller?.navigateUp()
         }

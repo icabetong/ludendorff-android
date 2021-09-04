@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -63,5 +64,260 @@
             style="@style/Widget.Keeper.Button.Outlined"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/filterCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin_small"
+                android:layout_marginHorizontal="@dimen/activity_margin_small"
+                android:text="@string/options_filter"
+                android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+            <LinearLayout
+                android:id="@+id/filterOptionsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_tiny"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginHorizontal="@dimen/activity_margin_medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/hint_permissions"
+                    android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                    android:drawableStart="@drawable/ic_hero_shield_exclamation"
+                    android:drawablePadding="@dimen/activity_margin_small"
+                    android:drawableTint="@color/keeper_primary"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_margin">
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/hint_none"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/user_permission_read"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/user_permission_write"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/user_permission_delete"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/user_permission_audit"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/user_permission_manage_users"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/user_permission_administrative"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                </RadioGroup>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_small"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginHorizontal="@dimen/activity_margin_medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/hint_department"
+                    android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                    android:drawableStart="@drawable/ic_hero_office_building"
+                    android:drawablePadding="@dimen/activity_margin_small"
+                    android:drawableTint="@color/keeper_primary"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_margin_large">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/departmentTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/activity_margin"
+                        android:text="@string/hint_not_set"
+                        android:textColor="@color/keeper_text_primary"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/removeChip"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/removeChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_remove"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/departmentTextView"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/sortCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin_small"
+                android:layout_marginStart="@dimen/activity_margin_small"
+                android:layout_marginEnd="@dimen/activity_margin_small"
+                android:text="@string/options_sort"
+                android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+            <LinearLayout
+                android:id="@+id/sortOptionsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_small"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginHorizontal="@dimen/activity_margin_medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/options_sort_attribute"
+                    android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                    android:drawableStart="@drawable/ic_hero_hashtag"
+                    android:drawablePadding="@dimen/activity_margin_small"
+                    android:drawableTint="@color/keeper_primary"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_margin">
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/hint_last_name"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/hint_first_name"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/hint_email"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/hint_position"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/hint_category"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                </RadioGroup>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_small"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginHorizontal="@dimen/activity_margin_medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/options_sort_direction"
+                    android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                    android:drawableStart="@drawable/ic_hero_sort_ascending"
+                    android:drawablePadding="@dimen/activity_margin_small"
+                    android:drawableTint="@color/keeper_primary"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_margin">
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/options_sort_direction_ascending"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_margin"
+                        android:text="@string/options_sort_direction_descending"
+                        android:textAppearance="@style/TextAppearance.Keeper.List"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

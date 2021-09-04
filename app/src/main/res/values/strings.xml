@@ -62,6 +62,7 @@
     <string name="hint_manager">Manager</string>
     <string name="hint_not_set">Not Set</string>
     <string name="hint_vacant">Vacant</string>
+    <string name="hint_none">None</string>
     <string name="hint_department">Department</string>
     <string name="hint_user">User</string>
     <string name="hint_position">Position</string>

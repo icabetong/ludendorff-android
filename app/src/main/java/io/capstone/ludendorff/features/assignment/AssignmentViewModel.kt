@@ -32,8 +32,8 @@ class AssignmentViewModel @Inject constructor(
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()
 
-    fun create(assignment: Assignment) = viewModelScope.launch(IO) {
-        _action.send(repository.create(assignment))
+    fun create(assignment: Assignment, targetDeviceToken: String?) = viewModelScope.launch(IO) {
+        _action.send(repository.create(assignment, targetDeviceToken))
     }
     fun update(assignment: Assignment) = viewModelScope.launch(IO) {
         _action.send(repository.update(assignment))

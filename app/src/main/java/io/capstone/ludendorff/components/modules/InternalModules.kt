@@ -6,14 +6,22 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.capstone.ludendorff.api.Backend
 import io.capstone.ludendorff.components.persistence.DevicePermissions
 import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.scan.image.ImageRepository
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class InternalModules {
+
+    @Singleton
+    @Provides
+    fun provideBackend(): Backend {
+        return Backend()
+    }
 
     @Provides
     fun provideUserProperties(@ApplicationContext context: Context): UserProperties {
