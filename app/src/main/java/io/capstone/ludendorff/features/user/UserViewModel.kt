@@ -32,8 +32,8 @@ class UserViewModel @Inject constructor(
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()
 
-    fun create(user: User, password: String?) = viewModelScope.launch(IO) {
-        _action.send(repository.create(user, password))
+    fun create(user: User) = viewModelScope.launch(IO) {
+        _action.send(repository.create(user))
     }
     fun update(user: User) = viewModelScope.launch(IO) {
         _action.send(repository.update(user))

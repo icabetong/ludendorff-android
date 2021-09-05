@@ -1,5 +1,6 @@
 package io.capstone.ludendorff.features.user.editor
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -23,7 +24,6 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
-import io.capstone.ludendorff.components.utils.PasswordManager
 import io.capstone.ludendorff.databinding.FragmentEditorUserBinding
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.department.Department
@@ -84,21 +84,12 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
             customTitleView = binding.appBar.toolbarTitleTextView
         )
 
-        binding.passwordTextInput.setText(PasswordManager.generateRandom(
-            isWithLetters = true,
-            isWithUppercase = true,
-            isWithNumbers = true,
-            isWithSpecial = true,
-            length = 10
-        ))
-
         arguments?.getParcelable<User>(EXTRA_USER)?.let {
             requestKey = REQUEST_KEY_UPDATE
             editorViewModel.user = it
 
             binding.appBar.toolbarTitleTextView.setText(R.string.title_user_update)
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.userId
-            binding.passwordTextInputLayout.visibility = View.GONE
 
             binding.firstNameTextInput.setText(it.firstName)
             binding.lastNameTextInput.setText(it.lastName)
@@ -137,7 +128,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
                         if (requestKey == REQUEST_KEY_UPDATE)
                             viewModel.update(editorViewModel.user)
-                        else viewModel.create(editorViewModel.user, editorViewModel.password)
+                        else viewModel.create(editorViewModel.user)
                         controller?.navigateUp()
                     }
                 }
@@ -154,7 +145,6 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
         }
 
         binding.appBar.toolbarActionButton.setOnClickListener {
-            editorViewModel.password = binding.passwordTextInput.text.toString()
 
             editorViewModel.user.firstName = binding.firstNameTextInput.text.toString()
             editorViewModel.user.lastName = binding.lastNameTextInput.text.toString()
@@ -224,6 +214,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
     }
 
     private val biometricCallback = object: BiometricPrompt.AuthenticationCallback() {
+        @SuppressLint("CheckResult")
         override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
             when(errorCode) {
@@ -289,7 +280,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
             if (requestKey == REQUEST_KEY_UPDATE)
                 viewModel.update(editorViewModel.user)
-            else viewModel.create(editorViewModel.user, editorViewModel.password)
+            else viewModel.create(editorViewModel.user)
             controller?.navigateUp()
         }
     }

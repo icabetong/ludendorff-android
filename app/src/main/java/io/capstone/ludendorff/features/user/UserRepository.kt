@@ -3,6 +3,10 @@ package io.capstone.ludendorff.features.user
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
+import io.capstone.ludendorff.api.Backend
+import io.capstone.ludendorff.api.CreateUserRequest
+import io.capstone.ludendorff.api.exception.PreconditionFailedException
+import io.capstone.ludendorff.api.exception.UnauthorizedException
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
@@ -15,26 +19,32 @@ import javax.inject.Singleton
 class UserRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
-    private val userProperties: UserProperties
+    private val userProperties: UserProperties,
+    private val backend: Backend
 ){
 
-    suspend fun create(user: User, password: String?): Response<Response.Action> {
+    suspend fun create(user: User): Response<Response.Action> {
         return try {
-            if (user.email.isNullOrBlank() || password.isNullOrBlank())
+            if (user.email.isNullOrBlank())
                 throw NullPointerException()
 
-            firebaseAuth.createUserWithEmailAndPassword(user.email!!, password)
-                .addOnCompleteListener {
-                    if (!it.isSuccessful)
-                        Response.Error(it.exception, Response.Action.CREATE)
-                }.await()
+            val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
+            if (token == null)
+                Response.Error(UnauthorizedException(), Response.Action.UPDATE)
 
-            firestore.collection(User.COLLECTION)
-                .document(user.userId)
-                .set(user)
-                .await()
+            val createUserRequest = CreateUserRequest(
+                token = token!!,
+                user = user
+            )
 
-            Response.Success(Response.Action.CREATE)
+            val response = backend.newCreateUserPost(createUserRequest)
+            when(response.code()) {
+                200 -> Response.Success(Response.Action.CREATE)
+                401 -> Response.Error(UnauthorizedException(), Response.Action.CREATE)
+                412 -> Response.Error(PreconditionFailedException(), Response.Action.CREATE)
+                else -> Response.Error(Exception(), Response.Action.CREATE)
+            }
+
         } catch (firestoreException: FirebaseFirestoreException) {
             Response.Error(firestoreException, Response.Action.CREATE)
         } catch (nullPointerException: NullPointerException) {
