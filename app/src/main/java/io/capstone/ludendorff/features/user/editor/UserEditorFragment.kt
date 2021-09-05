@@ -21,6 +21,7 @@ import com.afollestad.materialdialogs.actions.setActionButtonEnabled
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
@@ -29,6 +30,7 @@ import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.ludendorff.features.shared.components.BaseEditorFragment
+import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import io.capstone.ludendorff.features.user.UserViewModel
 import kotlinx.coroutines.flow.collect
@@ -36,7 +38,8 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.Executor
 
 @AndroidEntryPoint
-class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
+class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
+    BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentEditorUserBinding? = null
     private var controller: NavController? = null
     private var requestKey = REQUEST_KEY_CREATE
@@ -81,6 +84,8 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
             titleRes = R.string.title_user_create,
             iconRes = R.drawable.ic_hero_x,
             onNavigationClicked = { controller?.navigateUp() },
+            menuRes = R.menu.menu_editor,
+            onMenuOptionClicked = ::onMenuItemClicked,
             customTitleView = binding.appBar.toolbarTitleTextView
         )
 
@@ -89,6 +94,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
             editorViewModel.user = it
 
             binding.appBar.toolbarTitleTextView.setText(R.string.title_user_update)
+            binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.userId
 
             binding.firstNameTextInput.setText(it.firstName)
@@ -121,7 +127,10 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
                 when(it) {
                     is Response.Error -> {
                         binding.root.isEnabled = true
-                        createSnackbar(R.string.error_auth_failed)
+
+                        if (it.throwable is FirebaseAuthInvalidCredentialsException)
+                            createSnackbar(R.string.error_invalid_credentials)
+                        else createSnackbar(R.string.error_auth_failed)
                     }
                     is Response.Success -> {
                         binding.root.isEnabled = true
@@ -282,6 +291,25 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener {
                 viewModel.update(editorViewModel.user)
             else viewModel.create(editorViewModel.user)
             controller?.navigateUp()
+        }
+    }
+
+    override fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_remove -> {
+                if (requestKey == REQUEST_KEY_UPDATE) {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.dialog_remove_user_title)
+                        message(R.string.dialog_remove_user_message)
+                        positiveButton(R.string.button_remove) {
+                            viewModel.remove(editorViewModel.user)
+                            controller?.navigateUp()
+                        }
+                        negativeButton(R.string.button_cancel)
+                    }
+                }
+            }
         }
     }
 

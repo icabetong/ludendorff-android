@@ -14,7 +14,6 @@ import androidx.work.workDataOf
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.capstone.ludendorff.R
-import io.capstone.ludendorff.api.NotificationRequest
 import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.features.core.activities.MainActivity
 import io.capstone.ludendorff.features.core.worker.TokenUpdateWorker

@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.api
+package io.capstone.ludendorff.api.request
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -15,13 +15,7 @@ data class NotificationRequest (
     var data: Map<String, String?>
 ): Parcelable {
 
-    fun toRequestBody(): RequestBody {
-        val type = MediaType.get("application/json; charset=utf-8")
-
-        return RequestBody.create(type, this.toJSONObject().toString())
-    }
-
-    private fun toJSONObject(): JSONObject {
+    fun toJSONObject(): JSONObject {
         return JSONObject().apply {
             put(FIELD_TOKEN, token)
             put(FIELD_DEVICE, deviceToken)

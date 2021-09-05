@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.api
+package io.capstone.ludendorff.api.request
 
 import android.os.Parcelable
 import io.capstone.ludendorff.features.department.Department
@@ -14,12 +14,7 @@ data class CreateUserRequest (
     var user: User?
 ): Parcelable {
 
-    fun toRequestBody(): RequestBody {
-        val type = MediaType.get("application/json; charset=utf-8")
-        return RequestBody.create(type, this.toJSONObject().toString())
-    }
-
-    private fun toJSONObject(): JSONObject {
+    fun toJSONObject(): JSONObject {
         return JSONObject().apply {
             put(FIELD_TOKEN, token)
             put(FIELD_USER_ID, user?.userId)

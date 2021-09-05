@@ -5,7 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import io.capstone.ludendorff.api.Backend
-import io.capstone.ludendorff.api.NotificationRequest
+import io.capstone.ludendorff.api.request.NotificationRequest
 import io.capstone.ludendorff.api.exception.PreconditionFailedException
 import io.capstone.ludendorff.api.exception.UnauthorizedException
 import io.capstone.ludendorff.features.asset.Asset
@@ -14,8 +14,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.tasks.await
 import okhttp3.*
-import org.json.JSONObject
-import ru.gildor.coroutines.okhttp.await
 import javax.inject.Inject
 import javax.inject.Singleton
 

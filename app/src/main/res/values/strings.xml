@@ -225,6 +225,8 @@
     <string name="dialog_remove_asset_message">Are you sure you want to remove this asset? Once finished, this action cannot be undone.</string>
     <string name="dialog_remove_specification_title">Remove specification?</string>
     <string name="dialog_remove_specification_message">Are you sure you want to remove this specification? You can\'t recover this information in the future.</string>
+    <string name="dialog_remove_user_title">Remove user?</string>
+    <string name="dialog_remove_user_message">Are you sure you want to remove this user? Once finished, this action cannot be undone.</string>
     <string name="dialog_remove_assignment_title">Remove assignment?</string>
     <string name="dialog_remove_assignment_message">Are you sure you want to remove this assignment? Once finished, this action cannot be undone.</string>
     <string name="dialog_confirm_location_empty_title">Leave \"Location\" empty?</string>

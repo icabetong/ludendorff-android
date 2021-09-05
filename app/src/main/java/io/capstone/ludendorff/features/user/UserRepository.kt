@@ -4,9 +4,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.ludendorff.api.Backend
-import io.capstone.ludendorff.api.CreateUserRequest
+import io.capstone.ludendorff.api.request.CreateUserRequest
 import io.capstone.ludendorff.api.exception.PreconditionFailedException
 import io.capstone.ludendorff.api.exception.UnauthorizedException
+import io.capstone.ludendorff.api.request.RemoveUserRequest
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
@@ -122,4 +123,26 @@ class UserRepository @Inject constructor(
         }
     }
 
+    suspend fun remove(user: User): Response<Response.Action> {
+        return try {
+            val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
+            if (token == null)
+                Response.Error(UnauthorizedException(), Response.Action.UPDATE)
+
+            val removeUserRequest = RemoveUserRequest(
+                token = token!!,
+                userId = user.userId
+            )
+
+            val response = backend.newRemoveUserPost(removeUserRequest)
+            when(response.code()) {
+                200 -> Response.Success(Response.Action.CREATE)
+                401 -> Response.Error(UnauthorizedException(), Response.Action.CREATE)
+                412 -> Response.Error(PreconditionFailedException(), Response.Action.CREATE)
+                else -> Response.Error(Exception(), Response.Action.CREATE)
+            }
+        } catch (exception: Exception) {
+            Response.Error(exception, Response.Action.REMOVE)
+        }
+    }
 }

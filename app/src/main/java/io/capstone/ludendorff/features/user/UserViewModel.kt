@@ -38,5 +38,8 @@ class UserViewModel @Inject constructor(
     fun update(user: User) = viewModelScope.launch(IO) {
         _action.send(repository.update(user))
     }
+    fun remove(user: User) = viewModelScope.launch(IO) {
+        _action.send(repository.remove(user))
+    }
 
 }
