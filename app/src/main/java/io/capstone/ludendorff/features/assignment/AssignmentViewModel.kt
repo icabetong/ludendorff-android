@@ -35,8 +35,11 @@ class AssignmentViewModel @Inject constructor(
     fun create(assignment: Assignment, targetDeviceToken: String?) = viewModelScope.launch(IO) {
         _action.send(repository.create(assignment, targetDeviceToken))
     }
-    fun update(assignment: Assignment) = viewModelScope.launch(IO) {
-        _action.send(repository.update(assignment))
+    fun update(assignment: Assignment,
+               targetDeviceToken: String?,
+               previousUserId: String?,
+               previousAssetId: String?) = viewModelScope.launch(IO) {
+        _action.send(repository.update(assignment, targetDeviceToken, previousUserId, previousAssetId))
     }
     fun remove(assignment: Assignment) = viewModelScope.launch(IO) {
         _action.send(repository.remove(assignment))

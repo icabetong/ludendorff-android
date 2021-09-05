@@ -7,5 +7,7 @@ class AssignmentEditorViewModel: BaseViewModel() {
 
     var assignment = Assignment()
     var targetUserDeviceToken: String? = null
+    var previousUserId: String? = null
+    var previousAssetId: String? = null
 
 }

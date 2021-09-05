@@ -24,7 +24,7 @@ class Backend {
 
     companion object {
         const val SERVER_URL = "https://deshi-production.up.railway.app/"
-        const val REQUEST_NOTIFICATION = "notification"
+        const val REQUEST_NOTIFICATION = "send-notification"
 
     }
 }

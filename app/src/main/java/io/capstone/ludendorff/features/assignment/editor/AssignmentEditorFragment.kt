@@ -185,8 +185,10 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             }
 
             if (requestKey == REQUEST_KEY_UPDATE)
-                viewModel.update(editorViewModel.assignment)
-            else viewModel.create(editorViewModel.assignment, editorViewModel.targetUserDeviceToken)
+                viewModel.update(editorViewModel.assignment, editorViewModel.targetUserDeviceToken,
+                    editorViewModel.previousUserId, editorViewModel.previousAssetId)
+            else viewModel.create(editorViewModel.assignment,
+                editorViewModel.targetUserDeviceToken)
 
             controller?.navigateUp()
         }
@@ -196,15 +198,21 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
         when(requestKey) {
             AssetPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Asset>(AssetPickerBottomSheet.EXTRA_ASSET)?.let {
-                    editorViewModel.assignment.asset = it.minimize()
                     binding.assetTextInput.setText(it.assetName)
+
+                    if (this.requestKey == REQUEST_KEY_UPDATE)
+                        editorViewModel.previousAssetId = editorViewModel.assignment.asset?.assetId
+                    editorViewModel.assignment.asset = it.minimize()
                 }
             }
             UserPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<User>(UserPickerBottomSheet.EXTRA_USER)?.let {
+                    binding.userTextInput.setText(it.getDisplayName())
+
+                    if (this.requestKey == REQUEST_KEY_UPDATE)
+                        editorViewModel.previousUserId = editorViewModel.assignment.user?.userId
                     editorViewModel.assignment.user = it.minimize()
                     editorViewModel.targetUserDeviceToken = it.deviceToken
-                    binding.userTextInput.setText(it.getDisplayName())
                 }
             }
         }
