@@ -89,6 +89,8 @@
     <string name="button_share">Share</string>
     <string name="button_search">Search</string>
     <string name="button_send">Send</string>
+    <string name="button_disable">Disable</string>
+    <string name="button_enable">Enable</string>
     <string name="button_categories">Categories</string>
     <string name="button_departments">Departments</string>
     <string name="button_forgot_password">Forgot Password</string>
@@ -98,6 +100,8 @@
 
     <string name="menu_save">@string/button_save</string>
     <string name="menu_menu">Menu</string>
+    <string name="menu_disable">@string/button_disable</string>
+    <string name="menu_enable">@string/button_enable</string>
     <string name="menu_remove">Remove</string>
     <string name="menu_sign_out">Sign out</string>
     <string name="menu_view_qrcode">View QR Code</string>
@@ -191,6 +195,9 @@
     <string name="empty_no_scanned_code_header">Scan a QR-Code</string>
     <string name="empty_no_scanned_code_summary">You\'ll need to scan a valid QR-Code first to view its embedded data.</string>
 
+    <string name="info_account_will_be_disabled">This account will be disabled when you tap "Save".</string>
+    <string name="info_account_will_be_enabled">This account will be enabled when you tap "Save".</string>
+
     <string name="error_generic">An error occurred</string>
     <string name="error_generic_summary">Oops, something went wrong; in the meantime, try grabbing a cup of coffee, and try again.</string>
     <string name="error_no_permission">Insufficient Permissions</string>
@@ -229,6 +236,10 @@
     <string name="dialog_remove_user_message">Are you sure you want to remove this user? Once finished, this action cannot be undone.</string>
     <string name="dialog_remove_assignment_title">Remove assignment?</string>
     <string name="dialog_remove_assignment_message">Are you sure you want to remove this assignment? Once finished, this action cannot be undone.</string>
+    <string name="dialog_disable_user_title">Disable this user account?</string>
+    <string name="dialog_disable_user_message">Are you sure you want to disable this user account? With proper permissions, you can always enable this account in the future.</string>
+    <string name="dialog_enable_user_title">Enable this user account?</string>
+    <string name="dialog_enable_user_message">Are you sure you want to enable this user account? With proper permissions, you can always disable this account in the future.</string>
     <string name="dialog_confirm_location_empty_title">Leave \"Location\" empty?</string>
     <string name="dialog_confirm_location_empty_message">It is recommended that you provide the location data for the assignment. To easier track the asset later on. However, there are circumstances that a location data is not applicable.</string>
     <string name="dialog_no_date_assigned_title">Default to this date?</string>

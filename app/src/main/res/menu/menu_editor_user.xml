@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_enable"
+        android:title="@string/menu_enable"
+        android:icon="@drawable/ic_hero_check_circle"
+        android:visible="false"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_disable"
+        android:title="@string/menu_disable"
+        android:icon="@drawable/ic_hero_ban"
+        android:visible="false"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_remove"
+        android:title="@string/menu_remove"
+        android:icon="@drawable/ic_hero_trash"
+        android:visible="false"
+        app:showAsAction="never"/>
+
+</menu>

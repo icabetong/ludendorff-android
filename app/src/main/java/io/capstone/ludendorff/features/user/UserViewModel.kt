@@ -22,7 +22,7 @@ class UserViewModel @Inject constructor(
 ): BaseViewModel() {
 
     private val userQuery: Query = firestore.collection(User.COLLECTION)
-        .orderBy("lastName", Query.Direction.ASCENDING)
+        .orderBy(User.FIELD_LAST_NAME, Query.Direction.ASCENDING)
         .limit(Response.QUERY_LIMIT.toLong())
 
     val users = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
@@ -35,8 +35,8 @@ class UserViewModel @Inject constructor(
     fun create(user: User) = viewModelScope.launch(IO) {
         _action.send(repository.create(user))
     }
-    fun update(user: User) = viewModelScope.launch(IO) {
-        _action.send(repository.update(user))
+    fun update(user: User, statusChanged: Boolean = false) = viewModelScope.launch(IO) {
+        _action.send(repository.update(user, statusChanged))
     }
     fun remove(user: User) = viewModelScope.launch(IO) {
         _action.send(repository.remove(user))

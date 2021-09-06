@@ -6,7 +6,9 @@ import io.capstone.ludendorff.features.user.User
 import kotlinx.parcelize.Parcelize
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
 
 @Parcelize
 data class CreateUserRequest (
@@ -22,7 +24,7 @@ data class CreateUserRequest (
             put(FIELD_FIRST_NAME, user?.firstName)
             put(FIELD_LAST_NAME, user?.lastName)
             put(FIELD_POSITION, user?.position)
-            put(FIELD_PERMISSIONS, user?.permissions)
+            put(FIELD_PERMISSIONS, JSONArray(user?.permissions?.toIntArray()))
             put(FIELD_DEPARTMENT, JSONObject().apply {
                 put(FIELD_DEPARTMENT_ID, user?.department?.departmentId)
                 put(FIELD_DEPARTMENT_NAME, user?.department?.name)

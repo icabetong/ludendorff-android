@@ -7,6 +7,7 @@ import io.capstone.ludendorff.api.Backend
 import io.capstone.ludendorff.api.request.CreateUserRequest
 import io.capstone.ludendorff.api.exception.PreconditionFailedException
 import io.capstone.ludendorff.api.exception.UnauthorizedException
+import io.capstone.ludendorff.api.request.ModifyUserStatusRequest
 import io.capstone.ludendorff.api.request.RemoveUserRequest
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.assignment.Assignment
@@ -55,7 +56,7 @@ class UserRepository @Inject constructor(
         }
     }
 
-    suspend fun update(user: User): Response<Response.Action> {
+    suspend fun update(user: User, statusChanged: Boolean): Response<Response.Action> {
         return try {
             val batchWrite = firestore.batch()
 
@@ -82,6 +83,26 @@ class UserRepository @Inject constructor(
                 }
 
             batchWrite.commit().await()
+
+            if (statusChanged) {
+                val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
+                if (token == null)
+                    Response.Error(UnauthorizedException(), Response.Action.UPDATE)
+
+                val modifyUserStatusRequest = ModifyUserStatusRequest(
+                    token = token!!,
+                    userId = user.userId,
+                    disabled = user.disabled
+                )
+
+                val response = backend.newModifyUserStatusPost(modifyUserStatusRequest)
+                when(response.code()) {
+                    200 -> Response.Success(Response.Action.UPDATE)
+                    401 -> Response.Error(UnauthorizedException(), Response.Action.UPDATE)
+                    412 -> Response.Error(PreconditionFailedException(), Response.Action.UPDATE)
+                    else -> Response.Error(Exception(), Response.Action.UPDATE)
+                }
+            }
 
             firebaseAuth.currentUser?.uid?.let {
                 if (it == user.userId) {

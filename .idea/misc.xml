@@ -5,15 +5,19 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_flaticon_user.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_arrow_left.xml" value="0.23026315789473684" />
+        <entry key="app/src/main/res/drawable/ic_hero_ban.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_camera.xml" value="0.21217105263157895" />
+        <entry key="app/src/main/res/drawable/ic_hero_check_circle.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_filter.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_hand.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_hashtag.xml" value="0.23026315789473684" />
+        <entry key="app/src/main/res/drawable/ic_hero_minus_circle.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_shield_exclamation.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_sort_ascending.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_outline_arrow_back_24.xml" value="0.10592105263157894" />
         <entry key="app/src/main/res/layout/fragment_editor_asset.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_editor_assignment.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/fragment_editor_user.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2019736842105263" />
@@ -23,14 +27,12 @@
         <entry key="app/src/main/res/layout/fragment_options_users.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/menu/menu_editor.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/menu/menu_editor_asset.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/menu/menu_editor_user.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2019736842105263" />
         <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.2019736842105263" />
         <entry key="app/src/main/res/xml/xml_settings.xml" value="0.5" />
       </map>
     </option>
-  </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/io/capstone/ludendorff/api/Notification.kt" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

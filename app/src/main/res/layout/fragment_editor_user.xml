@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/keeper_background_content">
@@ -19,7 +20,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/activity_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/informationCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:strokeColor="@color/keeper_info"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/informationCardText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_margin"
+                    android:gravity="center_vertical"
+                    android:text="@string/info_account_will_be_disabled"
+                    android:textColor="@color/keeper_info"
+                    android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
+                    android:drawableStart="@drawable/ic_hero_information"
+                    android:drawablePadding="@dimen/activity_margin"
+                    android:drawableTint="@color/keeper_info"/>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -38,7 +63,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailTextInput"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress">
 
                     <requestFocus/>
 

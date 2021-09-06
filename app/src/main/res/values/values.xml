@@ -29,6 +29,7 @@
         <item name="imageButtonStyle">@style/Widget.Keeper.ImageButton</item>
         <!-- MaterialComponents -->
         <item name="appBarLayoutStyle">@style/Widget.Keeper.AppBar</item>
+        <item name="materialCardViewStyle">@style/Widget.Keeper.Card</item>
         <item name="toolbarStyle">@style/Widget.Keeper.Toolbar</item>
         <item name="textInputStyle">@style/Widget.Keeper.TextInput.Layout</item>
         <item name="materialButtonStyle">@style/Widget.Keeper.Button</item>
@@ -107,6 +108,10 @@
     </style>
     <style name="Widget.Keeper.Button.Text" parent="Widget.MaterialComponents.Button.TextButton"/>
     <style name="Widget.Keeper.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice"/>
+    <style name="Widget.Keeper.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">@dimen/surface_elevation</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
 
     <!-- TextAppearances -->
     <style name="TextAppearance.Keeper" parent="TextAppearance.AppCompat">

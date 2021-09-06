@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.api
 
 import io.capstone.ludendorff.api.request.CreateUserRequest
+import io.capstone.ludendorff.api.request.ModifyUserStatusRequest
 import io.capstone.ludendorff.api.request.RemoveUserRequest
 import io.capstone.ludendorff.api.request.NotificationRequest
 import okhttp3.*
@@ -20,6 +21,14 @@ class Backend {
         return client.newCall(request).await()
     }
 
+    suspend fun newCreateUserPost(createUserRequest: CreateUserRequest): Response {
+        val request = Request.Builder()
+            .url("${SERVER_URL}${REQUEST_CREATE_USER}")
+            .post(parse(createUserRequest.toJSONObject()))
+            .build()
+        return start(request)
+    }
+
     suspend fun newRemoveUserPost(removeUserRequest: RemoveUserRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_REMOVE_USER}")
@@ -28,10 +37,10 @@ class Backend {
         return start(request)
     }
 
-    suspend fun newCreateUserPost(createUserRequest: CreateUserRequest): Response {
+    suspend fun newModifyUserStatusPost(modifyUserStatusRequest: ModifyUserStatusRequest): Response {
         val request = Request.Builder()
-            .url("${SERVER_URL}${REQUEST_CREATE_USER}")
-            .post(parse(createUserRequest.toJSONObject()))
+            .url("${SERVER_URL}${REQUEST_MODIFY_USER}")
+            .post(parse(modifyUserStatusRequest.toJSONObject()))
             .build()
         return start(request)
     }
@@ -50,6 +59,7 @@ class Backend {
         const val REQUEST_NOTIFICATION = "send-notification"
         const val REQUEST_CREATE_USER = "create-user"
         const val REQUEST_REMOVE_USER = "remove-user"
+        const val REQUEST_MODIFY_USER = "modify-user"
 
     }
 }

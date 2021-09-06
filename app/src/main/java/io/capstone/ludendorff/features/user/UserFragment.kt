@@ -172,6 +172,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                             binding.errorView.root.hide()
                             binding.emptyView.root.hide()
 
+                            android.util.Log.e("DEBUG", e.error.toString())
                             if (e.error is EmptySnapshotException &&
                                 userAdapter.itemCount < 1) {
                                 binding.emptyView.root.show()

@@ -11,6 +11,9 @@
     <color name="keeper_secondary">#ff79c6</color>
     <color name="keeper_secondary_variant">#c94695</color>
 
+    <color name="keeper_info">@color/keeper_primary</color>
+    <color name="keeper_on_info">@color/keeper_on_primary</color>
+
     <color name="keeper_error">#ff5555</color>
     <color name="keeper_on_error">@android:color/black</color>
 

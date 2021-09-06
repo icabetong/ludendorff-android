@@ -7,6 +7,9 @@
     <color name="keeper_surface">#44475a</color>
     <color name="keeper_on_surface">@android:color/white</color>
 
+    <color name="keeper_info">#8be9fd</color>
+    <color name="keeper_on_info">#000000</color>
+
     <color name="keeper_text_primary">@android:color/white</color>
     <color name="keeper_text_secondary">#e0e0e0</color>
 

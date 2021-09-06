@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -21,6 +22,7 @@ import com.afollestad.materialdialogs.actions.setActionButtonEnabled
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
@@ -36,6 +38,7 @@ import io.capstone.ludendorff.features.user.UserViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.concurrent.Executor
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
@@ -51,6 +54,8 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
     private val binding get() = _binding!!
     private val editorViewModel: UserEditorViewModel by viewModels()
     private val viewModel: UserViewModel by activityViewModels()
+
+    @Inject lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +89,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
             titleRes = R.string.title_user_create,
             iconRes = R.drawable.ic_hero_x,
             onNavigationClicked = { controller?.navigateUp() },
-            menuRes = R.menu.menu_editor,
+            menuRes = R.menu.menu_editor_user,
             onMenuOptionClicked = ::onMenuItemClicked,
             customTitleView = binding.appBar.toolbarTitleTextView
         )
@@ -94,7 +99,12 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
             editorViewModel.user = it
 
             binding.appBar.toolbarTitleTextView.setText(R.string.title_user_update)
-            binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
+            binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible =
+                auth.currentUser?.uid != it.userId
+            binding.appBar.toolbar.menu.findItem(R.id.action_disable).isVisible =
+                auth.currentUser?.uid != it.userId && !it.disabled
+            binding.appBar.toolbar.menu.findItem(R.id.action_enable).isVisible =
+                auth.currentUser?.uid != it.userId && it.disabled
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.userId
 
             binding.firstNameTextInput.setText(it.firstName)
@@ -136,7 +146,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
                         binding.root.isEnabled = true
 
                         if (requestKey == REQUEST_KEY_UPDATE)
-                            viewModel.update(editorViewModel.user)
+                            viewModel.update(editorViewModel.user, editorViewModel.statusChanged)
                         else viewModel.create(editorViewModel.user)
                         controller?.navigateUp()
                     }
@@ -288,7 +298,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
             super.onAuthenticationSucceeded(result)
 
             if (requestKey == REQUEST_KEY_UPDATE)
-                viewModel.update(editorViewModel.user)
+                viewModel.update(editorViewModel.user, editorViewModel.statusChanged)
             else viewModel.create(editorViewModel.user)
             controller?.navigateUp()
         }
@@ -296,6 +306,50 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
+            R.id.action_enable -> {
+                if (requestKey == REQUEST_KEY_UPDATE) {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.dialog_enable_user_title)
+                        message(R.string.dialog_enable_user_message)
+                        positiveButton(R.string.button_enable) {
+                            editorViewModel.user.disabled = false
+                            editorViewModel.statusChanged = !editorViewModel.statusChanged
+
+                            binding.informationCard.isVisible = editorViewModel.statusChanged
+                            binding.informationCardText.setText(R.string.info_account_will_be_enabled)
+
+                            binding.appBar.toolbar.menu.findItem(R.id.action_enable)
+                                .isVisible = false
+                            binding.appBar.toolbar.menu.findItem(R.id.action_disable)
+                                .isVisible = true
+                        }
+                        negativeButton(R.string.button_cancel)
+                    }
+                }
+            }
+            R.id.action_disable -> {
+                if (requestKey == REQUEST_KEY_UPDATE) {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.dialog_disable_user_title)
+                        message(R.string.dialog_disable_user_message)
+                        positiveButton(R.string.button_disable) {
+                            editorViewModel.user.disabled = true
+                            editorViewModel.statusChanged = !editorViewModel.statusChanged
+
+                            binding.informationCard.isVisible = editorViewModel.statusChanged
+                            binding.informationCardText.setText(R.string.info_account_will_be_disabled)
+
+                            binding.appBar.toolbar.menu.findItem(R.id.action_enable)
+                                .isVisible = true
+                            binding.appBar.toolbar.menu.findItem(R.id.action_disable)
+                                .isVisible = false
+                        }
+                        negativeButton(R.string.button_cancel)
+                    }
+                }
+            }
             R.id.action_remove -> {
                 if (requestKey == REQUEST_KEY_UPDATE) {
                     MaterialDialog(requireContext()).show {

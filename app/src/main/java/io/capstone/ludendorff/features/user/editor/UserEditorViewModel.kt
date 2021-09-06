@@ -24,6 +24,7 @@ class UserEditorViewModel @Inject constructor(
 
     var user = User()
     var password: String? = null
+    var statusChanged: Boolean = false
 
     private val _reauthentication = Channel<Response<Unit>>(Channel.BUFFERED)
     val reauthentication = _reauthentication.receiveAsFlow()

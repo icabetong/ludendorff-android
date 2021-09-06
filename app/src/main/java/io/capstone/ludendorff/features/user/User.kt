@@ -19,7 +19,8 @@ data class User @JvmOverloads constructor(
     var permissions: List<Int> = emptyList(),
     var position: String? = null,
     var department: DepartmentCore? = null,
-    var deviceToken: String? = null
+    var deviceToken: String? = null,
+    var disabled: Boolean = false
 ): Parcelable {
 
     fun hasPermission(permission: Int): Boolean {
@@ -48,6 +49,7 @@ data class User @JvmOverloads constructor(
         const val FIELD_DEPARTMENT_ID = "${FIELD_DEPARTMENT}.${Department.FIELD_ID}"
         const val FIELD_DEPARTMENT_NAME = "${FIELD_DEPARTMENT}.${Department.FIELD_NAME}"
         const val FIELD_TOKEN_ID = "deviceToken"
+        const val FIELD_DISABLED = "disabled"
 
         const val PERMISSION_READ = 1
         const val PERMISSION_WRITE = 2
