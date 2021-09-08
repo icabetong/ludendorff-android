@@ -35,8 +35,8 @@ class UserAdapter(
                 binding.informationTextView.text = it.email
                 if (it.imageUrl != null)
                     binding.imageView.load(it.imageUrl) {
-                        error(R.drawable.ic_hero_user)
-                        placeholder(R.drawable.ic_hero_user)
+                        error(R.drawable.ic_flaticon_user)
+                        placeholder(R.drawable.ic_flaticon_user)
                     }
                 else binding.imageView.setImageResource(R.drawable.ic_flaticon_user)
             }

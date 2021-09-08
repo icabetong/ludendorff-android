@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_options_assignment.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_options_scan.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_options_users.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/layout_empty_notification.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_editor.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/menu/menu_editor_asset.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/menu/menu_editor_user.xml" value="0.18914473684210525" />

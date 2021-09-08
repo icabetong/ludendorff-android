@@ -163,8 +163,10 @@
     <string name="feedback_asset_remove_error">Error removing asset</string>
     <string name="feedback_asset_update_error">Error updating asset</string>
     <string name="feedback_user_created">User successfully created</string>
+    <string name="feedback_user_removed">User successfully removed</string>
     <string name="feedback_user_updated">User successfully updated</string>
     <string name="feedback_user_create_error">Error creating user</string>
+    <string name="feedback_user_remove_error">Error removing user</string>
     <string name="feedback_user_update_error">Error updating user</string>
     <string name="feedback_department_created">Department successfully created</string>
     <string name="feedback_department_removed">Department successfully removed</string>
@@ -194,6 +196,8 @@
     <string name="empty_no_assignments_summary">There are currently no records of assigned assets to the users.</string>
     <string name="empty_no_scanned_code_header">Scan a QR-Code</string>
     <string name="empty_no_scanned_code_summary">You\'ll need to scan a valid QR-Code first to view its embedded data.</string>
+    <string name="empty_no_notifications_header">No Notifications</string>
+    <string name="empty_no_notifications_summary">Once a notification pops up in your device, it will be shown here.</string>
 
     <string name="info_account_will_be_disabled">This account will be disabled when you tap "Save".</string>
     <string name="info_account_will_be_enabled">This account will be enabled when you tap "Save".</string>
@@ -206,12 +210,14 @@
     <string name="error_invalid_credentials">Your email or password is incorrect</string>
     <string name="error_invalid_user">The account associated with this email is either disabled or doesn\'t exist</string>
     <string name="error_invalid_email_address">Not a valid email address</string>
+    <string name="error_email_already_exists">There is a user account already associated with this email address.</string>
     <string name="error_empty_password">Password cannot be blank</string>
     <string name="error_empty_credentials">Both the email and password fields cannot be blank</string>
     <string name="error_auth_failed">Authentication failed</string>
     <string name="error_auth_failed_too_many_attempts">You tried too many attempts! Try again later</string>
     <string name="error_auth_failed_too_many_attempts_permanent">You tried too many attempts! You need to enter either your Pattern/PIN or Password from now on to authenticate.</string>
     <string name="error_auth_failed_timeout">Timeout error</string>
+    <string name="error_auth_failed_no_token">The server could not verify your identity.</string>
     <string name="error_camera_permission_header">Camera Permission Required</string>
     <string name="error_camera_permission_summary">We need permission to access your device\'s camera to scan QR codes.</string>
     <string name="error_code_parsing_header">QR-Code Decode Failed</string>

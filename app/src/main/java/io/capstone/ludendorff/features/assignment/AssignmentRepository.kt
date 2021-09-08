@@ -5,14 +5,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import io.capstone.ludendorff.api.Backend
+import io.capstone.ludendorff.api.exception.DeshiException
 import io.capstone.ludendorff.api.request.NotificationRequest
-import io.capstone.ludendorff.api.exception.PreconditionFailedException
-import io.capstone.ludendorff.api.exception.UnauthorizedException
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.core.backend.Response
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -37,29 +36,28 @@ class AssignmentRepository @Inject constructor(
             }.await()
 
             val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
-            if (token == null || targetDeviceToken == null)
-                Response.Error(NullPointerException(), Response.Action.CREATE)
+            if (token == null)
+                throw DeshiException(DeshiException.Code.UNAUTHORIZED)
+            else if (targetDeviceToken == null)
+                throw DeshiException(DeshiException.Code.PRECONDITION_FAILED)
 
             val notificationRequest = NotificationRequest(
-                token = token!!,
-                deviceToken = targetDeviceToken!!,
+                token = token,
+                deviceToken = targetDeviceToken,
                 notificationTitle = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_TITLE,
                 notificationBody = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_BODY,
                 data = mapOf(NotificationRequest.FIELD_DATA_PAYLOAD to assignment.assignmentId)
             )
 
             val response = backend.newNotificationPost(notificationRequest)
-            when(response.code()) {
-                200 -> Response.Success(Response.Action.CREATE)
-                401 -> Response.Error(UnauthorizedException(), Response.Action.CREATE)
-                412 -> Response.Error(PreconditionFailedException(), Response.Action.CREATE)
-                else -> Response.Error(Exception(), Response.Action.CREATE)
-            }
+            if (response.code() == 200)
+                Response.Success(Response.Action.CREATE)
+            else throw DeshiException(response.code())
 
         } catch (exception: FirebaseFirestoreException) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.CREATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.CREATE)
         }
     }
 
@@ -104,33 +102,28 @@ class AssignmentRepository @Inject constructor(
              * he's/she's identity we'll be verified by Deshi
              */
             val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
-            if (token == null || targetDeviceToken == null)
-                Response.Error(UnauthorizedException(), Response.Action.UPDATE)
+            if (token == null)
+                throw DeshiException(DeshiException.Code.UNAUTHORIZED)
+            else if (targetDeviceToken == null)
+                throw DeshiException(DeshiException.Code.PRECONDITION_FAILED)
 
             val notificationRequest = NotificationRequest(
-                token = token!!,
-                deviceToken = targetDeviceToken!!,
+                token = token,
+                deviceToken = targetDeviceToken,
                 notificationTitle = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_TITLE,
                 notificationBody = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_BODY,
                 data = mapOf(NotificationRequest.FIELD_DATA_PAYLOAD to assignment.assignmentId)
             )
 
             val response = backend.newNotificationPost(notificationRequest)
-            when(response.code()) {
-                // HTTP Status: OK
-                200 -> Response.Success(Response.Action.UPDATE)
-                // HTTP Status: Unauthorized
-                401 -> Response.Error(UnauthorizedException(), Response.Action.UPDATE)
-                // HTTP Status: Precondition Failed
-                412 -> Response.Error(PreconditionFailedException(), Response.Action.UPDATE)
-                // HTTP Status: General Error
-                else -> Response.Error(Exception(), Response.Action.UPDATE)
-            }
+            if (response.code() == 200)
+                Response.Success(Response.Action.CREATE)
+            else throw DeshiException(response.code())
 
         } catch (exception: FirebaseFirestoreException) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.UPDATE)
         } catch (exception: Exception) {
-            Response.Error(exception)
+            Response.Error(exception, Response.Action.UPDATE)
         }
     }
 

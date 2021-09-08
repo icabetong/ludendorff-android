@@ -18,6 +18,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.api.exception.DeshiException
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
@@ -91,6 +92,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
             viewModel.action.collect {
                 when(it) {
                     is Response.Error -> {
+                        android.util.Log.e("DEBUG", it.throwable.toString())
                         if (it.throwable is FirebaseFirestoreException &&
                                 it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
 
@@ -100,15 +102,40 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                                 message(R.string.error_no_permission_summary_write)
                                 positiveButton()
                             }
-                        } else {
-                            when(it.action) {
-                                Response.Action.CREATE ->
-                                    createSnackbar(R.string.feedback_user_create_error)
-                                Response.Action.UPDATE ->
-                                    createSnackbar(R.string.feedback_user_update_error)
-                                else -> {}
+                        } else if (it.throwable is DeshiException) {
+                            when(it.throwable.code) {
+                                DeshiException.Code.UNAUTHORIZED -> {
+                                    MaterialDialog(requireContext()).show {
+                                        lifecycleOwner(viewLifecycleOwner)
+                                        title(R.string.error_auth_failed)
+                                        message(R.string.error_auth_failed_no_token)
+                                        positiveButton()
+                                    }
+                                }
+                                DeshiException.Code.FORBIDDEN -> {
+                                    MaterialDialog(requireContext()).show {
+                                        lifecycleOwner(viewLifecycleOwner)
+                                        title(R.string.error_no_permission)
+                                        message(R.string.error_no_permission_summary_write)
+                                        positiveButton()
+                                    }
+                                }
+                                DeshiException.Code.PRECONDITION_FAILED -> {
+                                    showGenericError(it.action)
+                                }
+                                DeshiException.Code.UNPROCESSABLE_ENTITY -> {
+                                    MaterialDialog(requireContext()).show {
+                                        lifecycleOwner(viewLifecycleOwner)
+                                        title(R.string.error_generic)
+                                        message(R.string.error_email_already_exists)
+                                        positiveButton()
+                                    }
+                                }
+                                DeshiException.Code.GENERIC -> {
+                                    showGenericError(it.action)
+                                }
                             }
-                        }
+                        } else showGenericError(it.action)
                     }
                     is Response.Success -> {
                         when(it.data) {
@@ -116,7 +143,8 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                                 createSnackbar(R.string.feedback_user_created)
                             Response.Action.UPDATE ->
                                 createSnackbar(R.string.feedback_user_updated)
-                            else -> {}
+                            Response.Action.REMOVE ->
+                                createSnackbar(R.string.feedback_user_removed)
                         }
                     }
                 }
@@ -238,6 +266,17 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
+        }
+    }
+
+    private fun showGenericError(action: Response.Action?) {
+        when(action) {
+            Response.Action.CREATE ->
+                createSnackbar(R.string.feedback_user_create_error)
+            Response.Action.UPDATE ->
+                createSnackbar(R.string.feedback_user_update_error)
+            Response.Action.REMOVE ->
+                createSnackbar(R.string.feedback_user_remove_error)
         }
     }
 
