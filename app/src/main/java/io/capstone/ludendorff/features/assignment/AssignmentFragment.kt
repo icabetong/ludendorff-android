@@ -18,6 +18,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.api.exception.DeshiException
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
@@ -184,17 +185,28 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                                 message(R.string.error_no_permission_summary_write)
                                 positiveButton()
                             }
-                        } else {
-                            when(it.action) {
-                                Response.Action.CREATE ->
-                                    createSnackbar(R.string.feedback_assignment_create_error)
-                                Response.Action.UPDATE ->
-                                    createSnackbar(R.string.feedback_assignment_update_error)
-                                Response.Action.REMOVE ->
-                                    createSnackbar(R.string.feedback_assignment_remove_error)
-                                else -> {}
+                        } else if (it.throwable is DeshiException) {
+                            when(it.throwable.code) {
+                                DeshiException.Code.UNAUTHORIZED -> {
+                                    MaterialDialog(requireContext()).show {
+                                        lifecycleOwner(viewLifecycleOwner)
+                                        title(R.string.error_auth_failed)
+                                        message(R.string.error_auth_failed_no_token)
+                                        positiveButton()
+                                    }
+                                }
+                                DeshiException.Code.FORBIDDEN -> {
+                                    MaterialDialog(requireContext()).show {
+                                        lifecycleOwner(viewLifecycleOwner)
+                                        title(R.string.error_no_permission)
+                                        message(R.string.error_no_permission_summary_write)
+                                        positiveButton()
+                                    }
+                                }
+                                else -> showGenericError(it.action)
                             }
-                        }
+                        } else
+                            showGenericError(it.action)
                     }
                     is Response.Success -> {
                         when(it.data) {
@@ -250,6 +262,18 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
+        }
+    }
+
+    private fun showGenericError(action: Response.Action?) {
+        when(action) {
+            Response.Action.CREATE ->
+                createSnackbar(R.string.feedback_assignment_create_error)
+            Response.Action.UPDATE ->
+                createSnackbar(R.string.feedback_assignment_update_error)
+            Response.Action.REMOVE ->
+                createSnackbar(R.string.feedback_assignment_remove_error)
+            else -> {}
         }
     }
 }
