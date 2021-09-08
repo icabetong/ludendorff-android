@@ -1,5 +1,6 @@
 package io.capstone.ludendorff.features.auth
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -85,7 +86,6 @@ class AuthFragment: BaseFragment() {
                 when(it) {
                     is Response.Error -> {
                         resetProgress()
-                        android.util.Log.e("AUTH", it.throwable.toString())
 
                         binding.errorTextView.isVisible = true
                         when(it.throwable) {
@@ -134,6 +134,7 @@ class AuthFragment: BaseFragment() {
         setSystemBarColor(R.color.keeper_background_main)
     }
 
+    @SuppressLint("CheckResult")
     override fun onResume() {
         super.onResume()
 
@@ -162,7 +163,7 @@ class AuthFragment: BaseFragment() {
             MaterialDialog(requireContext()).show {
                 lifecycleOwner(viewLifecycleOwner)
                 title(R.string.dialog_send_reset_link_title)
-                message(R.string.dialog_send_reset_link_message)
+                message(R.string.dialog_send_reset_link_message_no_email)
                 input(hintRes = R.string.hint_email, waitForPositiveButton = false,
                     inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) { dialog, text ->
 

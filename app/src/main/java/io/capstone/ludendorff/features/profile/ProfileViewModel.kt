@@ -52,7 +52,8 @@ class ProfileViewModel @Inject constructor(
         firebaseAuth.signOut()
         userProperties.clear()
     }
-    fun sendPasswordResetLink(email: String?) = viewModelScope.launch(IO) {
+    fun sendPasswordResetLink() = viewModelScope.launch(IO) {
+        val email = firebaseAuth.currentUser?.email
         if (email.isNullOrBlank()) {
             _passwordResetEmailSent.send(Response.Error(NullPointerException()))
             return@launch

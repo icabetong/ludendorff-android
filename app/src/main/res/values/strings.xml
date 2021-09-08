@@ -229,7 +229,8 @@
     <string name="error_assignment_not_exist_summary">There are no user assigned for this asset. However the information for the asset are below.</string>
 
     <string name="dialog_send_reset_link_title">Send Password Reset Link</string>
-    <string name="dialog_send_reset_link_message">Enter your email address below to receive a link that you can use to reset your password.</string>
+    <string name="dialog_send_reset_link_message">If you forgot your password for this account, you can request to reset it requesting a reset email.</string>
+    <string name="dialog_send_reset_link_message_no_email">Enter your email address associated with your account to receive a email that can link you to reset your account\'s password.</string>
     <string name="dialog_sign_out_title">Sign out?</string>
     <string name="dialog_sign_out_message">Are you sure you want to end your session? You will need to enter your credentials again next time.</string>
     <string name="dialog_save_without_specification_title">Save without specifications?</string>

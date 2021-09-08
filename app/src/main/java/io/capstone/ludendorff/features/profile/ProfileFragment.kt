@@ -311,23 +311,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     lifecycleOwner(viewLifecycleOwner)
                     title(R.string.dialog_send_reset_link_title)
                     message(R.string.dialog_send_reset_link_message)
-                    input(hintRes = R.string.hint_email, waitForPositiveButton = false,
-                        inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) { dialog, text ->
-
-                        val inputField = dialog.getInputField()
-                        val isValid = text.isNotEmpty()
-                                && PatternsCompat.EMAIL_ADDRESS.matcher(text).matches()
-
-                        inputField.error = if (isValid) null
-                            else getString(R.string.error_invalid_email_address)
-                        dialog.setActionButtonEnabled(WhichButton.POSITIVE, isValid)
-                    }
                     positiveButton(R.string.button_send) {
-                        val input = it.getInputField().text.toString()
-
-                        binding.appBarProgressIndicator.isVisible = true
-                        binding.nestedScrollView.isEnabled = false
-                        viewModel.sendPasswordResetLink(input)
+                        viewModel.sendPasswordResetLink()
                     }
                     negativeButton(R.string.button_cancel)
                 }
