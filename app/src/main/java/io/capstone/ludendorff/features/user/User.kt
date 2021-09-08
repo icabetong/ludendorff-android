@@ -4,10 +4,13 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
+import io.capstone.ludendorff.components.interfaces.Serializable
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.DepartmentCore
 import kotlinx.parcelize.Parcelize
+import org.json.JSONArray
+import org.json.JSONObject
 
 @Parcelize
 data class User @JvmOverloads constructor(
@@ -21,7 +24,22 @@ data class User @JvmOverloads constructor(
     var department: DepartmentCore? = null,
     var deviceToken: String? = null,
     var disabled: Boolean = false
-): Parcelable {
+): Parcelable, Serializable {
+
+    override fun toJSON(): JSONObject {
+        return JSONObject().apply {
+            put(FIELD_ID, userId)
+            put(FIELD_EMAIL, email)
+            put(FIELD_FIRST_NAME, firstName)
+            put(FIELD_LAST_NAME, lastName)
+            put(FIELD_POSITION, position)
+            put(FIELD_PERMISSIONS, JSONArray(permissions.toIntArray()))
+            put(FIELD_DEPARTMENT, JSONObject().apply {
+                put(FIELD_DEPARTMENT_ID, department?.departmentId)
+                put(FIELD_DEPARTMENT_NAME, department?.name)
+            })
+        }
+    }
 
     fun hasPermission(permission: Int): Boolean {
         return permissions.contains(permission)
@@ -48,7 +66,7 @@ data class User @JvmOverloads constructor(
         const val FIELD_DEPARTMENT = "department"
         const val FIELD_DEPARTMENT_ID = "${FIELD_DEPARTMENT}.${Department.FIELD_ID}"
         const val FIELD_DEPARTMENT_NAME = "${FIELD_DEPARTMENT}.${Department.FIELD_NAME}"
-        const val FIELD_TOKEN_ID = "deviceToken"
+        const val FIELD_DEVICE_TOKEN = "deviceToken"
         const val FIELD_DISABLED = "disabled"
 
         const val PERMISSION_READ = 1

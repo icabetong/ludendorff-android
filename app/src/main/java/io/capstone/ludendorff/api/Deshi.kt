@@ -1,14 +1,10 @@
 package io.capstone.ludendorff.api
 
-import io.capstone.ludendorff.api.request.CreateUserRequest
-import io.capstone.ludendorff.api.request.ModifyUserStatusRequest
-import io.capstone.ludendorff.api.request.RemoveUserRequest
-import io.capstone.ludendorff.api.request.NotificationRequest
 import okhttp3.*
 import org.json.JSONObject
 import ru.gildor.coroutines.okhttp.await
 
-class Backend {
+class Deshi {
 
     private val client by lazy { OkHttpClient() }
 
@@ -21,34 +17,34 @@ class Backend {
         return client.newCall(request).await()
     }
 
-    suspend fun requestUserCreate(createUserRequest: CreateUserRequest): Response {
+    suspend fun requestUserCreate(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_CREATE_USER}")
-            .post(parse(createUserRequest.toJSONObject()))
+            .post(parse(deshiRequest.toJSONObject()))
             .build()
         return start(request)
     }
 
-    suspend fun requestUserRemove(removeUserRequest: RemoveUserRequest): Response {
+    suspend fun requestUserRemove(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_REMOVE_USER}")
-            .delete(parse(removeUserRequest.toJSONObject()))
+            .delete(parse(deshiRequest.toJSONObject()))
             .build()
         return start(request)
     }
 
-    suspend fun requestUserModify(modifyUserStatusRequest: ModifyUserStatusRequest): Response {
+    suspend fun requestUserModify(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_MODIFY_USER}")
-            .patch(parse(modifyUserStatusRequest.toJSONObject()))
+            .patch(parse(deshiRequest.toJSONObject()))
             .build()
         return start(request)
     }
 
-    suspend fun newNotificationPost(notificationRequest: NotificationRequest): Response {
+    suspend fun newNotificationPost(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_NOTIFICATION}")
-            .post(parse(notificationRequest.toJSONObject()))
+            .post(parse(deshiRequest.toJSONObject()))
             .build()
 
         return start(request)

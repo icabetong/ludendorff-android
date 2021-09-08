@@ -4,11 +4,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
-import io.capstone.ludendorff.api.Backend
-import io.capstone.ludendorff.api.exception.DeshiException
-import io.capstone.ludendorff.api.request.NotificationRequest
+import io.capstone.ludendorff.api.Deshi
+import io.capstone.ludendorff.api.DeshiRequest
+import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.notification.Notification
+import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -20,7 +22,7 @@ import javax.inject.Singleton
 class AssignmentRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
-    private val backend: Backend
+    private val deshi: Deshi
 ) {
 
     suspend fun create(assignment: Assignment, targetDeviceToken: String?): Response<Response.Action> {
@@ -41,15 +43,14 @@ class AssignmentRepository @Inject constructor(
             else if (targetDeviceToken == null)
                 throw DeshiException(DeshiException.Code.PRECONDITION_FAILED)
 
-            val notificationRequest = NotificationRequest(
-                token = token,
-                deviceToken = targetDeviceToken,
-                notificationTitle = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_TITLE,
-                notificationBody = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_BODY,
-                data = mapOf(NotificationRequest.FIELD_DATA_PAYLOAD to assignment.assignmentId)
-            )
+            val request = DeshiRequest(token).apply {
+                put(User.FIELD_DEVICE_TOKEN, targetDeviceToken)
+                put(Notification.FIELD_TITLE, Notification.NOTIFICATION_ASSIGNED_TITLE)
+                put(Notification.FIELD_BODY, Notification.NOTIFICATION_ASSIGNED_BODY)
+                put(Notification.FIELD_PAYLOAD, assignment.assignmentId)
+            }
 
-            val response = backend.newNotificationPost(notificationRequest)
+            val response = deshi.newNotificationPost(request)
             if (response.code() == 200)
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code())
@@ -107,15 +108,14 @@ class AssignmentRepository @Inject constructor(
             else if (targetDeviceToken == null)
                 throw DeshiException(DeshiException.Code.PRECONDITION_FAILED)
 
-            val notificationRequest = NotificationRequest(
-                token = token,
-                deviceToken = targetDeviceToken,
-                notificationTitle = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_TITLE,
-                notificationBody = NotificationRequest.NOTIFICATION_ASSIGNED_ASSET_BODY,
-                data = mapOf(NotificationRequest.FIELD_DATA_PAYLOAD to assignment.assignmentId)
-            )
+            val request = DeshiRequest(token).apply {
+                put(User.FIELD_DEVICE_TOKEN, targetDeviceToken)
+                put(Notification.FIELD_TITLE, Notification.NOTIFICATION_ASSIGNED_TITLE)
+                put(Notification.FIELD_BODY, Notification.NOTIFICATION_ASSIGNED_BODY)
+                put(Notification.FIELD_PAYLOAD, assignment.assignmentId)
+            }
 
-            val response = backend.newNotificationPost(notificationRequest)
+            val response = deshi.newNotificationPost(request)
             if (response.code() == 200)
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code())

@@ -21,6 +21,9 @@ data class Notification @JvmOverloads constructor (
         const val FIELD_PAYLOAD = "payload"
         const val FIELD_SENDER_ID = "senderId"
         const val FIELD_RECEIVER_ID = "receiverId"
+
+        const val NOTIFICATION_ASSIGNED_TITLE = "notification-assigned-asset-title"
+        const val NOTIFICATION_ASSIGNED_BODY = "notification-assigned-asset-body"
     }
 
 }

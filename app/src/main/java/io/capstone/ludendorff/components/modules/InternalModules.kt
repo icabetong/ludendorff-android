@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.capstone.ludendorff.api.Backend
+import io.capstone.ludendorff.api.Deshi
 import io.capstone.ludendorff.components.persistence.DevicePermissions
 import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.components.persistence.UserProperties
@@ -19,8 +19,8 @@ class InternalModules {
 
     @Singleton
     @Provides
-    fun provideBackend(): Backend {
-        return Backend()
+    fun provideDeshi(): Deshi {
+        return Deshi()
     }
 
     @Provides

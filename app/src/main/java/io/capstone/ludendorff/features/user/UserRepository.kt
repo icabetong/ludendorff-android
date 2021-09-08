@@ -3,11 +3,9 @@ package io.capstone.ludendorff.features.user
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import io.capstone.ludendorff.api.Backend
-import io.capstone.ludendorff.api.exception.DeshiException
-import io.capstone.ludendorff.api.request.CreateUserRequest
-import io.capstone.ludendorff.api.request.ModifyUserStatusRequest
-import io.capstone.ludendorff.api.request.RemoveUserRequest
+import io.capstone.ludendorff.api.Deshi
+import io.capstone.ludendorff.api.DeshiRequest
+import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
@@ -21,7 +19,7 @@ class UserRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
     private val userProperties: UserProperties,
-    private val backend: Backend
+    private val deshi: Deshi
 ){
 
     suspend fun create(user: User): Response<Response.Action> {
@@ -32,12 +30,8 @@ class UserRepository @Inject constructor(
             val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
                 ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
 
-            val createUserRequest = CreateUserRequest(
-                token = token,
-                user = user
-            )
-
-            val response = backend.requestUserCreate(createUserRequest)
+            val request = DeshiRequest(token, user.toJSON())
+            val response = deshi.requestUserCreate(request)
             if (response.code() == 200)
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code())
@@ -79,13 +73,11 @@ class UserRepository @Inject constructor(
                 val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
                     ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
 
-                val modifyUserStatusRequest = ModifyUserStatusRequest(
-                    token = token,
-                    userId = user.userId,
-                    disabled = user.disabled
-                )
-
-                val response = backend.requestUserModify(modifyUserStatusRequest)
+                val request = DeshiRequest(token).apply {
+                    put(User.FIELD_ID, user.userId)
+                    put(User.FIELD_DISABLED, user.disabled)
+                }
+                val response = deshi.requestUserModify(request)
                 if (response.code() != 200) {
                     throw DeshiException(response.code())
                 }
@@ -137,12 +129,11 @@ class UserRepository @Inject constructor(
             val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
                 ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
 
-            val removeUserRequest = RemoveUserRequest(
-                token = token,
-                userId = user.userId
-            )
+            val request = DeshiRequest(token).apply {
+                put(User.FIELD_ID, user.userId)
+            }
 
-            val response = backend.requestUserRemove(removeUserRequest)
+            val response = deshi.requestUserRemove(request)
             if (response.code() == 200)
                 Response.Success(Response.Action.REMOVE)
             else throw DeshiException(response.code())

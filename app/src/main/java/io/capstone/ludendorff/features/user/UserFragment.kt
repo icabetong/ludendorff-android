@@ -18,7 +18,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
-import io.capstone.ludendorff.api.exception.DeshiException
+import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide

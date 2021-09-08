@@ -25,7 +25,7 @@ class TokenUpdateWorker @AssistedInject constructor(
         val tokenId = inputData.getString(EXTRA_TOKEN_ID)
 
         firebaseAuth.currentUser?.uid?.let {
-            val response = userRepository.update(it, mapOf(User.FIELD_TOKEN_ID to tokenId))
+            val response = userRepository.update(it, mapOf(User.FIELD_DEVICE_TOKEN to tokenId))
 
             if (response is Response.Success)
                 return@withContext Result.success()

@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.api.exception
+package io.capstone.ludendorff.api
 
 class DeshiException(val code: Code): Exception(code.getMessage()) {
 
