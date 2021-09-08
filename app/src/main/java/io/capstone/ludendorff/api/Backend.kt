@@ -21,7 +21,7 @@ class Backend {
         return client.newCall(request).await()
     }
 
-    suspend fun newCreateUserPost(createUserRequest: CreateUserRequest): Response {
+    suspend fun requestUserCreate(createUserRequest: CreateUserRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_CREATE_USER}")
             .post(parse(createUserRequest.toJSONObject()))
@@ -29,18 +29,18 @@ class Backend {
         return start(request)
     }
 
-    suspend fun newRemoveUserPost(removeUserRequest: RemoveUserRequest): Response {
+    suspend fun requestUserRemove(removeUserRequest: RemoveUserRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_REMOVE_USER}")
-            .post(parse(removeUserRequest.toJSONObject()))
+            .delete(parse(removeUserRequest.toJSONObject()))
             .build()
         return start(request)
     }
 
-    suspend fun newModifyUserStatusPost(modifyUserStatusRequest: ModifyUserStatusRequest): Response {
+    suspend fun requestUserModify(modifyUserStatusRequest: ModifyUserStatusRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_MODIFY_USER}")
-            .post(parse(modifyUserStatusRequest.toJSONObject()))
+            .patch(parse(modifyUserStatusRequest.toJSONObject()))
             .build()
         return start(request)
     }

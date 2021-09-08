@@ -39,7 +39,7 @@ class UserRepository @Inject constructor(
                 user = user
             )
 
-            val response = backend.newCreateUserPost(createUserRequest)
+            val response = backend.requestUserCreate(createUserRequest)
             when(response.code()) {
                 200 -> Response.Success(Response.Action.CREATE)
                 401 -> Response.Error(UnauthorizedException(), Response.Action.CREATE)
@@ -47,10 +47,6 @@ class UserRepository @Inject constructor(
                 else -> Response.Error(Exception(), Response.Action.CREATE)
             }
 
-        } catch (firestoreException: FirebaseFirestoreException) {
-            Response.Error(firestoreException, Response.Action.CREATE)
-        } catch (nullPointerException: NullPointerException) {
-            Response.Error(nullPointerException, Response.Action.CREATE)
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.CREATE)
         }
@@ -95,7 +91,7 @@ class UserRepository @Inject constructor(
                     disabled = user.disabled
                 )
 
-                val response = backend.newModifyUserStatusPost(modifyUserStatusRequest)
+                val response = backend.requestUserModify(modifyUserStatusRequest)
                 when(response.code()) {
                     200 -> Response.Success(Response.Action.UPDATE)
                     401 -> Response.Error(UnauthorizedException(), Response.Action.UPDATE)
@@ -155,7 +151,7 @@ class UserRepository @Inject constructor(
                 userId = user.userId
             )
 
-            val response = backend.newRemoveUserPost(removeUserRequest)
+            val response = backend.requestUserRemove(removeUserRequest)
             when(response.code()) {
                 200 -> Response.Success(Response.Action.CREATE)
                 401 -> Response.Error(UnauthorizedException(), Response.Action.CREATE)
