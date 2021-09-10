@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.*
 import androidx.fragment.app.activityViewModels
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -41,6 +43,19 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     private val coreViewModel: CoreViewModel by activityViewModels()
     private val userAdapter = UserAdapter(this)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val drawer = getNavigationDrawer()
+                    if (drawer?.isDrawerOpen(GravityCompat.START) == true)
+                        drawer.closeDrawer(GravityCompat.START)
+                    else controller?.navigateUp()
+                }
+            })
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,7 +79,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
             titleRes = R.string.activity_users,
             iconRes = R.drawable.ic_hero_menu,
             onNavigationClicked = { triggerNavigationDrawer() },
-            menuRes = R.menu.menu_main,
+            menuRes = R.menu.menu_core_users,
             onMenuOptionClicked = ::onMenuItemClicked
         )
 
@@ -79,7 +94,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
     override fun onStart() {
         super.onStart()
-        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+        controller = findNavController()
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_MANAGE_USERS)
@@ -262,7 +277,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_menu -> triggerNavigationDrawer()
+            R.id.action_departments -> controller?.navigate(R.id.navigation_department)
         }
     }
 

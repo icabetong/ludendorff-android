@@ -7,12 +7,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.IdRes
+import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
@@ -31,6 +35,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentResultListener {
     private var _binding: FragmentScanBinding? = null
+    private var controller: NavController? = null
 
     private lateinit var cameraPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var readStorageLauncher: ActivityResultLauncher<String>
@@ -43,6 +48,16 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val drawer = getNavigationDrawer()
+                    if (drawer?.isDrawerOpen(GravityCompat.START) == true)
+                        drawer.closeDrawer(GravityCompat.START)
+                    else controller?.navigateUp()
+                }
+            })
 
         readStorageLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())  { isGranted ->
@@ -110,6 +125,11 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
 
         registerForFragmentResult(arrayOf(ImagePickerBottomSheet.REQUEST_KEY_PICK),
             this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        controller = findNavController()
     }
 
     override fun onResume() {

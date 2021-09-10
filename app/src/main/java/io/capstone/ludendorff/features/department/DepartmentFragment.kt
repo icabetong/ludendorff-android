@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -44,6 +46,16 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
     private val coreViewModel: CoreViewModel by activityViewModels()
     private val departmentAdapter = DepartmentAdapter(this)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    controller?.navigateUp()
+                }
+            })
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,7 +74,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
         super.onViewCreated(view, savedInstanceState)
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
 
-        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+        controller = findNavController()
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_department,
             onNavigationClicked = { controller?.navigateUp() }

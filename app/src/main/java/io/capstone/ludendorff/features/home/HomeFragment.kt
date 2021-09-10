@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentHomeBinding
@@ -11,8 +15,22 @@ import io.capstone.ludendorff.features.shared.components.BaseFragment
 
 class HomeFragment: BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
+    private var controller: NavController? = null
 
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val drawer = getNavigationDrawer()
+                    if (drawer?.isDrawerOpen(GravityCompat.START) == true)
+                        drawer.closeDrawer(GravityCompat.START)
+                    else controller?.navigateUp()
+                }
+            })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +57,11 @@ class HomeFragment: BaseFragment() {
             menuRes = R.menu.menu_main,
             onMenuOptionClicked = { triggerNavigationDrawer() }
         )
+    }
+
+    override fun onStart() {
+        super.onStart()
+        controller = findNavController()
     }
 
 }

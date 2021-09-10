@@ -80,8 +80,12 @@ abstract class BaseFragment: Fragment() {
         views.forEach { it.isVisible = false }
     }
 
+    protected fun getNavigationDrawer(): DrawerLayout? {
+        return getParentView()?.findViewById(R.id.drawerLayout) as? DrawerLayout
+    }
+
     protected fun triggerNavigationDrawer() {
-        val drawerLayout = getParentView()?.findViewById(R.id.drawerLayout) as? DrawerLayout
+        val drawerLayout = getNavigationDrawer()
 
         if (drawerLayout?.isDrawerOpen(GravityCompat.START) == true)
             drawerLayout.closeDrawer(GravityCompat.START)

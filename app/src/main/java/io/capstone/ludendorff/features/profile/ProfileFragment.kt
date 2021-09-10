@@ -6,6 +6,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.biometric.BiometricManager
@@ -19,6 +20,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import androidx.work.*
 import coil.load
@@ -87,6 +89,13 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     viewModel.enqueueToWorkManager(request, ImageCompressWorker.WORKER_TAG)
                 }
             }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    controller?.navigateUp()
+                }
+        })
     }
 
     override fun onCreateView(
@@ -107,6 +116,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         super.onViewCreated(view, savedInstanceState)
         binding.imageView.transitionName = TRANSITION_IMAGE
 
+        setInsets(view, binding.appBar.toolbar, binding.recyclerView)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_profile,
             iconRes = R.drawable.ic_hero_arrow_left,
@@ -132,8 +142,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
     override fun onStart() {
         super.onStart()
 
-        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-
+        controller = findNavController()
         val progressDrawable = CircularProgressDrawable(requireContext()).apply {
             strokeWidth = 4f
             centerRadius = 24f

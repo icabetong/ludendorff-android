@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
@@ -33,6 +35,13 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition = buildContainerTransform()
         sharedElementReturnTransition = buildContainerTransform()
+
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    controller?.navigateUp()
+                }
+            })
     }
 
     override fun onCreateView(
@@ -53,7 +62,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         super.onViewCreated(view, savedInstanceState)
         binding.root.transitionName = TRANSITION_NAME_ROOT
 
-        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+        controller = findNavController()
 
         setInsets(binding.root, binding.appBar.toolbar)
         binding.appBar.toolbar.setup(

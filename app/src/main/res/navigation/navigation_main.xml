@@ -19,24 +19,6 @@
         android:name="io.capstone.ludendorff.features.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
 
-    <!-- Editor Fragments -->
-    <fragment
-        android:id="@+id/navigation_editor_asset"
-        android:name="io.capstone.ludendorff.features.asset.editor.AssetEditorFragment"
-        tools:layout="@layout/fragment_editor_asset"/>
-    <fragment
-        android:id="@+id/navigation_editor_user"
-        android:name="io.capstone.ludendorff.features.user.editor.UserEditorFragment"
-        tools:layout="@layout/fragment_editor_user"/>
-    <fragment
-        android:id="@+id/navigation_editor_department"
-        android:name="io.capstone.ludendorff.features.department.editor.DepartmentEditorFragment"
-        tools:layout="@layout/fragment_editor_department" />
-    <fragment
-        android:id="@+id/navigation_editor_assignment"
-        android:name="io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment"
-        tools:layout="@layout/fragment_editor_assignment"/>
-
     <action
         android:id="@+id/to_navigation_auth"
         app:destination="@id/navigation_auth"
@@ -55,19 +37,5 @@
     <action
         android:id="@+id/to_navigation_profile"
         app:destination="@id/navigation_profile"/>
-
-    <!-- Actions to editor fragments -->
-    <action
-        android:id="@+id/to_navigation_editor_asset"
-        app:destination="@id/navigation_editor_asset"/>
-    <action
-        android:id="@+id/to_navigation_editor_user"
-        app:destination="@id/navigation_editor_user"/>
-    <action
-        android:id="@+id/to_navigation_editor_department"
-        app:destination="@id/navigation_editor_department"/>
-    <action
-        android:id="@+id/to_navigation_editor_assignment"
-        app:destination="@id/navigation_editor_department"/>
 
 </navigation>
