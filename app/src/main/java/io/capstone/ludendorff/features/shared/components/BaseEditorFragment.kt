@@ -15,15 +15,4 @@ abstract class BaseEditorFragment: BaseFragment() {
             duration = TRANSITION_DURATION
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        setSystemBarColor(R.color.keeper_background_content)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        setSystemBarColor(R.color.keeper_background_main)
-    }
-
 }

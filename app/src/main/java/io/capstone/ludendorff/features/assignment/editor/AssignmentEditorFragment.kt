@@ -63,6 +63,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
         super.onViewCreated(view, savedInstanceState)
         binding.root.transitionName = TRANSITION_NAME_ROOT
 
+        setInsets(binding.root, binding.appBar.toolbar, binding.remarksTextInputLayout)
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_assignment_create,
             iconRes = R.drawable.ic_hero_x,

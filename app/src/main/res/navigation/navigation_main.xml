@@ -13,31 +13,12 @@
         android:id="@+id/navigation_root"
         android:name="io.capstone.ludendorff.features.core.fragment.RootFragment"
         tools:layout="@layout/fragment_root"/>
-    <fragment
-        android:id="@+id/navigation_notification"
-        android:name="io.capstone.ludendorff.features.notification.NotificationFragment"
-        tools:layout="@layout/fragment_notification"/>
+
     <fragment
         android:id="@+id/navigation_profile"
         android:name="io.capstone.ludendorff.features.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
-    <fragment
-        android:id="@+id/navigation_core_settings"
-        android:name="io.capstone.ludendorff.features.settings.core.CoreSettingsFragment"
-        tools:layout="@layout/fragment_settings_core"/>
-    <fragment
-        android:id="@+id/navigation_notices_settings"
-        android:name="io.capstone.ludendorff.features.settings.notices.NoticeSettingsFragment"
-        tools:layout="@layout/fragment_settings_notices"/>
-    <!-- Support Fragments -->
-    <fragment
-        android:id="@+id/navigation_category"
-        android:name="io.capstone.ludendorff.features.category.CategoryFragment"
-        tools:layout="@layout/fragment_category"/>
-    <fragment
-        android:id="@+id/navigation_department"
-        android:name="io.capstone.ludendorff.features.department.DepartmentFragment"
-        tools:layout="@layout/fragment_department"/>
+
     <!-- Editor Fragments -->
     <fragment
         android:id="@+id/navigation_editor_asset"
@@ -70,24 +51,11 @@
         app:popUpToInclusive="true"/>
 
     <!-- Other non-special actions -->
-    <action
-        android:id="@+id/to_navigation_notification"
-        app:destination="@id/navigation_notification"/>
-    <action
-        android:id="@+id/to_navigation_settings"
-        app:destination="@id/navigation_core_settings"/>
-    <action
-        android:id="@+id/to_navigation_settings_notices"
-        app:destination="@id/navigation_notices_settings"/>
+
     <action
         android:id="@+id/to_navigation_profile"
         app:destination="@id/navigation_profile"/>
-    <action
-        android:id="@+id/to_navigation_category"
-        app:destination="@id/navigation_category"/>
-    <action
-        android:id="@+id/to_navigation_department"
-        app:destination="@id/navigation_department"/>
+
     <!-- Actions to editor fragments -->
     <action
         android:id="@+id/to_navigation_editor_asset"

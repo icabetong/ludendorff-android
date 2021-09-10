@@ -1,24 +1,25 @@
 package io.capstone.ludendorff.features.shared.components
 
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
+import androidx.core.view.*
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import com.discord.panels.OverlappingPanelsLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialFadeThrough
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.getDimension
 import me.saket.cascade.CascadePopupMenu
 import me.saket.cascade.overrideOverflowMenu
 
@@ -31,6 +32,19 @@ abstract class BaseFragment: Fragment() {
         // fragments to make it less dull
         enterTransition = MaterialFadeThrough()
         returnTransition = MaterialFadeThrough()
+    }
+
+    protected fun setInsets(root: View, topView: View, bottomView: View? = null) {
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            bottomView?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = windowInsets.bottom + view.context.getDimension(R.dimen.activity_margin)
+            }
+            topView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = windowInsets.top
+            }
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     protected fun registerForFragmentResult(keys: Array<String>, listener: FragmentResultListener) {
@@ -66,8 +80,12 @@ abstract class BaseFragment: Fragment() {
         views.forEach { it.isVisible = false }
     }
 
-    protected fun getOverlappingPanelLayout(): OverlappingPanelsLayout {
-        return getParentView()?.findViewById(R.id.overlappingPanels) as OverlappingPanelsLayout
+    protected fun triggerNavigationDrawer() {
+        val drawerLayout = getParentView()?.findViewById(R.id.drawerLayout) as? DrawerLayout
+
+        if (drawerLayout?.isDrawerOpen(GravityCompat.START) == true)
+            drawerLayout.closeDrawer(GravityCompat.START)
+        else drawerLayout?.openDrawer(GravityCompat.START)
     }
 
     /**
@@ -79,23 +97,6 @@ abstract class BaseFragment: Fragment() {
     protected fun createSnackbar(@StringRes textRes: Int, length: Int = Snackbar.LENGTH_SHORT): Snackbar {
         return Snackbar.make(requireView(), textRes, length).apply {
             show()
-        }
-    }
-
-    protected fun setSystemBarColor(@ColorRes colorId: Int) {
-        with(requireActivity().window) {
-            statusBarColor = ContextCompat.getColor(this.context, colorId)
-
-            /**
-             *  Check if the device supports windowLightNavigationBar or
-             *  if the device is in night mode then apply the same color
-             *  of the fragment to the navigationBar
-             */
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 &&
-                context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_YES ==
-                Configuration.UI_MODE_NIGHT_YES) {
-                navigationBarColor = ContextCompat.getColor(this.context, colorId)
-            }
         }
     }
 

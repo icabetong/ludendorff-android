@@ -54,6 +54,8 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         binding.root.transitionName = TRANSITION_NAME_ROOT
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+
+        setInsets(binding.root, binding.appBar.toolbar)
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_department_create,
             iconRes = R.drawable.ic_hero_x,

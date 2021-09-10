@@ -74,11 +74,12 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setInsets(binding.root, binding.appBar.toolbar, binding.actionButton)
         binding.appBar.appBar.setExpanded(false)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_scan,
             iconRes = R.drawable.ic_hero_menu,
-            onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
+            onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_main,
             onMenuOptionClicked = ::onMenuItemClicked
         )
@@ -98,7 +99,7 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
         codeScanner.decodeCallback = DecodeCallback {
             viewModel.setDecodedResult(it.text)
             activity?.runOnUiThread {
-                getOverlappingPanelLayout().openEndPanel()
+                triggerNavigationDrawer()
             }
         }
 
@@ -141,7 +142,7 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
     override fun onMenuItemClicked(@IdRes id: Int) {
         when(id) {
             R.id.action_menu -> {
-                getOverlappingPanelLayout().openEndPanel()
+                triggerNavigationDrawer()
             }
         }
     }
@@ -164,7 +165,7 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
                             val decodeResult = reader.decode(binaryBitmap)
 
                             viewModel.setDecodedResult(decodeResult.text)
-                            getOverlappingPanelLayout().openEndPanel()
+                            triggerNavigationDrawer()
                         } catch (exception: NotFoundException) {
                             createSnackbar(R.string.error_decode_not_found)
 

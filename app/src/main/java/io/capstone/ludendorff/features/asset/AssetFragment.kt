@@ -62,10 +62,11 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         super.onViewCreated(view, savedInstanceState)
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
 
+        setInsets(binding.root, binding.appBar.toolbar, binding.actionButton)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_assets,
             iconRes = R.drawable.ic_hero_menu,
-            onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
+            onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_main,
             onMenuOptionClicked = ::onMenuItemClicked
         )
@@ -259,8 +260,6 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
     }
 
     override fun onMenuItemClicked(id: Int) {
-        when(id) {
-            R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
-        }
+
     }
 }

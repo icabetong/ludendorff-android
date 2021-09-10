@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.work.*
@@ -92,7 +93,7 @@ class CorePreferences: BasePreference() {
     override fun onStart() {
         super.onStart()
 
-        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+        controller = findNavController()
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
             findPreference<Preference>(PREFERENCE_KEY_USER)?.run {

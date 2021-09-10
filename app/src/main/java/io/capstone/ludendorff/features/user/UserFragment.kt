@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.doOnPreDraw
-import androidx.core.view.isVisible
+import androidx.core.view.*
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -21,9 +20,7 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
-import io.capstone.ludendorff.components.extensions.hide
-import io.capstone.ludendorff.components.extensions.setup
-import io.capstone.ludendorff.components.extensions.show
+import io.capstone.ludendorff.components.extensions.*
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentUsersBinding
 import io.capstone.ludendorff.features.core.backend.Response
@@ -62,10 +59,11 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
         super.onViewCreated(view, savedInstanceState)
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
 
+        setInsets(binding.root, binding.appBar.toolbar, binding.actionButton)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_users,
             iconRes = R.drawable.ic_hero_menu,
-            onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
+            onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_main,
             onMenuOptionClicked = ::onMenuItemClicked
         )
@@ -92,7 +90,6 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
             viewModel.action.collect {
                 when(it) {
                     is Response.Error -> {
-                        android.util.Log.e("DEBUG", it.throwable.toString())
                         if (it.throwable is FirebaseFirestoreException &&
                                 it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
 
@@ -265,7 +262,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
+            R.id.action_menu -> triggerNavigationDrawer()
         }
     }
 

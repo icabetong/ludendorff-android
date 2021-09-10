@@ -2,17 +2,23 @@ package io.capstone.ludendorff.components.extensions
 
 import android.content.Context
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.MenuRes
-import androidx.annotation.StringRes
+import androidx.annotation.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.capstone.ludendorff.R
 import me.saket.cascade.CascadePopupMenu
 import me.saket.cascade.overrideOverflowMenu
-import kotlin.math.ceil
+
+fun Context.getDimension(@DimenRes res: Int): Int {
+    return (resources.getDimension(res) / resources.displayMetrics.density).toInt()
+}
 
 fun View.hide() {
     visibility = View.GONE
@@ -22,10 +28,26 @@ fun View.show() {
     visibility = View.VISIBLE
 }
 
-fun View.getCountThatFitsOnScreen(context: Context): Int {
-    val deviceHeight = context.resources.displayMetrics.heightPixels
-    val skeletonRowHeight = height
-    return ceil((deviceHeight / skeletonRowHeight).toDouble()).toInt()
+fun FloatingActionButton.setInsets() {
+    ViewCompat.setOnApplyWindowInsetsListener(this) { container, insets ->
+        val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        container.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = windowInsets.bottom
+            leftMargin = windowInsets.left
+            rightMargin = windowInsets.right
+        }
+        WindowInsetsCompat.CONSUMED
+    }
+}
+
+fun CollapsingToolbarLayout.setInsets() {
+    ViewCompat.setOnApplyWindowInsetsListener(this) { container, insets ->
+        val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        container.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            topMargin = windowInsets.top
+        }
+        WindowInsetsCompat.CONSUMED
+    }
 }
 
 fun Toolbar.setup(

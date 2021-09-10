@@ -79,8 +79,6 @@ class AuthFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
-        setSystemBarColor(R.color.keeper_background_content)
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.authStatus.collect {
                 when(it) {
@@ -126,12 +124,6 @@ class AuthFragment: BaseFragment() {
                 }
             }
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        setSystemBarColor(R.color.keeper_background_main)
     }
 
     @SuppressLint("CheckResult")

@@ -63,10 +63,11 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         super.onViewCreated(view, savedInstanceState)
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
 
+        setInsets(binding.root, binding.appBar.toolbar, binding.actionButton)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_assignment,
             iconRes = R.drawable.ic_hero_menu,
-            onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
+            onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_main,
             onMenuOptionClicked = ::onMenuItemClicked
         )
@@ -260,9 +261,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     }
 
     override fun onMenuItemClicked(id: Int) {
-        when(id) {
-            R.id.action_menu -> getOverlappingPanelLayout().openEndPanel()
-        }
+
     }
 
     private fun showGenericError(action: Response.Action?) {

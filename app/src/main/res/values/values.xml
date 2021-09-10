@@ -22,6 +22,7 @@
         <item name="colorBackgroundFloating">@color/keeper_surface</item>
         <item name="android:colorBackgroundFloating">@color/keeper_surface</item>
         <item name="android:windowBackground">@color/keeper_background_main</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!-- Components -->
         <item name="bottomSheetDialogTheme">@style/Component.Keeper.BottomSheet</item>
         <!-- AppCompat -->

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentNotificationBinding
@@ -34,16 +35,14 @@ class NotificationFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setInsets(view, binding.appBar.toolbar)
+
+        controller = findNavController()
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_notifications,
             iconRes = R.drawable.ic_hero_arrow_left,
             onNavigationClicked = { controller?.navigateUp() }
         )
-    }
-
-    override fun onStart() {
-        super.onStart()
-        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
     }
 
 }

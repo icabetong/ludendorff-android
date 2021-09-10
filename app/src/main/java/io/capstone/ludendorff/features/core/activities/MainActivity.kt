@@ -5,7 +5,13 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
+import android.view.View
+import android.view.Window
+import android.view.WindowInsets
+import android.widget.FrameLayout
 import androidx.activity.viewModels
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.work.WorkManager

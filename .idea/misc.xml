@@ -15,9 +15,14 @@
         <entry key="app/src/main/res/drawable/ic_hero_shield_exclamation.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_sort_ascending.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_outline_arrow_back_24.xml" value="0.10592105263157894" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_editor_asset.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_editor_assignment.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/fragment_editor_category.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/fragment_editor_department.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/fragment_editor_specification.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_editor_user.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2019736842105263" />
@@ -25,6 +30,9 @@
         <entry key="app/src/main/res/layout/fragment_options_assignment.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_options_scan.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_options_users.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/fragment_root.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_settings_core.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/layout_drawer_header.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_empty_notification.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_editor.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/menu/menu_editor_asset.xml" value="0.22006578947368421" />

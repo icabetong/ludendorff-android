@@ -23,6 +23,8 @@
     <string name="navigation_assignment">@string/activity_assignment</string>
     <string name="navigation_categories">@string/activity_categories</string>
     <string name="navigation_department">@string/activity_department</string>
+    <string name="navigation_notifications">@string/activity_notifications</string>
+    <string name="navigation_settings">@string/activity_settings</string>
 
     <string name="title_asset_create">Create Asset</string>
     <string name="title_asset_update">Edit Asset</string>

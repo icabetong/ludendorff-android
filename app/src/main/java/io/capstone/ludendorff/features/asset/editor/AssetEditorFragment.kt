@@ -64,6 +64,8 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.root.transitionName = TRANSITION_NAME_ROOT
 
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+
+        setInsets(binding.root, binding.appBar.toolbar, binding.addAction.root)
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_asset_create,
             iconRes = R.drawable.ic_hero_x,

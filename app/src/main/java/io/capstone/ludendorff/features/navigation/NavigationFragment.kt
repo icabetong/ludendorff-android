@@ -128,7 +128,7 @@ class NavigationFragment: BaseFragment() {
     }
 
     private fun dismissNavigationPanel() {
-        getOverlappingPanelLayout().closePanels()
+
     }
 
 }

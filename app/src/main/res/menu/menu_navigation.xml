@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
+        android:id="@+id/primaryGroup"
         android:checkableBehavior="single">
 
         <item
@@ -29,6 +30,21 @@
             android:id="@+id/navigation_assignments"
             android:title="@string/navigation_assignment"
             android:icon="@drawable/ic_hero_identification"/>
+
+    </group>
+
+    <group
+        android:id="@+id/secondaryGroup">
+
+        <item
+            android:id="@+id/navigation_notification"
+            android:title="@string/navigation_notification"
+            android:icon="@drawable/ic_hero_bell"/>
+
+        <item
+            android:id="@+id/navigation_core_settings"
+            android:title="@string/navigation_settings"
+            android:icon="@drawable/ic_hero_cog"/>
 
     </group>
 

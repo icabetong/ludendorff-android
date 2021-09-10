@@ -31,12 +31,13 @@ class HomeFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setInsets(binding.root, binding.appBar.toolbar, binding.actionButton)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_home,
             iconRes = R.drawable.ic_hero_menu,
-            onNavigationClicked = { getOverlappingPanelLayout().openStartPanel() },
+            onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_main,
-            onMenuOptionClicked = { getOverlappingPanelLayout().openEndPanel() }
+            onMenuOptionClicked = { triggerNavigationDrawer() }
         )
     }
 
