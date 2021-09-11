@@ -2,7 +2,6 @@ package io.capstone.ludendorff.features.asset
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
@@ -29,8 +28,6 @@ class AssetPagingSource(
                     nextKey = nextPage
                 )
             } else throw EmptySnapshotException()
-        } catch (firestoreException: FirebaseFirestoreException) {
-            LoadResult.Error(firestoreException)
         } catch (exception: Exception) {
             LoadResult.Error(exception)
         }

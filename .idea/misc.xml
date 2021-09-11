@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/ic_hero_arrow_left.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_at_symbol.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_ban.xml" value="0.1993421052631579" />
+        <entry key="app/src/main/res/drawable/ic_hero_calendar.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_camera.xml" value="0.21217105263157895" />
         <entry key="app/src/main/res/drawable/ic_hero_check_circle.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_filter.xml" value="0.23026315789473684" />
@@ -35,14 +36,18 @@
         <entry key="app/src/main/res/layout/fragment_options_users.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_root.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_scan.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/fragment_scan_results.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_settings_core.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_users.xml" value="0.18902038132807364" />
+        <entry key="app/src/main/res/layout/fragment_view_assignment.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/fragment_view_qrcode.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_drawer_header.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_empty_assignment.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_empty_home.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_empty_notification.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_item_asset.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_item_home.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/layout_item_notification.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_skeleton_asset.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_skeleton_home.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_core_assets.xml" value="0.18914473684210525" />

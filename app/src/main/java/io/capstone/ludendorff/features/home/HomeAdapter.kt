@@ -3,12 +3,15 @@ package io.capstone.ludendorff.features.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemHomeBinding
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.shared.components.BasePagingAdapter
 import io.capstone.ludendorff.features.shared.components.BaseViewHolder
 
-class HomeAdapter: BasePagingAdapter<Assignment, HomeAdapter.HomeViewHolder>(Assignment.DIFF_CALLBACK) {
+class HomeAdapter(
+    private val actionListener: OnItemActionListener<Assignment>
+) : BasePagingAdapter<Assignment, HomeAdapter.HomeViewHolder>(Assignment.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val binding = LayoutItemHomeBinding.inflate(LayoutInflater.from(parent.context),
@@ -28,6 +31,11 @@ class HomeAdapter: BasePagingAdapter<Assignment, HomeAdapter.HomeViewHolder>(Ass
                 overlineTextView.text = data?.asset?.category?.categoryName
                 headerTextView.text = data?.asset?.assetName
                 informationTextView.text = data?.formatDateAssigned(root.context)
+
+                root.setOnClickListener {
+                    actionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
+                        null)
+                }
             }
         }
     }

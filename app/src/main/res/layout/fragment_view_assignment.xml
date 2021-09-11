@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/activity_margin"
+        android:text="@string/title_assignment_details"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/keeper_shimmer"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:layout_marginBottom="@dimen/activity_margin_tiny"
+        android:layout_marginHorizontal="@dimen/activity_margin"
+        android:gravity="center_vertical"
+        android:text="@string/hint_asset_name"
+        android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+        android:drawableStart="@drawable/ic_hero_desktop_computer"
+        android:drawablePadding="@dimen/activity_margin_small"
+        android:drawableTint="@color/keeper_primary"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/assetNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_marginStart="@dimen/activity_margin_large"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+        tools:text="MacBook Air M1"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin_tiny"
+        android:layout_marginHorizontal="@dimen/activity_margin"
+        android:gravity="center_vertical"
+        android:text="@string/hint_status"
+        android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+        android:drawableStart="@drawable/ic_hero_badge_check"
+        android:drawablePadding="@dimen/activity_margin_small"
+        android:drawableTint="@color/keeper_primary"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/assetStatusTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_marginStart="@dimen/activity_margin_large"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+        tools:text="Under Maintenance"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin_tiny"
+        android:layout_marginHorizontal="@dimen/activity_margin"
+        android:gravity="center_vertical"
+        android:text="@string/hint_category"
+        android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+        android:drawableStart="@drawable/ic_hero_tag"
+        android:drawablePadding="@dimen/activity_margin_small"
+        android:drawableTint="@color/keeper_primary"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_marginStart="@dimen/activity_margin_large"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+        tools:text="Laptops"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin_tiny"
+        android:layout_marginHorizontal="@dimen/activity_margin"
+        android:gravity="center_vertical"
+        android:text="@string/hint_date_assigned"
+        android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+        android:drawableStart="@drawable/ic_hero_calendar"
+        android:drawablePadding="@dimen/activity_margin_small"
+        android:drawableTint="@color/keeper_primary"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dateAssignedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_marginStart="@dimen/activity_margin_large"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+        tools:text="Saturday"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

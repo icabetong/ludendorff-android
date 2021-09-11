@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import io.capstone.ludendorff.R
@@ -17,6 +18,7 @@ class NotificationFragment: BaseFragment() {
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
+    private val viewModel: NotificationViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

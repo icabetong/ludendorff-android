@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -20,17 +21,20 @@ import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
+import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentHomeBinding
+import io.capstone.ludendorff.features.assignment.Assignment
+import io.capstone.ludendorff.features.assignment.viewer.AssignmentViewer
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class HomeFragment: BaseFragment() {
+class HomeFragment: BaseFragment(), OnItemActionListener<Assignment> {
     private var _binding: FragmentHomeBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val homeAdapter = HomeAdapter()
+    private val homeAdapter = HomeAdapter(this)
     private val viewModel: HomeViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -183,6 +187,18 @@ class HomeFragment: BaseFragment() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             homeAdapter.refresh()
+        }
+    }
+
+    override fun onActionPerformed(
+        data: Assignment?,
+        action: OnItemActionListener.Action,
+        container: View?
+    ) {
+        if (action == OnItemActionListener.Action.SELECT) {
+            AssignmentViewer(childFragmentManager).show {
+                arguments = bundleOf(AssignmentViewer.EXTRA_ASSIGNMENT to data)
+            }
         }
     }
 }

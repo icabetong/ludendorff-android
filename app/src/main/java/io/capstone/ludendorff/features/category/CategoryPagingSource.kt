@@ -29,10 +29,8 @@ class CategoryPagingSource(
                 )
             } else throw EmptySnapshotException()
 
-        } catch (emptySnapshotException: EmptySnapshotException) {
-            LoadResult.Error(emptySnapshotException)
-        } catch(e: Exception) {
-            LoadResult.Error(e)
+        } catch(exception: Exception) {
+            LoadResult.Error(exception)
         }
     }
 

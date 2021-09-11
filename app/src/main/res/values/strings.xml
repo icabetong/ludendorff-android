@@ -42,6 +42,7 @@
     <string name="title_user_select">Select User</string>
     <string name="title_assignment_create">Create Assignment</string>
     <string name="title_assignment_update">Edit Assignment</string>
+    <string name="title_assignment_details">Assignment Details</string>
     <string name="title_scan_result">Scan Result</string>
     <string name="title_select_profile_picture">Select Profile Picture</string>
     <string name="title_view_qr_code">View QR Code</string>

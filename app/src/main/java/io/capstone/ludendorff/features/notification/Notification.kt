@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.features.notification
 
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -24,6 +25,16 @@ data class Notification @JvmOverloads constructor (
 
         const val NOTIFICATION_ASSIGNED_TITLE = "notification-assigned-asset-title"
         const val NOTIFICATION_ASSIGNED_BODY = "notification-assigned-asset-body"
+
+        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Notification>() {
+            override fun areContentsTheSame(oldItem: Notification, newItem: Notification): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areItemsTheSame(oldItem: Notification, newItem: Notification): Boolean {
+                return oldItem.notificationId == newItem.notificationId
+            }
+        }
     }
 
 }

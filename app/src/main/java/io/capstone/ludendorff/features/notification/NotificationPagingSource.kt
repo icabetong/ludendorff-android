@@ -1,34 +1,34 @@
-package io.capstone.ludendorff.features.assignment
+package io.capstone.ludendorff.features.notification
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import kotlinx.coroutines.tasks.await
 
-class AssignmentPagingSource(
-    private val assignmentQuery: Query
-): PagingSource<QuerySnapshot, Assignment>() {
+class NotificationPagingSource(
+    private val notificationQuery: Query
+): PagingSource<QuerySnapshot, Notification>() {
 
-    override fun getRefreshKey(state: PagingState<QuerySnapshot, Assignment>): QuerySnapshot? {
+    override fun getRefreshKey(state: PagingState<QuerySnapshot, Notification>): QuerySnapshot? {
         return null
     }
 
-    override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, Assignment> {
+    override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, Notification> {
         return try {
-            val currentPage = params.key ?: assignmentQuery.get().await()
+            val currentPage = params.key ?: notificationQuery.get().await()
 
             if (currentPage.documents.isNotEmpty()) {
                 val lastVisibleCategory = currentPage.documents[currentPage.size() - 1]
-                val nextPage = assignmentQuery.startAfter(lastVisibleCategory).get().await()
+                val nextPage = notificationQuery.startAfter(lastVisibleCategory).get().await()
                 LoadResult.Page(
-                    data = currentPage.toObjects(Assignment::class.java),
+                    data = currentPage.toObjects(Notification::class.java),
                     prevKey = null,
                     nextKey = nextPage
                 )
             } else throw EmptySnapshotException()
+
         } catch (exception: Exception) {
             LoadResult.Error(exception)
         }
