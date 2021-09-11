@@ -15,7 +15,7 @@ data class UserCore @JvmOverloads constructor(
     var name: String? = null,
     var email: String? = null,
     var imageUrl: String? = null,
-    var position: String? = null,
+    var deviceToken: String? = null
 ): Parcelable {
 
     companion object {
@@ -25,7 +25,7 @@ data class UserCore @JvmOverloads constructor(
                 name = user.getDisplayName(),
                 email = user.email,
                 imageUrl = user.imageUrl,
-                position = user.position
+                deviceToken = user.deviceToken
             )
         }
     }

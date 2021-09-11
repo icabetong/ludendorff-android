@@ -20,15 +20,11 @@ import io.capstone.ludendorff.features.user.User as KeeperUser
 class CoreViewModel @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val firebaseAuth: FirebaseAuth,
-    private val userProperties: UserProperties,
-    workManager: WorkManager,
+    private val userProperties: UserProperties
 ): BaseViewModel() {
 
     private val _userData: MutableLiveData<KeeperUser> = MutableLiveData()
     val userData: LiveData<KeeperUser> = _userData
-
-    val tokenUpdateInfo: LiveData<List<WorkInfo>> =
-        workManager.getWorkInfosByTagLiveData(TokenUpdateWorker.WORKER_TAG)
 
     init {
         listenToDocumentChanges()

@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
-    firestore: FirebaseFirestore,
+    private val firestore: FirebaseFirestore,
     private val repository: CategoryRepository,
 ): BaseViewModel() {
 

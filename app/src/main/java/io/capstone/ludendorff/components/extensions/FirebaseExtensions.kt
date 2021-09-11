@@ -1,6 +1,9 @@
 package io.capstone.ludendorff.components.extensions
 
+import android.content.Context
 import com.google.firebase.Timestamp
+import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.utils.DateTimeFormatter
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -15,4 +18,16 @@ fun Timestamp.toLocalDateTime(): LocalDateTime {
 
 fun Timestamp.isToday(): Boolean {
     return this.toLocalDateTime().isToday()
+}
+
+fun Timestamp?.format(context: Context): String? {
+    if (this == null)
+        return null
+
+    return if (this.isToday())
+        String.format(context.getString(R.string.concat_today_at),
+            DateTimeFormatter.getTimeFormatter(context)
+                .format(this.toLocalDateTime()))
+    else DateTimeFormatter.getDateTimeFormatter(context)
+        .format(this.toLocalDateTime())
 }

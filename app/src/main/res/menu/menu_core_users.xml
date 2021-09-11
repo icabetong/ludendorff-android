@@ -1,9 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/menu_search"
+        android:icon="@drawable/ic_hero_search"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_departments"
         android:icon="@drawable/ic_hero_office_building"
         android:title="@string/menu_departments"/>
+
+    <item
+        android:title="@string/options_sort"
+        android:icon="@drawable/ic_hero_sort_ascending">
+        <menu>
+            <item
+                android:title="@string/hint_last_name"
+                android:icon="@drawable/ic_hero_hashtag">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_last_name_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_last_name_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+            <item
+                android:title="@string/hint_first_name"
+                android:icon="@drawable/ic_hero_pencil">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_first_name_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_first_name_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+            <item
+                android:title="@string/hint_email"
+                android:icon="@drawable/ic_hero_at_symbol">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_email_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_email_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+            <item
+                android:title="@string/hint_position"
+                android:icon="@drawable/ic_hero_briefcase">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_briefcase_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_briefcase_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+        </menu>
+    </item>
 
 </menu>

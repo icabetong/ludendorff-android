@@ -204,23 +204,28 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                         } else {
                             when(it.action) {
                                 Response.Action.CREATE ->
-                                    createSnackbar(R.string.feedback_asset_create_error)
+                                    createSnackbar(R.string.feedback_asset_create_error,
+                                        binding.actionButton)
                                 Response.Action.UPDATE ->
-                                    createSnackbar(R.string.feedback_asset_update_error)
+                                    createSnackbar(R.string.feedback_asset_update_error,
+                                        binding.actionButton)
                                 Response.Action.REMOVE ->
-                                    createSnackbar(R.string.feedback_asset_remove_error)
-                                else -> {}
+                                    createSnackbar(R.string.feedback_asset_remove_error,
+                                        binding.actionButton)
                             }
                         }
                     }
                     is Response.Success -> {
                         when(it.data) {
                             Response.Action.CREATE ->
-                                createSnackbar(R.string.feedback_asset_created)
+                                createSnackbar(R.string.feedback_asset_created,
+                                    binding.actionButton)
                             Response.Action.UPDATE ->
-                                createSnackbar(R.string.feedback_asset_updated)
+                                createSnackbar(R.string.feedback_asset_updated,
+                                    binding.actionButton)
                             Response.Action.REMOVE ->
-                                createSnackbar(R.string.feedback_asset_removed)
+                                createSnackbar(R.string.feedback_asset_removed,
+                                    binding.actionButton)
                         }
                     }
                 }

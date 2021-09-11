@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.format
 import io.capstone.ludendorff.components.extensions.isToday
 import io.capstone.ludendorff.components.extensions.toLocalDateTime
 import io.capstone.ludendorff.components.utils.DateTimeFormatter
@@ -29,7 +30,7 @@ data class Assignment @JvmOverloads constructor(
 ): Parcelable {
 
     private fun formatTimestamp(timestamp: Timestamp?, context: Context): String? {
-        return Companion.formatTimestamp(timestamp, context)
+        return timestamp?.format(context)
     }
 
     fun formatDateAssigned(context: Context): String? {
@@ -54,18 +55,6 @@ data class Assignment @JvmOverloads constructor(
         const val FIELD_DATE_RETURNED = "dateReturned"
         const val FIELD_LOCATION = "location"
         const val FIELD_REMARKS = "remarks"
-
-        fun formatTimestamp(timestamp: Timestamp?, context: Context): String? {
-            if (timestamp == null)
-                return null
-
-            return if (timestamp.isToday())
-                String.format(context.getString(R.string.concat_today_at),
-                    DateTimeFormatter.getTimeFormatter(context)
-                        .format(timestamp.toLocalDateTime()))
-            else DateTimeFormatter.getDateTimeFormatter(context)
-                .format(timestamp.toLocalDateTime())
-        }
 
         fun from(documentSnapshot: DocumentSnapshot): Assignment? {
             return documentSnapshot.toObject(Assignment::class.java)

@@ -155,11 +155,14 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                     is Response.Success -> {
                         when(it.data) {
                             Response.Action.CREATE ->
-                                createSnackbar(R.string.feedback_user_created)
+                                createSnackbar(R.string.feedback_user_created,
+                                    binding.actionButton)
                             Response.Action.UPDATE ->
-                                createSnackbar(R.string.feedback_user_updated)
+                                createSnackbar(R.string.feedback_user_updated,
+                                    binding.actionButton)
                             Response.Action.REMOVE ->
-                                createSnackbar(R.string.feedback_user_removed)
+                                createSnackbar(R.string.feedback_user_removed,
+                                    binding.actionButton)
                         }
                     }
                 }
@@ -287,11 +290,11 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     private fun showGenericError(action: Response.Action?) {
         when(action) {
             Response.Action.CREATE ->
-                createSnackbar(R.string.feedback_user_create_error)
+                createSnackbar(R.string.feedback_user_create_error, binding.actionButton)
             Response.Action.UPDATE ->
-                createSnackbar(R.string.feedback_user_update_error)
+                createSnackbar(R.string.feedback_user_update_error, binding.actionButton)
             Response.Action.REMOVE ->
-                createSnackbar(R.string.feedback_user_remove_error)
+                createSnackbar(R.string.feedback_user_remove_error, binding.actionButton)
         }
     }
 

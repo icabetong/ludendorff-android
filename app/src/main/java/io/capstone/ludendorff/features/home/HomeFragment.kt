@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.google.firebase.firestore.FirebaseFirestoreException
+import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
@@ -29,6 +30,7 @@ import io.capstone.ludendorff.features.shared.components.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment: BaseFragment(), OnItemActionListener<Assignment> {
     private var _binding: FragmentHomeBinding? = null
     private var controller: NavController? = null

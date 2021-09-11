@@ -16,7 +16,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
@@ -128,7 +127,6 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.readChip.isChecked = it.hasPermission(User.PERMISSION_READ)
             binding.writeChip.isChecked = it.hasPermission(User.PERMISSION_WRITE)
             binding.deleteChip.isChecked = it.hasPermission(User.PERMISSION_DELETE)
-            binding.auditChip.isChecked = it.hasPermission(User.PERMISSION_AUDIT)
             binding.managerUsersChip.isChecked = it.hasPermission(User.PERMISSION_MANAGE_USERS)
             binding.administrativeChip.isChecked = it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
         }
@@ -187,8 +185,6 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 permissions.add(User.PERMISSION_WRITE)
             if (binding.deleteChip.isChecked)
                 permissions.add(User.PERMISSION_DELETE)
-            if (binding.auditChip.isChecked)
-                permissions.add(User.PERMISSION_AUDIT)
             if (binding.managerUsersChip.isChecked)
                 permissions.add(User.PERMISSION_MANAGE_USERS)
             if (binding.administrativeChip.isChecked)

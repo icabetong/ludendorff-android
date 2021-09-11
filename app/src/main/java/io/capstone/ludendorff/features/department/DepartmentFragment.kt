@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -123,23 +122,28 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                         } else {
                             when(it.action) {
                                 Response.Action.CREATE ->
-                                    createSnackbar(R.string.feedback_department_create_error)
+                                    createSnackbar(R.string.feedback_department_create_error,
+                                        binding.actionButton)
                                 Response.Action.UPDATE ->
-                                    createSnackbar(R.string.feedback_department_update_error)
+                                    createSnackbar(R.string.feedback_department_update_error,
+                                        binding.actionButton)
                                 Response.Action.REMOVE ->
-                                    createSnackbar(R.string.feedback_department_remove_error)
-                                else -> {}
+                                    createSnackbar(R.string.feedback_department_remove_error,
+                                        binding.actionButton)
                             }
                         }
                     }
                     is Response.Success -> {
                         when(it.data) {
                             Response.Action.CREATE ->
-                                createSnackbar(R.string.feedback_department_created)
+                                createSnackbar(R.string.feedback_department_created,
+                                    binding.actionButton)
                             Response.Action.UPDATE ->
-                                createSnackbar(R.string.feedback_department_updated)
+                                createSnackbar(R.string.feedback_department_updated,
+                                    binding.actionButton)
                             Response.Action.REMOVE ->
-                                createSnackbar(R.string.feedback_department_removed)
+                                createSnackbar(R.string.feedback_department_removed,
+                                    binding.actionButton)
                         }
                     }
                 }

@@ -110,13 +110,6 @@
                     style="@style/Widget.Keeper.Chip.Choice"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/auditChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_permission_audit"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
-
-                <com.google.android.material.chip.Chip
                     android:id="@+id/managerUsersChip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

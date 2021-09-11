@@ -230,11 +230,14 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                     is Response.Success -> {
                         when(it.data) {
                             Response.Action.CREATE ->
-                                createSnackbar(R.string.feedback_assignment_created)
+                                createSnackbar(R.string.feedback_assignment_created,
+                                    binding.actionButton)
                             Response.Action.UPDATE ->
-                                createSnackbar(R.string.feedback_assignment_updated)
+                                createSnackbar(R.string.feedback_assignment_updated,
+                                    binding.actionButton)
                             Response.Action.REMOVE ->
-                                createSnackbar(R.string.feedback_assignment_removed)
+                                createSnackbar(R.string.feedback_assignment_removed,
+                                    binding.actionButton)
                         }
                     }
                 }
@@ -285,11 +288,11 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     private fun showGenericError(action: Response.Action?) {
         when(action) {
             Response.Action.CREATE ->
-                createSnackbar(R.string.feedback_assignment_create_error)
+                createSnackbar(R.string.feedback_assignment_create_error, binding.actionButton)
             Response.Action.UPDATE ->
-                createSnackbar(R.string.feedback_assignment_update_error)
+                createSnackbar(R.string.feedback_assignment_update_error, binding.actionButton)
             Response.Action.REMOVE ->
-                createSnackbar(R.string.feedback_assignment_remove_error)
+                createSnackbar(R.string.feedback_assignment_remove_error, binding.actionButton)
             else -> {}
         }
     }

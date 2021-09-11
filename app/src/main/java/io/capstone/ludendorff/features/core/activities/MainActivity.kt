@@ -46,6 +46,24 @@ class MainActivity: BaseActivity() {
         else controller.navigate(R.id.to_navigation_auth)
     }
 
+    override fun onSupportNavigateUp(): Boolean = controller.navigateUp()
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        controller.currentDestination?.let {
+            outState.putInt(EXTRA_CURRENT_DESTINATION, it.id)
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        savedInstanceState.getInt(EXTRA_CURRENT_DESTINATION).let {
+            controller.navigate(it)
+        }
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -63,37 +81,17 @@ class MainActivity: BaseActivity() {
     }
 
     private var networkCallback = object: ConnectivityManager.NetworkCallback() {
-
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
             runOnUiThread {
-                binding.limitedNetworkTextView.hide()
+
             }
         }
-
         override fun onLost(network: Network) {
             super.onLost(network)
             runOnUiThread {
-                binding.limitedNetworkTextView.show()
+
             }
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean = controller.navigateUp()
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        controller.currentDestination?.let {
-            outState.putInt(EXTRA_CURRENT_DESTINATION, it.id)
-        }
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        savedInstanceState.getInt(EXTRA_CURRENT_DESTINATION).let {
-            controller.navigate(it)
         }
     }
 

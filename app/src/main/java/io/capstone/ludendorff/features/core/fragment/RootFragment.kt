@@ -104,7 +104,7 @@ class RootFragment: BaseFragment() {
             headerBinding.nameTextView.text = it.getDisplayName()
             if (it.imageUrl != null)
                 headerBinding.profileImageView.load(it.imageUrl) {
-                    error(R.drawable.ic_hero_user)
+                    error(R.drawable.ic_flaticon_user)
                     placeholder(progressDrawable)
                     transformations(CircleCropTransformation())
                     scale(Scale.FILL)
@@ -112,12 +112,12 @@ class RootFragment: BaseFragment() {
             else headerBinding.profileImageView.setImageResource(R.drawable.ic_flaticon_user)
 
             with(binding.navigationView.menu) {
+                findItem(R.id.navigation_assignments)
+                    .isVisible = it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+
                 findItem(R.id.navigation_users)
                     .isVisible = it.hasPermission(User.PERMISSION_MANAGE_USERS) ||
                         it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
-
-                findItem(R.id.navigation_assignments)
-                    .isVisible = it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
 
                 findItem(R.id.navigation_assets)
                     .isVisible = it.hasPermission(User.PERMISSION_READ)

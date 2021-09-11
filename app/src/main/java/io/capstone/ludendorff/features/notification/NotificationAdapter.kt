@@ -27,6 +27,7 @@ class NotificationAdapter
             with(binding) {
                 headerTextView.text = data?.title
                 informationTextView.text = data?.body
+                metadataTextView.text = data?.formatTimestamp(root.context)
             }
         }
     }

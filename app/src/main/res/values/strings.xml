@@ -101,7 +101,7 @@
 
     <string name="menu_categories">Categories</string>
     <string name="menu_departments">Departments</string>
-    <string name="menu_save">@string/button_save</string>
+    <string name="menu_search">Search</string>
     <string name="menu_menu">Menu</string>
     <string name="menu_disable">@string/button_disable</string>
     <string name="menu_enable">@string/button_enable</string>
@@ -130,8 +130,8 @@
     <string name="user_permission_manage_users">Manage Users</string>
     <string name="user_permission_administrative">Administrative</string>
 
-    <string name="options_filter">Filter by:</string>
-    <string name="options_sort">Sort by:</string>
+    <string name="options_filter">Filter</string>
+    <string name="options_sort">Sort</string>
     <string name="options_sort_attribute">Attribute</string>
     <string name="options_sort_direction">Direction</string>
     <string name="options_sort_direction_ascending">Ascending</string>

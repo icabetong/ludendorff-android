@@ -56,12 +56,6 @@ abstract class BaseFragment: Fragment() {
         }
     }
 
-    protected fun registerForFragmentResult(keys: Array<String>, listener: FragmentResultListener) {
-        keys.forEach {
-            childFragmentManager.setFragmentResultListener(it, viewLifecycleOwner, listener)
-        }
-    }
-
     protected fun setupToolbar(
         toolbar: MaterialToolbar,
         navigation: () -> Unit,
@@ -80,6 +74,23 @@ abstract class BaseFragment: Fragment() {
                 menuListener?.let { listener -> listener(it.itemId) }
                 true
             }
+        }
+    }
+
+    /**
+     *  Creates a snackbar and shows it in the fragment
+     *  @param textRes the string resource that will be used in the snackbar
+     *  @param length  the length of the duration of the snackbar, either
+     *                 Snackbar.LENGTH_SHORT, Snackbar.LENGTH_LONG or Snackbar.LENGTH_INDEFINITE
+     */
+    protected fun createSnackbar(
+        @StringRes textRes: Int,
+        anchorView: View? = null,
+        length: Int = Snackbar.LENGTH_SHORT
+    ): Snackbar {
+        return Snackbar.make(requireView(), textRes, length).apply {
+            setAnchorView(anchorView)
+            show()
         }
     }
 
@@ -104,19 +115,9 @@ abstract class BaseFragment: Fragment() {
     }
 
     /**
-     *  Creates a snackbar and shows it in the fragment
-     *  @param textRes the string resource that will be used in the snackbar
-     *  @param length  the length of the duration of the snackbar, either
-     *                 Snackbar.LENGTH_SHORT, Snackbar.LENGTH_LONG or Snackbar.LENGTH_INDEFINITE
-     */
-    protected fun createSnackbar(@StringRes textRes: Int, length: Int = Snackbar.LENGTH_SHORT): Snackbar {
-        return Snackbar.make(requireView(), textRes, length).apply {
-            show()
-        }
-    }
-
-    /**
      *  @param id the view id that will be used as the drawingViewId
+     *  @return the transition object that will be used to apply to the transitions
+     *  of fragments
      */
     protected fun buildContainerTransform(@IdRes id: Int = R.id.navHostFragment) =
         MaterialContainerTransform().apply {
@@ -137,6 +138,12 @@ abstract class BaseFragment: Fragment() {
                     ContextCompat.getDrawable(context, R.drawable.shape_cascade_background)
                 }
             ))
+    }
+
+    protected fun registerForFragmentResult(keys: Array<String>, listener: FragmentResultListener) {
+        keys.forEach {
+            childFragmentManager.setFragmentResultListener(it, viewLifecycleOwner, listener)
+        }
     }
 
     interface CascadeMenuDelegate {

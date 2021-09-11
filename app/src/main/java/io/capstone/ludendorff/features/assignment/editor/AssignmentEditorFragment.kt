@@ -17,6 +17,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.Timestamp
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.format
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.toTimestamp
 import io.capstone.ludendorff.databinding.FragmentEditorAssignmentBinding
@@ -132,7 +133,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 datePicker { _, date ->
                     val timestamp = date.toTimestamp()
 
-                    val formattedDate = Assignment.formatTimestamp(timestamp, it.context)
+                    val formattedDate = timestamp.format(requireContext())
                     binding.dateAssignedTextInput.setText(formattedDate)
                     editorViewModel.assignment.dateAssigned = timestamp
                 }
@@ -144,7 +145,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 datePicker { _, date ->
                     val timestamp = date.toTimestamp()
 
-                    val formattedDate = Assignment.formatTimestamp(timestamp, it.context)
+                    val formattedDate = timestamp.format(it.context)
                     binding.dateReturnedTextInput.setText(formattedDate)
                     editorViewModel.assignment.dateReturned = timestamp
                 }

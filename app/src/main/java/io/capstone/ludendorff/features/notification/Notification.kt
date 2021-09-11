@@ -1,18 +1,26 @@
 package io.capstone.ludendorff.features.notification
 
+import android.content.Context
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
+import com.google.firebase.Timestamp
+import io.capstone.ludendorff.components.extensions.format
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Notification @JvmOverloads constructor (
-    var notificationId: String? = null,
+    var notificationId: String,
     var title: String?,
     var body: String?,
     var payload: String?,
     var senderId: String?,
-    var receiverId: String?
+    var receiverId: String?,
+    var timestamp: Timestamp? = null
 ): Parcelable {
+
+    fun formatTimestamp(context: Context): String? {
+        return timestamp?.format(context)
+    }
 
     companion object {
         const val COLLECTION = "notifications"

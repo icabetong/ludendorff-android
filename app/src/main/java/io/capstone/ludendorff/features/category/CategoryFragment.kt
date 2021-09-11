@@ -11,13 +11,13 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
@@ -38,7 +38,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionListener<Category> {
+class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionListener<Category>,
+    BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentCategoryBinding? = null
     private var controller: NavController? = null
 
@@ -81,7 +82,9 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
         binding.appBar.toolbar.setup (
             titleRes = R.string.activity_categories,
-            onNavigationClicked = { controller?.navigateUp() }
+            onNavigationClicked = { controller?.navigateUp() },
+            menuRes = R.menu.menu_core_categories,
+            onMenuOptionClicked = ::onMenuItemClicked
         )
 
         registerForFragmentResult(
@@ -208,22 +211,28 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                         } else {
                             when(it.action) {
                                 Response.Action.CREATE ->
-                                    createSnackbar(R.string.feedback_category_create_error)
+                                    createSnackbar(R.string.feedback_category_create_error,
+                                        binding.actionButton)
                                 Response.Action.UPDATE ->
-                                    createSnackbar(R.string.feedback_category_update_error)
+                                    createSnackbar(R.string.feedback_category_update_error,
+                                        binding.actionButton)
                                 Response.Action.REMOVE ->
-                                    createSnackbar(R.string.feedback_category_remove_error)
+                                    createSnackbar(R.string.feedback_category_remove_error,
+                                        binding.actionButton)
                             }
                         }
                     }
                     is Response.Success -> {
                         when(it.data) {
                             Response.Action.CREATE ->
-                                createSnackbar(R.string.feedback_category_created)
+                                createSnackbar(R.string.feedback_category_created,
+                                    binding.actionButton)
                             Response.Action.UPDATE ->
-                                createSnackbar(R.string.feedback_category_updated)
+                                createSnackbar(R.string.feedback_category_updated,
+                                    binding.actionButton)
                             Response.Action.REMOVE ->
-                                createSnackbar(R.string.feedback_category_removed)
+                                createSnackbar(R.string.feedback_category_removed,
+                                    binding.actionButton)
                         }
                     }
                 }
@@ -232,6 +241,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.categories.collectLatest {
+                android.util.Log.e("DEBUG", "adapter")
                 categoryAdapter.submitData(it)
             }
         }
@@ -282,5 +292,9 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                 categoryAdapter.refresh()
             }
         }
+    }
+
+    override fun onMenuItemClicked(id: Int) {
+
     }
 }

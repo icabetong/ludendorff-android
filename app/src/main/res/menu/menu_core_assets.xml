@@ -1,9 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/menu_search"
+        android:icon="@drawable/ic_hero_search"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_category"
-        android:icon="@drawable/ic_hero_tag"
-        android:title="@string/menu_categories"/>
+        android:title="@string/menu_categories"
+        android:icon="@drawable/ic_hero_tag"/>
+
+    <item
+        android:title="@string/options_sort"
+        android:icon="@drawable/ic_hero_sort_ascending">
+        <menu>
+            <item
+                android:title="@string/hint_asset_name"
+                android:icon="@drawable/ic_hero_hashtag">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_name_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_name_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+            <item
+                android:title="@string/hint_status"
+                android:icon="@drawable/ic_hero_badge_check">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_status_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_status_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+            <item
+                android:title="@string/hint_category"
+                android:icon="@drawable/ic_hero_tag">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_category_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_category_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+        </menu>
+    </item>
+
+    <item
+        android:title="@string/options_filter"
+        android:icon="@drawable/ic_hero_filter">
+        <menu>
+            <item
+                android:title="@string/hint_status"
+                android:icon="@drawable/ic_hero_badge_check">
+                <menu>
+                    <item
+                        android:id="@+id/action_filter_operational"
+                        android:title="@string/asset_status_option_operational" />
+                    <item
+                        android:id="@+id/action_filter_idle"
+                        android:title="@string/asset_status_option_idle"/>
+                    <item
+                        android:id="@+id/action_filter_under_maintenance"
+                        android:title="@string/asset_status_option_under_maintenance"/>
+                    <item
+                        android:id="@+id/action_filter_retired"
+                        android:title="@string/asset_status_option_retired"/>
+                </menu>
+            </item>
+            <item
+                android:id="@+id/action_filter_category"
+                android:title="@string/hint_category"
+                android:icon="@drawable/ic_hero_tag"/>
+        </menu>
+    </item>
 
 </menu>
