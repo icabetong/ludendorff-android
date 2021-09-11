@@ -43,6 +43,8 @@
         <entry key="app/src/main/res/layout/layout_empty_notification.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_item_asset.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_item_home.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/layout_skeleton_asset.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/layout_skeleton_home.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_core_assets.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_core_users.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_editor.xml" value="0.22006578947368421" />

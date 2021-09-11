@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_3"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_header_width_1"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_item_skeleton"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_5"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_header_width_2"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_2"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_item_skeleton"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_1"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_header_width_5"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_3"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_item_skeleton"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_2"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_header_width_4"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_4"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_item_skeleton"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_1"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_header_width_5"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+            android:background="@drawable/shape_item_skeleton"/>
+
+        <TextView
+            android:layout_width="@dimen/skeleton_summary_width_5"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_item_skeleton"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

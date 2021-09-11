@@ -178,4 +178,11 @@ class HomeFragment: BaseFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            homeAdapter.refresh()
+        }
+    }
 }

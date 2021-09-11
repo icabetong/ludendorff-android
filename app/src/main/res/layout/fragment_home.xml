@@ -24,7 +24,7 @@
 
             <include
                 android:id="@+id/rowLayout"
-                layout="@layout/layout_skeleton_user"/>
+                layout="@layout/layout_skeleton_home"/>
 
         </LinearLayout>
 
