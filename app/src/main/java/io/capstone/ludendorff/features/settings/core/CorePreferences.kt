@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CorePreferences: BasePreference() {
-    private lateinit var controller: NavController
+    private var controller: NavController? = null
 
     @Inject lateinit var userPreferences: UserPreferences
     @Inject lateinit var firebaseMessaging: FirebaseMessaging
@@ -43,7 +43,7 @@ class CorePreferences: BasePreference() {
 
         findPreference<Preference>(PREFERENCE_KEY_USER)
             ?.setOnPreferenceClickListener {
-                controller.navigate(R.id.navigation_profile)
+                controller?.navigate(R.id.navigation_profile)
                 true
             }
 
@@ -85,14 +85,13 @@ class CorePreferences: BasePreference() {
 
         findPreference<Preference>(PREFERENCE_KEY_NOTICE)
             ?.setOnPreferenceClickListener {
-                controller.navigate(R.id.navigation_notices_settings)
+                controller?.navigate(R.id.navigation_notices_settings)
                 true
             }
     }
 
     override fun onStart() {
         super.onStart()
-
         controller = findNavController()
 
         coreViewModel.userData.observe(viewLifecycleOwner) {

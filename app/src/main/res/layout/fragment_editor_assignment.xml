@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/keeper_background_content">
@@ -19,7 +20,50 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/activity_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/informationCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:strokeColor="@color/keeper_info"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/informationCardText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_margin"
+                        android:layout_marginHorizontal="@dimen/activity_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/info_assignment_ending"
+                        android:textColor="@color/keeper_info"
+                        android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
+                        android:drawableStart="@drawable/ic_hero_information"
+                        android:drawablePadding="@dimen/activity_margin"
+                        android:drawableTint="@color/keeper_info"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/cancelButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_margin"
+                        android:layout_marginHorizontal="@dimen/activity_margin"
+                        android:layout_gravity="end"
+                        android:text="@string/button_cancel"
+                        android:textColor="@color/keeper_info"
+                        style="@style/Widget.Keeper.Button.Outlined"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/assetTextInputLayout"
@@ -84,6 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:hint="@string/hint_date_returned"
+                android:visibility="gone"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText

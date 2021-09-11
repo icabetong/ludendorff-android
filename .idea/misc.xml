@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_hero_hand.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_hashtag.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_minus_circle.xml" value="0.1993421052631579" />
+        <entry key="app/src/main/res/drawable/ic_hero_scissors.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_shield_exclamation.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_sort_ascending.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_sort_descending.xml" value="0.1993421052631579" />
@@ -24,7 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_department.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_editor_asset.xml" value="0.22006578947368421" />
-        <entry key="app/src/main/res/layout/fragment_editor_assignment.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/fragment_editor_assignment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_editor_category.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_editor_department.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_editor_specification.xml" value="0.18914473684210525" />
@@ -59,6 +60,7 @@
         <entry key="app/src/main/res/menu/menu_core_users.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_editor.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/menu/menu_editor_asset.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/menu/menu_editor_assignment.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_editor_user.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2019736842105263" />
         <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.2019736842105263" />

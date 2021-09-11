@@ -98,6 +98,7 @@
     <string name="button_select_image">Select Image</string>
     <string name="button_use_today">Use Today\'s Date</string>
     <string name="button_pick_date">Pick Date</string>
+    <string name="button_end_assignment">End Assignment</string>
 
     <string name="menu_categories">Categories</string>
     <string name="menu_departments">Departments</string>
@@ -105,6 +106,7 @@
     <string name="menu_menu">Menu</string>
     <string name="menu_disable">@string/button_disable</string>
     <string name="menu_enable">@string/button_enable</string>
+    <string name="menu_end_assignment">@string/button_end_assignment</string>
     <string name="menu_remove">Remove</string>
     <string name="menu_sign_out">Sign out</string>
     <string name="menu_view_qrcode">View QR Code</string>
@@ -206,6 +208,7 @@
 
     <string name="info_account_will_be_disabled">This account will be disabled when you tap "Save".</string>
     <string name="info_account_will_be_enabled">This account will be enabled when you tap "Save".</string>
+    <string name="info_assignment_ending">This assignment will be ended and will have an timestamp for the return of the asset when you tap "Save".</string>
 
     <string name="error_generic">An error occurred</string>
     <string name="error_generic_summary">Oops, something went wrong; in the meantime, try grabbing a cup of coffee, and try again.</string>
@@ -256,6 +259,8 @@
     <string name="dialog_confirm_location_empty_message">It is recommended that you provide the location data for the assignment. To easier track the asset later on. However, there are circumstances that a location data is not applicable.</string>
     <string name="dialog_no_date_assigned_title">Default to this date?</string>
     <string name="dialog_no_date_assignment_message">You left the \"Date Assigned\" attribute empty, do you want to default it to today\'s date or pick another one instead?</string>
+    <string name="dialog_ending_assignment_title">End Assignment?</string>
+    <string name="dialog_ending_assignment_message">If you end this assignment it means that the asset is no longer in the hands of its recorded user, and thus brought back to the inventory. Are you sure you want to continue?</string>
 
     <string name="settings_group_interface">Interface</string>
     <string name="settings_group_notifications">Notifications</string>

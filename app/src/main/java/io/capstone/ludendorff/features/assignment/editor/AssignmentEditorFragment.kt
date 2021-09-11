@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
@@ -77,7 +78,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             titleRes = R.string.title_assignment_create,
             iconRes = R.drawable.ic_hero_x,
             onNavigationClicked = { controller?.navigateUp() },
-            menuRes = R.menu.menu_editor,
+            menuRes = R.menu.menu_editor_assignment,
             onMenuOptionClicked = ::onMenuItemClicked,
             customTitleView = binding.appBar.toolbarTitleTextView
         )
@@ -89,6 +90,8 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.appBar.toolbarTitleTextView.setText(R.string.title_assignment_update)
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.assignmentId
+
+            binding.dateReturnedInputLayout.isVisible = it.dateReturned != null
 
             binding.assetTextInput.setText(it.asset?.assetName)
             binding.userTextInput.setText(it.user?.name)
@@ -180,6 +183,10 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 }
             }
 
+            if (editorViewModel.shouldEndAssignment) {
+                editorViewModel.assignment.dateReturned = Timestamp.now()
+            }
+
             if (editorViewModel.assignment.location.isNullOrBlank()) {
                 MaterialDialog(requireContext()).show {
                     lifecycleOwner(viewLifecycleOwner)
@@ -200,6 +207,11 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 editorViewModel.targetUserDeviceToken)
 
             controller?.navigateUp()
+        }
+
+        binding.cancelButton.setOnClickListener {
+            editorViewModel.shouldEndAssignment = false
+            binding.informationCard.isVisible = editorViewModel.shouldEndAssignment
         }
     }
 
@@ -240,6 +252,18 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
                         }
                         negativeButton(R.string.button_cancel)
                     }
+                }
+            }
+            R.id.action_end_assignment -> {
+                MaterialDialog(requireContext()).show {
+                    lifecycleOwner(viewLifecycleOwner)
+                    title(R.string.dialog_ending_assignment_title)
+                    message(R.string.dialog_ending_assignment_message)
+                    positiveButton(R.string.button_continue) {
+                        editorViewModel.shouldEndAssignment = true
+                        binding.informationCard.isVisible = editorViewModel.shouldEndAssignment
+                    }
+                    negativeButton(R.string.button_cancel)
                 }
             }
         }

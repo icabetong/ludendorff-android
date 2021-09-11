@@ -9,5 +9,6 @@ class AssignmentEditorViewModel: BaseViewModel() {
     var targetUserDeviceToken: String? = null
     var previousUserId: String? = null
     var previousAssetId: String? = null
+    var shouldEndAssignment: Boolean = false
 
 }
