@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.IdRes
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
@@ -33,7 +32,7 @@ import io.capstone.ludendorff.features.shared.components.BaseFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentResultListener {
+class ScanFragment: BaseFragment(), FragmentResultListener {
     private var _binding: FragmentScanBinding? = null
     private var controller: NavController? = null
 
@@ -88,15 +87,16 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setInsets(
+            binding.root, binding.appBar.toolbar, arrayOf(binding.errorView, binding.codeScannerView),
+            binding.actionButton
+        )
 
-        setInsets(binding.root, binding.appBar.toolbar, binding.actionButton)
         binding.appBar.appBar.setExpanded(false)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_scan,
             iconRes = R.drawable.ic_hero_menu,
-            onNavigationClicked = { triggerNavigationDrawer() },
-            menuRes = R.menu.menu_main,
-            onMenuOptionClicked = ::onMenuItemClicked
+            onNavigationClicked = { triggerNavigationDrawer() }
         )
 
         codeScanner = CodeScanner(view.context, binding.codeScannerView)
@@ -114,7 +114,8 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
         codeScanner.decodeCallback = DecodeCallback {
             viewModel.setDecodedResult(it.text)
             activity?.runOnUiThread {
-                triggerNavigationDrawer()
+                ScanResultFragment(childFragmentManager)
+                    .show()
             }
         }
 
@@ -157,14 +158,6 @@ class ScanFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate, FragmentRe
     private fun switchViews(permissionGranted: Boolean) {
         binding.codeScannerView.isVisible = permissionGranted
         binding.errorView.isVisible = !permissionGranted
-    }
-
-    override fun onMenuItemClicked(@IdRes id: Int) {
-        when(id) {
-            R.id.action_menu -> {
-                triggerNavigationDrawer()
-            }
-        }
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {

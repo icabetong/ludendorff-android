@@ -28,28 +28,6 @@ fun View.show() {
     visibility = View.VISIBLE
 }
 
-fun FloatingActionButton.setInsets() {
-    ViewCompat.setOnApplyWindowInsetsListener(this) { container, insets ->
-        val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-        container.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            bottomMargin = windowInsets.bottom
-            leftMargin = windowInsets.left
-            rightMargin = windowInsets.right
-        }
-        WindowInsetsCompat.CONSUMED
-    }
-}
-
-fun CollapsingToolbarLayout.setInsets() {
-    ViewCompat.setOnApplyWindowInsetsListener(this) { container, insets ->
-        val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-        container.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            topMargin = windowInsets.top
-        }
-        WindowInsetsCompat.CONSUMED
-    }
-}
-
 fun Toolbar.setup(
     @StringRes titleRes: Int = 0,
     @DrawableRes iconRes: Int = R.drawable.ic_hero_arrow_left,

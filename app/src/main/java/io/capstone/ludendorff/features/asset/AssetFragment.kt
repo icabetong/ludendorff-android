@@ -6,13 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
-import androidx.core.view.GravityCompat
-import androidx.core.view.doOnPreDraw
-import androidx.core.view.isVisible
+import androidx.core.view.*
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -76,9 +73,13 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
+        setInsets(
+            binding.root, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout, binding.emptyView.root,
+                binding.errorView.root, binding.permissionView.root, binding.shimmerFrameLayout),
+            binding.actionButton
+        )
 
-        setInsets(binding.root, binding.appBar.toolbar, binding.actionButton)
+        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_assets,
             iconRes = R.drawable.ic_hero_menu,

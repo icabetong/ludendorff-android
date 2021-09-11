@@ -64,6 +64,7 @@ class AuthFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setInsets(view, binding.progressIndicator)
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }

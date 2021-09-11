@@ -12,7 +12,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -77,9 +76,13 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
+        setInsets(
+            binding.root, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout, binding.emptyView.root,
+                binding.errorView.root, binding.permissionView.root, binding.shimmerFrameLayout),
+            binding.actionButton
+        )
 
-        setInsets(binding.root, binding.appBar.toolbar, binding.actionButton)
+        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_assignment,
             iconRes = R.drawable.ic_hero_menu,

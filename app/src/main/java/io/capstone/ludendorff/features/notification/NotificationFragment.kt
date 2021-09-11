@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
@@ -45,7 +44,6 @@ class NotificationFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setInsets(view, binding.appBar.toolbar)
 
         controller = findNavController()

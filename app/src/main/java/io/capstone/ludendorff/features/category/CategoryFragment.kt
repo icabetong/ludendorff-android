@@ -73,8 +73,12 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setInsets(
+            view, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout, binding.emptyView.root,
+                binding.errorView.root, binding.permissionView.root, binding.shimmerFrameLayout),
+            binding.actionButton
+        )
 
-        controller = findNavController()
         binding.appBar.toolbar.setup (
             titleRes = R.string.activity_categories,
             onNavigationClicked = { controller?.navigateUp() }
@@ -98,6 +102,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
     override fun onStart() {
         super.onStart()
+        controller = findNavController()
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)

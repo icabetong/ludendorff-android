@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
@@ -60,11 +59,9 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setInsets(view, binding.appBar.toolbar)
+
         binding.root.transitionName = TRANSITION_NAME_ROOT
-
-        controller = findNavController()
-
-        setInsets(binding.root, binding.appBar.toolbar)
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_department_create,
             iconRes = R.drawable.ic_hero_x,
@@ -84,6 +81,11 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         }
 
         registerForFragmentResult(arrayOf(UserPickerBottomSheet.REQUEST_KEY_PICK), this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        controller = findNavController()
     }
 
     override fun onResume() {

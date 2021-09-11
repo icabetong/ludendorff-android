@@ -29,7 +29,7 @@
             android:layout_marginStart="@dimen/activity_margin_large"
             android:layout_marginEnd="@dimen/activity_margin_small"
             android:padding="@dimen/activity_margin_small"
-            android:text="@string/button_categories"
+            android:text="@string/menu_categories"
             android:textColor="@color/keeper_text_primary"
             android:textAllCaps="false"
             android:letterSpacing="0"

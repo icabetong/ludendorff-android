@@ -93,13 +93,13 @@
     <string name="button_send">Send</string>
     <string name="button_disable">Disable</string>
     <string name="button_enable">Enable</string>
-    <string name="button_categories">Categories</string>
-    <string name="button_departments">Departments</string>
     <string name="button_forgot_password">Forgot Password</string>
     <string name="button_select_image">Select Image</string>
     <string name="button_use_today">Use Today\'s Date</string>
     <string name="button_pick_date">Pick Date</string>
 
+    <string name="menu_categories">Categories</string>
+    <string name="menu_departments">Departments</string>
     <string name="menu_save">@string/button_save</string>
     <string name="menu_menu">Menu</string>
     <string name="menu_disable">@string/button_disable</string>
@@ -186,6 +186,8 @@
     <string name="feedback_token_update_error">Error registering as default device</string>
     <string name="feedback_network_limited_or_unavailable">Network is limited or unavailable</string>
 
+    <string name="empty_no_home_header">No Assets Assigned</string>
+    <string name="empty_no_home_summary">There are no assets assigned to your name.</string>
     <string name="empty_no_assets_header">No Assets Added</string>
     <string name="empty_no_assets_summary">There are no assets available.</string>
     <string name="empty_no_users_header">No Users Added</string>

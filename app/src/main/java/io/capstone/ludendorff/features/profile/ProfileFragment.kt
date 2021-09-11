@@ -13,13 +13,11 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.util.PatternsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import androidx.work.*
@@ -116,7 +114,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         super.onViewCreated(view, savedInstanceState)
         binding.imageView.transitionName = TRANSITION_IMAGE
 
-        setInsets(view, binding.appBar.toolbar, binding.recyclerView)
+        setInsets(view, binding.appBar.toolbar, bottomView = binding.recyclerView)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_profile,
             iconRes = R.drawable.ic_hero_arrow_left,

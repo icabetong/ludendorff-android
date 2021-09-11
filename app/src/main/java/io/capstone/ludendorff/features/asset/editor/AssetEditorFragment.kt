@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -70,11 +69,9 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setInsets(view, binding.appBar.toolbar, arrayOf(binding.addAction.root))
+
         binding.root.transitionName = TRANSITION_NAME_ROOT
-
-        controller = findNavController()
-
-        setInsets(binding.root, binding.appBar.toolbar, binding.addAction.root)
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_asset_create,
             iconRes = R.drawable.ic_hero_x,
@@ -118,6 +115,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onStart() {
         super.onStart()
+        controller = findNavController()
 
         editorViewModel.specifications.observe(viewLifecycleOwner) {
             specsAdapter.submitList(it)

@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
@@ -70,9 +69,9 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.root.transitionName = TRANSITION_NAME_ROOT
+        setInsets(view, binding.appBar.toolbar, arrayOf(binding.remarksTextInputLayout))
 
-        setInsets(binding.root, binding.appBar.toolbar, binding.remarksTextInputLayout)
+        binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_assignment_create,
             iconRes = R.drawable.ic_hero_x,

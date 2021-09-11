@@ -6,19 +6,18 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.setActionButtonEnabled
@@ -67,6 +66,13 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
         executor = ContextCompat.getMainExecutor(requireContext())
         biometricPrompt = BiometricPrompt(this, executor, biometricCallback)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    controller?.navigateUp()
+                }
+            })
     }
 
     override fun onCreateView(
@@ -85,11 +91,9 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setInsets(view, binding.appBar.toolbar, arrayOf(binding.departmentTextInputLayout))
+
         binding.root.transitionName = TRANSITION_NAME_ROOT
-
-        controller = Navigation.findNavController(view)
-
-        setInsets(binding.root, binding.appBar.toolbar, binding.departmentTextInputLayout)
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_user_create,
             iconRes = R.drawable.ic_hero_x,
@@ -136,6 +140,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onStart() {
         super.onStart()
+        controller = findNavController()
 
         viewLifecycleOwner.lifecycleScope.launch {
             editorViewModel.reauthentication.collect {

@@ -49,19 +49,8 @@ class CoreSettingsFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        ViewCompat.setOnApplyWindowInsetsListener(view) { _, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            binding.appBar.toolbar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                topMargin = insets.top
-            }
-            view.findViewById<View>(R.id.corePreferenceFragment)
-                .updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                    bottomMargin = insets.bottom
-                }
-            WindowInsetsCompat.CONSUMED
-        }
+        setInsets(binding.root, binding.appBar.toolbar,
+            arrayOf(view.findViewById(R.id.corePreferenceFragment)))
 
         controller = findNavController()
         binding.appBar.toolbar.setup(

@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.color.MaterialColors
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialFadeThrough
@@ -34,7 +33,12 @@ abstract class BaseFragment: Fragment() {
         returnTransition = MaterialFadeThrough()
     }
 
-    protected fun setInsets(root: View, topView: View, bottomView: View? = null) {
+    protected fun setInsets(
+        root: View,
+        topView: View,
+        contentViews: Array<View> = emptyArray(),
+        bottomView: View? = null
+    ) {
         ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
             val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             bottomView?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -42,6 +46,11 @@ abstract class BaseFragment: Fragment() {
             }
             topView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = windowInsets.top
+            }
+            contentViews.forEach { contentView ->
+                contentView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    bottomMargin = windowInsets.bottom
+                }
             }
             WindowInsetsCompat.CONSUMED
         }
@@ -53,12 +62,14 @@ abstract class BaseFragment: Fragment() {
         }
     }
 
-    protected fun setupToolbar(toolbar: MaterialToolbar,
-                               navigation: () -> Unit,
-                               @StringRes id: Int = 0,
-                               @DrawableRes icon: Int = R.drawable.ic_hero_arrow_left,
-                               @MenuRes menu: Int = 0,
-                               menuListener: ((id: Int) -> Unit)? = null){
+    protected fun setupToolbar(
+        toolbar: MaterialToolbar,
+        navigation: () -> Unit,
+        @StringRes id: Int = 0,
+        @DrawableRes icon: Int = R.drawable.ic_hero_arrow_left,
+        @MenuRes menu: Int = 0,
+        menuListener: ((id: Int) -> Unit)? = null)
+    {
         with(toolbar) {
             if (id != 0) setTitle(id)
             if (menu != 0) inflateMenu(menu)

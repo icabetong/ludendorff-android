@@ -72,9 +72,13 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
+        setInsets(
+            view, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout, binding.emptyView.root,
+                binding.errorView.root, binding.errorPermissionsView.root, binding.shimmerFrameLayout),
+            binding.actionButton
+        )
 
-        controller = findNavController()
+        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_department,
             onNavigationClicked = { controller?.navigateUp() }
@@ -91,6 +95,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
 
     override fun onStart() {
         super.onStart()
+        controller = findNavController()
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)

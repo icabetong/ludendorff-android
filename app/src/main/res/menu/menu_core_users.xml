@@ -4,6 +4,6 @@
     <item
         android:id="@+id/action_departments"
         android:icon="@drawable/ic_hero_office_building"
-        android:title="@string/button_departments"/>
+        android:title="@string/menu_departments"/>
 
 </menu>

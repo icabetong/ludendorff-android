@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import coil.load
 import coil.transform.CircleCropTransformation
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.show
-import io.capstone.ludendorff.databinding.FragmentOptionsScanBinding
+import io.capstone.ludendorff.databinding.FragmentScanResultsBinding
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
 
-class ScanOptionsFragment: BaseFragment() {
-    private var _binding: FragmentOptionsScanBinding? = null
+class ScanResultFragment(manager: FragmentManager): BaseBottomSheet(manager) {
+    private var _binding: FragmentScanResultsBinding? = null
 
     private val binding get() = _binding!!
     private val viewModel: ScanViewModel by activityViewModels()
@@ -26,7 +27,7 @@ class ScanOptionsFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOptionsScanBinding.inflate(inflater, container, false)
+        _binding = FragmentScanResultsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
