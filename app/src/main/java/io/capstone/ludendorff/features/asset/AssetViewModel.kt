@@ -17,17 +17,34 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AssetViewModel @Inject constructor(
-    firestore: FirebaseFirestore,
+    private val firestore: FirebaseFirestore,
     private val repository: AssetRepository
 ): BaseViewModel() {
+
+    var sortMethod = Asset.FIELD_NAME
+    var sortDirection = Query.Direction.ASCENDING
+    var filterConstraint: String? = null
+    var filterValue: String? = null
 
     private val assetQuery: Query = firestore.collection(Asset.COLLECTION)
         .orderBy(Asset.FIELD_NAME, Query.Direction.ASCENDING)
         .limit(Response.QUERY_LIMIT.toLong())
+    private var currentQuery = assetQuery
 
-    val assets = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
-        AssetPagingSource(assetQuery)
+    private var pager = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
+        AssetPagingSource(currentQuery)
     }.flow.cachedIn(viewModelScope)
+    val assets = pager
+
+    fun rebuildQuery() {
+        currentQuery = firestore.collection(Asset.COLLECTION)
+            .orderBy(sortMethod, sortDirection)
+
+        if (filterConstraint != null)
+            currentQuery = currentQuery.whereEqualTo(filterConstraint!!, filterValue)
+
+        currentQuery = currentQuery.limit(Response.QUERY_LIMIT.toLong())
+    }
 
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()

@@ -31,6 +31,7 @@ class UserAdapter(
         override fun onBind(data: User?) {
             data?.let {
                 binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + it.userId
+                binding.overlineTextView.text = it.position
                 binding.headerTextView.text = it.getDisplayName()
                 binding.informationTextView.text = it.email
                 if (it.imageUrl != null)

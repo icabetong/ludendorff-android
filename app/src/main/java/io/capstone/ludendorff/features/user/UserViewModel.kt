@@ -17,17 +17,34 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    firestore: FirebaseFirestore,
+    private val firestore: FirebaseFirestore,
     private val repository: UserRepository
 ): BaseViewModel() {
+
+    var sortMethod = User.FIELD_LAST_NAME
+    var sortDirection = Query.Direction.ASCENDING
+    var filterConstraint: String? = null
+    var filterValue: String? = null
 
     private val userQuery: Query = firestore.collection(User.COLLECTION)
         .orderBy(User.FIELD_LAST_NAME, Query.Direction.ASCENDING)
         .limit(Response.QUERY_LIMIT.toLong())
+    private var currentQuery = userQuery
 
-    val users = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
-        UserPagingSource(userQuery)
+    private var pager = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
+        UserPagingSource(currentQuery)
     }.flow.cachedIn(viewModelScope)
+    val users = pager
+
+    fun rebuildQuery() {
+        currentQuery = firestore.collection(User.COLLECTION)
+            .orderBy(sortMethod, sortDirection)
+
+        if (filterConstraint != null)
+            currentQuery = currentQuery.whereEqualTo(filterConstraint!!, filterValue)
+
+        currentQuery = currentQuery.limit(Response.QUERY_LIMIT.toLong())
+    }
 
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()

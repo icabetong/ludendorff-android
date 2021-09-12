@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.*
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -16,6 +17,7 @@ import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
@@ -26,6 +28,8 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentAssetsBinding
 import io.capstone.ludendorff.features.asset.editor.AssetEditorFragment
+import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.components.BaseFragment
@@ -35,7 +39,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.CascadeMenuDelegate {
+class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.CascadeMenuDelegate,
+    FragmentResultListener {
     private var _binding: FragmentAssetsBinding? = null
     private var controller: NavController? = null
 
@@ -95,11 +100,17 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
+
+        registerForFragmentResult(arrayOf(
+            CategoryPickerBottomSheet.REQUEST_KEY_PICK
+        ), this)
     }
 
     override fun onStart() {
         super.onStart()
         controller = findNavController()
+
+        binding.informationCard.isVisible = viewModel.filterConstraint != null
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
@@ -122,7 +133,6 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                      */
                     is LoadState.Loading -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.show()
                         binding.shimmerFrameLayout.show()
                         binding.shimmerFrameLayout.startShimmer()
 
@@ -137,7 +147,6 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                      */
                     is LoadState.Error -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
 
                         val errorState = when {
@@ -159,22 +168,18 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                             binding.errorView.root.hide()
                             binding.emptyView.root.hide()
 
-                            if (e.error is EmptySnapshotException &&
-                                assetAdapter.itemCount < 1) {
+                            if (e.error is EmptySnapshotException) {
                                 binding.emptyView.root.show()
-                            } else if (e.error is FirebaseFirestoreException) {
-                                when((e.error as FirebaseFirestoreException).code) {
-                                    FirebaseFirestoreException.Code.PERMISSION_DENIED ->
-                                        binding.permissionView.root.show()
-                                    else -> binding.errorView.root.show()
-                                }
+                            } else if (e.error is FirebaseFirestoreException &&
+                                (e.error as FirebaseFirestoreException).code ==
+                                    FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+                                binding.permissionView.root.show()
                             }
                             else binding.errorView.root.show()
                         }
                     }
                     is LoadState.NotLoading -> {
                         binding.recyclerView.show()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
                         binding.shimmerFrameLayout.stopShimmer()
 
@@ -250,6 +255,14 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         binding.swipeRefreshLayout.setOnRefreshListener {
             assetAdapter.refresh()
         }
+        binding.resetButton.setOnClickListener {
+            viewModel.filterValue = null
+            viewModel.filterConstraint = null
+            viewModel.rebuildQuery()
+            assetAdapter.refresh()
+
+            binding.informationCard.isVisible = false
+        }
     }
 
     override fun onActionPerformed(
@@ -285,6 +298,113 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         when(id) {
             R.id.action_category -> {
                 controller?.navigate(R.id.navigation_category)
+            }
+            R.id.action_sort_name_ascending -> {
+                viewModel.sortMethod = Asset.FIELD_NAME
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_name_descending -> {
+                viewModel.sortMethod = Asset.FIELD_NAME
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_status_ascending -> {
+                viewModel.sortMethod = Asset.FIELD_STATUS
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_status_descending -> {
+                viewModel.sortMethod = Asset.FIELD_STATUS
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_category_ascending -> {
+                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_category_descending -> {
+                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_filter_operational -> {
+                viewModel.filterConstraint = Asset.FIELD_STATUS
+                viewModel.filterValue = Asset.Status.OPERATIONAL.toString()
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+
+                binding.informationCard.isVisible = true
+                binding.informationCardText.text =
+                    String.format(getString(R.string.info_dataset_filtered),
+                        getString(R.string.asset_status_option_operational),
+                        getString(R.string.hint_status))
+            }
+            R.id.action_filter_idle -> {
+                viewModel.filterConstraint = Asset.FIELD_STATUS
+                viewModel.filterValue = Asset.Status.IDLE.toString()
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+
+                binding.informationCard.isVisible = true
+                binding.informationCardText.text =
+                    String.format(getString(R.string.info_dataset_filtered),
+                        getString(R.string.asset_status_option_idle),
+                        getString(R.string.hint_status))
+
+            }
+            R.id.action_filter_under_maintenance -> {
+                viewModel.filterConstraint = Asset.FIELD_STATUS
+                viewModel.filterValue = Asset.Status.UNDER_MAINTENANCE.toString()
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+
+                binding.informationCard.isVisible = true
+                binding.informationCardText.text =
+                    String.format(getString(R.string.info_dataset_filtered),
+                        getString(R.string.asset_status_option_under_maintenance),
+                        getString(R.string.hint_status))
+            }
+            R.id.action_filter_retired -> {
+                viewModel.filterConstraint = Asset.FIELD_STATUS
+                viewModel.filterValue = Asset.Status.RETIRED.toString()
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+
+                binding.informationCard.isVisible = true
+                binding.informationCardText.text =
+                    String.format(getString(R.string.info_dataset_filtered),
+                        getString(R.string.asset_status_option_retired),
+                        getString(R.string.hint_status))
+            }
+            R.id.action_filter_category -> {
+                viewModel.filterConstraint = Asset.FIELD_CATEGORY_ID
+                CategoryPickerBottomSheet(childFragmentManager)
+                    .show()
+            }
+        }
+    }
+
+    override fun onFragmentResult(requestKey: String, result: Bundle) {
+        when(requestKey) {
+            CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
+                result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
+                    viewModel.filterValue = it.categoryId
+                    viewModel.rebuildQuery()
+                    assetAdapter.refresh()
+
+                    binding.informationCard.isVisible = true
+                    binding.informationCardText.text =
+                        String.format(getString(R.string.info_dataset_filtered),
+                            it.categoryName, getString(R.string.hint_category))
+                }
             }
         }
     }

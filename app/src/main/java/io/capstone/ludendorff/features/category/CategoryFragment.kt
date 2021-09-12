@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.map
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -128,7 +129,6 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                      */
                     is LoadState.Loading -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.show()
                         binding.shimmerFrameLayout.show()
                         binding.shimmerFrameLayout.startShimmer()
 
@@ -144,7 +144,6 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                      */
                     is LoadState.Error -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
 
                         val errorState = when {
@@ -169,19 +168,16 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
                             if (e.error is EmptySnapshotException &&
                                 categoryAdapter.itemCount < 1) {
                                 binding.emptyView.root.show()
-                            } else if (e.error is FirebaseFirestoreException) {
-                                when((e.error as FirebaseFirestoreException).code) {
-                                    FirebaseFirestoreException.Code.PERMISSION_DENIED ->
-                                        binding.permissionView.root.show()
-                                    else -> binding.errorView.root.show()
-                                }
+                            } else if (e.error is FirebaseFirestoreException
+                                && (e.error as FirebaseFirestoreException).code ==
+                                FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+                                binding.permissionView.root.show()
                             }
                             else binding.errorView.root.show()
                         }
                     }
                     is LoadState.NotLoading -> {
                         binding.recyclerView.show()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
                         binding.shimmerFrameLayout.stopShimmer()
 
@@ -241,7 +237,6 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.categories.collectLatest {
-                android.util.Log.e("DEBUG", "adapter")
                 categoryAdapter.submitData(it)
             }
         }
@@ -295,6 +290,15 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
     }
 
     override fun onMenuItemClicked(id: Int) {
-
+        when(id) {
+            R.id.action_sort_name_ascending -> {
+                viewModel.changeSortDirection(Query.Direction.ASCENDING)
+                categoryAdapter.refresh()
+            }
+            R.id.action_sort_name_descending -> {
+                viewModel.changeSortDirection(Query.Direction.DESCENDING)
+                categoryAdapter.refresh()
+            }
+        }
     }
 }

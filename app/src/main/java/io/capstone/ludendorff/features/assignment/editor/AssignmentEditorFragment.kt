@@ -89,6 +89,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
             binding.appBar.toolbarTitleTextView.setText(R.string.title_assignment_update)
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
+            binding.appBar.toolbar.menu.findItem(R.id.action_end_assignment).isVisible = it.dateReturned == null
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.assignmentId
 
             binding.dateReturnedInputLayout.isVisible = it.dateReturned != null

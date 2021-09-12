@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.*
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -16,6 +17,7 @@ import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.api.DeshiException
@@ -26,6 +28,8 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentUsersBinding
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
+import io.capstone.ludendorff.features.department.Department
+import io.capstone.ludendorff.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.editor.UserEditorFragment
 import kotlinx.coroutines.flow.collect
@@ -33,7 +37,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.CascadeMenuDelegate {
+class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.CascadeMenuDelegate,
+    FragmentResultListener {
     private var _binding: FragmentUsersBinding? = null
     private var controller: NavController? = null
 
@@ -93,6 +98,8 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
+
+        registerForFragmentResult(arrayOf(DepartmentPickerBottomSheet.REQUEST_KEY_PICK), this)
     }
 
     override fun onStart() {
@@ -180,7 +187,6 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                      */
                     is LoadState.Loading -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.show()
                         binding.shimmerFrameLayout.show()
                         binding.shimmerFrameLayout.startShimmer()
 
@@ -196,7 +202,6 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                      */
                     is LoadState.Error -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
 
                         val errorState = when {
@@ -207,6 +212,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                         }
 
                         errorState?.let { e ->
+                            android.util.Log.e("DEBUG", e.error.toString())
                             /**
                              *  Check if the error that have returned is
                              *  EmptySnapshotException, which is used if
@@ -218,22 +224,18 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                             binding.errorView.root.hide()
                             binding.emptyView.root.hide()
 
-                            if (e.error is EmptySnapshotException &&
-                                userAdapter.itemCount < 1) {
+                            if (e.error is EmptySnapshotException) {
                                 binding.emptyView.root.show()
-                            } else if (e.error is FirebaseFirestoreException) {
-                                when((e.error as FirebaseFirestoreException).code) {
-                                    FirebaseFirestoreException.Code.PERMISSION_DENIED ->
-                                        binding.permissionView.root.show()
-                                    else -> binding.errorView.root.show()
-                                }
+                            } else if (e.error is FirebaseFirestoreException &&
+                                (e.error as FirebaseFirestoreException).code ==
+                                FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+                                binding.permissionView.root.show()
                             }
                             else binding.errorView.root.show()
                         }
                     }
                     is LoadState.NotLoading -> {
                         binding.recyclerView.show()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
                         binding.shimmerFrameLayout.stopShimmer()
 
@@ -263,6 +265,14 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
         binding.swipeRefreshLayout.setOnRefreshListener {
             userAdapter.refresh()
         }
+        binding.resetButton.setOnClickListener {
+            viewModel.filterConstraint = null
+            viewModel.filterValue = null
+            viewModel.rebuildQuery()
+            userAdapter.refresh()
+
+            binding.informationCard.isVisible = false
+        }
     }
 
     override fun onActionPerformed(
@@ -284,6 +294,76 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_departments -> controller?.navigate(R.id.navigation_department)
+            R.id.action_sort_last_name_ascending -> {
+                viewModel.sortMethod = User.FIELD_LAST_NAME
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                userAdapter.refresh()
+            }
+            R.id.action_sort_last_name_descending -> {
+                viewModel.sortMethod = User.FIELD_LAST_NAME
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                userAdapter.refresh()
+            }
+            R.id.action_sort_first_name_ascending -> {
+                viewModel.sortMethod = User.FIELD_FIRST_NAME
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                userAdapter.refresh()
+            }
+            R.id.action_sort_first_name_descending -> {
+                viewModel.sortMethod = User.FIELD_FIRST_NAME
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                userAdapter.refresh()
+            }
+            R.id.action_sort_email_ascending -> {
+                viewModel.sortMethod = User.FIELD_EMAIL
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                userAdapter.refresh()
+            }
+            R.id.action_sort_email_descending -> {
+                viewModel.sortMethod = User.FIELD_EMAIL
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                userAdapter.refresh()
+            }
+            R.id.action_sort_position_ascending -> {
+                viewModel.sortMethod = User.FIELD_POSITION
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                userAdapter.refresh()
+            }
+            R.id.action_sort_position_descending -> {
+                viewModel.sortMethod = User.FIELD_POSITION
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                userAdapter.refresh()
+            }
+            R.id.action_filter_department -> {
+                viewModel.filterConstraint = User.FIELD_DEPARTMENT_ID
+                DepartmentPickerBottomSheet(childFragmentManager)
+                    .show()
+            }
+        }
+    }
+
+    override fun onFragmentResult(requestKey: String, result: Bundle) {
+        when(requestKey) {
+            DepartmentPickerBottomSheet.REQUEST_KEY_PICK -> {
+                result.getParcelable<Department>(DepartmentPickerBottomSheet.EXTRA_DEPARTMENT)?.let {
+                    viewModel.filterValue = it.departmentId
+                    viewModel.rebuildQuery()
+                    userAdapter.refresh()
+
+                    binding.informationCard.isVisible = true
+                    binding.informationCardText.text =
+                        String.format(getString(R.string.info_dataset_filtered),
+                            it.name, getString(R.string.hint_department))
+                }
+            }
         }
     }
 

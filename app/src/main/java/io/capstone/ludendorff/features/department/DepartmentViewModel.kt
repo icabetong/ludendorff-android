@@ -17,17 +17,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DepartmentViewModel @Inject constructor(
-    firestore: FirebaseFirestore,
+    private val firestore: FirebaseFirestore,
     private val repository: DepartmentRepository
 ): BaseViewModel() {
 
     private val departmentQuery: Query = firestore.collection(Department.COLLECTION)
         .orderBy(Department.FIELD_NAME, Query.Direction.ASCENDING)
         .limit(Response.QUERY_LIMIT.toLong())
+    private var currentQuery = departmentQuery
 
-    val departments = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
-        DepartmentPagingSource(departmentQuery)
+    var pager = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
+        DepartmentPagingSource(currentQuery)
     }.flow.cachedIn(viewModelScope)
+    val departments = pager
+
+    fun changeSortDirection(direction: Query.Direction) {
+        currentQuery = firestore.collection(Department.COLLECTION)
+            .orderBy(Department.FIELD_NAME, direction)
+            .limit(Response.QUERY_LIMIT.toLong())
+    }
 
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()

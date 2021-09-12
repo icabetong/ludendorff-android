@@ -89,6 +89,7 @@
     <string name="button_grant_permission">Grant Permission</string>
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
+    <string name="button_reset">Reset</string>
     <string name="button_share">Share</string>
     <string name="button_search">Search</string>
     <string name="button_send">Send</string>
@@ -206,6 +207,7 @@
     <string name="empty_no_notifications_header">No Notifications</string>
     <string name="empty_no_notifications_summary">Once a notification pops up in your device, it will be shown here.</string>
 
+    <string name="info_dataset_filtered">Showing records that is \"%1$s\" on their \"%2$s\" attribute</string>
     <string name="info_account_will_be_disabled">This account will be disabled when you tap "Save".</string>
     <string name="info_account_will_be_enabled">This account will be enabled when you tap "Save".</string>
     <string name="info_assignment_ending">This assignment will be ended and will have an timestamp for the return of the asset when you tap "Save".</string>

@@ -17,6 +17,7 @@ import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
@@ -36,7 +37,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
+class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
+    BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentDepartmentBinding? = null
     private var controller: NavController? = null
 
@@ -73,14 +75,16 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
         super.onViewCreated(view, savedInstanceState)
         setInsets(
             view, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout, binding.emptyView.root,
-                binding.errorView.root, binding.errorPermissionsView.root, binding.shimmerFrameLayout),
+                binding.errorView.root, binding.permissionView.root, binding.shimmerFrameLayout),
             binding.actionButton
         )
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_department,
-            onNavigationClicked = { controller?.navigateUp() }
+            onNavigationClicked = { controller?.navigateUp() },
+            menuRes = R.menu.menu_core_departments,
+            onMenuOptionClicked = ::onMenuItemClicked
         )
 
         with(binding.recyclerView) {
@@ -161,11 +165,10 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                      */
                     is LoadState.Loading -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.show()
                         binding.shimmerFrameLayout.show()
                         binding.shimmerFrameLayout.startShimmer()
 
-                        binding.errorPermissionsView.root.hide()
+                        binding.permissionView.root.hide()
                         binding.errorView.root.hide()
                         binding.emptyView.root.hide()
                     }
@@ -177,7 +180,6 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                      */
                     is LoadState.Error -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
 
                         val errorState = when {
@@ -188,7 +190,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                         }
 
                         binding.errorView.root.hide()
-                        binding.errorPermissionsView.root.hide()
+                        binding.permissionView.root.hide()
                         binding.emptyView.root.hide()
 
                         errorState?.let { e ->
@@ -199,26 +201,23 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                              *  will check if the adapter is also empty
                              *  and show the user the empty state.
                              */
-                            if (e.error is EmptySnapshotException &&
-                                departmentAdapter.itemCount < 1)
+                            if (e.error is EmptySnapshotException) {
                                 binding.emptyView.root.show()
-                            else if (e.error is FirebaseFirestoreException) {
-                                when((e.error as FirebaseFirestoreException).code) {
-                                    FirebaseFirestoreException.Code.PERMISSION_DENIED ->
-                                        binding.errorPermissionsView.root.show()
-                                    else -> binding.errorView.root.show()
-                                }
-                            } else binding.errorView.root.show()
+                            } else if (e.error is FirebaseFirestoreException &&
+                                (e.error as FirebaseFirestoreException).code ==
+                                FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+                                binding.permissionView.root.show()
+                            }
+                            else binding.errorView.root.show()
                         }
                     }
                     is LoadState.NotLoading -> {
                         binding.recyclerView.show()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
                         binding.shimmerFrameLayout.stopShimmer()
 
                         binding.errorView.root.hide()
-                        binding.errorPermissionsView.root.hide()
+                        binding.permissionView.root.hide()
                         binding.emptyView.root.hide()
                         if (it.refresh.endOfPaginationReached)
                             binding.emptyView.root.isVisible = departmentAdapter.itemCount < 1
@@ -259,6 +258,19 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department> {
                         it to TRANSITION_NAME_ROOT + data?.departmentId
                     )
                 )
+            }
+        }
+    }
+
+    override fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_sort_name_ascending -> {
+                viewModel.changeSortDirection(Query.Direction.ASCENDING)
+                departmentAdapter.refresh()
+            }
+            R.id.action_sort_name_descending -> {
+                viewModel.changeSortDirection(Query.Direction.DESCENDING)
+                departmentAdapter.refresh()
             }
         }
     }

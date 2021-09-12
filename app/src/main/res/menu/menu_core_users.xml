@@ -64,15 +64,26 @@
                 android:icon="@drawable/ic_hero_briefcase">
                 <menu>
                     <item
-                        android:id="@+id/action_sort_briefcase_ascending"
+                        android:id="@+id/action_sort_position_ascending"
                         android:title="@string/options_sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
-                        android:id="@+id/action_sort_briefcase_descending"
+                        android:id="@+id/action_sort_position_descending"
                         android:title="@string/options_sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
+        </menu>
+    </item>
+
+    <item
+        android:title="@string/options_filter"
+        android:icon="@drawable/ic_hero_filter">
+        <menu>
+            <item
+                android:id="@+id/action_filter_department"
+                android:title="@string/hint_department"
+                android:icon="@drawable/ic_hero_office_building"/>
         </menu>
     </item>
 

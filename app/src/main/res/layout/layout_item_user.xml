@@ -20,6 +20,21 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/overlineTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/headerTextView"
+            app:layout_constraintStart_toEndOf="@id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Chairman"/>
+
+        <TextView
             android:id="@+id/headerTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -28,7 +43,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/overlineTextView"
             app:layout_constraintBottom_toTopOf="@id/informationTextView"
             app:layout_constraintStart_toEndOf="@id/imageView"
             app:layout_constraintEnd_toEndOf="parent"

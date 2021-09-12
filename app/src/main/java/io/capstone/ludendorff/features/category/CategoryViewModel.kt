@@ -24,10 +24,18 @@ class CategoryViewModel @Inject constructor(
     private val categoryQuery: Query = firestore.collection(Category.COLLECTION)
         .orderBy(Category.FIELD_NAME, Query.Direction.ASCENDING)
         .limit(Response.QUERY_LIMIT.toLong())
+    private var currentQuery = categoryQuery
 
-    val categories = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
-        CategoryPagingSource(categoryQuery)
+    var pager = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
+        CategoryPagingSource(currentQuery)
     }.flow.cachedIn(viewModelScope)
+    val categories = pager
+
+    fun changeSortDirection(direction: Query.Direction) {
+        currentQuery = firestore.collection(Category.COLLECTION)
+            .orderBy(Category.FIELD_NAME, direction)
+            .limit(Response.QUERY_LIMIT.toLong())
+    }
 
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()

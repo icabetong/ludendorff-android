@@ -128,15 +128,12 @@ class NotificationFragment: BaseFragment() {
                             binding.errorView.root.hide()
                             binding.emptyView.root.hide()
 
-                            if (e.error is EmptySnapshotException &&
-                                notificationAdapter.itemCount < 1) {
+                            if (e.error is EmptySnapshotException) {
                                 binding.emptyView.root.show()
-                            } else if (e.error is FirebaseFirestoreException) {
-                                when((e.error as FirebaseFirestoreException).code) {
-                                    FirebaseFirestoreException.Code.PERMISSION_DENIED ->
-                                        binding.permissionView.root.show()
-                                    else -> binding.errorView.root.show()
-                                }
+                            } else if (e.error is FirebaseFirestoreException &&
+                                (e.error as FirebaseFirestoreException).code ==
+                                FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+                                binding.permissionView.root.show()
                             }
                             else binding.errorView.root.show()
                         }

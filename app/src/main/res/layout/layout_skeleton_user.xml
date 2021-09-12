@@ -21,6 +21,20 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/overline1TextView"
+            android:layout_width="@dimen/skeleton_header_width_3"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/header1TextView"
+            app:layout_constraintStart_toEndOf="@id/image1View"/>
+
+        <TextView
             android:id="@+id/header1TextView"
             android:layout_width="@dimen/skeleton_header_width_1"
             android:layout_height="wrap_content"
@@ -30,7 +44,7 @@
             android:maxLines="1"
             android:background="@drawable/shape_item_skeleton"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/overline1TextView"
             app:layout_constraintBottom_toTopOf="@id/information1TextView"
             app:layout_constraintStart_toEndOf="@id/image1View"/>
 
@@ -63,6 +77,20 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/overline2TextView"
+            android:layout_width="@dimen/skeleton_header_width_4"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/header2TextView"
+            app:layout_constraintStart_toEndOf="@id/image2View"/>
+
+        <TextView
             android:id="@+id/header2TextView"
             android:layout_width="@dimen/skeleton_header_width_2"
             android:layout_height="wrap_content"
@@ -72,7 +100,7 @@
             android:maxLines="1"
             android:background="@drawable/shape_item_skeleton"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/overline2TextView"
             app:layout_constraintBottom_toTopOf="@id/information2TextView"
             app:layout_constraintStart_toEndOf="@id/image2View"/>
 
@@ -105,6 +133,20 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/overline3TextView"
+            android:layout_width="@dimen/skeleton_summary_width_2"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/header3TextView"
+            app:layout_constraintStart_toEndOf="@id/image3View"/>
+
+        <TextView
             android:id="@+id/header3TextView"
             android:layout_width="@dimen/skeleton_header_width_3"
             android:layout_height="wrap_content"
@@ -114,7 +156,7 @@
             android:maxLines="1"
             android:background="@drawable/shape_item_skeleton"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/overline3TextView"
             app:layout_constraintBottom_toTopOf="@id/information3TextView"
             app:layout_constraintStart_toEndOf="@id/image3View"/>
 
@@ -147,6 +189,20 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/overline4TextView"
+            android:layout_width="@dimen/skeleton_summary_width_5"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/header4TextView"
+            app:layout_constraintStart_toEndOf="@id/image4View"/>
+
+        <TextView
             android:id="@+id/header4TextView"
             android:layout_width="@dimen/skeleton_header_width_4"
             android:layout_height="wrap_content"
@@ -156,7 +212,7 @@
             android:maxLines="1"
             android:background="@drawable/shape_item_skeleton"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/overline4TextView"
             app:layout_constraintBottom_toTopOf="@id/information4TextView"
             app:layout_constraintStart_toEndOf="@id/image4View"/>
 
@@ -189,6 +245,20 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/overline5TextView"
+            android:layout_width="@dimen/skeleton_summary_width_2"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            android:background="@drawable/shape_item_skeleton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/header5TextView"
+            app:layout_constraintStart_toEndOf="@id/image5View"/>
+
+        <TextView
             android:id="@+id/header5TextView"
             android:layout_width="@dimen/skeleton_header_width_5"
             android:layout_height="wrap_content"
@@ -198,7 +268,7 @@
             android:maxLines="1"
             android:background="@drawable/shape_item_skeleton"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/overline5TextView"
             app:layout_constraintBottom_toTopOf="@id/information5TextView"
             app:layout_constraintStart_toEndOf="@id/image5View"/>
 

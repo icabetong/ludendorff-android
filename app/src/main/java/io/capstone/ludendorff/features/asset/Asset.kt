@@ -57,6 +57,7 @@ data class Asset @JvmOverloads constructor(
         const val FIELD_STATUS = "status"
         const val FIELD_CATEGORY = "category"
         const val FIELD_CATEGORY_ID = "${FIELD_CATEGORY}.${Category.FIELD_ID}"
+        const val FIELD_CATEGORY_NAME = "${FIELD_CATEGORY}.${Category.FIELD_NAME}"
         const val FIELD_SPECIFICATIONS = "specifications"
 
         const val ID_PREFIX = "clsu://keeper/"

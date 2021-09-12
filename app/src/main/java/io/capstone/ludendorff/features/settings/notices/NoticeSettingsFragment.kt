@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentSettingsNoticesBinding
@@ -17,6 +19,16 @@ class NoticeSettingsFragment: BaseFragment() {
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    controller?.navigateUp()
+                }
+            })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +46,8 @@ class NoticeSettingsFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setInsets(view, binding.appBar.toolbar,
+            arrayOf(view.findViewById(R.id.noticePreferenceFragment)))
 
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_third_party_notices,
@@ -47,6 +61,6 @@ class NoticeSettingsFragment: BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+        controller = findNavController()
     }
 }

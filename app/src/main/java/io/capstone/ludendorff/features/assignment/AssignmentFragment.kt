@@ -87,7 +87,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
             titleRes = R.string.activity_assignment,
             iconRes = R.drawable.ic_hero_menu,
             onNavigationClicked = { triggerNavigationDrawer() },
-            menuRes = R.menu.menu_main,
+            menuRes = R.menu.menu_core_assignments,
             onMenuOptionClicked = ::onMenuItemClicked
         )
 
@@ -125,7 +125,6 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                      */
                     is LoadState.Loading -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.show()
                         binding.shimmerFrameLayout.show()
                         binding.shimmerFrameLayout.startShimmer()
 
@@ -140,7 +139,6 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                      */
                     is LoadState.Error -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
 
                         val errorState = when {
@@ -162,22 +160,18 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                             binding.errorView.root.hide()
                             binding.emptyView.root.hide()
 
-                            if (e.error is EmptySnapshotException &&
-                                assignmentAdapter.itemCount < 1) {
+                            if (e.error is EmptySnapshotException) {
                                 binding.emptyView.root.show()
-                            } else if (e.error is FirebaseFirestoreException) {
-                                when((e.error as FirebaseFirestoreException).code) {
-                                    FirebaseFirestoreException.Code.PERMISSION_DENIED ->
-                                        binding.permissionView.root.show()
-                                    else -> binding.errorView.root.show()
-                                }
+                            } else if (e.error is FirebaseFirestoreException &&
+                                (e.error as FirebaseFirestoreException).code ==
+                                FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+                                binding.permissionView.root.show()
                             }
                             else binding.errorView.root.show()
                         }
                     }
                     is LoadState.NotLoading -> {
                         binding.recyclerView.show()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
                         binding.shimmerFrameLayout.stopShimmer()
 
