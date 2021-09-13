@@ -87,7 +87,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
-            titleRes = R.string.activity_assignment,
+            titleRes = R.string.activity_assignments,
             iconRes = R.drawable.ic_hero_menu,
             onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_core_assignments,

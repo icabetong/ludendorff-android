@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/activity_margin"
+            android:paddingVertical="@dimen/activity_margin"
             android:orientation="vertical"
             android:animateLayoutChanges="true">
 
@@ -28,6 +28,7 @@
                 android:id="@+id/informationCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
                 android:visibility="gone"
                 app:strokeColor="@color/keeper_info"
                 tools:visibility="visible">
@@ -50,6 +51,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
                 android:layout_marginVertical="@dimen/activity_margin_small"
                 android:text="@string/hint_credentials"
                 android:textColor="@color/keeper_primary_variant"
@@ -59,6 +61,7 @@
                 android:id="@+id/emailTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
                 android:hint="@string/hint_email">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -78,58 +81,93 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/activity_margin_small"
+                android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/hint_permissions"
                 android:textColor="@color/keeper_primary_variant"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/permissionsChipGroup"
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:selectionRequired="true">
+                android:scrollbars="none">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/readChip"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/permissionsChipGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/user_permission_read"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
+                    android:paddingHorizontal="@dimen/activity_margin"
+                    app:selectionRequired="true"
+                    app:singleLine="true"
+                    app:checkedChip="@id/readChip">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/writeChip"
-                    android:layout_width="wrap_content"
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/readChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_permission_read"
+                        style="@style/Widget.Keeper.Chip.Choice"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/writeChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_permission_write"
+                        style="@style/Widget.Keeper.Chip.Choice"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/deleteChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_permission_delete"
+                        style="@style/Widget.Keeper.Chip.Choice"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/managerUsersChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_permission_manage_users"
+                        style="@style/Widget.Keeper.Chip.Choice"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/administrativeChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_permission_administrative"
+                        style="@style/Widget.Keeper.Chip.Choice"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/permissionWarningCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/activity_margin_small"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:visibility="gone"
+                app:strokeColor="@color/keeper_info"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/user_permission_write"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
+                    android:layout_margin="@dimen/activity_margin_small"
+                    android:text="@string/info_administrative_permissions"
+                    android:textColor="@color/keeper_info"
+                    android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
+                    android:drawableStart="@drawable/ic_hero_information"
+                    android:drawablePadding="@dimen/activity_margin"
+                    android:drawableTint="@color/keeper_info"/>
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/deleteChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_permission_delete"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/managerUsersChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_permission_manage_users"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/administrativeChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_permission_administrative"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
-
-            </com.google.android.material.chip.ChipGroup>
+            </com.google.android.material.card.MaterialCardView>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/activity_margin_small"
+                android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/hint_information"
                 android:textColor="@color/keeper_primary_variant"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
@@ -139,6 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/activity_margin_small"
+                android:layout_marginHorizontal="@dimen/activity_margin"
                 android:hint="@string/hint_first_name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -153,6 +192,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/activity_margin_small"
+                android:layout_marginHorizontal="@dimen/activity_margin"
                 android:hint="@string/hint_last_name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -167,6 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/activity_margin_small"
+                android:layout_marginHorizontal="@dimen/activity_margin"
                 android:hint="@string/hint_position">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -183,7 +224,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin_small"
                 android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginHorizontal="@dimen/activity_margin"
                 android:hint="@string/hint_department"
+                app:endIconDrawable="@drawable/ic_hero_x"
+                app:endIconTint="@color/keeper_text_primary"
+                app:endIconMode="custom"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText

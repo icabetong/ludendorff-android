@@ -46,6 +46,7 @@
         <entry key="app/src/main/res/layout/fragment_options_assignment.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_options_scan.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_options_users.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/fragment_picker_user.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_root.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_scan.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_scan_results.xml" value="0.18914473684210525" />

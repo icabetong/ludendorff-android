@@ -121,6 +121,10 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         editorViewModel.specifications.observe(viewLifecycleOwner) {
             specsAdapter.submitList(it)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         binding.addAction.addActionButton.setOnClickListener {
             SpecsEditorBottomSheet(childFragmentManager).show()
@@ -128,11 +132,10 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.categoryTextInput.setOnClickListener {
             CategoryPickerBottomSheet(childFragmentManager).show()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
+        binding.categoryTextInputLayout.setEndIconOnClickListener {
+            editorViewModel.asset.category = null
+            binding.categoryTextInput.text = null
+        }
         binding.appBar.toolbarActionButton.setOnClickListener {
             editorViewModel.asset.assetName = binding.assetNameTextInput.text.toString()
             editorViewModel.asset.specifications = editorViewModel.getSpecifications().toMap()

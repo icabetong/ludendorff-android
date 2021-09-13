@@ -81,7 +81,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
-            titleRes = R.string.activity_department,
+            titleRes = R.string.activity_departments,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_core_departments,
             onMenuOptionClicked = ::onMenuItemClicked

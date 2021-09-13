@@ -46,49 +46,61 @@
 
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/collectionToggleGroup"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin_small"
-            android:layout_marginBottom="@dimen/activity_margin"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            app:singleSelection="true"
-            app:checkedButton="@id/assetButtonToggle">
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:scrollbars="none">
 
-            <Button
-                android:id="@+id/assetButtonToggle"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/collectionToggleGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hint_asset"
-                android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
-                style="?attr/materialButtonOutlinedStyle"/>
+                android:paddingHorizontal="@dimen/activity_margin"
+                app:singleLine="true"
+                app:singleSelection="true"
+                app:checkedChip="@id/assetButtonToggle"
+                app:selectionRequired="true">
 
-            <Button
-                android:id="@+id/categoryButtonToggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hint_category"
-                android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
-                style="?attr/materialButtonOutlinedStyle"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/assetButtonToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_assets"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
 
-            <Button
-                android:id="@+id/userButtonToggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hint_user"
-                android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
-                style="?attr/materialButtonOutlinedStyle"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/categoryButtonToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_categories"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
 
-            <Button
-                android:id="@+id/assignmentButtonToggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hint_assignment"
-                android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
-                style="?attr/materialButtonOutlinedStyle"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/userButtonToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_users"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
 
-        </com.google.android.material.button.MaterialButtonToggleGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/departmentButtonToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_departments"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/assignmentButtonToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_assignments"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
 
     </com.google.android.material.appbar.AppBarLayout>
 

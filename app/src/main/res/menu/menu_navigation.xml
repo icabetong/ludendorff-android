@@ -28,7 +28,7 @@
 
         <item
             android:id="@+id/navigation_assignments"
-            android:title="@string/navigation_assignment"
+            android:title="@string/navigation_assignments"
             android:icon="@drawable/ic_hero_identification"/>
 
     </group>

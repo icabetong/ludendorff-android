@@ -171,6 +171,13 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
             DepartmentPickerBottomSheet(childFragmentManager)
                 .show()
         }
+        binding.administrativeChip.setOnCheckedChangeListener { _, isChecked ->
+            binding.permissionWarningCard.isVisible = isChecked
+        }
+        binding.departmentTextInputLayout.setEndIconOnClickListener {
+            editorViewModel.user.department = null
+            binding.departmentTextInput.text = null
+        }
 
         binding.appBar.toolbarActionButton.setOnClickListener {
 

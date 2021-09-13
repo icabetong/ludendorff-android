@@ -48,44 +48,52 @@
             android:textColor="@color/keeper_primary_variant"
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/statusChipGroup"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            app:singleSelection="true"
-            app:selectionRequired="true"
-            app:checkedChip="@id/idleChip">
+            android:scrollbars="none">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/operationalChip"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/statusChipGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/asset_status_option_operational"
-                style="@style/Widget.Keeper.Chip.Choice"/>
+                android:paddingHorizontal="@dimen/activity_margin"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:checkedChip="@id/idleChip">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/idleChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/asset_status_option_idle"
-                style="@style/Widget.Keeper.Chip.Choice"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/operationalChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/asset_status_option_operational"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/underMaintenanceChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/asset_status_option_under_maintenance"
-                style="@style/Widget.Keeper.Chip.Choice"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/idleChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/asset_status_option_idle"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/retiredChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/asset_status_option_retired"
-                style="@style/Widget.Keeper.Chip.Choice"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/underMaintenanceChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/asset_status_option_under_maintenance"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
 
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/retiredChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/asset_status_option_retired"
+                    style="@style/Widget.Keeper.Chip.Choice"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/categoryTextInputLayout"
@@ -94,6 +102,9 @@
             android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginHorizontal="@dimen/activity_margin"
             android:hint="@string/hint_category"
+            app:endIconDrawable="@drawable/ic_hero_x"
+            app:endIconMode="custom"
+            app:endIconTint="@color/keeper_text_primary"
             style="@style/Widget.Keeper.TextInput.Layout">
 
             <com.google.android.material.textfield.TextInputEditText

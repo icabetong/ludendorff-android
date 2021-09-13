@@ -108,6 +108,10 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         binding.managerTextInput.setOnClickListener {
             UserPickerBottomSheet(childFragmentManager).show()
         }
+        binding.managerTextInputLayout.setEndIconOnClickListener {
+            editorViewModel.department.manager = null
+            binding.managerTextInput.text = null
+        }
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
