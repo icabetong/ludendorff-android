@@ -14,11 +14,6 @@
         android:name="io.capstone.ludendorff.features.core.fragment.RootFragment"
         tools:layout="@layout/fragment_root"/>
 
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="io.capstone.ludendorff.features.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
-
     <action
         android:id="@+id/to_navigation_auth"
         app:destination="@id/navigation_auth"
@@ -32,10 +27,52 @@
         app:popUpTo="@+id/navigation_main"
         app:popUpToInclusive="true"/>
 
-    <!-- Other non-special actions -->
+    <!-- Secondary Destinations -->
+    <fragment
+        android:id="@+id/navigation_category"
+        android:name="io.capstone.ludendorff.features.category.CategoryFragment"
+        tools:layout="@layout/fragment_category"/>
+    <fragment
+        android:id="@+id/navigation_department"
+        android:name="io.capstone.ludendorff.features.department.DepartmentFragment"
+        tools:layout="@layout/fragment_department"/>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="io.capstone.ludendorff.features.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="io.capstone.ludendorff.features.search.SearchFragment"
+        tools:layout="@layout/fragment_search"/>
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="io.capstone.ludendorff.features.notification.NotificationFragment"
+        tools:layout="@layout/fragment_notification"/>
+    <fragment
+        android:id="@+id/navigation_core_settings"
+        android:name="io.capstone.ludendorff.features.settings.core.CoreSettingsFragment"
+        tools:layout="@layout/fragment_settings_core"/>
+    <fragment
+        android:id="@+id/navigation_notices_settings"
+        android:name="io.capstone.ludendorff.features.settings.notices.NoticeSettingsFragment"
+        tools:layout="@layout/fragment_settings_notices"/>
 
-    <action
-        android:id="@+id/to_navigation_profile"
-        app:destination="@id/navigation_profile"/>
+    <!-- Editor Destinations -->
+    <fragment
+        android:id="@+id/navigation_editor_asset"
+        android:name="io.capstone.ludendorff.features.asset.editor.AssetEditorFragment"
+        tools:layout="@layout/fragment_editor_asset"/>
+    <fragment
+        android:id="@+id/navigation_editor_user"
+        android:name="io.capstone.ludendorff.features.user.editor.UserEditorFragment"
+        tools:layout="@layout/fragment_editor_user"/>
+    <fragment
+        android:id="@+id/navigation_editor_department"
+        android:name="io.capstone.ludendorff.features.department.editor.DepartmentEditorFragment"
+        tools:layout="@layout/fragment_editor_department" />
+    <fragment
+        android:id="@+id/navigation_editor_assignment"
+        android:name="io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment"
+        tools:layout="@layout/fragment_editor_assignment"/>
 
 </navigation>

@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -41,6 +42,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     FragmentResultListener {
     private var _binding: FragmentUsersBinding? = null
     private var controller: NavController? = null
+    private var mainController: NavController? = null
 
     private val binding get() = _binding!!
     private val viewModel: UserViewModel by activityViewModels()
@@ -105,6 +107,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     override fun onStart() {
         super.onStart()
         controller = findNavController()
+        mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_MANAGE_USERS)
@@ -212,7 +215,6 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                         }
 
                         errorState?.let { e ->
-                            android.util.Log.e("DEBUG", e.error.toString())
                             /**
                              *  Check if the error that have returned is
                              *  EmptySnapshotException, which is used if
@@ -259,7 +261,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
         super.onResume()
 
         binding.actionButton.setOnClickListener {
-            controller?.navigate(R.id.to_navigation_editor_user, null, null,
+            mainController?.navigate(R.id.navigation_editor_user, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -282,7 +284,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     ) {
         if (action == OnItemActionListener.Action.SELECT) {
             container?.let {
-                controller?.navigate(R.id.navigation_editor_user,
+                mainController?.navigate(R.id.navigation_editor_user,
                     bundleOf(UserEditorFragment.EXTRA_USER to data), null,
                     FragmentNavigatorExtras(
                         it to TRANSITION_NAME_ROOT + data?.userId)
@@ -293,7 +295,10 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_departments -> controller?.navigate(R.id.navigation_department)
+            R.id.action_search ->
+                mainController?.navigate(R.id.navigation_search)
+            R.id.action_departments ->
+                mainController?.navigate(R.id.navigation_department)
             R.id.action_sort_last_name_ascending -> {
                 viewModel.sortMethod = User.FIELD_LAST_NAME
                 viewModel.sortDirection = Query.Direction.ASCENDING

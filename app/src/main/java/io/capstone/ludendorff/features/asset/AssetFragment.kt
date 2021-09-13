@@ -11,11 +11,13 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.google.android.material.transition.MaterialSharedAxis
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +34,7 @@ import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
+import io.capstone.ludendorff.features.search.SearchFragment
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
@@ -43,6 +46,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
     FragmentResultListener {
     private var _binding: FragmentAssetsBinding? = null
     private var controller: NavController? = null
+    private var mainController: NavController? = null
 
     private val binding get() = _binding!!
     private val viewModel: AssetViewModel by activityViewModels()
@@ -51,6 +55,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         requireActivity().onBackPressedDispatcher.addCallback(this,
             object: OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -109,6 +114,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
     override fun onStart() {
         super.onStart()
         controller = findNavController()
+        mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         binding.informationCard.isVisible = viewModel.filterConstraint != null
 
@@ -248,7 +254,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         super.onResume()
 
         binding.actionButton.setOnClickListener {
-            controller?.navigate(R.id.to_navigation_editor_asset, null, null,
+            mainController?.navigate(R.id.navigation_editor_asset, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
 
@@ -273,7 +279,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         when(action) {
             OnItemActionListener.Action.SELECT -> {
                 container?.let {
-                    controller?.navigate(R.id.navigation_editor_asset,
+                    mainController?.navigate(R.id.navigation_editor_asset,
                         bundleOf(AssetEditorFragment.EXTRA_ASSET to data), null,
                         FragmentNavigatorExtras(
                             it to TRANSITION_NAME_ROOT + data?.assetId)
@@ -296,8 +302,11 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
+            R.id.action_search -> {
+                mainController?.navigate(R.id.navigation_search)
+            }
             R.id.action_category -> {
-                controller?.navigate(R.id.navigation_category)
+                mainController?.navigate(R.id.navigation_category)
             }
             R.id.action_sort_name_ascending -> {
                 viewModel.sortMethod = Asset.FIELD_NAME

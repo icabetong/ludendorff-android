@@ -92,7 +92,7 @@ class CorePreferences: BasePreference() {
 
     override fun onStart() {
         super.onStart()
-        controller = findNavController()
+        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
             findPreference<Preference>(PREFERENCE_KEY_USER)?.run {

@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
@@ -26,12 +26,14 @@ import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.profile.ProfileFragment
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
+import java.lang.Exception
 
 @AndroidEntryPoint
 class RootFragment: BaseFragment() {
     private var _binding: FragmentRootBinding? = null
     private var _headerBinding: LayoutDrawerHeaderBinding? = null
     private var controller: NavController? = null
+    private var mainController: NavController? = null
 
     private val binding get() = _binding!!
     private val headerBinding get() = _headerBinding!!
@@ -62,7 +64,7 @@ class RootFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        controller = requireActivity().supportFragmentManager.findFragmentById(R.id.navHostFragment)
+        mainController = requireActivity().supportFragmentManager.findFragmentById(R.id.navHostFragment)
             ?.findNavController()
 
         /**
@@ -71,11 +73,8 @@ class RootFragment: BaseFragment() {
          *  depending on what directions is on the
          *  NavigationViewModel
          */
-        val nestedNavHost = childFragmentManager.findFragmentById(R.id.nestedNavHostFragment)
-                as? NavHostFragment
-        nestedNavHost?.navController?.let {
-            binding.navigationView.setupWithNavController(it)
-        }
+        controller = (childFragmentManager.findFragmentById(R.id.nestedNavHostFragment)
+                as? NavHostFragment)?.navController
         if (binding.navigationView.headerCount > 0) {
             _headerBinding = LayoutDrawerHeaderBinding
                 .bind(binding.navigationView.getHeaderView(0))
@@ -133,8 +132,17 @@ class RootFragment: BaseFragment() {
     override fun onResume() {
         super.onResume()
 
+        binding.navigationView.setNavigationItemSelectedListener {
+            try {
+                controller?.navigate(it.itemId)
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            } catch (e: Exception) {
+                mainController?.navigate(it.itemId)
+            }
+            true
+        }
         headerBinding.profileImageView.setOnClickListener {
-            controller?.navigate(R.id.navigation_profile, null, null,
+            mainController?.navigate(R.id.navigation_profile, null, null,
                 FragmentNavigatorExtras(it to ProfileFragment.TRANSITION_IMAGE)
             )
         }

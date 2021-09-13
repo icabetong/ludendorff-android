@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
@@ -111,7 +112,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onStart() {
         super.onStart()
-        controller = findNavController()
+        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
     }
 
     override fun onResume() {

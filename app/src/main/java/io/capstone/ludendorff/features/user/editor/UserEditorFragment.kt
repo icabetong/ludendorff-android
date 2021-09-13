@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
@@ -138,7 +139,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onStart() {
         super.onStart()
-        controller = findNavController()
+        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         viewLifecycleOwner.lifecycleScope.launch {
             editorViewModel.reauthentication.collect {

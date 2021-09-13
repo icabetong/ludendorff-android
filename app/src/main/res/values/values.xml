@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-
     <style name="Theme.Keeper" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/keeper_primary</item>
@@ -67,6 +65,7 @@
         <item name="android:textAppearance">@style/TextAppearance.Keeper</item>
     </style>
     <style name="Widget.Keeper.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
+    <style name="Widget.Keeper.TextInput.Layout.Filled" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"/>
     <style name="Widget.Keeper.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Surface">
         <item name="android:background">@color/keeper_toolbar</item>
     </style>

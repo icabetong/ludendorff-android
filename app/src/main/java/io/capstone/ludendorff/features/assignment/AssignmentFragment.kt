@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -41,6 +42,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     OnItemActionListener<Assignment> {
     private var _binding: FragmentAssignmentBinding? = null
     private var controller: NavController? = null
+    private var mainController: NavController? = null
 
     private val binding get() = _binding!!
     private val assignmentAdapter = AssignmentAdapter(this)
@@ -103,6 +105,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     override fun onStart() {
         super.onStart()
         controller = findNavController()
+        mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
@@ -249,7 +252,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         super.onResume()
 
         binding.actionButton.setOnClickListener {
-            controller?.navigate(R.id.navigation_editor_assignment, null, null,
+            mainController?.navigate(R.id.navigation_editor_assignment, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -264,7 +267,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     ) {
         if (action == OnItemActionListener.Action.SELECT) {
             container?.let {
-                controller?.navigate(R.id.navigation_editor_assignment,
+                mainController?.navigate(R.id.navigation_editor_assignment,
                     bundleOf(AssignmentEditorFragment.EXTRA_ASSIGNMENT to data),
                     null,
                     FragmentNavigatorExtras(
@@ -276,7 +279,10 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     }
 
     override fun onMenuItemClicked(id: Int) {
-
+        when(id) {
+            R.id.action_search ->
+                mainController?.navigate(R.id.navigation_search)
+        }
     }
 
     private fun showGenericError(action: Response.Action?) {

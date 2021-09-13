@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -115,7 +116,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onStart() {
         super.onStart()
-        controller = findNavController()
+        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         editorViewModel.specifications.observe(viewLifecycleOwner) {
             specsAdapter.submitList(it)

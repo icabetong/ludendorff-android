@@ -80,6 +80,8 @@
     <string name="hint_date_returned">Date Returned</string>
     <string name="hint_location">Location</string>
     <string name="hint_remarks">Remarks</string>
+    <string name="hint_assignment">Assignment</string>
+    <string name="hint_search">Enter a query</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>
