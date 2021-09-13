@@ -74,5 +74,9 @@
         android:id="@+id/navigation_editor_assignment"
         android:name="io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment"
         tools:layout="@layout/fragment_editor_assignment"/>
+    <fragment
+        android:id="@+id/navigation_editor_request"
+        android:name="io.capstone.ludendorff.features.request.editor.RequestEditorFragment"
+        tools:layout="@layout/fragment_editor_request"/>
 
 </navigation>

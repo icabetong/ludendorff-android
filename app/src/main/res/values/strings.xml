@@ -42,6 +42,7 @@
     <string name="title_user_select">Select User</string>
     <string name="title_assignment_create">Create Assignment</string>
     <string name="title_assignment_update">Edit Assignment</string>
+    <string name="title_request_create">Create Request</string>
     <string name="title_assignment_details">Assignment Details</string>
     <string name="title_scan_result">Scan Result</string>
     <string name="title_select_profile_picture">Select Profile Picture</string>
@@ -97,6 +98,7 @@
     <string name="button_send">Send</string>
     <string name="button_disable">Disable</string>
     <string name="button_enable">Enable</string>
+    <string name="button_request">Request</string>
     <string name="button_forgot_password">Forgot Password</string>
     <string name="button_select_image">Select Image</string>
     <string name="button_use_today">Use Today\'s Date</string>
@@ -208,6 +210,8 @@
     <string name="empty_no_scanned_code_summary">You\'ll need to scan a valid QR-Code first to view its embedded data.</string>
     <string name="empty_no_notifications_header">No Notifications</string>
     <string name="empty_no_notifications_summary">Once a notification pops up in your device, it will be shown here.</string>
+    <string name="empty_no_search_results_header">No Results Found</string>
+    <string name="empty_no_search_results_summary">There are no results matching in your query, try using other terms.</string>
 
     <string name="info_dataset_filtered">Showing records that is \"%1$s\" on their \"%2$s\" attribute</string>
     <string name="info_account_will_be_disabled">This account will be disabled when you tap "Save".</string>

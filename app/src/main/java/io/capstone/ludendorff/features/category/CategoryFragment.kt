@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.map
@@ -32,6 +33,7 @@ import io.capstone.ludendorff.databinding.FragmentCategoryBinding
 import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
+import io.capstone.ludendorff.features.search.SearchFragment
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
@@ -43,6 +45,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
     BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentCategoryBinding? = null
     private var controller: NavController? = null
+    private var mainController: NavController? = null
 
     private val binding get() = _binding!!
     private val viewModel: CategoryViewModel by activityViewModels()
@@ -107,6 +110,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
     override fun onStart() {
         super.onStart()
         controller = findNavController()
+        mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         coreViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
@@ -291,6 +295,10 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
+            R.id.action_search ->
+                mainController?.navigate(R.id.navigation_search,
+                    bundleOf(SearchFragment.EXTRA_SEARCH_COLLECTION to
+                        SearchFragment.COLLECTION_CATEGORIES))
             R.id.action_sort_name_ascending -> {
                 viewModel.changeSortDirection(Query.Direction.ASCENDING)
                 categoryAdapter.refresh()

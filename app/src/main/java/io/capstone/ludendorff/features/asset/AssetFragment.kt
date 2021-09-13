@@ -303,7 +303,9 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
     override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_search -> {
-                mainController?.navigate(R.id.navigation_search)
+                mainController?.navigate(R.id.navigation_search,
+                    bundleOf(SearchFragment.EXTRA_SEARCH_COLLECTION
+                            to SearchFragment.COLLECTION_ASSETS))
             }
             R.id.action_category -> {
                 mainController?.navigate(R.id.navigation_category)

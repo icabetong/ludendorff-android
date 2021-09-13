@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/menu_search"
+        android:icon="@drawable/ic_hero_search"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:title="@string/options_sort"
+        android:icon="@drawable/ic_hero_sort_ascending">
+        <menu>
+            <item
+                android:title="@string/hint_asset_name"
+                android:icon="@drawable/ic_hero_hashtag">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_name_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_name_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+            <item
+                android:title="@string/hint_category"
+                android:icon="@drawable/ic_hero_tag">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_category_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_category_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+            <item
+                android:title="@string/hint_date_assigned"
+                android:icon="@drawable/ic_hero_calendar">
+                <menu>
+                    <item
+                        android:id="@+id/action_sort_date_assigned_ascending"
+                        android:title="@string/options_sort_direction_ascending"
+                        android:icon="@drawable/ic_hero_sort_ascending"/>
+                    <item
+                        android:id="@+id/action_sort_date_assigned_descending"
+                        android:title="@string/options_sort_direction_descending"
+                        android:icon="@drawable/ic_hero_sort_descending"/>
+                </menu>
+            </item>
+        </menu>
+    </item>
+
+    <item
+        android:title="@string/options_filter"
+        android:icon="@drawable/ic_hero_filter">
+        <menu>
+            <item
+                android:id="@+id/action_filter_category"
+                android:title="@string/hint_category"
+                android:icon="@drawable/ic_hero_tag"/>
+        </menu>
+    </item>
+
+</menu>

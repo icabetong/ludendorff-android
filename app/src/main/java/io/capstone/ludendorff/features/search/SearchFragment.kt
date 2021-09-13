@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
+import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.FragmentSearchBinding
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 
@@ -51,6 +52,18 @@ class SearchFragment: BaseFragment() {
         setInsets(view, binding.toolbar)
 
         binding.root.transitionName = TRANSITION_NAME
+        arguments?.getString(EXTRA_SEARCH_COLLECTION)?.let {
+            when(it) {
+                COLLECTION_ASSETS ->
+                    binding.collectionToggleGroup.check(R.id.assetButtonToggle)
+                COLLECTION_CATEGORIES ->
+                    binding.collectionToggleGroup.check(R.id.categoryButtonToggle)
+                COLLECTION_USERS ->
+                    binding.collectionToggleGroup.check(R.id.userButtonToggle)
+                COLLECTION_ASSIGNMENTS ->
+                    binding.collectionToggleGroup.check(R.id.assignmentButtonToggle)
+            }
+        }
     }
 
     override fun onStart() {
@@ -68,5 +81,10 @@ class SearchFragment: BaseFragment() {
 
     companion object {
         const val TRANSITION_NAME = "transition:search"
+        const val EXTRA_SEARCH_COLLECTION = "extra:search"
+        const val COLLECTION_ASSETS = "collection:assets"
+        const val COLLECTION_CATEGORIES = "collection:categories"
+        const val COLLECTION_USERS = "collection:users"
+        const val COLLECTION_ASSIGNMENTS = "collection:assignments"
     }
 }

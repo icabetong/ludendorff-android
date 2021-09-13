@@ -3,6 +3,7 @@ package io.capstone.ludendorff.features.department
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.components.interfaces.SwipeableAdapter
 import io.capstone.ludendorff.databinding.LayoutItemDepartmentBinding
@@ -37,6 +38,7 @@ class DepartmentAdapter(
             binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.departmentId
             binding.titleTextView.text = data?.name
             binding.bodyTextView.text = data?.manager?.name
+                ?: binding.root.context.getString(R.string.hint_vacant)
 
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,

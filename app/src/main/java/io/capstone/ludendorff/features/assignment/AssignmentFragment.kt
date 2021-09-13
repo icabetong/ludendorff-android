@@ -32,6 +32,7 @@ import io.capstone.ludendorff.databinding.FragmentAssignmentBinding
 import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
+import io.capstone.ludendorff.features.search.SearchFragment
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collectLatest
@@ -281,7 +282,9 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_search ->
-                mainController?.navigate(R.id.navigation_search)
+                mainController?.navigate(R.id.navigation_search,
+                    bundleOf(SearchFragment.EXTRA_SEARCH_COLLECTION to
+                        SearchFragment.COLLECTION_ASSIGNMENTS))
         }
     }
 

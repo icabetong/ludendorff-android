@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/keeper_background_content">
+
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/layout_appbar_editor"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:animateLayoutChanges="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/assetTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin_small"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:layout_marginHorizontal="@dimen/activity_margin"
+            android:hint="@string/hint_asset"
+            app:endIconMode="custom"
+            style="@style/Widget.Keeper.TextInput.Layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/assetTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="none"
+                android:focusable="false"
+                android:text="@string/hint_not_set"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/assetDetailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin_tiny"
+                android:gravity="center_vertical"
+                android:text="@string/hint_status"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                android:drawableStart="@drawable/ic_hero_badge_check"
+                android:drawablePadding="@dimen/activity_margin_small"
+                android:drawableTint="@color/keeper_primary"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/assetStatusTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/activity_margin_large"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                tools:text="Under Maintenance"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_tiny"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:gravity="center_vertical"
+                android:text="@string/hint_category"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                android:drawableStart="@drawable/ic_hero_tag"
+                android:drawablePadding="@dimen/activity_margin_small"
+                android:drawableTint="@color/keeper_primary"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/categoryTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/activity_margin_large"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                tools:text="Laptops"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_tiny"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:gravity="center_vertical"
+                android:text="@string/hint_specifications"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                android:drawableStart="@drawable/ic_hero_chart_square_bar"
+                android:drawablePadding="@dimen/activity_margin_small"
+                android:drawableTint="@color/keeper_primary"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

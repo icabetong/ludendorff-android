@@ -12,6 +12,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -34,6 +36,7 @@ import kotlinx.coroutines.launch
 class HomeFragment: BaseFragment(), OnItemActionListener<Assignment> {
     private var _binding: FragmentHomeBinding? = null
     private var controller: NavController? = null
+    private var mainController: NavController? = null
 
     private val binding get() = _binding!!
     private val homeAdapter = HomeAdapter(this)
@@ -74,11 +77,12 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment> {
             binding.actionButton
         )
 
+        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_home,
             iconRes = R.drawable.ic_hero_menu,
             onNavigationClicked = { triggerNavigationDrawer() },
-            menuRes = R.menu.menu_main,
+            menuRes = R.menu.menu_core_home,
             onMenuOptionClicked = { triggerNavigationDrawer() }
         )
 
@@ -94,6 +98,7 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment> {
     override fun onStart() {
         super.onStart()
         controller = findNavController()
+        mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         /**
          *  Use Kotlin's coroutines to fetch the current loadState of
@@ -187,6 +192,10 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment> {
     override fun onResume() {
         super.onResume()
 
+        binding.actionButton.setOnClickListener {
+            mainController?.navigate(R.id.navigation_editor_request, null, null,
+                FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
+        }
         binding.swipeRefreshLayout.setOnRefreshListener {
             homeAdapter.refresh()
         }
