@@ -7,6 +7,7 @@ import com.google.firebase.firestore.Query
 import io.capstone.ludendorff.api.Deshi
 import io.capstone.ludendorff.api.DeshiRequest
 import io.capstone.ludendorff.api.DeshiException
+import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.notification.Notification
@@ -20,6 +21,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AssignmentRepository @Inject constructor(
+    private val userProperties: UserProperties,
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
     private val deshi: Deshi
@@ -48,6 +50,10 @@ class AssignmentRepository @Inject constructor(
                 put(Notification.FIELD_TITLE, Notification.NOTIFICATION_ASSIGNED_TITLE)
                 put(Notification.FIELD_BODY, Notification.NOTIFICATION_ASSIGNED_BODY)
                 put(Notification.FIELD_PAYLOAD, assignment.assignmentId)
+                putExtras(mapOf(
+                    Notification.EXTRA_SENDER to userProperties.getDisplayName(),
+                    Notification.EXTRA_TARGET to assignment.asset?.assetName
+                ))
             }
 
             val response = deshi.newNotificationPost(request)
@@ -113,6 +119,10 @@ class AssignmentRepository @Inject constructor(
                 put(Notification.FIELD_TITLE, Notification.NOTIFICATION_ASSIGNED_TITLE)
                 put(Notification.FIELD_BODY, Notification.NOTIFICATION_ASSIGNED_BODY)
                 put(Notification.FIELD_PAYLOAD, assignment.assignmentId)
+                putExtras(mapOf(
+                    Notification.EXTRA_SENDER to userProperties.getDisplayName(),
+                    Notification.EXTRA_TARGET to assignment.asset?.assetName
+                ))
             }
 
             val response = deshi.newNotificationPost(request)

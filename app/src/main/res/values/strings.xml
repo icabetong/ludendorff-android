@@ -107,14 +107,16 @@
 
     <string name="menu_categories">Categories</string>
     <string name="menu_departments">Departments</string>
+    <string name="menu_requests">Requests</string>
     <string name="menu_search">Search</string>
-    <string name="menu_menu">Menu</string>
     <string name="menu_disable">@string/button_disable</string>
     <string name="menu_enable">@string/button_enable</string>
     <string name="menu_end_assignment">@string/button_end_assignment</string>
     <string name="menu_remove">Remove</string>
     <string name="menu_sign_out">Sign out</string>
     <string name="menu_view_qrcode">View QR Code</string>
+    <string name="menu_update_avatar">Update Avatar</string>
+    <string name="menu_remove_avatar">Remove Avatar</string>
     <string name="menu_change_name">Change Name</string>
     <string name="menu_change_password">Change Password</string>
     <string name="menu_request_password_reset">Request Password Reset</string>
@@ -206,6 +208,8 @@
     <string name="empty_no_departments_summary">There are no departments available that can be used to assign the users from.</string>
     <string name="empty_no_assignments_header">No Assignments Available</string>
     <string name="empty_no_assignments_summary">There are currently no records of assigned assets to the users.</string>
+    <string name="empty_no_requests_header">No Requests Available</string>
+    <string name="empty_no_requests_summary">There are no requests have been made at the moment.</string>
     <string name="empty_no_scanned_code_header">Scan a QR-Code</string>
     <string name="empty_no_scanned_code_summary">You\'ll need to scan a valid QR-Code first to view its embedded data.</string>
     <string name="empty_no_notifications_header">No Notifications</string>
@@ -286,11 +290,15 @@
     <string name="settings_build_version">Build Version</string>
     <string name="settings_third_party_notices">Third Party Notices</string>
 
-    <string name="notification_assigned_asset_title">New Asset Assigned</string>
-    <string name="notification_assigned_asset_body">An asset has been assigned to you, check it out!</string>
+    <string name="notification_assigned_title">%1$s Assigned</string>
+    <string name="notification_assigned_body">%1$s has assigned the %2$s asset to you. Check it out!</string>
+    <string name="notification_request_title">Request from %1$s</string>
+    <string name="notification_request_body">%1$s has requested the %2$s. Check it out!</string>
 
     <string name="channel_name_assignments">Assignment Prompts</string>
+    <string name="channel_name_requests">Requests</string>
     <string name="channel_id_assignments">notifications:assignments</string>
+    <string name="channel_id_requests">notifications:requests</string>
 
     <string name="concat_today_at">Today at %1$s</string>
 </resources>

@@ -29,6 +29,7 @@ import com.afollestad.materialdialogs.actions.setActionButtonEnabled
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.afollestad.materialdialogs.list.listItems
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.NavigationItemDecoration
@@ -285,11 +286,20 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         }
     }
 
+    @SuppressLint("CheckResult")
     override fun onResume() {
         super.onResume()
 
         binding.imageView.setOnClickListener {
-            imageRequestLauncher.launch("image/*")
+            MaterialDialog(requireContext()).show {
+                lifecycleOwner(viewLifecycleOwner)
+                listItems(R.array.profile_avatar_actions) { _, index, _ ->
+                    when(index) {
+                        0 -> imageRequestLauncher.launch("image/*")
+                        1 -> TODO()
+                    }
+                }
+            }
         }
     }
 

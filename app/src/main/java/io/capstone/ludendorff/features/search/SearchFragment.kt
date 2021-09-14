@@ -60,6 +60,8 @@ class SearchFragment: BaseFragment() {
                     binding.collectionToggleGroup.check(R.id.categoryButtonToggle)
                 COLLECTION_USERS ->
                     binding.collectionToggleGroup.check(R.id.userButtonToggle)
+                COLLECTION_DEPARTMENTS ->
+                    binding.collectionToggleGroup.check(R.id.departmentButtonToggle)
                 COLLECTION_ASSIGNMENTS ->
                     binding.collectionToggleGroup.check(R.id.assignmentButtonToggle)
             }
@@ -85,6 +87,7 @@ class SearchFragment: BaseFragment() {
         const val COLLECTION_ASSETS = "collection:assets"
         const val COLLECTION_CATEGORIES = "collection:categories"
         const val COLLECTION_USERS = "collection:users"
+        const val COLLECTION_DEPARTMENTS = "collection:departments"
         const val COLLECTION_ASSIGNMENTS = "collection:assignments"
     }
 }

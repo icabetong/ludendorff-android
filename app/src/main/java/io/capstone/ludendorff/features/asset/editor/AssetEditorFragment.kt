@@ -135,6 +135,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.categoryTextInputLayout.setEndIconOnClickListener {
             editorViewModel.asset.category = null
             binding.categoryTextInput.text = null
+            binding.categoryTextInputLayout.endIconDrawable = null
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
             editorViewModel.asset.assetName = binding.assetNameTextInput.text.toString()
@@ -173,6 +174,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
                     binding.categoryTextInput.setText(it.categoryName)
+                    binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
 
                     if (editorViewModel.previousCategoryId != it.categoryId)
                         editorViewModel.triggerCategoryChanged(it)

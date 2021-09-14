@@ -31,8 +31,13 @@ data class Notification @JvmOverloads constructor (
         const val FIELD_SENDER_ID = "senderId"
         const val FIELD_RECEIVER_ID = "receiverId"
 
-        const val NOTIFICATION_ASSIGNED_TITLE = "notification-assigned-asset-title"
-        const val NOTIFICATION_ASSIGNED_BODY = "notification-assigned-asset-body"
+        const val EXTRA_SENDER = "sender"
+        const val EXTRA_TARGET = "target"
+
+        const val NOTIFICATION_ASSIGNED_TITLE = "notification_assigned_title"
+        const val NOTIFICATION_ASSIGNED_BODY = "notification_assigned_body"
+        const val NOTIFICATION_REQUEST_TITLE = "notification_request_title"
+        const val NOTIFICATION_REQUEST_BODY = "notification_request_body"
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Notification>() {
             override fun areContentsTheSame(oldItem: Notification, newItem: Notification): Boolean {

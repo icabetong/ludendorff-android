@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="profile_avatar_actions">
+        <item>@string/menu_update_avatar</item>
+        <item>@string/menu_remove_avatar</item>
+    </string-array>
+
     <!-- Settings -->
     <string-array name="settings_theme_options">
         <item>@string/settings_theme_option_system</item>

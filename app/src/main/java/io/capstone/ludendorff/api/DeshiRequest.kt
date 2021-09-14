@@ -21,6 +21,9 @@ class DeshiRequest (
     fun put(key: String, value: Boolean) {
         payload?.put(key, value)
     }
+    fun putExtras(map: Map<String, String?>) {
+        payload?.put(EXTRAS, map)
+    }
 
     fun toJSONObject(): JSONObject {
         return payload
@@ -30,5 +33,6 @@ class DeshiRequest (
 
     companion object {
         private const val TOKEN = "token"
+        private const val EXTRAS = "extras"
     }
 }

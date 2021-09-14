@@ -10,4 +10,9 @@
         <item name="android:windowBackground">@color/keeper_background_content</item>
     </style>
 
+    <style name="Component.Keeper.BottomSheet" parent="Component.Keeper.BottomSheet.Bridge">
+        <item name="android:navigationBarColor">@color/keeper_surface</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
 </resources>

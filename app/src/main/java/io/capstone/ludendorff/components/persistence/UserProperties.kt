@@ -19,6 +19,7 @@ class UserProperties(private val context: Context) {
             putString(USER_POSITION, user.position)
             putString(USER_DEPARTMENT_ID, user.department?.departmentId)
             putString(USER_DEPARTMENT, user.department?.name)
+            putString(USER_DEVICE_TOKEN, user.deviceToken)
         }
     }
 
@@ -42,6 +43,8 @@ class UserProperties(private val context: Context) {
             remove(USER_EMAIL)
             remove(USER_POSITION)
             remove(USER_DEPARTMENT)
+            remove(USER_DEPARTMENT_ID)
+            remove(USER_DEVICE_TOKEN)
         }
     }
 
@@ -115,6 +118,14 @@ class UserProperties(private val context: Context) {
             }
         }
 
+    var deviceToken: String?
+        get() = sharedPreferences.getString(USER_DEVICE_TOKEN, null)
+        set(value) {
+            sharedPreferences.edit {
+                putString(USER_DEVICE_TOKEN, value)
+            }
+        }
+
     companion object {
         const val USER_ID = User.FIELD_ID
         const val USER_FIRST_NAME = User.FIELD_FIRST_NAME
@@ -124,5 +135,6 @@ class UserProperties(private val context: Context) {
         const val USER_POSITION = User.FIELD_POSITION
         const val USER_DEPARTMENT_ID = User.FIELD_DEPARTMENT_ID
         const val USER_DEPARTMENT = User.FIELD_DEPARTMENT_NAME
+        const val USER_DEVICE_TOKEN = User.FIELD_DEVICE_TOKEN
     }
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setup
@@ -20,6 +21,7 @@ import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
 import io.capstone.ludendorff.features.shared.components.BaseEditorFragment
 import io.capstone.ludendorff.features.specs.SpecsReadOnlyAdapter
 
+@AndroidEntryPoint
 class RequestEditorFragment: BaseEditorFragment(), FragmentResultListener {
     private var _binding: FragmentEditorRequestBinding? = null
     private var controller: NavController? = null

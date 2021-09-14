@@ -226,7 +226,6 @@
                 android:layout_marginBottom="@dimen/activity_margin"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:hint="@string/hint_department"
-                app:endIconDrawable="@drawable/ic_hero_x"
                 app:endIconTint="@color/keeper_text_primary"
                 app:endIconMode="custom"
                 style="@style/Widget.Keeper.TextInput.Layout">

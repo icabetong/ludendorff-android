@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class Request @JvmOverloads constructor(
     var requestId: String = IDGenerator.generateRandom(),
     var requestedAsset: AssetCore? = null,
-    var pertitioner: UserCore? = null,
+    var petitioner: UserCore? = null,
     var endorser: UserCore? = null,
     var endorsedDate: Timestamp? = null,
 ): Parcelable {

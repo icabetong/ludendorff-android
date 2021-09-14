@@ -43,7 +43,8 @@
     </style>
 
     <!-- Components -->
-    <style name="Component.Keeper.BottomSheet" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
+    <style name="Component.Keeper.BottomSheet" parent="Component.Keeper.BottomSheet"/>
+    <style name="Component.Keeper.BottomSheet.Bridge" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
         <item name="colorPrimary">@color/keeper_primary</item>
         <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
         <item name="colorSecondary">@color/keeper_secondary</item>

@@ -128,9 +128,23 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             AssetPickerBottomSheet(childFragmentManager)
                 .show()
         }
+        binding.assetTextInputLayout.setEndIconOnClickListener {
+            editorViewModel.assignment.asset = null
+            editorViewModel.previousAssetId = null
+
+            binding.assetTextInputLayout.endIconDrawable = null
+            binding.assetTextInput.text = null
+        }
         binding.userTextInput.setOnClickListener {
             UserPickerBottomSheet(childFragmentManager)
                 .show()
+        }
+        binding.userTextInputLayout.setEndIconOnClickListener {
+            editorViewModel.previousUserId = null
+            editorViewModel.assignment.user = null
+
+            binding.userTextInputLayout.endIconDrawable = null
+            binding.userTextInput.text = null
         }
         binding.dateAssignedTextInput.setOnClickListener {
             MaterialDialog(requireContext()).show {
@@ -222,6 +236,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             AssetPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Asset>(AssetPickerBottomSheet.EXTRA_ASSET)?.let {
                     binding.assetTextInput.setText(it.assetName)
+                    binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
 
                     if (this.requestKey == REQUEST_KEY_UPDATE)
                         editorViewModel.previousAssetId = editorViewModel.assignment.asset?.assetId
@@ -231,6 +246,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             UserPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<User>(UserPickerBottomSheet.EXTRA_USER)?.let {
                     binding.userTextInput.setText(it.getDisplayName())
+                    binding.userTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
 
                     if (this.requestKey == REQUEST_KEY_UPDATE)
                         editorViewModel.previousUserId = editorViewModel.assignment.user?.userId

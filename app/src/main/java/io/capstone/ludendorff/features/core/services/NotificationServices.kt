@@ -17,6 +17,7 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.features.core.activities.MainActivity
 import io.capstone.ludendorff.features.core.worker.TokenUpdateWorker
+import io.capstone.ludendorff.features.notification.Notification
 
 class NotificationServices: FirebaseMessagingService() {
 
@@ -42,6 +43,11 @@ class NotificationServices: FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
+        val titleLocKey = remoteMessage.notification?.titleLocalizationKey
+        val bodyLocKey = remoteMessage.notification?.bodyLocalizationKey
+
+        val titleRes = resources.getIdentifier(titleLocKey,"string", this.packageName)
+        val bodyRes = resources.getIdentifier(bodyLocKey,"string", this.packageName)
 
         val intent = Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -51,12 +57,18 @@ class NotificationServices: FirebaseMessagingService() {
         val pendingIntent = PendingIntent.getActivity(this, 0, intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
+        val channel = if (titleLocKey == Notification.NOTIFICATION_ASSIGNED_TITLE)
+            getString(R.string.channel_id_assignments)
+        else getString(R.string.channel_id_requests)
+
         createChannels(this)
-        val notification = NotificationCompat.Builder(this,
-            getString(R.string.channel_id_assignments))
+        val notification = NotificationCompat.Builder(this, channel)
             .setSmallIcon(R.drawable.ic_icon_pickelhaube)
-            .setContentTitle(getString(R.string.notification_assigned_asset_title))
-            .setContentText(getString(R.string.notification_assigned_asset_body))
+            .setContentTitle(String.format(getString(titleRes),
+                remoteMessage.data[Notification.EXTRA_SENDER]))
+            .setContentText(String.format(getString(bodyRes),
+                remoteMessage.data[Notification.EXTRA_SENDER],
+                remoteMessage.data[Notification.EXTRA_TARGET]))
             .setAutoCancel(false)
             .setContentIntent(pendingIntent)
 
@@ -74,14 +86,20 @@ class NotificationServices: FirebaseMessagingService() {
                 val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
                     as? NotificationManager
 
-                val channelId = getString(R.string.channel_id_assignments)
-                if (notificationManager?.getNotificationChannel(channelId) != null)
-                    return@with;
+                val channels = mapOf(
+                    getString(R.string.channel_id_assignments)
+                            to getString(R.string.channel_name_assignments),
+                    getString(R.string.channel_id_requests)
+                            to getString(R.string.channel_name_requests)
+                )
+                channels.forEach { (id, name) ->
+                    if (notificationManager?.getNotificationChannel(id) != null)
+                        return@with
 
-                val channel = NotificationChannel(channelId, getString(R.string.channel_name_assignments),
-                    NotificationManager.IMPORTANCE_HIGH)
-
-                notificationManager?.createNotificationChannel(channel)
+                    notificationManager?.createNotificationChannel(
+                        NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH)
+                    )
+                }
             }
         }
     }

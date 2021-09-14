@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_hero_filter.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_hand.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_hashtag.xml" value="0.23026315789473684" />
+        <entry key="app/src/main/res/drawable/ic_hero_mail_open.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_minus_circle.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_scissors.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_search_circle.xml" value="0.23026315789473684" />
@@ -47,6 +48,7 @@
         <entry key="app/src/main/res/layout/fragment_options_scan.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_options_users.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_picker_user.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/fragment_request.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_root.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_scan.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_scan_results.xml" value="0.18914473684210525" />
@@ -61,6 +63,7 @@
         <entry key="app/src/main/res/layout/layout_empty_assignment.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_empty_home.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_empty_notification.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/layout_empty_request.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/layout_empty_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/layout_item_asset.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_item_home.xml" value="0.18914473684210525" />
@@ -85,6 +88,7 @@
         <entry key="app/src/main/res/menu/menu_editor_user.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2019736842105263" />
         <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.2019736842105263" />
+        <entry key="app/src/main/res/menu/menu_profile.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/xml/xml_settings.xml" value="0.5" />
       </map>
     </option>

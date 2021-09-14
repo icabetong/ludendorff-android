@@ -37,6 +37,10 @@
         android:name="io.capstone.ludendorff.features.department.DepartmentFragment"
         tools:layout="@layout/fragment_department"/>
     <fragment
+        android:id="@+id/navigation_request"
+        android:name="io.capstone.ludendorff.features.request.RequestFragment"
+        tools:layout="@layout/fragment_request"/>
+    <fragment
         android:id="@+id/navigation_profile"
         android:name="io.capstone.ludendorff.features.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile"/>

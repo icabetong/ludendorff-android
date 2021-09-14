@@ -15,6 +15,7 @@ data class UserCore @JvmOverloads constructor(
     var name: String? = null,
     var email: String? = null,
     var imageUrl: String? = null,
+    var position: String? = null,
     var deviceToken: String? = null
 ): Parcelable {
 

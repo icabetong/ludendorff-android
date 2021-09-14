@@ -177,6 +177,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.departmentTextInputLayout.setEndIconOnClickListener {
             editorViewModel.user.department = null
             binding.departmentTextInput.text = null
+            binding.departmentTextInputLayout.endIconDrawable = null
         }
 
         binding.appBar.toolbarActionButton.setOnClickListener {
@@ -241,6 +242,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
                     editorViewModel.user.department = it.minimize()
 
                     binding.departmentTextInput.setText(it.name)
+                    binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
                 }
             }
         }

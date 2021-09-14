@@ -193,6 +193,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
             viewModel.action.collectLatest {
                 when(it) {
                     is Response.Error -> {
+                        android.util.Log.e("DEBUG", it.throwable.toString())
                         if (it.throwable is FirebaseFirestoreException &&
                             it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
 
@@ -285,6 +286,8 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                 mainController?.navigate(R.id.navigation_search,
                     bundleOf(SearchFragment.EXTRA_SEARCH_COLLECTION to
                         SearchFragment.COLLECTION_ASSIGNMENTS))
+            R.id.action_requests ->
+                mainController?.navigate(R.id.navigation_request)
         }
     }
 

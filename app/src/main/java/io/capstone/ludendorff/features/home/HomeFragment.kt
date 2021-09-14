@@ -33,7 +33,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment: BaseFragment(), OnItemActionListener<Assignment> {
+class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
+    BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentHomeBinding? = null
     private var controller: NavController? = null
     private var mainController: NavController? = null
@@ -83,7 +84,7 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment> {
             iconRes = R.drawable.ic_hero_menu,
             onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_core_home,
-            onMenuOptionClicked = { triggerNavigationDrawer() }
+            onMenuOptionClicked = ::onMenuItemClicked
         )
 
         with(binding.recyclerView) {
@@ -209,6 +210,14 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment> {
         if (action == OnItemActionListener.Action.SELECT) {
             AssignmentViewer(childFragmentManager).show {
                 arguments = bundleOf(AssignmentViewer.EXTRA_ASSIGNMENT to data)
+            }
+        }
+    }
+
+    override fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_search -> {
+                mainController?.navigate(R.id.navigation_search)
             }
         }
     }

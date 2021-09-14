@@ -111,6 +111,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         binding.managerTextInputLayout.setEndIconOnClickListener {
             editorViewModel.department.manager = null
             binding.managerTextInput.text = null
+            binding.managerTextInputLayout.endIconDrawable = null
         }
     }
 
@@ -119,6 +120,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             UserPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<User>(UserPickerBottomSheet.EXTRA_USER)?.let {
                     binding.managerTextInput.setText(it.getDisplayName())
+                    binding.managerTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
 
                     editorViewModel.triggerManagerChanged(it)
                 }
