@@ -91,7 +91,6 @@ class NotificationFragment: BaseFragment() {
                      */
                     is LoadState.Loading -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.show()
                         binding.shimmerFrameLayout.show()
                         binding.shimmerFrameLayout.startShimmer()
 
@@ -106,7 +105,6 @@ class NotificationFragment: BaseFragment() {
                      */
                     is LoadState.Error -> {
                         binding.recyclerView.hide()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
 
                         val errorState = when {
@@ -140,7 +138,6 @@ class NotificationFragment: BaseFragment() {
                     }
                     is LoadState.NotLoading -> {
                         binding.recyclerView.show()
-                        binding.skeletonLayout.hide()
                         binding.shimmerFrameLayout.hide()
                         binding.shimmerFrameLayout.stopShimmer()
 

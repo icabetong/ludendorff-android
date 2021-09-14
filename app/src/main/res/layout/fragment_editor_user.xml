@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/activity_margin_small"
                 android:layout_marginHorizontal="@dimen/activity_margin"
-                android:hint="@string/hint_first_name">
+                android:hint="@string/hint_last_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/lastNameTextInput"
@@ -193,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/activity_margin_small"
                 android:layout_marginHorizontal="@dimen/activity_margin"
-                android:hint="@string/hint_last_name">
+                android:hint="@string/hint_first_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/firstNameTextInput"

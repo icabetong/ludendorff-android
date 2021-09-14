@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.features.request
 
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.asset.AssetCore
@@ -18,5 +19,16 @@ data class Request @JvmOverloads constructor(
 
     companion object {
         const val COLLECTION = "requests"
+
+        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Request>() {
+            override fun areItemsTheSame(oldItem: Request, newItem: Request): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: Request, newItem: Request): Boolean {
+                return oldItem.requestId == newItem.requestId
+            }
+
+        }
     }
 }
