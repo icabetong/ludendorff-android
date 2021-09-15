@@ -4,7 +4,9 @@ import android.content.Context
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
+import com.google.firebase.messaging.RemoteMessage
 import io.capstone.ludendorff.components.extensions.format
+import io.capstone.ludendorff.features.core.activities.MainActivity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -18,6 +20,10 @@ data class Notification @JvmOverloads constructor (
     var timestamp: Timestamp? = null,
     var extras: Map<String, String?> = emptyMap()
 ): Parcelable {
+
+    enum class Type {
+        ASSIGNMENT
+    }
 
     fun formatTimestamp(context: Context): String? {
         return timestamp?.format(context)
@@ -38,8 +44,19 @@ data class Notification @JvmOverloads constructor (
 
         const val NOTIFICATION_ASSIGNED_TITLE = "notification_assigned_title"
         const val NOTIFICATION_ASSIGNED_BODY = "notification_assigned_body"
-        const val NOTIFICATION_REQUEST_TITLE = "notification_request_title"
-        const val NOTIFICATION_REQUEST_BODY = "notification_request_body"
+
+        fun getType(remoteMessage: RemoteMessage): Type {
+            return when(remoteMessage.data[FIELD_TITLE]) {
+                NOTIFICATION_ASSIGNED_TITLE -> Type.ASSIGNMENT
+                else -> throw IllegalArgumentException("Unrecognized notification title key")
+            }
+        }
+
+        fun getRequestCode(type: Type): Int {
+            return when(type) {
+                Type.ASSIGNMENT -> MainActivity.REQUEST_CODE_ASSIGNMENT
+            }
+        }
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Notification>() {
             override fun areContentsTheSame(oldItem: Notification, newItem: Notification): Boolean {

@@ -9,11 +9,6 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/action_requests"
-        android:title="@string/menu_requests"
-        android:icon="@drawable/ic_hero_mail_open"/>
-
-    <item
         android:title="@string/options_sort"
         android:icon="@drawable/ic_hero_sort_ascending">
         <menu>

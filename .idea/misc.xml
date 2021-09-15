@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_hero_camera.xml" value="0.21217105263157895" />
         <entry key="app/src/main/res/drawable/ic_hero_chart_square_bar.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_check_circle.xml" value="0.1993421052631579" />
+        <entry key="app/src/main/res/drawable/ic_hero_eye.xml" value="0.2734375" />
         <entry key="app/src/main/res/drawable/ic_hero_filter.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_hand.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_hashtag.xml" value="0.23026315789473684" />
@@ -23,6 +24,8 @@
         <entry key="app/src/main/res/drawable/ic_hero_sort_ascending.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_sort_descending.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_x_circle.xml" value="0.23026315789473684" />
+        <entry key="app/src/main/res/drawable/ic_icon_pickelhaube.xml" value="0.2734375" />
+        <entry key="app/src/main/res/drawable/ic_icon_pickelhaube_filled.xml" value="0.2734375" />
         <entry key="app/src/main/res/drawable/ic_outline_arrow_back_24.xml" value="0.10592105263157894" />
         <entry key="app/src/main/res/drawable/shape_search_field.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/shape_searchview.xml" value="0.23026315789473684" />

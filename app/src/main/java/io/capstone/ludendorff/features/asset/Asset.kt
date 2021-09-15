@@ -47,6 +47,18 @@ data class Asset @JvmOverloads constructor(
                 RETIRED -> R.string.asset_status_option_retired
             }
         }
+
+        companion object {
+            fun parse(value: String?): Status {
+                return when(value) {
+                    OPERATIONAL.toString() -> OPERATIONAL
+                    IDLE.toString() -> IDLE
+                    UNDER_MAINTENANCE.toString() -> UNDER_MAINTENANCE
+                    RETIRED.toString() -> RETIRED
+                    else -> throw IllegalArgumentException("Not a valid Status object")
+                }
+            }
+        }
     }
 
     companion object {

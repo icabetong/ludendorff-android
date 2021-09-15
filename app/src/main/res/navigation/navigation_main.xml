@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_auth"/>
     <fragment
         android:id="@+id/navigation_root"
-        android:name="io.capstone.ludendorff.features.core.fragment.RootFragment"
+        android:name="io.capstone.ludendorff.features.core.fragments.RootFragment"
         tools:layout="@layout/fragment_root"/>
 
     <action
@@ -36,10 +36,6 @@
         android:id="@+id/navigation_department"
         android:name="io.capstone.ludendorff.features.department.DepartmentFragment"
         tools:layout="@layout/fragment_department"/>
-    <fragment
-        android:id="@+id/navigation_request"
-        android:name="io.capstone.ludendorff.features.request.RequestFragment"
-        tools:layout="@layout/fragment_request"/>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="io.capstone.ludendorff.features.profile.ProfileFragment"
@@ -78,9 +74,5 @@
         android:id="@+id/navigation_editor_assignment"
         android:name="io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment"
         tools:layout="@layout/fragment_editor_assignment"/>
-    <fragment
-        android:id="@+id/navigation_editor_request"
-        android:name="io.capstone.ludendorff.features.request.editor.RequestEditorFragment"
-        tools:layout="@layout/fragment_editor_request"/>
 
 </navigation>

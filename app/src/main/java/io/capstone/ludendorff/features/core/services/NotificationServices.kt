@@ -43,40 +43,48 @@ class NotificationServices: FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        val titleLocKey = remoteMessage.data[Notification.FIELD_TITLE]
-        val bodyLocKey = remoteMessage.data[Notification.FIELD_BODY]
 
-        val titleRes = resources.getIdentifier(titleLocKey,"string", this.packageName)
-        val bodyRes = resources.getIdentifier(bodyLocKey,"string", this.packageName)
+        val type = Notification.getType(remoteMessage)
+        val payload = remoteMessage.data[Notification.FIELD_PAYLOAD]
 
-        val intent = Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            putExtra(EXTRA_NOTIFICATION_ID, 0)
+        val mainPendingIntent = PendingIntent.getActivity(
+            this,
+            Notification.getRequestCode(type),
+            Intent(this, MainActivity::class.java).apply {
+                action = when(type) {
+                    Notification.Type.ASSIGNMENT -> MainActivity.ACTION_ASSIGNMENT
+                }
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                putExtra(EXTRA_NOTIFICATION_ID, 0)
+                putExtra(MainActivity.EXTRA_PAYLOAD, payload)
+            },
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val titleRes = resources.getIdentifier(remoteMessage.data[Notification.FIELD_TITLE],
+            "string", this.packageName)
+        val bodyRes = resources.getIdentifier(remoteMessage.data[Notification.FIELD_BODY],
+            "string", this.packageName)
+
+        val channel = when(type) {
+            Notification.Type.ASSIGNMENT -> getString(R.string.channel_id_assignments)
         }
-
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-
-        val channel = if (titleLocKey == Notification.NOTIFICATION_ASSIGNED_TITLE)
-            getString(R.string.channel_id_assignments)
-        else getString(R.string.channel_id_requests)
-
         createChannels(this)
         val notification = NotificationCompat.Builder(this, channel)
-            .setSmallIcon(R.drawable.ic_icon_pickelhaube)
+            .setSmallIcon(R.drawable.ic_icon_pickelhaube_filled)
             .setContentTitle(String.format(getString(titleRes),
                 remoteMessage.data[Notification.EXTRA_TARGET]))
             .setContentText(String.format(getString(bodyRes),
                 remoteMessage.data[Notification.EXTRA_SENDER],
                 remoteMessage.data[Notification.EXTRA_TARGET]))
             .setAutoCancel(false)
-            .setContentIntent(pendingIntent)
+            .setContentIntent(mainPendingIntent)
 
         notificationManager?.notify(0, notification.build())
     }
 
     companion object {
-        const val EXTRA_NOTIFICATION_ID = "extra:notification_id"
+        const val EXTRA_NOTIFICATION_ID = "extra:notification:id"
 
         fun createChannels(context: Context) {
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O)
@@ -89,8 +97,6 @@ class NotificationServices: FirebaseMessagingService() {
                 val channels = mapOf(
                     getString(R.string.channel_id_assignments)
                             to getString(R.string.channel_name_assignments),
-                    getString(R.string.channel_id_requests)
-                            to getString(R.string.channel_name_requests)
                 )
                 channels.forEach { (id, name) ->
                     if (notificationManager?.getNotificationChannel(id) != null)

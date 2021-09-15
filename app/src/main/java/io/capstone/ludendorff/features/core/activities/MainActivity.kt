@@ -96,6 +96,10 @@ class MainActivity: BaseActivity() {
     }
 
     companion object {
+        const val ACTION_ASSIGNMENT = "action:assignment"
+        const val ACTION_REQUEST = "action:request"
+        const val REQUEST_CODE_ASSIGNMENT = 1
+        const val EXTRA_PAYLOAD = "extra:payload"
         const val EXTRA_CURRENT_DESTINATION = "extra:current:destination"
     }
 }

@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.core.fragment
+package io.capstone.ludendorff.features.core.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
 import coil.size.Scale
