@@ -15,7 +15,8 @@ data class Notification @JvmOverloads constructor (
     var payload: String?,
     var senderId: String?,
     var receiverId: String?,
-    var timestamp: Timestamp? = null
+    var timestamp: Timestamp? = null,
+    var extras: Map<String, String?> = emptyMap()
 ): Parcelable {
 
     fun formatTimestamp(context: Context): String? {
@@ -30,6 +31,7 @@ data class Notification @JvmOverloads constructor (
         const val FIELD_PAYLOAD = "payload"
         const val FIELD_SENDER_ID = "senderId"
         const val FIELD_RECEIVER_ID = "receiverId"
+        const val FIELD_EXTRAS = "extras"
 
         const val EXTRA_SENDER = "sender"
         const val EXTRA_TARGET = "target"

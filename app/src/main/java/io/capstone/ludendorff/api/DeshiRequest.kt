@@ -22,7 +22,7 @@ class DeshiRequest (
         payload?.put(key, value)
     }
     fun putExtras(map: Map<String, String?>) {
-        payload?.put(EXTRAS, map)
+        payload?.put(EXTRAS, JSONObject(map))
     }
 
     fun toJSONObject(): JSONObject {

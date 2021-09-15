@@ -50,6 +50,8 @@ class AssignmentRepository @Inject constructor(
                 put(Notification.FIELD_TITLE, Notification.NOTIFICATION_ASSIGNED_TITLE)
                 put(Notification.FIELD_BODY, Notification.NOTIFICATION_ASSIGNED_BODY)
                 put(Notification.FIELD_PAYLOAD, assignment.assignmentId)
+                put(Notification.FIELD_SENDER_ID, firebaseAuth.currentUser?.uid)
+                put(Notification.FIELD_RECEIVER_ID, assignment.user?.userId)
                 putExtras(mapOf(
                     Notification.EXTRA_SENDER to userProperties.getDisplayName(),
                     Notification.EXTRA_TARGET to assignment.asset?.assetName
@@ -119,6 +121,8 @@ class AssignmentRepository @Inject constructor(
                 put(Notification.FIELD_TITLE, Notification.NOTIFICATION_ASSIGNED_TITLE)
                 put(Notification.FIELD_BODY, Notification.NOTIFICATION_ASSIGNED_BODY)
                 put(Notification.FIELD_PAYLOAD, assignment.assignmentId)
+                put(Notification.FIELD_SENDER_ID, firebaseAuth.currentUser?.uid)
+                put(Notification.FIELD_RECEIVER_ID, assignment.user?.userId)
                 putExtras(mapOf(
                     Notification.EXTRA_SENDER to userProperties.getDisplayName(),
                     Notification.EXTRA_TARGET to assignment.asset?.assetName

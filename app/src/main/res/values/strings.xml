@@ -296,8 +296,10 @@
     <string name="notification_request_title">Request from %1$s</string>
     <string name="notification_request_body">%1$s has requested the %2$s. Check it out!</string>
 
+    <string name="channel_name_general">General</string>
     <string name="channel_name_assignments">Assignment Prompts</string>
     <string name="channel_name_requests">Requests</string>
+    <string name="channel_id_general">notifications:general</string>
     <string name="channel_id_assignments">notifications:assignments</string>
     <string name="channel_id_requests">notifications:requests</string>
 

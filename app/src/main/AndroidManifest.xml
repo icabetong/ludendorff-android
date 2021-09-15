@@ -51,7 +51,7 @@
             android:resource="@color/ic_launcher_background" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/channel_id_assignments" />
+            android:value="@string/channel_id_general" />
 
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"

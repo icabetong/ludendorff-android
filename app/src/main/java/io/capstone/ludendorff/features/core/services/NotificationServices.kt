@@ -43,8 +43,8 @@ class NotificationServices: FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        val titleLocKey = remoteMessage.notification?.titleLocalizationKey
-        val bodyLocKey = remoteMessage.notification?.bodyLocalizationKey
+        val titleLocKey = remoteMessage.data[Notification.FIELD_TITLE]
+        val bodyLocKey = remoteMessage.data[Notification.FIELD_BODY]
 
         val titleRes = resources.getIdentifier(titleLocKey,"string", this.packageName)
         val bodyRes = resources.getIdentifier(bodyLocKey,"string", this.packageName)
@@ -65,7 +65,7 @@ class NotificationServices: FirebaseMessagingService() {
         val notification = NotificationCompat.Builder(this, channel)
             .setSmallIcon(R.drawable.ic_icon_pickelhaube)
             .setContentTitle(String.format(getString(titleRes),
-                remoteMessage.data[Notification.EXTRA_SENDER]))
+                remoteMessage.data[Notification.EXTRA_TARGET]))
             .setContentText(String.format(getString(bodyRes),
                 remoteMessage.data[Notification.EXTRA_SENDER],
                 remoteMessage.data[Notification.EXTRA_TARGET]))

@@ -25,8 +25,13 @@ class NotificationAdapter
 
         override fun onBind(data: Notification?) {
             with(binding) {
-                headerTextView.text = data?.title
-                informationTextView.text = data?.body
+                val titleRes = root.context.resources.getIdentifier(data?.title, "string",
+                    root.context.packageName)
+                val bodyRes = root.context.resources.getIdentifier(data?.body, "string",
+                    root.context.packageName)
+
+                headerTextView.setText(titleRes)
+                informationTextView.setText(bodyRes)
                 metadataTextView.text = data?.formatTimestamp(root.context)
             }
         }
