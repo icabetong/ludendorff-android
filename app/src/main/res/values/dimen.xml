@@ -10,6 +10,7 @@
     <dimen name="toolbar_height">144dp</dimen>
     <dimen name="toolbar_padding_horizontal">4dp</dimen>
     <dimen name="toolbar_keyline">16dp</dimen>
+    <dimen name="toolbar_title_expanded_size">28sp</dimen>
 
     <dimen name="surface_radius">4dp</dimen>
     <dimen name="surface_elevation">0dp</dimen>

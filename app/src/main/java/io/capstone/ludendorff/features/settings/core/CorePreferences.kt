@@ -5,17 +5,15 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.work.*
-import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.BuildConfig
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.persistence.UserPreferences
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
+import io.capstone.ludendorff.features.auth.AuthViewModel
 import io.capstone.ludendorff.features.core.worker.TokenUpdateWorker
 import io.capstone.ludendorff.features.shared.components.BasePreference
 import javax.inject.Inject
@@ -27,7 +25,7 @@ class CorePreferences: BasePreference() {
     @Inject lateinit var userPreferences: UserPreferences
     @Inject lateinit var firebaseMessaging: FirebaseMessaging
 
-    private val coreViewModel: CoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
     private val workManager by lazy {
         WorkManager.getInstance(requireContext())
     }
@@ -94,7 +92,7 @@ class CorePreferences: BasePreference() {
         super.onStart()
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
-        coreViewModel.userData.observe(viewLifecycleOwner) {
+        authViewModel.userData.observe(viewLifecycleOwner) {
             findPreference<Preference>(PREFERENCE_KEY_USER)?.run {
                 title = it.getDisplayName()
                 summary = it.email

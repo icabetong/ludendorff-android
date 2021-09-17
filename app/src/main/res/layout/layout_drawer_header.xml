@@ -13,16 +13,26 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="@dimen/activity_margin_huge"
-        app:srcCompat="@drawable/ic_hero_user"/>
+        android:background="@color/keeper_background_content"
+        app:srcCompat="@drawable/ic_flaticon_user"/>
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_margin_small"
-        android:layout_marginBottom="@dimen/activity_margin_medium"
+        android:layout_marginBottom="@dimen/activity_margin_tiny"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
         tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin_medium"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
+        tools:text="email@service.com"/>
 
 </LinearLayout>

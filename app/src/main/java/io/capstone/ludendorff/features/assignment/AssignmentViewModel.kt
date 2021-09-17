@@ -9,10 +9,10 @@ import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.components.BaseViewModel
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,14 +32,13 @@ class AssignmentViewModel @Inject constructor(
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()
 
-    fun create(assignment: Assignment, targetDeviceToken: String?) = viewModelScope.launch(IO) {
-        _action.send(repository.create(assignment, targetDeviceToken))
+    fun create(assignment: Assignment) = viewModelScope.launch(IO) {
+        _action.send(repository.create(assignment))
     }
     fun update(assignment: Assignment,
-               targetDeviceToken: String?,
                previousUserId: String?,
                previousAssetId: String?) = viewModelScope.launch(IO) {
-        _action.send(repository.update(assignment, targetDeviceToken, previousUserId, previousAssetId))
+        _action.send(repository.update(assignment, previousUserId, previousAssetId))
     }
     fun remove(assignment: Assignment) = viewModelScope.launch(IO) {
         _action.send(repository.remove(assignment))

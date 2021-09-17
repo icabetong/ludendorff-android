@@ -102,7 +102,6 @@ class AuthFragment: BaseFragment() {
                     }
                     is Response.Success -> {
                         createSnackbar(R.string.feedback_sign_in_success)
-                        viewModel.setUserProperties(it.data)
 
                         controller?.navigate(AuthFragmentDirections.toNavigationRoot())
                         binding.errorTextView.isVisible = false

@@ -48,10 +48,6 @@ class ProfileViewModel @Inject constructor(
     val uploadWorkInfo: LiveData<List<WorkInfo>> = workManager
         .getWorkInfosForUniqueWorkLiveData(ProfileUploadWorker.WORKER_TAG)
 
-    fun endSession() = viewModelScope.launch {
-        firebaseAuth.signOut()
-        userProperties.clear()
-    }
     fun sendPasswordResetLink() = viewModelScope.launch(IO) {
         val email = firebaseAuth.currentUser?.email
         if (email.isNullOrBlank()) {

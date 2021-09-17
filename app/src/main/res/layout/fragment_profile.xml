@@ -39,12 +39,14 @@
                 app:layout_constraintEnd_toEndOf="@id/imageView"
                 tools:visibility="visible"/>
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:layout_marginHorizontal="@dimen/activity_margin_huge"
+                android:background="@color/keeper_background_content"
+                android:src="@drawable/ic_flaticon_user"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

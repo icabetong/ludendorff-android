@@ -5,8 +5,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import io.capstone.ludendorff.api.Deshi
-import io.capstone.ludendorff.api.DeshiRequest
 import io.capstone.ludendorff.api.DeshiException
+import io.capstone.ludendorff.api.DeshiRequest
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.core.backend.Response
@@ -27,7 +27,7 @@ class AssignmentRepository @Inject constructor(
     private val deshi: Deshi
 ) {
 
-    suspend fun create(assignment: Assignment, targetDeviceToken: String?): Response<Response.Action> {
+    suspend fun create(assignment: Assignment): Response<Response.Action> {
         return try {
             firestore.runBatch {
                 it.set(firestore.collection(Assignment.COLLECTION)
@@ -42,11 +42,11 @@ class AssignmentRepository @Inject constructor(
             val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
             if (token == null)
                 throw DeshiException(DeshiException.Code.UNAUTHORIZED)
-            else if (targetDeviceToken == null)
+            else if (assignment.user?.deviceToken == null)
                 throw DeshiException(DeshiException.Code.PRECONDITION_FAILED)
 
             val request = DeshiRequest(token).apply {
-                put(User.FIELD_DEVICE_TOKEN, targetDeviceToken)
+                put(User.FIELD_DEVICE_TOKEN, assignment.user?.deviceToken)
                 put(Notification.FIELD_TITLE, Notification.NOTIFICATION_ASSIGNED_TITLE)
                 put(Notification.FIELD_BODY, Notification.NOTIFICATION_ASSIGNED_BODY)
                 put(Notification.FIELD_PAYLOAD, assignment.assignmentId)
@@ -71,7 +71,6 @@ class AssignmentRepository @Inject constructor(
     }
 
     suspend fun update(assignment: Assignment,
-                       targetDeviceToken: String?,
                        previousUserId: String?,
                        previousAssetId: String?): Response<Response.Action> {
         return try {
@@ -113,11 +112,11 @@ class AssignmentRepository @Inject constructor(
             val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
             if (token == null)
                 throw DeshiException(DeshiException.Code.UNAUTHORIZED)
-            else if (targetDeviceToken == null)
+            else if (assignment.user?.deviceToken == null)
                 throw DeshiException(DeshiException.Code.PRECONDITION_FAILED)
 
             val request = DeshiRequest(token).apply {
-                put(User.FIELD_DEVICE_TOKEN, targetDeviceToken)
+                put(User.FIELD_DEVICE_TOKEN, assignment.user?.deviceToken)
                 put(Notification.FIELD_TITLE, Notification.NOTIFICATION_ASSIGNED_TITLE)
                 put(Notification.FIELD_BODY, Notification.NOTIFICATION_ASSIGNED_BODY)
                 put(Notification.FIELD_PAYLOAD, assignment.assignmentId)

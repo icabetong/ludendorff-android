@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.paging.map
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -30,9 +29,9 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentCategoryBinding
+import io.capstone.ludendorff.features.auth.AuthViewModel
 import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.search.SearchFragment
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
@@ -49,7 +48,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
     private val binding get() = _binding!!
     private val viewModel: CategoryViewModel by activityViewModels()
-    private val coreViewModel: CoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
     private val categoryAdapter = CategoryAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,7 +111,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
         controller = findNavController()
         mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
-        coreViewModel.userData.observe(viewLifecycleOwner) {
+        authViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
                     || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
         }

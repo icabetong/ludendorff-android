@@ -15,12 +15,10 @@ import javax.inject.Singleton
 
 @Singleton
 class AuthRepository @Inject constructor(
-    private val userProperties: UserProperties,
     private val firebaseAuth: FirebaseAuth,
-    private val firestore: FirebaseFirestore
 ){
 
-    suspend fun authenticate(email: String, password: String): Response<User> {
+    suspend fun authenticate(email: String, password: String): Response<Unit> {
         return try {
             return if (email.isNotBlank() && password.isNotBlank()) {
                 /**
@@ -29,22 +27,10 @@ class AuthRepository @Inject constructor(
                  *  and perform actions with the result
                  */
                 val task = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-                if (task != null && task.user != null) {
-                    /**
-                     *  The user has been successfully authenticated,
-                     *  proceed in fetching his information that
-                     *  will be used by the application.
-                     */
-                    val userTask = firestore.collection(User.COLLECTION)
-                        .document(task.user!!.uid)
-                        .get().await()
-                    if (userTask != null) {
-                        val user = userTask.toObject(User::class.java)
-                        if (user != null)
-                            Response.Success(user)
-                        else Response.Error(NullPointerException())
-                    } else Response.Error(NullPointerException())
-                } else Response.Error(NullPointerException())
+                if (task != null)
+                    Response.Success(Unit)
+                else throw Exception()
+
             } else {
                 /**
                  *  Return a custom exception that specifies that
@@ -54,29 +40,25 @@ class AuthRepository @Inject constructor(
                 Response.Error(EmptyCredentialsException())
             }
 
-        } catch (invalidUserException: FirebaseAuthInvalidUserException) {
+        } catch (exception: FirebaseAuthInvalidUserException) {
             /**
              *  Exception raised when the user doesn't yet exists
              *  or the user account has been disabled.
              */
-            Response.Error(invalidUserException)
+            Response.Error(exception)
 
-        } catch (invalidCredentialsException: FirebaseAuthInvalidCredentialsException) {
+        } catch (exception: FirebaseAuthInvalidCredentialsException) {
             /**
              *  Exception raised when invalid credentials are inputted
              *  by the user, either email, username or password
              */
-            Response.Error(invalidCredentialsException)
+            Response.Error(exception)
 
-        } catch (e: Exception) {
-            Response.Error(e)
+        } catch (exception: Exception) {
+            Response.Error(exception)
         }
     }
 
-    fun endSession() {
-        firebaseAuth.signOut()
-        userProperties.clear()
-    }
     fun checkCurrentUser(): FirebaseUser? = firebaseAuth.currentUser
 
 }

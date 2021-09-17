@@ -27,8 +27,8 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentDepartmentBinding
+import io.capstone.ludendorff.features.auth.AuthViewModel
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.department.editor.DepartmentEditorFragment
 import io.capstone.ludendorff.features.search.SearchFragment
 import io.capstone.ludendorff.features.shared.components.BaseFragment
@@ -45,7 +45,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
 
     private val binding get() = _binding!!
     private val viewModel: DepartmentViewModel by activityViewModels()
-    private val coreViewModel: CoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
     private val departmentAdapter = DepartmentAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,7 +101,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
         super.onStart()
         controller = findNavController()
 
-        coreViewModel.userData.observe(viewLifecycleOwner) {
+        authViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
                     || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
         }

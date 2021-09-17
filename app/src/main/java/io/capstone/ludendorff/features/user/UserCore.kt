@@ -26,6 +26,7 @@ data class UserCore @JvmOverloads constructor(
                 name = user.getDisplayName(),
                 email = user.email,
                 imageUrl = user.imageUrl,
+                position = user.position,
                 deviceToken = user.deviceToken
             )
         }

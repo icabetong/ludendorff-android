@@ -23,6 +23,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import androidx.work.*
 import coil.load
 import coil.size.Scale
+import coil.transform.CircleCropTransformation
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.setActionButtonEnabled
@@ -35,8 +36,8 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.NavigationItemDecoration
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentProfileBinding
+import io.capstone.ludendorff.features.auth.AuthViewModel
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.worker.ImageCompressWorker
 import io.capstone.ludendorff.features.core.worker.ProfileUploadWorker
 import io.capstone.ludendorff.features.profile.actions.ChangeNameBottomSheet
@@ -57,7 +58,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
     private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by activityViewModels()
-    private val coreViewModel: CoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     private lateinit var imageRequestLauncher: ActivityResultLauncher<String>
     private lateinit var executor: Executor
@@ -140,8 +141,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
     override fun onStart() {
         super.onStart()
-
         controller = findNavController()
+
         val progressDrawable = CircularProgressDrawable(requireContext()).apply {
             strokeWidth = 4f
             centerRadius = 24f
@@ -149,7 +150,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
             start()
         }
 
-        coreViewModel.userData.observe(viewLifecycleOwner) {
+        authViewModel.userData.observe(viewLifecycleOwner) {
+
             binding.nameTextView.text = it.getDisplayName()
             binding.emailTextView.text = it.email
             if (it.imageUrl != null)
@@ -157,6 +159,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     error(R.drawable.ic_hero_user)
                     placeholder(progressDrawable)
                     scale(Scale.FILL)
+                    transformations(CircleCropTransformation())
                 }
             else binding.imageView.setImageResource(R.drawable.ic_flaticon_user)
         }
@@ -445,8 +448,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     title(R.string.dialog_sign_out_title)
                     message(R.string.dialog_sign_out_message)
                     positiveButton(R.string.button_continue) {
-                        viewModel.endSession()
-
+                        authViewModel.unsubscribeToDocumentChanges()
                         controller?.navigate(R.id.to_navigation_auth)
                     }
                     negativeButton(R.string.button_cancel)

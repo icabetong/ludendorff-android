@@ -30,8 +30,8 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentAssignmentBinding
 import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
+import io.capstone.ludendorff.features.auth.AuthViewModel
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.search.SearchFragment
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import io.capstone.ludendorff.features.user.User
@@ -48,7 +48,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     private val binding get() = _binding!!
     private val assignmentAdapter = AssignmentAdapter(this)
     private val viewModel: AssignmentViewModel by activityViewModels()
-    private val coreViewModel: CoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +108,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         controller = findNavController()
         mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
-        coreViewModel.userData.observe(viewLifecycleOwner) {
+        authViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
                     || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
         }
@@ -286,8 +286,6 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                 mainController?.navigate(R.id.navigation_search,
                     bundleOf(SearchFragment.EXTRA_SEARCH_COLLECTION to
                         SearchFragment.COLLECTION_ASSIGNMENTS))
-            R.id.action_requests ->
-                mainController?.navigate(R.id.navigation_request)
         }
     }
 

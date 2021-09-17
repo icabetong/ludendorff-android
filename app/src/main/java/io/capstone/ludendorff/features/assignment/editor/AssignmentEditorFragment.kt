@@ -12,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -217,10 +216,9 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             }
 
             if (requestKey == REQUEST_KEY_UPDATE)
-                viewModel.update(editorViewModel.assignment, editorViewModel.targetUserDeviceToken,
-                    editorViewModel.previousUserId, editorViewModel.previousAssetId)
-            else viewModel.create(editorViewModel.assignment,
-                editorViewModel.targetUserDeviceToken)
+                viewModel.update(editorViewModel.assignment, editorViewModel.previousUserId,
+                    editorViewModel.previousAssetId)
+            else viewModel.create(editorViewModel.assignment)
 
             controller?.navigateUp()
         }

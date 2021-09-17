@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
-import androidx.core.view.*
+import androidx.core.view.GravityCompat
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,11 +26,13 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
-import io.capstone.ludendorff.components.extensions.*
+import io.capstone.ludendorff.components.extensions.hide
+import io.capstone.ludendorff.components.extensions.setup
+import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentUsersBinding
+import io.capstone.ludendorff.features.auth.AuthViewModel
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.ludendorff.features.search.SearchFragment
@@ -47,7 +51,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
     private val binding get() = _binding!!
     private val viewModel: UserViewModel by activityViewModels()
-    private val coreViewModel: CoreViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
     private val userAdapter = UserAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,7 +114,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
         controller = findNavController()
         mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
-        coreViewModel.userData.observe(viewLifecycleOwner) {
+        authViewModel.userData.observe(viewLifecycleOwner) {
             binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_MANAGE_USERS)
                     || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
         }

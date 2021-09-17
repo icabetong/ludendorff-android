@@ -5,11 +5,7 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
-import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.format
-import io.capstone.ludendorff.components.extensions.isToday
-import io.capstone.ludendorff.components.extensions.toLocalDateTime
-import io.capstone.ludendorff.components.utils.DateTimeFormatter
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetCore

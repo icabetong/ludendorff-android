@@ -1,8 +1,12 @@
 package io.capstone.ludendorff.features.auth
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.core.backend.Response
@@ -19,14 +23,46 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val userProperties: UserProperties,
     private val repository: AuthRepository,
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
+    private val firestore: FirebaseFirestore
 ): BaseViewModel() {
 
-    private val _authStatus = Channel<Response<User>>(Channel.BUFFERED)
+    private var snapshot: ListenerRegistration? = null
+
+    private val _userData: MutableLiveData<User> = MutableLiveData()
+    val userData: LiveData<User> = _userData
+
+    private val _authStatus = Channel<Response<Unit>>(Channel.BUFFERED)
     val authStatus = _authStatus.receiveAsFlow()
 
     private val _passwordResetEmailSent = Channel<Response<Unit>>(Channel.BUFFERED)
     val passwordResetEmail = _passwordResetEmailSent.receiveAsFlow()
+
+    init {
+        if (firebaseAuth.currentUser != null)
+            subscribeToDocumentChanges()
+    }
+
+    fun subscribeToDocumentChanges() {
+        val userId = firebaseAuth.currentUser?.uid ?: return
+
+        firestore.collection(User.COLLECTION)
+            .document(userId)
+            .addSnapshotListener { value, error ->
+                if (error != null || value == null)
+                    return@addSnapshotListener
+
+                val data = value.toObject(User::class.java) ?: return@addSnapshotListener
+                userProperties.set(data)
+                _userData.postValue(data)
+            }
+    }
+
+    fun unsubscribeToDocumentChanges() {
+        snapshot?.remove()
+        firebaseAuth.signOut()
+        userProperties.clear()
+    }
 
     fun authenticate(email: String, password: String) = viewModelScope.launch(IO) {
         if (email.isNotBlank() && password.isNotBlank()) {
@@ -37,9 +73,6 @@ class AuthViewModel @Inject constructor(
 
     fun checkCurrentUser(): FirebaseUser? = repository.checkCurrentUser()
 
-    fun setUserProperties(user: User) {
-        userProperties.set(user)
-    }
     fun requestPasswordResetEmail(email: String?) = viewModelScope.launch(IO) {
         if (email.isNullOrBlank()) {
             _passwordResetEmailSent.send(Response.Error(NullPointerException()))

@@ -43,7 +43,7 @@
     </style>
 
     <!-- Components -->
-    <style name="Component.Keeper.BottomSheet" parent="Component.Keeper.BottomSheet"/>
+    <style name="Component.Keeper.BottomSheet" parent="Component.Keeper.BottomSheet.Bridge"/>
     <style name="Component.Keeper.BottomSheet.Bridge" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
         <item name="colorPrimary">@color/keeper_primary</item>
         <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
@@ -138,7 +138,7 @@
     </style>
     <style name="TextAppearance.Keeper.Title.Large">
         <item name="fontFamily">@font/font_inter_bold</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">@dimen/toolbar_title_expanded_size</item>
     </style>
     <style name="TextAppearance.Keeper.Button">
         <item name="fontFamily">@font/font_inter_medium</item>
@@ -186,4 +186,5 @@
         <item name="android:textSize">16sp</item>
     </style>
     <style name="TextAppearance.Keeper.Caption" parent="TextAppearance.AppCompat.Caption"/>
+
 </resources>

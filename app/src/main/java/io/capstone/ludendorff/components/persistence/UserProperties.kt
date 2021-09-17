@@ -3,7 +3,9 @@ package io.capstone.ludendorff.components.persistence
 import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import io.capstone.ludendorff.features.department.DepartmentCore
 import io.capstone.ludendorff.features.user.User
+import java.util.*
 
 class UserProperties(private val context: Context) {
     private val sharedPreferences by lazy {
@@ -20,6 +22,7 @@ class UserProperties(private val context: Context) {
             putString(USER_DEPARTMENT_ID, user.department?.departmentId)
             putString(USER_DEPARTMENT, user.department?.name)
             putString(USER_DEVICE_TOKEN, user.deviceToken)
+            putString(USER_IMAGE_URL, user.imageUrl)
         }
     }
 
@@ -125,6 +128,7 @@ class UserProperties(private val context: Context) {
                 putString(USER_DEVICE_TOKEN, value)
             }
         }
+
 
     companion object {
         const val USER_ID = User.FIELD_ID

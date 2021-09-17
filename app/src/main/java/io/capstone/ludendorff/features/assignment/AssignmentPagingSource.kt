@@ -2,7 +2,6 @@ package io.capstone.ludendorff.features.assignment
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException

@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.transition.MaterialArcMotion
-import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.FragmentSearchBinding
