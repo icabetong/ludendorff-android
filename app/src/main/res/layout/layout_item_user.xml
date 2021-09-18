@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_margin">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView"
             android:layout_width="@dimen/icon_size_medium"
             android:layout_height="@dimen/icon_size_medium"

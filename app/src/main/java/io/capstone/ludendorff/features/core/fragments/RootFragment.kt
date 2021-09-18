@@ -1,14 +1,9 @@
 package io.capstone.ludendorff.features.core.fragments
 
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
@@ -16,14 +11,13 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
-import io.capstone.ludendorff.components.extensions.setColorFilterCompat
+import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.databinding.FragmentRootBinding
 import io.capstone.ludendorff.databinding.LayoutDrawerHeaderBinding
@@ -125,21 +119,15 @@ class RootFragment: BaseFragment() {
     }
 
     private fun setProperties(it: User) {
-        val progressDrawable = CircularProgressDrawable(requireContext()).apply {
-            strokeWidth = 4f
-            centerRadius = 24f
-            setColorFilterCompat(ContextCompat.getColor(requireContext(), R.color.keeper_primary))
-            start()
-        }
 
         headerBinding.nameTextView.text = it.getDisplayName()
         headerBinding.emailTextView.text = it.email
         if (it.imageUrl != null)
             headerBinding.profileImageView.load(it.imageUrl) {
                 error(R.drawable.ic_flaticon_user)
-                placeholder(progressDrawable)
                 scale(Scale.FILL)
                 transformations(CircleCropTransformation())
+                placeholder(CoilProgressDrawable(requireContext(), R.color.keeper_primary))
             }
         else headerBinding.profileImageView.setImageResource(R.drawable.ic_flaticon_user)
 

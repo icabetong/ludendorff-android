@@ -12,12 +12,12 @@ import coil.transform.CircleCropTransformation
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.show
-import io.capstone.ludendorff.databinding.FragmentScanResultsBinding
+import io.capstone.ludendorff.databinding.FragmentViewResultsBinding
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
 
-class ScanResultFragment(manager: FragmentManager): BaseBottomSheet(manager) {
-    private var _binding: FragmentScanResultsBinding? = null
+class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
+    private var _binding: FragmentViewResultsBinding? = null
 
     private val binding get() = _binding!!
     private val viewModel: ScanViewModel by activityViewModels()
@@ -27,7 +27,7 @@ class ScanResultFragment(manager: FragmentManager): BaseBottomSheet(manager) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentScanResultsBinding.inflate(inflater, container, false)
+        _binding = FragmentViewResultsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,13 +48,14 @@ class ScanResultFragment(manager: FragmentManager): BaseBottomSheet(manager) {
             when(response) {
                 is Response.Error -> {
                     binding.decodeErrorView.root.show()
-                    binding.nestedScrollView.hide()
+                    binding.detailsLayout.hide()
                     binding.progressIndicator.hide()
+
                 }
                 is Response.Success -> {
                     binding.decodeErrorView.root.hide()
                     binding.progressIndicator.hide()
-                    binding.nestedScrollView.show()
+                    binding.detailsLayout.show()
 
                     response.data?.let {
                         binding.assetNameTextView.text = it.asset?.assetName
@@ -81,13 +82,14 @@ class ScanResultFragment(manager: FragmentManager): BaseBottomSheet(manager) {
             when(response) {
                 is Response.Error -> {
                     binding.decodeErrorView.root.show()
-                    binding.nestedScrollView.hide()
+                    binding.detailsLayout.hide()
                     binding.progressIndicator.hide()
+
                 }
                 is Response.Success -> {
                     binding.decodeErrorView.root.hide()
                     binding.progressIndicator.hide()
-                    binding.nestedScrollView.show()
+                    binding.detailsLayout.show()
 
                     binding.profileImageView.setImageResource(R.drawable.ic_hero_exclamation)
                     binding.userNameTextView.setText(R.string.error_assignment_not_exist_header)

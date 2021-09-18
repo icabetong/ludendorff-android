@@ -4,7 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import coil.load
+import coil.size.Scale
+import coil.transform.CircleCropTransformation
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemUserBinding
 import io.capstone.ludendorff.features.shared.components.BaseFragment
@@ -29,6 +32,7 @@ class UserAdapter(
         private val binding = LayoutItemUserBinding.bind(itemView)
 
         override fun onBind(data: User?) {
+
             data?.let {
                 binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + it.userId
                 binding.overlineTextView.text = it.position
@@ -37,7 +41,10 @@ class UserAdapter(
                 if (it.imageUrl != null)
                     binding.imageView.load(it.imageUrl) {
                         error(R.drawable.ic_flaticon_user)
-                        placeholder(R.drawable.ic_flaticon_user)
+                        scale(Scale.FILL)
+                        transformations(CircleCropTransformation())
+                        placeholder(CoilProgressDrawable(binding.root.context,
+                            R.color.keeper_primary))
                     }
                 else binding.imageView.setImageResource(R.drawable.ic_flaticon_user)
             }

@@ -114,7 +114,7 @@ class ScanFragment: BaseFragment(), FragmentResultListener {
         codeScanner.decodeCallback = DecodeCallback {
             viewModel.setDecodedResult(it.text)
             activity?.runOnUiThread {
-                ScanResultFragment(childFragmentManager)
+                ScanResultBottomSheet(childFragmentManager)
                     .show()
             }
         }
@@ -176,7 +176,7 @@ class ScanFragment: BaseFragment(), FragmentResultListener {
                             val decodeResult = reader.decode(binaryBitmap)
 
                             viewModel.setDecodedResult(decodeResult.text)
-                            ScanResultFragment(childFragmentManager)
+                            ScanResultBottomSheet(childFragmentManager)
                                 .show()
                         } catch (exception: NotFoundException) {
                             createSnackbar(R.string.error_decode_not_found)

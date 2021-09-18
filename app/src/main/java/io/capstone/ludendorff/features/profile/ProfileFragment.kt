@@ -19,7 +19,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import androidx.work.*
 import coil.load
 import coil.size.Scale
@@ -33,8 +32,8 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.afollestad.materialdialogs.list.listItems
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.custom.NavigationItemDecoration
-import io.capstone.ludendorff.components.extensions.setColorFilterCompat
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentProfileBinding
 import io.capstone.ludendorff.features.auth.AuthViewModel
@@ -144,13 +143,6 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         super.onStart()
         controller = findNavController()
 
-        val progressDrawable = CircularProgressDrawable(requireContext()).apply {
-            strokeWidth = 4f
-            centerRadius = 24f
-            setColorFilterCompat(ContextCompat.getColor(requireContext(), R.color.keeper_primary))
-            start()
-        }
-
         authViewModel.userData.observe(viewLifecycleOwner) {
 
             binding.nameTextView.text = it.getDisplayName()
@@ -158,9 +150,9 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
             if (it.imageUrl != null)
                 binding.imageView.load(it.imageUrl) {
                     error(R.drawable.ic_hero_user)
-                    placeholder(progressDrawable)
                     scale(Scale.FILL)
                     transformations(CircleCropTransformation())
+                    placeholder(CoilProgressDrawable(requireContext(), R.color.keeper_primary))
                 }
             else binding.imageView.setImageResource(R.drawable.ic_flaticon_user)
         }

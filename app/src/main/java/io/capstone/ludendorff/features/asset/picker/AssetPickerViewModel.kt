@@ -7,8 +7,6 @@ import androidx.paging.cachedIn
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.capstone.ludendorff.components.persistence.UserPreferences
-import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetPagingSource
 import io.capstone.ludendorff.features.core.backend.Response

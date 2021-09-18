@@ -2,7 +2,6 @@ package io.capstone.ludendorff.features.shared.components
 
 import android.content.Context
 import android.graphics.Color
-import android.inputmethodservice.InputMethodService
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
