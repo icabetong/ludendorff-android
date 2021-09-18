@@ -99,6 +99,11 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 Asset.Status.RETIRED -> binding.retiredChip.isChecked = true
                 null -> binding.idleChip.isChecked = true
             }
+            if (it.status == Asset.Status.OPERATIONAL) {
+                binding.idleChip.isEnabled = false
+                binding.underMaintenanceChip.isEnabled = false
+                binding.retiredChip.isEnabled = false
+            } else binding.operationalChip.isEnabled = false
         }
 
         with(binding.recyclerView) {
@@ -166,6 +171,11 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             else viewModel.update(editorViewModel.asset, editorViewModel.previousCategoryId)
             controller?.navigateUp()
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        hideKeyboardFromCurrentFocus(binding.root)
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {

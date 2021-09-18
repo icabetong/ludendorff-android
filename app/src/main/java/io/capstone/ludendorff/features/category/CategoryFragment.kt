@@ -83,6 +83,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             binding.actionButton
         )
 
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.keeper_primary)
         binding.appBar.toolbar.setup (
             titleRes = R.string.activity_categories,
             onNavigationClicked = { controller?.navigateUp() },

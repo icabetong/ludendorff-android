@@ -59,6 +59,7 @@ class NotificationFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setInsets(view, binding.appBar.toolbar)
 
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.keeper_primary)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_notifications,
             iconRes = R.drawable.ic_hero_arrow_left,

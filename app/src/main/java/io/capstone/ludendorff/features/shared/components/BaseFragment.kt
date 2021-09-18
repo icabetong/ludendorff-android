@@ -2,9 +2,11 @@ package io.capstone.ludendorff.features.shared.components
 
 import android.content.Context
 import android.graphics.Color
+import android.inputmethodservice.InputMethodService
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
@@ -146,6 +148,41 @@ abstract class BaseFragment: Fragment() {
     protected fun registerForFragmentResult(keys: Array<String>, listener: FragmentResultListener) {
         keys.forEach {
             childFragmentManager.setFragmentResultListener(it, viewLifecycleOwner, listener)
+        }
+    }
+
+    /**
+     * @param view the root view of the fragment
+     */
+    protected fun hideKeyboardFromCurrentFocus(view: View) {
+        if (view is ViewGroup)
+            findCurrentFocus(view)
+    }
+
+    /**
+     * @param viewGroup check if any of its children has focus then
+     * hide the keyboard
+     */
+    private fun findCurrentFocus(viewGroup: ViewGroup) {
+        viewGroup.children.forEach {
+            if (it is ViewGroup)
+                findCurrentFocus(it)
+            else
+                if (it.hasFocus())
+                    hideKeyboardFromView(it)
+        }
+    }
+
+    /**
+     * @param view the view which has the focus
+     * then get the inputMethodManager service then
+     * try to hide the soft keyboard with the view's
+     * window token
+     */
+    private fun hideKeyboardFromView(view: View) {
+        (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE)
+                as? InputMethodManager)?.run {
+            hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 

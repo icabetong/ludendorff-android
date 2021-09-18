@@ -115,6 +115,11 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        hideKeyboardFromCurrentFocus(binding.root)
+    }
+
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when(requestKey) {
             UserPickerBottomSheet.REQUEST_KEY_PICK -> {

@@ -163,6 +163,11 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        hideKeyboardFromCurrentFocus(binding.root)
+    }
+
     override fun onResume() {
         super.onResume()
 

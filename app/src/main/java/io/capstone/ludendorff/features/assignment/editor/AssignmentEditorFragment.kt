@@ -114,6 +114,11 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
     }
 
+    override fun onStop() {
+        super.onStop()
+        hideKeyboardFromCurrentFocus(binding.root)
+    }
+
     override fun onResume() {
         super.onResume()
 

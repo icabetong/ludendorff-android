@@ -78,6 +78,7 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
         )
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.keeper_primary)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_home,
             iconRes = R.drawable.ic_hero_menu,
