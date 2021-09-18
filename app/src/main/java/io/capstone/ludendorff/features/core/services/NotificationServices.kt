@@ -55,7 +55,6 @@ class NotificationServices: FirebaseMessagingService() {
                     Notification.Type.ASSIGNMENT -> MainActivity.ACTION_ASSIGNMENT
                 }
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                putExtra(EXTRA_NOTIFICATION_ID, 0)
                 putExtra(MainActivity.EXTRA_PAYLOAD, payload)
             },
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
@@ -84,8 +83,6 @@ class NotificationServices: FirebaseMessagingService() {
     }
 
     companion object {
-        const val EXTRA_NOTIFICATION_ID = "extra:notification:id"
-
         fun createChannels(context: Context) {
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O)
                 return;

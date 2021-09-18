@@ -63,8 +63,6 @@ class AssignmentRepository @Inject constructor(
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code())
 
-        } catch (exception: FirebaseFirestoreException) {
-            Response.Error(exception, Response.Action.CREATE)
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.CREATE)
         }
@@ -133,8 +131,6 @@ class AssignmentRepository @Inject constructor(
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code())
 
-        } catch (exception: FirebaseFirestoreException) {
-            Response.Error(exception, Response.Action.UPDATE)
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.UPDATE)
         }
@@ -153,14 +149,12 @@ class AssignmentRepository @Inject constructor(
             }.await()
 
             Response.Success(Response.Action.REMOVE)
-        } catch (exception: FirebaseFirestoreException) {
-            Response.Error(exception)
         } catch (exception: Exception) {
             Response.Error(exception)
         }
     }
 
-    suspend fun fetchUsingAssetId(assetId: String): Response<Assignment?> = withContext(IO) {
+    suspend fun fetch(assetId: String): Response<Assignment?> = withContext(IO) {
         return@withContext try {
             val task = firestore.collection(Assignment.COLLECTION)
                 .whereEqualTo(Assignment.FIELD_ASSET_ID, assetId)
@@ -170,8 +164,6 @@ class AssignmentRepository @Inject constructor(
             if (task.isEmpty)
                 Response.Success(null)
             else Response.Success(Assignment.from(task.first()))
-        } catch(exception: FirebaseFirestoreException) {
-            Response.Error(exception)
         } catch(exception: Exception) {
             Response.Error(exception)
         }

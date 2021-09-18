@@ -1,5 +1,7 @@
 package io.capstone.ludendorff.features.assignment
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -23,6 +25,9 @@ class AssignmentViewModel @Inject constructor(
     userPreferences: UserPreferences
 ): BaseViewModel() {
 
+    private val _assignment = Channel<Assignment?>(Channel.BUFFERED)
+    val assignment = _assignment.receiveAsFlow()
+
     private val assignmentQuery: Query = firestore.collection(Assignment.COLLECTION)
         .orderBy(Assignment.FIELD_ASSET_NAME, userPreferences.sortDirection)
         .limit(Response.QUERY_LIMIT.toLong())
@@ -44,6 +49,15 @@ class AssignmentViewModel @Inject constructor(
     }
     fun remove(assignment: Assignment) = viewModelScope.launch(IO) {
         _action.send(repository.remove(assignment))
+    }
+    fun fetch(assignmentId: String?) = viewModelScope.launch(IO) {
+        if (!assignmentId.isNullOrBlank())
+            return@launch
+
+        val response = repository.fetch(assignmentId!!)
+        if (response is Response.Success)
+            _assignment.send(response.data)
+        else _assignment.send(null)
     }
 
 }

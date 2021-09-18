@@ -39,7 +39,7 @@ class ScanViewModel @Inject constructor(
     }
 
     private fun fetch(id: String) = viewModelScope.launch(IO) {
-        val response = assignmentRepository.fetchUsingAssetId(id)
+        val response = assignmentRepository.fetch(id)
 
         /**
          *  Check if the response is successful, then
