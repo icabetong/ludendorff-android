@@ -4,11 +4,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
 import io.capstone.ludendorff.components.exceptions.EmptyCredentialsException
-import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -34,6 +34,7 @@ import com.afollestad.materialdialogs.list.listItems
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.NavigationItemDecoration
+import io.capstone.ludendorff.components.extensions.setColorFilterCompat
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentProfileBinding
 import io.capstone.ludendorff.features.auth.AuthViewModel
@@ -146,7 +147,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         val progressDrawable = CircularProgressDrawable(requireContext()).apply {
             strokeWidth = 4f
             centerRadius = 24f
-            setTint(ContextCompat.getColor(requireContext(), R.color.keeper_primary))
+            setColorFilterCompat(ContextCompat.getColor(requireContext(), R.color.keeper_primary))
             start()
         }
 

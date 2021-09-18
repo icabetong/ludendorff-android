@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.components.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val repository: UserRepository
+    private val repository: UserRepository,
+    userPreferences: UserPreferences
 ): BaseViewModel() {
 
     var sortMethod = User.FIELD_LAST_NAME
@@ -27,7 +29,7 @@ class UserViewModel @Inject constructor(
     var filterValue: String? = null
 
     private val userQuery: Query = firestore.collection(User.COLLECTION)
-        .orderBy(User.FIELD_LAST_NAME, Query.Direction.ASCENDING)
+        .orderBy(User.FIELD_LAST_NAME, userPreferences.sortDirection)
         .limit(Response.QUERY_LIMIT.toLong())
     private var currentQuery = userQuery
 

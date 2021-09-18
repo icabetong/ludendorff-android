@@ -132,7 +132,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             editorViewModel.previousAssetId = null
 
             binding.assetTextInputLayout.endIconDrawable = null
-            binding.assetTextInput.text = null
+            binding.assetTextInput.setText(R.string.hint_not_set)
         }
         binding.userTextInput.setOnClickListener {
             UserPickerBottomSheet(childFragmentManager)
@@ -143,7 +143,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             editorViewModel.assignment.user = null
 
             binding.userTextInputLayout.endIconDrawable = null
-            binding.userTextInput.text = null
+            binding.userTextInput.setText(R.string.hint_not_set)
         }
         binding.dateAssignedTextInput.setOnClickListener {
             MaterialDialog(requireContext()).show {

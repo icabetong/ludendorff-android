@@ -175,7 +175,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
         }
         binding.departmentTextInputLayout.setEndIconOnClickListener {
             editorViewModel.user.department = null
-            binding.departmentTextInput.text = null
+            binding.departmentTextInput.setText(R.string.hint_not_set)
             binding.departmentTextInputLayout.endIconDrawable = null
         }
 

@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/drawable/ic_hero_chart_square_bar.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_check_circle.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_eye.xml" value="0.2734375" />
+        <entry key="app/src/main/res/drawable/ic_hero_eye_off.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/ic_hero_filter.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_hand.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_hashtag.xml" value="0.23026315789473684" />
@@ -32,7 +33,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_assets.xml" value="0.26597131681877445" />
         <entry key="app/src/main/res/layout/fragment_assignment.xml" value="0.22006578947368421" />
-        <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.18914473684210525" />
+        <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.21992110453648916" />
         <entry key="app/src/main/res/layout/fragment_department.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_editor_asset.xml" value="0.22006578947368421" />
@@ -50,6 +51,7 @@
         <entry key="app/src/main/res/layout/fragment_options_assignment.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_options_scan.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_options_users.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/fragment_picker_asset.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/fragment_picker_user.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/fragment_request.xml" value="0.22006578947368421" />

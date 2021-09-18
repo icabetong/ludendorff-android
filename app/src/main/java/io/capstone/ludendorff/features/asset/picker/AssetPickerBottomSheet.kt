@@ -1,13 +1,17 @@
 package io.capstone.ludendorff.features.asset.picker
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +33,7 @@ class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
     private var _binding: FragmentPickerAssetBinding? = null
 
     private val binding get() = _binding!!
-    private val viewModel: AssetPickerViewModel by activityViewModels()
+    private val viewModel: AssetPickerViewModel by viewModels()
     private val assetAdapter = AssetAdapter(this)
 
     override fun onCreateView(
@@ -66,11 +70,6 @@ class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
                         binding.recyclerView.hide()
                     }
                     is LoadState.Error -> {
-                        binding.emptyView.root.hide()
-                        binding.errorView.root.hide()
-                        binding.progressIndicator.hide()
-                        binding.recyclerView.hide()
-
                         val errorState = when {
                             it.prepend is LoadState.Error -> it.prepend as LoadState.Error
                             it.append is LoadState.Error -> it.append as LoadState.Error
@@ -80,6 +79,10 @@ class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
 
 
                         errorState?.let { e ->
+                            binding.emptyView.root.hide()
+                            binding.errorView.root.hide()
+                            binding.progressIndicator.hide()
+                            binding.recyclerView.hide()
 
                             /**
                              *  Check if the error that have returned is
@@ -97,6 +100,8 @@ class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
                     is LoadState.NotLoading -> {
                         binding.progressIndicator.hide()
                         binding.recyclerView.show()
+                        binding.errorView.root.hide()
+                        binding.emptyView.root.hide()
                     }
                 }
             }

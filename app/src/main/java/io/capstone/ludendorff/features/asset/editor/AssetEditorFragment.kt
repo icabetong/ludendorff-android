@@ -133,7 +133,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         }
         binding.categoryTextInputLayout.setEndIconOnClickListener {
             editorViewModel.asset.category = null
-            binding.categoryTextInput.text = null
+            binding.categoryTextInput.setText(R.string.hint_not_set)
             binding.categoryTextInputLayout.endIconDrawable = null
         }
         binding.appBar.toolbarActionButton.setOnClickListener {

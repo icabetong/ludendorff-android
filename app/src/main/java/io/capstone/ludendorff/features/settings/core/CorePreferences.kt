@@ -103,6 +103,7 @@ class CorePreferences: BasePreference() {
     companion object {
         const val PREFERENCE_KEY_USER = "preference:user"
         const val PREFERENCE_KEY_THEME = "preference:theme"
+        const val PREFERENCE_KEY_SORT = "preference:sort"
         const val PREFERENCE_KEY_DEVICE_DEFAULT = "preference:device_default"
         const val PREFERENCE_KEY_BUILD = "preference:build"
         const val PREFERENCE_KEY_NOTICE = "preference:notices"

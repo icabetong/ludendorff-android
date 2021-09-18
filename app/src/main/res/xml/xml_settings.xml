@@ -17,6 +17,15 @@
             android:defaultValue="system"
             app:useSimpleSummaryProvider="true"/>
 
+        <ListPreference
+            android:key="preference:sort"
+            android:title="@string/settings_default_sort_direction"
+            android:icon="@drawable/ic_hero_sort_ascending"
+            android:entries="@array/settings_sort_directions_options"
+            android:entryValues="@array/settings_sort_directions_values"
+            android:defaultValue="ascending"
+            app:useSimpleSummaryProvider="true"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

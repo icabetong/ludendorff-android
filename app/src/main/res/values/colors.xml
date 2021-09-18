@@ -30,5 +30,5 @@
     <color name="keeper_toolbar">@color/keeper_surface</color>
     <color name="keeper_menu">?attr/colorSurface</color>
 
-    <color name="keeper_shimmer">#f8f8f2</color>
+    <color name="keeper_shimmer">#e0e0e0</color>
 </resources>

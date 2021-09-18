@@ -74,6 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_password"
+            app:passwordToggleDrawable="@drawable/ic_hero_eye"
+            app:passwordToggleEnabled="true"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -86,20 +88,18 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/forgotPasswordButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_margin_large"
-            android:layout_gravity="end"
-            android:text="@string/button_forgot_password"
-            android:textAllCaps="false"
-            style="@style/Widget.MaterialComponents.Button.TextButton"/>
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/authenticateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/activity_margin"
             android:text="@string/button_sign_in"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/forgotPasswordButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_forgot_password"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
     </LinearLayout>
 

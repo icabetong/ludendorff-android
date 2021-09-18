@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.components.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AssetViewModel @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val repository: AssetRepository
+    private val repository: AssetRepository,
+    userPreferences: UserPreferences,
 ): BaseViewModel() {
 
     var sortMethod = Asset.FIELD_NAME
@@ -27,7 +29,7 @@ class AssetViewModel @Inject constructor(
     var filterValue: String? = null
 
     private val assetQuery: Query = firestore.collection(Asset.COLLECTION)
-        .orderBy(Asset.FIELD_NAME, Query.Direction.ASCENDING)
+        .orderBy(Asset.FIELD_NAME, userPreferences.sortDirection)
         .limit(Response.QUERY_LIMIT.toLong())
     private var currentQuery = assetQuery
 

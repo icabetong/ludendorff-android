@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.components.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -18,11 +19,12 @@ import javax.inject.Inject
 @HiltViewModel
 class AssignmentViewModel @Inject constructor(
     firestore: FirebaseFirestore,
-    private val repository: AssignmentRepository
+    private val repository: AssignmentRepository,
+    userPreferences: UserPreferences
 ): BaseViewModel() {
 
     private val assignmentQuery: Query = firestore.collection(Assignment.COLLECTION)
-        .orderBy(Assignment.FIELD_ASSET_NAME, Query.Direction.ASCENDING)
+        .orderBy(Assignment.FIELD_ASSET_NAME, userPreferences.sortDirection)
         .limit(Response.QUERY_LIMIT.toLong())
 
     val assignments = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {

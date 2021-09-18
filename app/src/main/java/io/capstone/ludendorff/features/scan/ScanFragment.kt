@@ -119,11 +119,7 @@ class ScanFragment: BaseFragment(), FragmentResultListener {
             }
         }
 
-        if (permissions.cameraPermissionGranted) {
-            switchViews(true)
-            codeScanner.startPreview()
-        } else switchViews(false)
-
+        switchViews(permissions.cameraPermissionGranted)
         registerForFragmentResult(arrayOf(ImagePickerBottomSheet.REQUEST_KEY_PICK),
             this)
     }
@@ -158,6 +154,8 @@ class ScanFragment: BaseFragment(), FragmentResultListener {
     private fun switchViews(permissionGranted: Boolean) {
         binding.codeScannerView.isVisible = permissionGranted
         binding.errorView.isVisible = !permissionGranted
+        if (permissionGranted)
+            codeScanner.startPreview()
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
@@ -178,7 +176,8 @@ class ScanFragment: BaseFragment(), FragmentResultListener {
                             val decodeResult = reader.decode(binaryBitmap)
 
                             viewModel.setDecodedResult(decodeResult.text)
-                            triggerNavigationDrawer()
+                            ScanResultFragment(childFragmentManager)
+                                .show()
                         } catch (exception: NotFoundException) {
                             createSnackbar(R.string.error_decode_not_found)
 

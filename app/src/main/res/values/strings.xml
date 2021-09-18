@@ -97,7 +97,7 @@
     <string name="button_send">Send</string>
     <string name="button_disable">Disable</string>
     <string name="button_enable">Enable</string>
-    <string name="button_forgot_password">Forgot Password</string>
+    <string name="button_forgot_password">Forgot Password?</string>
     <string name="button_select_image">Select Image</string>
     <string name="button_use_today">Use Today\'s Date</string>
     <string name="button_pick_date">Pick Date</string>
@@ -279,6 +279,9 @@
     <string name="settings_theme_option_system">System</string>
     <string name="settings_theme_option_light">Light</string>
     <string name="settings_theme_option_dark">Dark</string>
+    <string name="settings_default_sort_direction">Default Sort Direction</string>
+    <string name="settings_default_sort_direction_option_ascending">Ascending</string>
+    <string name="settings_default_sort_direction_option_descending">Descending</string>
 
     <string name="settings_default_notification_device_title">Use this device for notifications</string>
     <string name="settings_default_notification_device_summary">Make this device the default receiver for notifications.</string>

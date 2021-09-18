@@ -110,7 +110,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         }
         binding.managerTextInputLayout.setEndIconOnClickListener {
             editorViewModel.department.manager = null
-            binding.managerTextInput.text = null
+            binding.managerTextInput.setText(R.string.hint_vacant)
             binding.managerTextInputLayout.endIconDrawable = null
         }
     }

@@ -1,17 +1,17 @@
 package io.capstone.ludendorff.components.extensions
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.capstone.ludendorff.R
 import me.saket.cascade.CascadePopupMenu
 import me.saket.cascade.overrideOverflowMenu
@@ -61,4 +61,11 @@ fun Toolbar.setup(
 
 fun TextView.setTextColorRes(@ColorRes color: Int) {
     setTextColor(ContextCompat.getColor(context, color))
+}
+
+@SuppressLint("DEPRECATION")
+fun Drawable.setColorFilterCompat(@ColorInt color: Int) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        colorFilter = BlendModeColorFilter(color, BlendMode.SRC_ATOP)
+    else setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
 }

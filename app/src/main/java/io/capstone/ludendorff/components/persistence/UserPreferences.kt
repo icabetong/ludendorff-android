@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.google.firebase.firestore.Query
 import io.capstone.ludendorff.features.settings.core.CorePreferences
 import java.util.*
 
@@ -51,6 +52,21 @@ class UserPreferences(private val context: Context?) {
         set(value) {
             sharedPreference.edit {
                 putString(CorePreferences.PREFERENCE_KEY_THEME, value.toString())
+            }
+        }
+
+    var sortDirection: Query.Direction
+        get() {
+            return if (sharedPreference.getString(CorePreferences.PREFERENCE_KEY_SORT,
+                    "ascending") != "ascending")
+                        Query.Direction.DESCENDING
+            else Query.Direction.ASCENDING
+        }
+        set(value) {
+            sharedPreference.edit {
+                putString(CorePreferences.PREFERENCE_KEY_SORT,
+                    value.toString().lowercase(Locale.getDefault())
+                )
             }
         }
 

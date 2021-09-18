@@ -18,4 +18,13 @@
         <item>dark</item>
     </string-array>
 
+    <string-array name="settings_sort_directions_options">
+        <item>@string/settings_default_sort_direction_option_ascending</item>
+        <item>@string/settings_default_sort_direction_option_descending</item>
+    </string-array>
+    <string-array name="settings_sort_directions_values">
+        <item>ascending</item>
+        <item>descending</item>
+    </string-array>
+
 </resources>
