@@ -18,9 +18,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.Timestamp
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
-import io.capstone.ludendorff.components.extensions.format
-import io.capstone.ludendorff.components.extensions.setup
-import io.capstone.ludendorff.components.extensions.toTimestamp
+import io.capstone.ludendorff.components.extensions.*
 import io.capstone.ludendorff.databinding.FragmentEditorAssignmentBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
@@ -92,7 +90,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.appBar.toolbar.menu.findItem(R.id.action_end_assignment).isVisible = it.dateReturned == null
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.assignmentId
 
-            binding.dateReturnedInputLayout.isVisible = it.dateReturned != null
+            binding.dateReturnedTextInputLayout.isVisible = it.dateReturned != null
 
             binding.assetTextInput.setText(it.asset?.assetName)
             binding.userTextInput.setText(it.user?.name)
@@ -128,39 +126,46 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.remarksTextInput.doAfterTextChanged {
             editorViewModel.assignment.remarks = it.toString()
         }
-        binding.assetTextInput.setOnClickListener {
-            AssetPickerBottomSheet(childFragmentManager)
-                .show()
-        }
         binding.assetTextInputLayout.setEndIconOnClickListener {
-            editorViewModel.assignment.asset = null
-            editorViewModel.previousAssetId = null
+            if (editorViewModel.assignment.asset != null) {
+                editorViewModel.assignment.asset = null
+                editorViewModel.previousAssetId = null
 
-            binding.assetTextInputLayout.endIconDrawable = null
-            binding.assetTextInput.setText(R.string.hint_not_set)
-        }
-        binding.userTextInput.setOnClickListener {
-            UserPickerBottomSheet(childFragmentManager)
-                .show()
+                binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+                binding.assetTextInput.setText(R.string.hint_not_set)
+            } else
+                AssetPickerBottomSheet(childFragmentManager)
+                    .show()
         }
         binding.userTextInputLayout.setEndIconOnClickListener {
-            editorViewModel.previousUserId = null
-            editorViewModel.assignment.user = null
+            if (editorViewModel.assignment.user != null) {
+                editorViewModel.previousUserId = null
+                editorViewModel.assignment.user = null
 
-            binding.userTextInputLayout.endIconDrawable = null
-            binding.userTextInput.setText(R.string.hint_not_set)
+                binding.userTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+                binding.userTextInput.setText(R.string.hint_not_set)
+            } else
+                UserPickerBottomSheet(childFragmentManager)
+                    .show()
         }
-        binding.dateAssignedTextInput.setOnClickListener {
-            MaterialDialog(requireContext()).show {
-                lifecycleOwner(viewLifecycleOwner)
-                datePicker { _, date ->
-                    val timestamp = date.toTimestamp()
+        binding.dateAssignedTextInputLayout.setEndIconOnClickListener {
+            if (editorViewModel.assignment.dateAssigned != null) {
+                editorViewModel.assignment.dateAssigned = null
 
-                    val formattedDate = timestamp.format(requireContext())
-                    binding.dateAssignedTextInput.setText(formattedDate)
-                    editorViewModel.assignment.dateAssigned = timestamp
+                binding.dateAssignedTextInput.setText(R.string.hint_not_set)
+                binding.dateAssignedTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_calendar)
+            } else
+                MaterialDialog(requireContext()).show {
+                    lifecycleOwner(viewLifecycleOwner)
+                    datePicker { _, date ->
+                        val timestamp = date.toTimestamp()
+
+                        val formattedDate = timestamp.format(requireContext())
+                        binding.dateAssignedTextInput.setText(formattedDate)
+                        binding.dateAssignedTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                        editorViewModel.assignment.dateAssigned = timestamp
+                    }
                 }
-            }
         }
         binding.dateReturnedTextInput.setOnClickListener {
             MaterialDialog(requireContext()).show {

@@ -44,6 +44,10 @@ class NotificationServices: FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
+        remoteMessage.data.forEach { (t, u) ->
+            android.util.Log.e("DEBUG", "${t}:${u}")
+        }
+
         val type = Notification.getType(remoteMessage)
         val payload = remoteMessage.data[Notification.FIELD_PAYLOAD]
 
@@ -78,6 +82,13 @@ class NotificationServices: FirebaseMessagingService() {
                 remoteMessage.data[Notification.EXTRA_TARGET]))
             .setAutoCancel(false)
             .setContentIntent(mainPendingIntent)
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(
+                    String.format(getString(bodyRes),
+                        remoteMessage.data[Notification.EXTRA_SENDER],
+                        remoteMessage.data[Notification.EXTRA_TARGET])
+                )
+            )
 
         notificationManager?.notify(0, notification.build())
     }

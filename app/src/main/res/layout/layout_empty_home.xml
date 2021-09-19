@@ -16,7 +16,7 @@
         android:layout_width="@dimen/icon_size_large"
         android:layout_height="@dimen/icon_size_large"
         android:layout_marginBottom="@dimen/activity_margin_medium"
-        app:srcCompat="@drawable/ic_hero_at_symbol"
+        app:srcCompat="@drawable/ic_hero_printer"
         app:tint="@color/keeper_text_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView

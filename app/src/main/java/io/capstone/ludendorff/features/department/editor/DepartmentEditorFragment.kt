@@ -12,6 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.removeCustomEndIconDrawable
+import io.capstone.ludendorff.components.extensions.setCustomEndIconDrawable
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentEditorDepartmentBinding
 import io.capstone.ludendorff.features.department.Department
@@ -105,13 +107,14 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             controller?.navigateUp()
         }
 
-        binding.managerTextInput.setOnClickListener {
-            UserPickerBottomSheet(childFragmentManager).show()
-        }
         binding.managerTextInputLayout.setEndIconOnClickListener {
-            editorViewModel.department.manager = null
-            binding.managerTextInput.setText(R.string.hint_vacant)
-            binding.managerTextInputLayout.endIconDrawable = null
+            if (editorViewModel.department.manager != null) {
+                editorViewModel.department.manager = null
+                binding.managerTextInput.setText(R.string.hint_vacant)
+                binding.managerTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+            } else
+                UserPickerBottomSheet(childFragmentManager)
+                    .show()
         }
     }
 

@@ -18,7 +18,7 @@
 
         <activity android:name="io.capstone.ludendorff.features.core.activities.MainActivity"
             android:theme="@style/Theme.Keeper.Core"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:launchMode="standard"
             android:exported="true">
             <intent-filter>

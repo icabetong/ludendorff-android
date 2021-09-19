@@ -71,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:hint="@string/hint_asset"
+                app:endIconDrawable="@drawable/ic_hero_chevron_down"
                 app:endIconMode="custom"
                 app:endIconTint="@color/keeper_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
@@ -92,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:hint="@string/hint_user"
+                app:endIconDrawable="@drawable/ic_hero_chevron_down"
                 app:endIconMode="custom"
                 app:endIconTint="@color/keeper_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
@@ -108,11 +110,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/dateAssignedInputLayout"
+                android:id="@+id/dateAssignedTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:hint="@string/hint_date_assigned"
+                app:endIconDrawable="@drawable/ic_hero_calendar"
+                app:endIconMode="custom"
+                app:endIconTint="@color/keeper_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -127,12 +132,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/dateReturnedInputLayout"
+                android:id="@+id/dateReturnedTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:hint="@string/hint_date_returned"
                 android:visibility="gone"
+                app:endIconTint="@color/keeper_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText

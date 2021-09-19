@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_hero_camera.xml" value="0.21217105263157895" />
         <entry key="app/src/main/res/drawable/ic_hero_chart_square_bar.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_check_circle.xml" value="0.1993421052631579" />
+        <entry key="app/src/main/res/drawable/ic_hero_chevron_down.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/ic_hero_eye.xml" value="0.2734375" />
         <entry key="app/src/main/res/drawable/ic_hero_eye_off.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/ic_hero_filter.xml" value="0.23026315789473684" />
@@ -19,6 +20,7 @@
         <entry key="app/src/main/res/drawable/ic_hero_hashtag.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_mail_open.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_minus_circle.xml" value="0.1993421052631579" />
+        <entry key="app/src/main/res/drawable/ic_hero_printer.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/ic_hero_scissors.xml" value="0.1993421052631579" />
         <entry key="app/src/main/res/drawable/ic_hero_search_circle.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/ic_hero_shield_exclamation.xml" value="0.23026315789473684" />
@@ -28,6 +30,7 @@
         <entry key="app/src/main/res/drawable/ic_icon_pickelhaube.xml" value="0.2734375" />
         <entry key="app/src/main/res/drawable/ic_icon_pickelhaube_filled.xml" value="0.2734375" />
         <entry key="app/src/main/res/drawable/ic_outline_arrow_back_24.xml" value="0.10592105263157894" />
+        <entry key="app/src/main/res/drawable/selector_password_toggle.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/shape_search_field.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/drawable/shape_searchview.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18914473684210525" />
@@ -42,7 +45,7 @@
         <entry key="app/src/main/res/layout/fragment_editor_department.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_editor_request.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_editor_specification.xml" value="0.18914473684210525" />
-        <entry key="app/src/main/res/layout/fragment_editor_user.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_editor_user.xml" value="0.7412868632707775" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.22006578947368421" />

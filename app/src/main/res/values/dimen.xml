@@ -25,6 +25,7 @@
     <dimen name="bottom_sheet_picker_height">256dp</dimen>
 
     <dimen name="image_container">140dp</dimen>
+    <dimen name="autocomplete_textview_padding">12dp</dimen>
 
     <!-- skeleton item widths -->
     <!-- just random numbers; put it here for standardization -->

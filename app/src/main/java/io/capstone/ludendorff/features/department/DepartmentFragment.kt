@@ -23,6 +23,7 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
+import io.capstone.ludendorff.components.extensions.setColorRes
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
@@ -81,7 +82,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
         )
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.keeper_primary)
+        binding.swipeRefreshLayout.setColorRes(R.color.keeper_primary, R.color.keeper_surface)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_departments,
             onNavigationClicked = { controller?.navigateUp() },

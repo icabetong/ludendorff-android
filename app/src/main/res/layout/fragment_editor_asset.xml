@@ -102,6 +102,7 @@
             android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginHorizontal="@dimen/activity_margin"
             android:hint="@string/hint_category"
+            app:endIconDrawable="@drawable/ic_hero_chevron_down"
             app:endIconMode="custom"
             app:endIconTint="@color/keeper_text_primary"
             style="@style/Widget.Keeper.TextInput.Layout">
@@ -110,7 +111,6 @@
                 android:id="@+id/categoryTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
                 android:inputType="none"
                 android:focusable="false"
                 android:text="@string/hint_not_set"/>

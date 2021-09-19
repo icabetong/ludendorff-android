@@ -27,6 +27,7 @@ import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
+import io.capstone.ludendorff.components.extensions.setColorRes
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
@@ -90,7 +91,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
         )
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.keeper_primary)
+        binding.swipeRefreshLayout.setColorRes(R.color.keeper_primary, R.color.keeper_surface)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_users,
             iconRes = R.drawable.ic_hero_menu,

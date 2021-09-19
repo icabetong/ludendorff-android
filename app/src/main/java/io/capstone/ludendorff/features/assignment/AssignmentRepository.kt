@@ -59,6 +59,7 @@ class AssignmentRepository @Inject constructor(
             }
 
             val response = deshi.newNotificationPost(request)
+            android.util.Log.e("DEBUG", response.code().toString())
             if (response.code() == 200)
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code())

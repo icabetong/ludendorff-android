@@ -15,6 +15,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.removeCustomEndIconDrawable
+import io.capstone.ludendorff.components.extensions.setCustomEndIconDrawable
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentEditorAssetBinding
@@ -133,13 +135,14 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.addAction.addActionButton.setOnClickListener {
             SpecsEditorBottomSheet(childFragmentManager).show()
         }
-        binding.categoryTextInput.setOnClickListener {
-            CategoryPickerBottomSheet(childFragmentManager).show()
-        }
         binding.categoryTextInputLayout.setEndIconOnClickListener {
-            editorViewModel.asset.category = null
-            binding.categoryTextInput.setText(R.string.hint_not_set)
-            binding.categoryTextInputLayout.endIconDrawable = null
+            if (editorViewModel.asset.category != null) {
+                editorViewModel.asset.category = null
+                binding.categoryTextInput.setText(R.string.hint_not_set)
+                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+            } else
+                CategoryPickerBottomSheet(childFragmentManager)
+                    .show()
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
             editorViewModel.asset.assetName = binding.assetNameTextInput.text.toString()

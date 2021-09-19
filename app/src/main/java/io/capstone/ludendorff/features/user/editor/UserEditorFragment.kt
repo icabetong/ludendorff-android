@@ -23,10 +23,13 @@ import com.afollestad.materialdialogs.actions.setActionButtonEnabled
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.removeCustomEndIconDrawable
+import io.capstone.ludendorff.components.extensions.setCustomEndIconDrawable
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentEditorUserBinding
 import io.capstone.ludendorff.features.core.backend.Response
@@ -171,17 +174,17 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
     override fun onResume() {
         super.onResume()
 
-        binding.departmentTextInput.setOnClickListener {
-            DepartmentPickerBottomSheet(childFragmentManager)
-                .show()
-        }
         binding.administrativeChip.setOnCheckedChangeListener { _, isChecked ->
             binding.permissionWarningCard.isVisible = isChecked
         }
         binding.departmentTextInputLayout.setEndIconOnClickListener {
-            editorViewModel.user.department = null
-            binding.departmentTextInput.setText(R.string.hint_not_set)
-            binding.departmentTextInputLayout.endIconDrawable = null
+            if (editorViewModel.user.department != null) {
+                editorViewModel.user.department = null
+                binding.departmentTextInput.setText(R.string.hint_not_set)
+                binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+            } else
+                DepartmentPickerBottomSheet(childFragmentManager)
+                    .show()
         }
 
         binding.appBar.toolbarActionButton.setOnClickListener {

@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.annotation.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.textfield.TextInputLayout
 import io.capstone.ludendorff.R
 import me.saket.cascade.CascadePopupMenu
 import me.saket.cascade.overrideOverflowMenu
@@ -59,13 +61,24 @@ fun Toolbar.setup(
     }
 }
 
-fun TextView.setTextColorRes(@ColorRes color: Int) {
-    setTextColor(ContextCompat.getColor(context, color))
-}
-
 @SuppressLint("DEPRECATION")
 fun Drawable.setColorFilterCompat(@ColorInt color: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
         colorFilter = BlendModeColorFilter(color, BlendMode.SRC_ATOP)
     else setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+}
+
+fun TextInputLayout.setCustomEndIconDrawable(@DrawableRes id: Int) {
+    endIconMode = TextInputLayout.END_ICON_CUSTOM
+    setEndIconDrawable(id)
+}
+
+fun TextInputLayout.removeCustomEndIconDrawable() {
+    endIconDrawable = null
+    endIconMode = TextInputLayout.END_ICON_NONE
+}
+
+fun SwipeRefreshLayout.setColorRes(@ColorRes foreground: Int, @ColorRes background: Int) {
+    setColorSchemeResources(foreground)
+    setProgressBackgroundColorSchemeResource(background)
 }

@@ -16,6 +16,7 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
+import io.capstone.ludendorff.components.extensions.setColorRes
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.databinding.FragmentNotificationBinding
@@ -59,7 +60,7 @@ class NotificationFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setInsets(view, binding.appBar.toolbar)
 
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.keeper_primary)
+        binding.swipeRefreshLayout.setColorRes(R.color.keeper_primary, R.color.keeper_surface)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_notifications,
             iconRes = R.drawable.ic_hero_arrow_left,

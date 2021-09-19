@@ -226,18 +226,18 @@
                 android:layout_marginBottom="@dimen/activity_margin"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:hint="@string/hint_department"
-                app:endIconTint="@color/keeper_text_primary"
+                app:endIconDrawable="@drawable/ic_hero_chevron_down"
                 app:endIconMode="custom"
+                app:endIconTint="@color/keeper_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/departmentTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
                     android:inputType="none"
-                    android:focusable="false"
-                    android:text="@string/hint_not_set"/>
+                    android:text="@string/hint_not_set"
+                    android:focusable="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

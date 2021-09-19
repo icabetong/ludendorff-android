@@ -38,16 +38,6 @@ class MainActivity: BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        intent?.also {
-            when (it.action) {
-                ACTION_ASSIGNMENT -> {
-                    it.getStringExtra(EXTRA_PAYLOAD)?.also { assignmentId ->
-                        assignmentViewModel.fetch(assignmentId)
-                    }
-                }
-            }
-        }
-
         controller = Navigation.findNavController(this, R.id.navHostFragment)
 
         if (authViewModel.checkCurrentUser() != null)
