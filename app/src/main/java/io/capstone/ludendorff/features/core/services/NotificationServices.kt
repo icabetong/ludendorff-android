@@ -18,6 +18,7 @@ import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.features.core.activities.MainActivity
 import io.capstone.ludendorff.features.core.worker.TokenUpdateWorker
 import io.capstone.ludendorff.features.notification.Notification
+import kotlin.random.Random
 
 class NotificationServices: FirebaseMessagingService() {
 
@@ -44,6 +45,7 @@ class NotificationServices: FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
+        val id = Random.nextInt()
         val type = Notification.getType(remoteMessage)
         val payload = remoteMessage.data[Notification.FIELD_PAYLOAD]
 
@@ -55,7 +57,8 @@ class NotificationServices: FirebaseMessagingService() {
                     Notification.Type.ASSIGNMENT -> MainActivity.ACTION_ASSIGNMENT
                 }
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                putExtra(MainActivity.EXTRA_PAYLOAD, payload)
+                putExtra(EXTRA_NOTIFICATION_ID, id)
+                putExtra(EXTRA_PAYLOAD, payload)
             },
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -86,10 +89,13 @@ class NotificationServices: FirebaseMessagingService() {
                 )
             )
 
-        notificationManager?.notify(0, notification.build())
+        notificationManager?.notify(id, notification.build())
     }
 
     companion object {
+        const val EXTRA_NOTIFICATION_ID = "extra:notification:id"
+        const val EXTRA_PAYLOAD = "extra:payload"
+
         fun createChannels(context: Context) {
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O)
                 return;

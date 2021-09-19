@@ -1,5 +1,6 @@
 package io.capstone.ludendorff.features.core.activities
 
+import android.app.NotificationManager
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
@@ -19,6 +20,7 @@ import io.capstone.ludendorff.features.assignment.AssignmentViewModel
 import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
 import io.capstone.ludendorff.features.auth.AuthViewModel
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.core.services.NotificationServices
 import io.capstone.ludendorff.features.shared.components.BaseActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,6 +36,7 @@ class MainActivity: BaseActivity() {
     private val assignmentViewModel: AssignmentViewModel by viewModels()
 
     @Inject lateinit var workManager: WorkManager
+    @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var connectivityManager: ConnectivityManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +47,11 @@ class MainActivity: BaseActivity() {
         intent?.also {
             when(it.action) {
                 ACTION_ASSIGNMENT -> {
-                    it.getStringExtra(EXTRA_PAYLOAD)?.also { payload ->
+                    val id = it.getIntExtra(NotificationServices.EXTRA_NOTIFICATION_ID,
+                        0)
+                    notificationManager.cancel(id)
+
+                    it.getStringExtra(NotificationServices.EXTRA_PAYLOAD)?.also { payload ->
                         assignmentViewModel.fetch(payload)
                     }
                 }
@@ -113,8 +120,6 @@ class MainActivity: BaseActivity() {
     companion object {
         const val ACTION_ASSIGNMENT = "action:assignment"
         const val ACTION_REQUEST = "action:request"
-        const val REQUEST_CODE_ASSIGNMENT = 1
-        const val EXTRA_PAYLOAD = "extra:payload"
         const val EXTRA_CURRENT_DESTINATION = "extra:current:destination"
     }
 }
