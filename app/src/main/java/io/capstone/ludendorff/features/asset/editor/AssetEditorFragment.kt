@@ -106,6 +106,9 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 binding.underMaintenanceChip.isEnabled = false
                 binding.retiredChip.isEnabled = false
             } else binding.operationalChip.isEnabled = false
+
+            if (it.category != null)
+                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
         }
 
         with(binding.recyclerView) {

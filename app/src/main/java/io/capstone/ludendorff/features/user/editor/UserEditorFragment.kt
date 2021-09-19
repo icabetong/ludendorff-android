@@ -132,6 +132,9 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.deleteChip.isChecked = it.hasPermission(User.PERMISSION_DELETE)
             binding.managerUsersChip.isChecked = it.hasPermission(User.PERMISSION_MANAGE_USERS)
             binding.administrativeChip.isChecked = it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
+
+            if (it.department != null)
+                binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
         }
 
         registerForFragmentResult(

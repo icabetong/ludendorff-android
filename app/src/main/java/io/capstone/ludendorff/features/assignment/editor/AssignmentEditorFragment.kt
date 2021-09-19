@@ -98,6 +98,13 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.dateReturnedTextInput.setText(it.formatDateReturned(requireContext()))
             binding.locationTextInput.setText(it.location)
             binding.remarksTextInput.setText(it.remarks)
+
+            if (it.asset != null)
+                binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+            if (it.user != null)
+                binding.userTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+            if (it.dateAssigned != null)
+                binding.dateAssignedTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
         }
 
         registerForFragmentResult(

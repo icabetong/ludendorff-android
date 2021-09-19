@@ -80,6 +80,9 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
             binding.nameTextInput.setText(it.name)
             binding.managerTextInput.setText(it.manager?.name)
+
+            if (it.manager != null)
+                binding.managerTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
         }
 
         registerForFragmentResult(arrayOf(UserPickerBottomSheet.REQUEST_KEY_PICK), this)
