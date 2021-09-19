@@ -23,7 +23,7 @@ class AssignmentViewModel @Inject constructor(
     userPreferences: UserPreferences
 ): BaseViewModel() {
 
-    private val _assignment = Channel<Assignment?>(Channel.BUFFERED)
+    private val _assignment = Channel<Response<Assignment?>>(Channel.BUFFERED)
     val assignment = _assignment.receiveAsFlow()
 
     private val assignmentQuery: Query = firestore.collection(Assignment.COLLECTION)
@@ -49,13 +49,10 @@ class AssignmentViewModel @Inject constructor(
         _action.send(repository.remove(assignment))
     }
     fun fetch(assignmentId: String?) = viewModelScope.launch(IO) {
-        if (!assignmentId.isNullOrBlank())
-            return@launch
+        if (assignmentId.isNullOrBlank())
+            return@launch _assignment.send(Response.Error(IllegalStateException("id is null or blank")))
 
-        val response = repository.fetch(assignmentId!!)
-        if (response is Response.Success)
-            _assignment.send(response.data)
-        else _assignment.send(null)
+        _assignment.send(repository.fetch(assignmentId))
     }
 
 }

@@ -77,6 +77,7 @@
         <entry key="app/src/main/res/layout/layout_item_asset.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_item_home.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_item_notification.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/layout_item_profile.xml" value="0.19166666666666668" />
         <entry key="app/src/main/res/layout/layout_item_request.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/layout_item_specs_read_only.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/layout_item_user.xml" value="0.22006578947368421" />

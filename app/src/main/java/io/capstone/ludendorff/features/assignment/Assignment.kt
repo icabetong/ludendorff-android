@@ -19,7 +19,7 @@ data class Assignment @JvmOverloads constructor(
     var assignmentId: String = IDGenerator.generateRandom(),
     var asset: AssetCore? = null,
     var user: UserCore? = null,
-    var dateAssigned: Timestamp? = Timestamp.now(),
+    var dateAssigned: Timestamp? = null,
     var dateReturned: Timestamp? = null,
     var location: String? = null,
     var remarks: String? = null

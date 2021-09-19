@@ -2,7 +2,6 @@ package io.capstone.ludendorff.features.assignment
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import io.capstone.ludendorff.api.Deshi
 import io.capstone.ludendorff.api.DeshiException
@@ -59,7 +58,6 @@ class AssignmentRepository @Inject constructor(
             }
 
             val response = deshi.newNotificationPost(request)
-            android.util.Log.e("DEBUG", response.code().toString())
             if (response.code() == 200)
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code())
@@ -155,11 +153,26 @@ class AssignmentRepository @Inject constructor(
         }
     }
 
-    suspend fun fetch(assetId: String): Response<Assignment?> = withContext(IO) {
+    suspend fun fetch(id: String): Response<Assignment?> = withContext(IO) {
         return@withContext try {
             val task = firestore.collection(Assignment.COLLECTION)
-                .whereEqualTo(Assignment.FIELD_ASSET_ID, assetId)
-                .orderBy(Assignment.FIELD_ID, Query.Direction.ASCENDING)
+                .document(id)
+                .get().await()
+
+            val assignment = task.toObject(Assignment::class.java)
+            if (assignment != null)
+                Response.Success(assignment)
+            else throw NullPointerException()
+        } catch (exception: Exception) {
+            Response.Error(exception)
+        }
+    }
+
+    suspend fun fetchWithFieldValue(field: String, value: String): Response<Assignment?> = withContext(IO) {
+        return@withContext try {
+            val task = firestore.collection(Assignment.COLLECTION)
+                .whereEqualTo(field, value)
+                .orderBy(field, Query.Direction.ASCENDING)
                 .get().await()
 
             if (task.isEmpty)

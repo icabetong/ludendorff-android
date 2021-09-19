@@ -44,10 +44,6 @@ class NotificationServices: FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
-        remoteMessage.data.forEach { (t, u) ->
-            android.util.Log.e("DEBUG", "${t}:${u}")
-        }
-
         val type = Notification.getType(remoteMessage)
         val payload = remoteMessage.data[Notification.FIELD_PAYLOAD]
 

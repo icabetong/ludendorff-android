@@ -5,6 +5,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
@@ -17,9 +18,11 @@ import io.capstone.ludendorff.databinding.ActivityMainBinding
 import io.capstone.ludendorff.features.assignment.AssignmentViewModel
 import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
 import io.capstone.ludendorff.features.auth.AuthViewModel
+import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.components.BaseActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,6 +40,19 @@ class MainActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        intent?.also {
+            when(it.action) {
+                ACTION_ASSIGNMENT -> {
+                    it.getStringExtra(EXTRA_PAYLOAD)?.also { payload ->
+                        assignmentViewModel.fetch(payload)
+                    }
+                }
+                ACTION_REQUEST -> {
+                    TODO()
+                }
+            }
+        }
 
         controller = Navigation.findNavController(this, R.id.navHostFragment)
 
@@ -65,14 +81,6 @@ class MainActivity: BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-
-        lifecycleScope.launch {
-            assignmentViewModel.assignment.collectLatest {
-                if (it != null)
-                    controller.navigate(R.id.navigation_editor_assignment,
-                        bundleOf(AssignmentEditorFragment.EXTRA_ASSIGNMENT to it))
-            }
-        }
 
         val request = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)

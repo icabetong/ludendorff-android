@@ -88,7 +88,7 @@ class ScanFragment: BaseFragment(), FragmentResultListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setInsets(
-            binding.root, binding.appBar.toolbar, arrayOf(binding.errorView, binding.codeScannerView),
+            binding.root, binding.appBar.toolbar, arrayOf(binding.errorView),
             binding.actionButton
         )
 

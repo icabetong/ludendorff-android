@@ -27,7 +27,9 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentHomeBinding
 import io.capstone.ludendorff.features.assignment.Assignment
+import io.capstone.ludendorff.features.assignment.AssignmentViewModel
 import io.capstone.ludendorff.features.assignment.viewer.AssignmentViewer
+import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.components.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -42,6 +44,7 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
     private val binding get() = _binding!!
     private val homeAdapter = HomeAdapter(this)
     private val viewModel: HomeViewModel by activityViewModels()
+    private val assignmentViewModel: AssignmentViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,6 +104,16 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
         super.onStart()
         controller = findNavController()
         mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            assignmentViewModel.assignment.collectLatest {
+                if (it is Response.Success)
+                    AssignmentViewer(childFragmentManager).show {
+                        arguments = bundleOf(AssignmentViewer.EXTRA_ASSIGNMENT to it.data)
+                    }
+                else createSnackbar(R.string.error_generic)
+            }
+        }
 
         /**
          *  Use Kotlin's coroutines to fetch the current loadState of
@@ -193,7 +206,6 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
 
     override fun onResume() {
         super.onResume()
-
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             homeAdapter.refresh()
