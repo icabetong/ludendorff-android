@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,6 +14,14 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/overlineTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"
+            tools:text="Laptop"/>
+
+        <TextView
             android:id="@+id/headerTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,7 +29,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
-            tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
+            tools:text="HP 15 r226ne"/>
 
         <TextView
             android:id="@+id/informationTextView"
@@ -28,7 +37,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            tools:text="vonlundendorff.wilhelm@gmail.com"/>
+            tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

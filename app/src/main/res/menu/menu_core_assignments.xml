@@ -7,9 +7,13 @@
         android:title="@string/menu_search"
         android:icon="@drawable/ic_hero_search"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_requests"
+        android:title="@string/menu_requests"
+        android:icon="@drawable/ic_hero_mail_open"/>
 
     <item
-        android:title="@string/options_sort"
+        android:title="@string/menu_sort"
         android:icon="@drawable/ic_hero_sort_ascending">
         <menu>
             <item
@@ -18,11 +22,11 @@
                 <menu>
                     <item
                         android:id="@+id/action_sort_asset_name_ascending"
-                        android:title="@string/options_sort_direction_ascending"
+                        android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
                         android:id="@+id/action_sort_asset_name_descending"
-                        android:title="@string/options_sort_direction_descending"
+                        android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
@@ -32,11 +36,11 @@
                 <menu>
                     <item
                         android:id="@+id/action_sort_category_ascending"
-                        android:title="@string/options_sort_direction_ascending"
+                        android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
                         android:id="@+id/action_sort_category_descending"
-                        android:title="@string/options_sort_direction_descending"
+                        android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
@@ -46,11 +50,11 @@
                 <menu>
                     <item
                         android:id="@+id/action_sort_last_name_ascending"
-                        android:title="@string/options_sort_direction_ascending"
+                        android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
                         android:id="@+id/action_sort_last_name_descending"
-                        android:title="@string/options_sort_direction_descending"
+                        android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
@@ -58,7 +62,7 @@
     </item>
 
     <item
-        android:title="@string/options_filter"
+        android:title="@string/menu_filter"
         android:icon="@drawable/ic_hero_filter">
         <menu>
             <item

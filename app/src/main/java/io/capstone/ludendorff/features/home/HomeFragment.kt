@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -207,6 +208,10 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
     override fun onResume() {
         super.onResume()
 
+        binding.actionButton.setOnClickListener {
+            mainController?.navigate(R.id.navigation_editor_request, null, null,
+                FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
+        }
         binding.swipeRefreshLayout.setOnRefreshListener {
             homeAdapter.refresh()
         }
@@ -228,6 +233,9 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
         when(id) {
             R.id.action_search -> {
                 mainController?.navigate(R.id.navigation_search)
+            }
+            R.id.action_sent_requests -> {
+                mainController?.navigate(R.id.navigation_sent_requests)
             }
         }
     }

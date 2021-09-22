@@ -12,23 +12,20 @@
         android:padding="@dimen/activity_margin"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/headerTextView"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_margin_tiny"
-            android:ellipsize="end"
-            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
-            tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
+            tools:text="Department Name"/>
 
-        <TextView
-            android:id="@+id/informationTextView"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bodyTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            tools:text="vonlundendorff.wilhelm@gmail.com"/>
+            android:textAppearance="@style/TextAppearance.Keeper.Body"
+            tools:text="Fedor von Bock"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

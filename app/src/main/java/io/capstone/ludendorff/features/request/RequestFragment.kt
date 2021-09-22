@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.assignment
+package io.capstone.ludendorff.features.request
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,14 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
-import androidx.core.view.GravityCompat
-import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
@@ -21,44 +17,36 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
-import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
+import io.capstone.ludendorff.components.extensions.setColorRes
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.databinding.FragmentAssignmentBinding
-import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
-import io.capstone.ludendorff.features.auth.AuthViewModel
+import io.capstone.ludendorff.databinding.FragmentRequestBinding
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.search.SearchFragment
+import io.capstone.ludendorff.features.request.viewer.RequestViewerBottomSheet
 import io.capstone.ludendorff.features.shared.components.BaseFragment
-import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
-    OnItemActionListener<Assignment> {
-    private var _binding: FragmentAssignmentBinding? = null
+class RequestFragment: BaseFragment(), OnItemActionListener<Request> {
+    private var _binding: FragmentRequestBinding? = null
     private var controller: NavController? = null
-    private var mainController: NavController? = null
 
     private val binding get() = _binding!!
-    private val assignmentAdapter = AssignmentAdapter(this)
-    private val viewModel: AssignmentViewModel by activityViewModels()
-    private val authViewModel: AuthViewModel by activityViewModels()
+    private val requestAdapter = RequestAdapter(this)
+    private val viewModel: RequestViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         requireActivity().onBackPressedDispatcher.addCallback(this,
             object: OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    val drawer = getNavigationDrawer()
-                    if (drawer?.isDrawerOpen(GravityCompat.START) == true)
-                        drawer.closeDrawer(GravityCompat.START)
-                    else controller?.navigateUp()
+                    controller?.navigateUp()
                 }
             })
     }
@@ -68,7 +56,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAssignmentBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentRequestBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -79,48 +67,28 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setInsets(
-            binding.root, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout, binding.emptyView.root,
-                binding.errorView.root, binding.permissionView.root, binding.shimmerFrameLayout),
-            binding.actionButton
-        )
+        setInsets(view, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout, binding.emptyView.root,
+            binding.permissionView.root, binding.errorView.root, binding.shimmerFrameLayout))
 
-        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.keeper_primary)
+        binding.swipeRefreshLayout.setColorRes(R.color.keeper_primary, R.color.keeper_surface)
         binding.appBar.toolbar.setup(
-            titleRes = R.string.activity_assignments,
-            iconRes = R.drawable.ic_hero_menu,
-            onNavigationClicked = { triggerNavigationDrawer() },
-            menuRes = R.menu.menu_core_assignments,
-            onMenuOptionClicked = ::onMenuItemClicked
+            titleRes = R.string.activity_requests,
+            onNavigationClicked = { controller?.navigateUp() },
+            menuRes = R.menu.menu_core_requests
         )
 
         with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
-            adapter = assignmentAdapter
+            adapter = requestAdapter
         }
-
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onStart() {
         super.onStart()
         controller = findNavController()
-        mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
-        authViewModel.userData.observe(viewLifecycleOwner) {
-            binding.actionButton.isVisible = it.hasPermission(User.PERMISSION_WRITE)
-                    || it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
-        }
-
-        /**
-         *  Use Kotlin's coroutines to fetch the current loadState of
-         *  the PagingAdapter; we will use the viewLifecycleOwner to
-         *  avoid memory leaks as we are using fragments as the presenter.
-         */
         viewLifecycleOwner.lifecycleScope.launch {
-            assignmentAdapter.loadStateFlow.collectLatest {
+            requestAdapter.loadStateFlow.collectLatest {
                 binding.swipeRefreshLayout.isRefreshing = false
 
                 when (it.refresh) {
@@ -135,6 +103,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
                         binding.errorView.root.hide()
                         binding.emptyView.root.hide()
+                        binding.permissionView.root.hide()
                     }
                     /**
                      *  The PagingAdapter or any component related to fetch
@@ -184,7 +153,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                         binding.errorView.root.hide()
                         binding.emptyView.root.hide()
                         if (it.refresh.endOfPaginationReached)
-                            binding.emptyView.root.isVisible = assignmentAdapter.itemCount < 1
+                            binding.emptyView.root.isVisible = requestAdapter.itemCount < 1
                     }
                 }
             }
@@ -194,7 +163,6 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
             viewModel.action.collectLatest {
                 when(it) {
                     is Response.Error -> {
-                        android.util.Log.e("DEBUG", it.throwable.toString())
                         if (it.throwable is FirebaseFirestoreException &&
                             it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
 
@@ -204,40 +172,27 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                                 message(R.string.error_no_permission_summary_write)
                                 positiveButton()
                             }
-                        } else if (it.throwable is DeshiException) {
-                            when(it.throwable.code) {
-                                DeshiException.Code.UNAUTHORIZED -> {
-                                    MaterialDialog(requireContext()).show {
-                                        lifecycleOwner(viewLifecycleOwner)
-                                        title(R.string.error_auth_failed)
-                                        message(R.string.error_auth_failed_no_token)
-                                        positiveButton()
-                                    }
-                                }
-                                DeshiException.Code.FORBIDDEN -> {
-                                    MaterialDialog(requireContext()).show {
-                                        lifecycleOwner(viewLifecycleOwner)
-                                        title(R.string.error_no_permission)
-                                        message(R.string.error_no_permission_summary_write)
-                                        positiveButton()
-                                    }
-                                }
-                                else -> showGenericError(it.action)
+                        } else {
+                            when(it.action) {
+                                Response.Action.CREATE ->
+                                    createSnackbar(R.string.feedback_request_create_error,
+                                        binding.errorView.root)
+                                Response.Action.REMOVE ->
+                                    createSnackbar(R.string.feedback_request_remove_error,
+                                        binding.errorView.root)
+                                else -> {}
                             }
-                        } else
-                            showGenericError(it.action)
+                        }
                     }
                     is Response.Success -> {
                         when(it.data) {
                             Response.Action.CREATE ->
-                                createSnackbar(R.string.feedback_assignment_created,
-                                    binding.actionButton)
-                            Response.Action.UPDATE ->
-                                createSnackbar(R.string.feedback_assignment_updated,
-                                    binding.actionButton)
+                                createSnackbar(R.string.feedback_request_created,
+                                    binding.errorView.root)
                             Response.Action.REMOVE ->
-                                createSnackbar(R.string.feedback_assignment_removed,
-                                    binding.actionButton)
+                                createSnackbar(R.string.feedback_request_removed,
+                                    binding.errorView.root)
+                            else -> {}
                         }
                     }
                 }
@@ -245,8 +200,8 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.assignments.collectLatest {
-                assignmentAdapter.submitData(it)
+            viewModel.requests.collectLatest {
+                requestAdapter.submitData(it)
             }
         }
     }
@@ -254,52 +209,23 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     override fun onResume() {
         super.onResume()
 
-        binding.actionButton.setOnClickListener {
-            mainController?.navigate(R.id.navigation_editor_assignment, null, null,
-                FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
-        }
         binding.swipeRefreshLayout.setOnRefreshListener {
-            assignmentAdapter.refresh()
+            requestAdapter.refresh()
         }
     }
 
     override fun onActionPerformed(
-        data: Assignment?,
+        data: Request?,
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        if (action == OnItemActionListener.Action.SELECT) {
-            container?.let {
-                mainController?.navigate(R.id.navigation_editor_assignment,
-                    bundleOf(AssignmentEditorFragment.EXTRA_ASSIGNMENT to data),
-                    null,
-                    FragmentNavigatorExtras(
-                        it to TRANSITION_NAME_ROOT + data?.assignmentId
-                    )
-                )
-            }
-        }
-    }
-
-    override fun onMenuItemClicked(id: Int) {
-        when(id) {
-            R.id.action_search ->
-                mainController?.navigate(R.id.navigation_search,
-                    bundleOf(SearchFragment.EXTRA_SEARCH_COLLECTION to
-                        SearchFragment.COLLECTION_ASSIGNMENTS))
-            R.id.action_requests ->
-                mainController?.navigate(R.id.navigation_request)
-        }
-    }
-
-    private fun showGenericError(action: Response.Action?) {
         when(action) {
-            Response.Action.CREATE ->
-                createSnackbar(R.string.feedback_assignment_create_error, binding.actionButton)
-            Response.Action.UPDATE ->
-                createSnackbar(R.string.feedback_assignment_update_error, binding.actionButton)
-            Response.Action.REMOVE ->
-                createSnackbar(R.string.feedback_assignment_remove_error, binding.actionButton)
+            OnItemActionListener.Action.SELECT -> {
+                RequestViewerBottomSheet(childFragmentManager).show {
+                    arguments = bundleOf(RequestViewerBottomSheet.EXTRA_REQUEST to data)
+                }
+            }
+            OnItemActionListener.Action.DELETE -> TODO()
         }
     }
 }

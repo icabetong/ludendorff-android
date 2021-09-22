@@ -33,10 +33,9 @@ class UserViewModel @Inject constructor(
         .limit(Response.QUERY_LIMIT.toLong())
     private var currentQuery = userQuery
 
-    private var pager = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
+    val users = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
         UserPagingSource(currentQuery)
     }.flow.cachedIn(viewModelScope)
-    val users = pager
 
     fun rebuildQuery() {
         currentQuery = firestore.collection(User.COLLECTION)

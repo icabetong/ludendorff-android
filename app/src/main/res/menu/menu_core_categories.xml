@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:title="@string/options_sort"
+        android:title="@string/menu_sort"
         android:icon="@drawable/ic_hero_sort_ascending">
         <menu>
             <item
@@ -18,11 +18,11 @@
                 <menu>
                     <item
                         android:id="@+id/action_sort_name_ascending"
-                        android:title="@string/options_sort_direction_ascending"
+                        android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
                         android:id="@+id/action_sort_name_descending"
-                        android:title="@string/options_sort_direction_descending"
+                        android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>

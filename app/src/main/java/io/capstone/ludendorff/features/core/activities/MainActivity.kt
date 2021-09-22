@@ -120,6 +120,7 @@ class MainActivity: BaseActivity() {
     companion object {
         const val ACTION_ASSIGNMENT = "action:assignment"
         const val ACTION_REQUEST = "action:request"
+        const val REQUEST_CODE_ASSIGNMENT = 2
         const val EXTRA_CURRENT_DESTINATION = "extra:current:destination"
     }
 }

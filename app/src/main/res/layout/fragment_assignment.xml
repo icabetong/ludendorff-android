@@ -71,7 +71,7 @@
 
                 <include
                     android:id="@+id/rowLayout"
-                    layout="@layout/layout_skeleton_asset"/>
+                    layout="@layout/layout_skeleton_assignment"/>
 
             </com.facebook.shimmer.ShimmerFrameLayout>
 

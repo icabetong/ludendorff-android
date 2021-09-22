@@ -9,7 +9,12 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:title="@string/options_sort"
+        android:id="@+id/action_sent_requests"
+        android:title="@string/menu_sent_requests"
+        android:icon="@drawable/ic_hero_paper_airplane"/>
+
+    <item
+        android:title="@string/menu_sort"
         android:icon="@drawable/ic_hero_sort_ascending">
         <menu>
             <item
@@ -18,11 +23,11 @@
                 <menu>
                     <item
                         android:id="@+id/action_sort_name_ascending"
-                        android:title="@string/options_sort_direction_ascending"
+                        android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
                         android:id="@+id/action_sort_name_descending"
-                        android:title="@string/options_sort_direction_descending"
+                        android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
@@ -32,11 +37,11 @@
                 <menu>
                     <item
                         android:id="@+id/action_sort_category_ascending"
-                        android:title="@string/options_sort_direction_ascending"
+                        android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
                         android:id="@+id/action_sort_category_descending"
-                        android:title="@string/options_sort_direction_descending"
+                        android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
@@ -46,11 +51,11 @@
                 <menu>
                     <item
                         android:id="@+id/action_sort_date_assigned_ascending"
-                        android:title="@string/options_sort_direction_ascending"
+                        android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
                         android:id="@+id/action_sort_date_assigned_descending"
-                        android:title="@string/options_sort_direction_descending"
+                        android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
@@ -58,7 +63,7 @@
     </item>
 
     <item
-        android:title="@string/options_filter"
+        android:title="@string/menu_filter"
         android:icon="@drawable/ic_hero_filter">
         <menu>
             <item

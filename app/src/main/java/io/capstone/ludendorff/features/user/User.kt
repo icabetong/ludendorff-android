@@ -57,6 +57,7 @@ data class User @JvmOverloads constructor(
     companion object {
         const val COLLECTION = "users"
         const val FIELD_ID = "userId"
+        const val FIELD_NAME = "name"
         const val FIELD_FIRST_NAME = "firstName"
         const val FIELD_LAST_NAME = "lastName"
         const val FIELD_EMAIL = "email"
