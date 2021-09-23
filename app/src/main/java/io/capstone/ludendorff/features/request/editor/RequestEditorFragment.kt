@@ -20,7 +20,7 @@ import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
 import io.capstone.ludendorff.features.request.Request
 import io.capstone.ludendorff.features.request.RequestViewModel
-import io.capstone.ludendorff.features.shared.components.BaseEditorFragment
+import io.capstone.ludendorff.features.shared.BaseEditorFragment
 
 @AndroidEntryPoint
 class RequestEditorFragment: BaseEditorFragment(), FragmentResultListener {
@@ -53,8 +53,8 @@ class RequestEditorFragment: BaseEditorFragment(), FragmentResultListener {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

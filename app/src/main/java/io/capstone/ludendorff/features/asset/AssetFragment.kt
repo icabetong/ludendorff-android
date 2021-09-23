@@ -32,12 +32,12 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentAssetsBinding
 import io.capstone.ludendorff.features.asset.editor.AssetEditorFragment
-import io.capstone.ludendorff.features.auth.AuthViewModel
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.search.SearchFragment
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -52,7 +52,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
     private val binding get() = _binding!!
     private val viewModel: AssetViewModel by activityViewModels()
-    private val authViewModel: AuthViewModel by activityViewModels()
+    private val authViewModel: CoreViewModel by activityViewModels()
     private val assetAdapter = AssetAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,8 +78,8 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

@@ -24,8 +24,8 @@ import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.assignment.AssignmentViewModel
-import io.capstone.ludendorff.features.shared.components.BaseEditorFragment
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseEditorFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import io.capstone.ludendorff.features.user.picker.UserPickerBottomSheet
 
@@ -62,8 +62,8 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

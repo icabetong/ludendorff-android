@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import io.capstone.ludendorff.databinding.FragmentViewRequestBinding
 import io.capstone.ludendorff.features.request.Request
 import io.capstone.ludendorff.features.request.RequestViewModel
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
 class RequestViewerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentViewRequestBinding? = null

@@ -1,16 +1,17 @@
-package io.capstone.ludendorff.features.assignment.viewer
+package io.capstone.ludendorff.features.request.sent
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
-import io.capstone.ludendorff.databinding.FragmentViewAssignmentBinding
-import io.capstone.ludendorff.features.assignment.Assignment
+import io.capstone.ludendorff.R
+import io.capstone.ludendorff.databinding.FragmentViewRequestSentBinding
+import io.capstone.ludendorff.features.request.Request
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
-class AssignmentViewer(manager: FragmentManager): BaseBottomSheet(manager) {
-    private var _binding: FragmentViewAssignmentBinding? = null
+class SentRequestViewerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
+    private var _binding: FragmentViewRequestSentBinding? = null
 
     private val binding get() = _binding!!
 
@@ -19,7 +20,7 @@ class AssignmentViewer(manager: FragmentManager): BaseBottomSheet(manager) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentViewAssignmentBinding.inflate(inflater, container, false)
+        _binding = FragmentViewRequestSentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -31,19 +32,18 @@ class AssignmentViewer(manager: FragmentManager): BaseBottomSheet(manager) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.getParcelable<Assignment>(EXTRA_ASSIGNMENT)?.let {
+        arguments?.getParcelable<Request>(EXTRA_REQUEST)?.let {
             binding.assetNameTextView.text = it.asset?.assetName
             binding.categoryTextView.text = it.asset?.category?.categoryName
-            binding.dateAssignedTextView.text = it.formatDateAssigned(view.context)
+            binding.endorserTextView.text = it.endorser?.name ?: getString(R.string.info_not_endorsed)
 
-            it.asset?.status?.getStringRes()?.let { res ->
+            it.asset?.status?.getStringRes()?.also { res ->
                 binding.assetStatusTextView.setText(res)
             }
         }
     }
 
     companion object {
-        const val EXTRA_ASSIGNMENT = "extra:assignment"
+        const val EXTRA_REQUEST = "extra:request"
     }
-
 }

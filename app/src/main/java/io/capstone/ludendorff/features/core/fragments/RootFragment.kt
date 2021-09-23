@@ -1,12 +1,15 @@
 package io.capstone.ludendorff.features.core.fragments
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.GravityCompat
-import androidx.core.view.doOnPreDraw
+import androidx.core.view.*
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
@@ -14,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
@@ -21,10 +25,12 @@ import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.databinding.FragmentRootBinding
 import io.capstone.ludendorff.databinding.LayoutDrawerHeaderBinding
-import io.capstone.ludendorff.features.auth.AuthViewModel
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.profile.ProfileFragment
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.user.User
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,10 +39,11 @@ class RootFragment: BaseFragment() {
     private var _headerBinding: LayoutDrawerHeaderBinding? = null
     private var controller: NavController? = null
     private var mainController: NavController? = null
+    private var networkSnackbar: Snackbar? = null
 
     private val binding get() = _binding!!
     private val headerBinding get() = _headerBinding!!
-    private val viewModel: AuthViewModel by activityViewModels()
+    private val viewModel: CoreViewModel by activityViewModels()
 
     @Inject lateinit var userProperties: UserProperties
 
@@ -56,8 +63,8 @@ class RootFragment: BaseFragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
         _headerBinding = null
     }
@@ -96,6 +103,22 @@ class RootFragment: BaseFragment() {
         viewModel.subscribeToDocumentChanges()
         viewModel.userData.observe(viewLifecycleOwner) {
             setProperties(it)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.networkStatus.collectLatest {
+                if (!it) {
+                    networkSnackbar = createSnackbar(
+                        R.string.feedback_network_limited_or_unavailable,
+                        length = Snackbar.LENGTH_INDEFINITE
+                    ).apply {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                            setAction(R.string.button_reconnect) {
+                                startActivity(Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY))
+                            }
+                    }
+                } else networkSnackbar?.dismiss()
+            }
         }
     }
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.components.persistence.DevicePermissions
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.shared.components.BaseViewModel
+import io.capstone.ludendorff.features.shared.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject

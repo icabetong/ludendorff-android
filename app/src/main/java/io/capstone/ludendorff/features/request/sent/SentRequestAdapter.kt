@@ -4,12 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemRequestSentBinding
 import io.capstone.ludendorff.features.request.Request
-import io.capstone.ludendorff.features.shared.components.BasePagingAdapter
-import io.capstone.ludendorff.features.shared.components.BaseViewHolder
+import io.capstone.ludendorff.features.shared.BasePagingAdapter
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
-class SentRequestAdapter: BasePagingAdapter<Request, SentRequestAdapter.SentRequestViewHolder>(Request.DIFF_CALLBACK) {
+class SentRequestAdapter(
+    private val onItemActionListener: OnItemActionListener<Request>
+): BasePagingAdapter<Request, SentRequestAdapter.SentRequestViewHolder>(Request.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SentRequestViewHolder {
         val binding = LayoutItemRequestSentBinding.inflate(LayoutInflater.from(parent.context),
@@ -34,6 +37,10 @@ class SentRequestAdapter: BasePagingAdapter<Request, SentRequestAdapter.SentRequ
                         String.format(context.getString(R.string.concat_endorsed_by),
                             data.endorser?.name)
                     else context.getString(R.string.info_not_endorsed)
+                }
+                root.setOnClickListener {
+                    onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
+                        null)
                 }
             }
         }

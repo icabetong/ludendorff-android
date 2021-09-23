@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    tools:visibility="visible">
 
     <TextView
         android:id="@+id/limitedNetworkTextView"
@@ -13,11 +15,9 @@
         android:layout_gravity="center"
         android:gravity="center_vertical"
         android:padding="@dimen/activity_margin_small"
-        android:visibility="gone"
         android:text="@string/feedback_network_limited_or_unavailable"
         android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
         android:drawablePadding="@dimen/activity_margin_small"
-        app:drawableStartCompat="@drawable/ic_hero_status_offline"
-        tools:visibility="visible"/>
+        app:drawableStartCompat="@drawable/ic_hero_status_offline" />
 
 </FrameLayout>

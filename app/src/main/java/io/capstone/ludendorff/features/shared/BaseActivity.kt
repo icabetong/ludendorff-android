@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.shared.components
+package io.capstone.ludendorff.features.shared
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

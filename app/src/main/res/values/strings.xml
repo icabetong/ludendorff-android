@@ -109,6 +109,7 @@
     <string name="button_use_today">Use Today\'s Date</string>
     <string name="button_pick_date">Pick Date</string>
     <string name="button_end_assignment">End Assignment</string>
+    <string name="button_reconnect">Reconnect</string>
 
     <string name="menu_filter">Filter</string>
     <string name="menu_sort">Sort</string>

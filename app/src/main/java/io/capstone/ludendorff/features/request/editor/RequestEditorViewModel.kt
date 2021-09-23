@@ -3,7 +3,7 @@ package io.capstone.ludendorff.features.request.editor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.shared.components.BaseViewModel
+import io.capstone.ludendorff.features.shared.BaseViewModel
 import io.capstone.ludendorff.features.user.UserCore
 import javax.inject.Inject
 

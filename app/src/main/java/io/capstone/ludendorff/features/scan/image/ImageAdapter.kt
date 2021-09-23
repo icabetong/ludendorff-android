@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import coil.load
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemImageBinding
-import io.capstone.ludendorff.features.shared.components.BaseListAdapter
-import io.capstone.ludendorff.features.shared.components.BaseViewHolder
+import io.capstone.ludendorff.features.shared.BaseListAdapter
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class ImageAdapter(
     private val onItemActionListener: OnItemActionListener<Uri>

@@ -9,7 +9,7 @@ import io.capstone.ludendorff.features.asset.AssetRepository
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.assignment.AssignmentRepository
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.shared.components.BaseViewModel
+import io.capstone.ludendorff.features.shared.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.capstone.ludendorff.databinding.LayoutItemSpecsReadOnlyBinding
-import io.capstone.ludendorff.features.shared.components.BaseListAdapter
-import io.capstone.ludendorff.features.shared.components.BaseViewHolder
+import io.capstone.ludendorff.features.shared.BaseListAdapter
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class SpecsReadOnlyAdapter
     : BaseListAdapter<Pair<String, String>, SpecsReadOnlyAdapter.SpecsViewHolder>(SpecsAdapter.Companion) {

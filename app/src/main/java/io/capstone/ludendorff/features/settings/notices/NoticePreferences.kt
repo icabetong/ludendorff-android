@@ -1,7 +1,7 @@
 package io.capstone.ludendorff.features.settings.notices
 
 import android.os.Bundle
-import io.capstone.ludendorff.features.shared.components.BasePreference
+import io.capstone.ludendorff.features.shared.BasePreference
 
 class NoticePreferences: BasePreference() {
 

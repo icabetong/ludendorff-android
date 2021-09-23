@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.shared.components
+package io.capstone.ludendorff.features.shared
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

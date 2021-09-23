@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,19 +21,32 @@ import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setColorRes
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
+import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentRequestSentBinding
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.request.Request
+import io.capstone.ludendorff.features.shared.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SentRequestFragment: BaseFragment() {
+class SentRequestFragment: BaseFragment(), OnItemActionListener<Request> {
     private var _binding: FragmentRequestSentBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val requestAdapter = SentRequestAdapter()
+    private val requestAdapter = SentRequestAdapter(this)
     private val viewModel: SentRequestViewModel by activityViewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    controller?.navigateUp()
+                }
+            })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,8 +57,8 @@ class SentRequestFragment: BaseFragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
@@ -151,6 +166,21 @@ class SentRequestFragment: BaseFragment() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             requestAdapter.refresh()
+        }
+    }
+
+    override fun onActionPerformed(
+        data: Request?,
+        action: OnItemActionListener.Action,
+        container: View?
+    ) {
+        when(action) {
+            OnItemActionListener.Action.SELECT -> {
+                SentRequestViewerBottomSheet(childFragmentManager).show {
+                    arguments = bundleOf(SentRequestViewerBottomSheet.EXTRA_REQUEST to data)
+                }
+            }
+            OnItemActionListener.Action.DELETE -> TODO()
         }
     }
 }

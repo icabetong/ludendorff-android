@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetPagingSource
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.shared.components.BaseViewModel
+import io.capstone.ludendorff.features.shared.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel

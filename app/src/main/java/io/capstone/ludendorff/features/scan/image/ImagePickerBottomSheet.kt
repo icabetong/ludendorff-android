@@ -16,7 +16,7 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentPickerImageBinding
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
 @AndroidEntryPoint
 class ImagePickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
@@ -36,8 +36,8 @@ class ImagePickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

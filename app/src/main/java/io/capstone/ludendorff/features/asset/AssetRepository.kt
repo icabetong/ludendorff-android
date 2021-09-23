@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.request.Request
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -79,6 +80,13 @@ class AssetRepository @Inject constructor(
                 .get().await()
                 .documents.forEach {
                     batchWrite.update(it.reference, Assignment.FIELD_ASSET, asset.minimize())
+                }
+
+            firestore.collection(Request.COLLECTION)
+                .whereEqualTo(Request.FIELD_ASSET_ID, asset.assetId)
+                .get().await()
+                .documents.forEach {
+                    batchWrite.update(it.reference, Request.FIELD_ASSET, asset.minimize())
                 }
 
             batchWrite.commit().await()

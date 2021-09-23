@@ -9,7 +9,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import io.capstone.ludendorff.databinding.FragmentChangePasswordBinding
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
 class ChangePasswordBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentChangePasswordBinding? = null

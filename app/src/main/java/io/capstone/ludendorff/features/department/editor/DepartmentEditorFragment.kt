@@ -12,13 +12,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
-import io.capstone.ludendorff.components.extensions.removeCustomEndIconDrawable
-import io.capstone.ludendorff.components.extensions.setCustomEndIconDrawable
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentEditorDepartmentBinding
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.DepartmentViewModel
-import io.capstone.ludendorff.features.shared.components.BaseEditorFragment
+import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.user.User
 import io.capstone.ludendorff.features.user.picker.UserPickerBottomSheet
 
@@ -54,8 +52,8 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

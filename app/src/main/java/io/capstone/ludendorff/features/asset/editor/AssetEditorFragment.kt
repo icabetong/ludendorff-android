@@ -15,8 +15,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
-import io.capstone.ludendorff.components.extensions.removeCustomEndIconDrawable
-import io.capstone.ludendorff.components.extensions.setCustomEndIconDrawable
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentEditorAssetBinding
@@ -25,8 +23,8 @@ import io.capstone.ludendorff.features.asset.AssetViewModel
 import io.capstone.ludendorff.features.asset.qrcode.QRCodeViewBottomSheet
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
-import io.capstone.ludendorff.features.shared.components.BaseEditorFragment
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseEditorFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.specs.SpecsAdapter
 import io.capstone.ludendorff.features.specs.editor.SpecsEditorBottomSheet
 
@@ -64,8 +62,8 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

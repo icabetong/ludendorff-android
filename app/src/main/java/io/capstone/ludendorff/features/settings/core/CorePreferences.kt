@@ -13,9 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.BuildConfig
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.persistence.UserPreferences
-import io.capstone.ludendorff.features.auth.AuthViewModel
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.worker.TokenUpdateWorker
-import io.capstone.ludendorff.features.shared.components.BasePreference
+import io.capstone.ludendorff.features.shared.BasePreference
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,7 +25,7 @@ class CorePreferences: BasePreference() {
     @Inject lateinit var userPreferences: UserPreferences
     @Inject lateinit var firebaseMessaging: FirebaseMessaging
 
-    private val authViewModel: AuthViewModel by activityViewModels()
+    private val authViewModel: CoreViewModel by activityViewModels()
     private val workManager by lazy {
         WorkManager.getInstance(requireContext())
     }

@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.shared.components
+package io.capstone.ludendorff.features.shared
 
 import androidx.annotation.StringRes
 import androidx.preference.PreferenceFragmentCompat

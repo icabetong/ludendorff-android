@@ -10,6 +10,7 @@ import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.department.Department
+import io.capstone.ludendorff.features.request.Request
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -66,6 +67,22 @@ class UserRepository @Inject constructor(
                 .documents.forEach {
                     batchWrite.update(it.reference, Assignment.FIELD_USER, user.minimize())
                 }
+
+            firestore.collection(Request.COLLECTION)
+                .whereEqualTo(Request.FIELD_PETITIONER_ID, user.userId)
+                .get().await()
+                .documents.forEach {
+                    batchWrite.update(it.reference, Request.FIELD_PETITIONER, user.minimize())
+                }
+
+            if (user.hasPermission(User.PERMISSION_ADMINISTRATIVE)) {
+                firestore.collection(Request.COLLECTION)
+                    .whereEqualTo(Request.FIELD_ENDORSER_ID, user.userId)
+                    .get().await()
+                    .documents.forEach {
+                        batchWrite.update(it.reference, Request.FIELD_ENDORSER, user.minimize())
+                    }
+            }
 
             batchWrite.commit().await()
 

@@ -28,11 +28,11 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentDepartmentBinding
-import io.capstone.ludendorff.features.auth.AuthViewModel
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.department.editor.DepartmentEditorFragment
 import io.capstone.ludendorff.features.search.SearchFragment
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -46,7 +46,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
 
     private val binding get() = _binding!!
     private val viewModel: DepartmentViewModel by activityViewModels()
-    private val authViewModel: AuthViewModel by activityViewModels()
+    private val authViewModel: CoreViewModel by activityViewModels()
     private val departmentAdapter = DepartmentAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,8 +68,8 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

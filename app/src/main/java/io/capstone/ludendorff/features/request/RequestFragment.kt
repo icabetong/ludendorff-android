@@ -27,7 +27,7 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentRequestBinding
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.request.viewer.RequestViewerBottomSheet
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -60,8 +60,8 @@ class RequestFragment: BaseFragment(), OnItemActionListener<Request> {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

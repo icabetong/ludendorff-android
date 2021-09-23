@@ -6,10 +6,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.os.bundleOf
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.work.WorkManager
@@ -17,14 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.ActivityMainBinding
 import io.capstone.ludendorff.features.assignment.AssignmentViewModel
-import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
-import io.capstone.ludendorff.features.auth.AuthViewModel
-import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.services.NotificationServices
-import io.capstone.ludendorff.features.shared.components.BaseActivity
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import io.capstone.ludendorff.features.shared.BaseActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,7 +24,7 @@ class MainActivity: BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var controller: NavController
 
-    private val authViewModel: AuthViewModel by viewModels()
+    private val viewModel: CoreViewModel by viewModels()
     private val assignmentViewModel: AssignmentViewModel by viewModels()
 
     @Inject lateinit var workManager: WorkManager
@@ -63,7 +55,7 @@ class MainActivity: BaseActivity() {
 
         controller = Navigation.findNavController(this, R.id.navHostFragment)
 
-        if (authViewModel.checkCurrentUser() != null)
+        if (viewModel.checkCurrentUser() != null)
             controller.navigate(R.id.to_navigation_root)
         else controller.navigate(R.id.to_navigation_auth)
     }
@@ -105,15 +97,11 @@ class MainActivity: BaseActivity() {
     private var networkCallback = object: ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
-            runOnUiThread {
-
-            }
+            viewModel.setNetworkStatus(true)
         }
         override fun onLost(network: Network) {
             super.onLost(network)
-            runOnUiThread {
-
-            }
+            viewModel.setNetworkStatus(false)
         }
     }
 

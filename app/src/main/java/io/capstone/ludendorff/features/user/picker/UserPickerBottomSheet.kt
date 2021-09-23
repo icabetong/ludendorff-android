@@ -16,7 +16,7 @@ import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentPickerUserBinding
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 import io.capstone.ludendorff.features.user.User
 import io.capstone.ludendorff.features.user.UserAdapter
 import io.capstone.ludendorff.features.user.UserViewModel
@@ -41,8 +41,8 @@ class UserPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

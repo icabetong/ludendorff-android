@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.FragmentEditorSpecificationBinding
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
 class SpecsEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentEditorSpecificationBinding? = null
@@ -27,8 +27,8 @@ class SpecsEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

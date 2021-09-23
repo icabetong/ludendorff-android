@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialSharedAxis
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.FragmentSearchBinding
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 
 class SearchFragment: BaseFragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -40,8 +40,8 @@ class SearchFragment: BaseFragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

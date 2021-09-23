@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemSpecsBinding
-import io.capstone.ludendorff.features.shared.components.BaseListAdapter
-import io.capstone.ludendorff.features.shared.components.BaseViewHolder
+import io.capstone.ludendorff.features.shared.BaseListAdapter
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class SpecsAdapter(
     private val onItemActionListener: OnItemActionListener<Pair<String, String>>

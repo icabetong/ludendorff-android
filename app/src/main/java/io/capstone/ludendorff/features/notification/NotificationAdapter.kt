@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.capstone.ludendorff.databinding.LayoutItemNotificationBinding
-import io.capstone.ludendorff.features.shared.components.BasePagingAdapter
-import io.capstone.ludendorff.features.shared.components.BaseViewHolder
+import io.capstone.ludendorff.features.shared.BasePagingAdapter
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class NotificationAdapter
     : BasePagingAdapter<Notification, NotificationAdapter.NotificationViewHolder>(Notification.DIFF_CALLBACK) {

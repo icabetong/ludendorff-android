@@ -20,7 +20,7 @@ import io.capstone.ludendorff.databinding.FragmentPickerDepartmentBinding
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.DepartmentAdapter
 import io.capstone.ludendorff.features.department.DepartmentViewModel
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -42,8 +42,8 @@ class DepartmentPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(man
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

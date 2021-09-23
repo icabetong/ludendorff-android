@@ -10,9 +10,9 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemUserBinding
-import io.capstone.ludendorff.features.shared.components.BaseFragment
-import io.capstone.ludendorff.features.shared.components.BasePagingAdapter
-import io.capstone.ludendorff.features.shared.components.BaseViewHolder
+import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BasePagingAdapter
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class UserAdapter(
     private val onItemActionListener: OnItemActionListener<User>

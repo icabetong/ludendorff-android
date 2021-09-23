@@ -28,7 +28,7 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.persistence.DevicePermissions
 import io.capstone.ludendorff.databinding.FragmentScanBinding
 import io.capstone.ludendorff.features.scan.image.ImagePickerBottomSheet
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -80,8 +80,8 @@ class ScanFragment: BaseFragment(), FragmentResultListener {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

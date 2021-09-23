@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.shared.components.BaseViewModel
+import io.capstone.ludendorff.features.shared.BaseViewModel
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel

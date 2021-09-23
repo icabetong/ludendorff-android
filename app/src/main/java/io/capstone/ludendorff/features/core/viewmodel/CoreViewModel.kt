@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.auth
+package io.capstone.ludendorff.features.core.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,8 +9,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.components.persistence.UserProperties
+import io.capstone.ludendorff.features.auth.AuthRepository
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.shared.components.BaseViewModel
+import io.capstone.ludendorff.features.shared.BaseViewModel
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel
@@ -20,7 +21,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(
+class CoreViewModel @Inject constructor(
     private val userProperties: UserProperties,
     private val repository: AuthRepository,
     private val firebaseAuth: FirebaseAuth,
@@ -28,6 +29,9 @@ class AuthViewModel @Inject constructor(
 ): BaseViewModel() {
 
     private var snapshot: ListenerRegistration? = null
+
+    private val networkStatusChannel = Channel<Boolean>(Channel.BUFFERED)
+    val networkStatus = networkStatusChannel.receiveAsFlow()
 
     private val _userData: MutableLiveData<User> = MutableLiveData()
     val userData: LiveData<User> = _userData
@@ -87,5 +91,9 @@ class AuthViewModel @Inject constructor(
                     else _passwordResetEmailSent.send(Response.Error(it.exception))
                 }
             }.await()
+    }
+
+    fun setNetworkStatus(status: Boolean) = viewModelScope.launch {
+        networkStatusChannel.send(status)
     }
 }

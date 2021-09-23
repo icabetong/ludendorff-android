@@ -9,7 +9,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import io.capstone.ludendorff.databinding.FragmentChangeNameBinding
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
 class ChangeNameBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentChangeNameBinding? = null

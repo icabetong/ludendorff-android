@@ -36,13 +36,13 @@ import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.custom.NavigationItemDecoration
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentProfileBinding
-import io.capstone.ludendorff.features.auth.AuthViewModel
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.worker.ImageCompressWorker
 import io.capstone.ludendorff.features.core.worker.ProfileUploadWorker
 import io.capstone.ludendorff.features.profile.actions.ChangeNameBottomSheet
 import io.capstone.ludendorff.features.profile.actions.ChangePasswordBottomSheet
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
@@ -58,7 +58,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
     private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by activityViewModels()
-    private val authViewModel: AuthViewModel by activityViewModels()
+    private val authViewModel: CoreViewModel by activityViewModels()
 
     private lateinit var imageRequestLauncher: ActivityResultLauncher<String>
     private lateinit var executor: Executor
@@ -107,8 +107,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

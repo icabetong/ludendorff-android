@@ -15,7 +15,7 @@ import com.google.zxing.WriterException
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.FragmentViewQrcodeBinding
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 import java.io.File
 import java.io.FileOutputStream
 import java.io.ObjectOutputStream
@@ -54,8 +54,8 @@ class QRCodeViewBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

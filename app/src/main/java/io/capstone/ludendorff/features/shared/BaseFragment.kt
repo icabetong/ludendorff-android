@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.shared.components
+package io.capstone.ludendorff.features.shared
 
 import android.content.Context
 import android.graphics.Color
@@ -45,11 +45,11 @@ abstract class BaseFragment: Fragment() {
     ) {
         ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
             val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            bottomView?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = windowInsets.bottom + view.context.getDimension(R.dimen.activity_margin)
-            }
             topView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = windowInsets.top
+            }
+            bottomView?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = windowInsets.bottom + view.context.getDimension(R.dimen.activity_margin)
             }
             contentViews.forEach { contentView ->
                 contentView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -94,6 +94,7 @@ abstract class BaseFragment: Fragment() {
     ): Snackbar {
         return Snackbar.make(requireView(), textRes, length).apply {
             setAnchorView(anchorView)
+
             show()
         }
     }

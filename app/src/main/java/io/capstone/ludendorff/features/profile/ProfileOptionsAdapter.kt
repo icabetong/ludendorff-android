@@ -9,7 +9,7 @@ import android.widget.PopupMenu
 import androidx.annotation.MenuRes
 import androidx.recyclerview.widget.RecyclerView
 import io.capstone.ludendorff.databinding.LayoutItemProfileBinding
-import io.capstone.ludendorff.features.shared.components.BaseViewHolder
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class ProfileOptionsAdapter(
     activity: Activity?,

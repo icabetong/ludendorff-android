@@ -7,9 +7,9 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.components.interfaces.SwipeableAdapter
 import io.capstone.ludendorff.databinding.LayoutItemDepartmentBinding
-import io.capstone.ludendorff.features.shared.components.BaseFragment
-import io.capstone.ludendorff.features.shared.components.BasePagingAdapter
-import io.capstone.ludendorff.features.shared.components.BaseViewHolder
+import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BasePagingAdapter
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class DepartmentAdapter(
     private val onItemActionListener: OnItemActionListener<Department>

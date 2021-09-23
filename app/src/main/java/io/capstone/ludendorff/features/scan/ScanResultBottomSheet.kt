@@ -14,7 +14,7 @@ import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.databinding.FragmentViewResultsBinding
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
 class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentViewResultsBinding? = null
@@ -31,8 +31,8 @@ class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

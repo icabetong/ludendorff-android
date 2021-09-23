@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemAssetBinding
-import io.capstone.ludendorff.features.shared.components.BaseFragment
-import io.capstone.ludendorff.features.shared.components.BasePagingAdapter
-import io.capstone.ludendorff.features.shared.components.BaseViewHolder
+import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BasePagingAdapter
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class AssetAdapter(
     private val onItemActionListener: OnItemActionListener<Asset>

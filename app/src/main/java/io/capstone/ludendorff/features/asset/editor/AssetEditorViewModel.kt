@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.category.Category
-import io.capstone.ludendorff.features.shared.components.BaseViewModel
+import io.capstone.ludendorff.features.shared.BaseViewModel
 
 class AssetEditorViewModel: BaseViewModel() {
 

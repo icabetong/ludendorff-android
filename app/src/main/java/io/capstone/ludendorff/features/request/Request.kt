@@ -26,6 +26,8 @@ data class Request @JvmOverloads constructor(
         const val FIELD_ASSET = "asset"
         const val FIELD_ASSET_ID = "${FIELD_ASSET}.${Asset.FIELD_ID}"
         const val FIELD_ASSET_NAME = "${FIELD_ASSET}.${Asset.FIELD_NAME}"
+        const val FIELD_CATEGORY = "${FIELD_ASSET}.${Asset.FIELD_CATEGORY}"
+        const val FIELD_CATEGORY_ID = "${FIELD_ASSET}.${Asset.FIELD_CATEGORY_ID}"
         const val FIELD_PETITIONER  = "petitioner"
         const val FIELD_PETITIONER_ID = "${FIELD_PETITIONER}.${User.FIELD_ID}"
         const val FIELD_PETITIONER_NAME = "${FIELD_PETITIONER}.$${User.FIELD_NAME}"

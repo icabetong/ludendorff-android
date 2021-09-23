@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentSettingsCoreBinding
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 
 class CoreSettingsFragment: BaseFragment() {
     private var _binding: FragmentSettingsCoreBinding? = null
@@ -38,8 +38,8 @@ class CoreSettingsFragment: BaseFragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

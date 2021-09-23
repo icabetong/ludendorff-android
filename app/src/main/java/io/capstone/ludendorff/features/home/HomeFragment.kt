@@ -31,7 +31,7 @@ import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.assignment.AssignmentViewModel
 import io.capstone.ludendorff.features.assignment.viewer.AssignmentViewer
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.shared.components.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -69,8 +69,8 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

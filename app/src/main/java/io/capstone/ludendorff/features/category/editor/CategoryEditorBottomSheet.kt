@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.FragmentEditorCategoryBinding
 import io.capstone.ludendorff.features.category.Category
-import io.capstone.ludendorff.features.shared.components.BaseBottomSheet
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
 class CategoryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentEditorCategoryBinding? = null
@@ -30,8 +30,8 @@ class CategoryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manag
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
