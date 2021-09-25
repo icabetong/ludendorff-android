@@ -98,7 +98,7 @@ class RequestEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
         binding.appBar.toolbarActionButton.setOnClickListener {
             if (editorViewModel.asset == null) {
-                createSnackbar(R.string.feedback_empty_asset)
+                createSnackbar(R.string.feedback_empty_asset, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
 

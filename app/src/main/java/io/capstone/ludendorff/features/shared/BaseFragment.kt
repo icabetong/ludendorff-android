@@ -90,9 +90,10 @@ abstract class BaseFragment: Fragment() {
     protected fun createSnackbar(
         @StringRes textRes: Int,
         anchorView: View? = null,
+        view: View? = null,
         length: Int = Snackbar.LENGTH_SHORT
     ): Snackbar {
-        return Snackbar.make(requireView(), textRes, length).apply {
+        return Snackbar.make(view ?: requireView(), textRes, length).apply {
             setAnchorView(anchorView)
 
             show()

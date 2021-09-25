@@ -77,8 +77,9 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setInsets(
-            binding.root, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout, binding.emptyView.root,
-                binding.errorView.root, binding.permissionView.root, binding.shimmerFrameLayout),
+            binding.root, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout,
+                binding.emptyView.root, binding.errorView.root, binding.permissionView.root,
+                binding.shimmerFrameLayout),
             binding.actionButton
         )
 

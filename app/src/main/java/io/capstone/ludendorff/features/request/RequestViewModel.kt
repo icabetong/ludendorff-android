@@ -10,6 +10,8 @@ import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.components.persistence.UserProperties
+import io.capstone.ludendorff.features.assignment.Assignment
+import io.capstone.ludendorff.features.assignment.AssignmentRepository
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.BaseViewModel
 import io.capstone.ludendorff.features.user.UserCore
@@ -22,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RequestViewModel @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val repository: RequestRepository,
+    private val requestRepository: RequestRepository,
+    private val assignmentRepository: AssignmentRepository,
     private val userPreferences: UserPreferences,
     private val userProperties: UserProperties
 ): BaseViewModel() {
@@ -45,27 +48,34 @@ class RequestViewModel @Inject constructor(
                 userId = userProperties.userId!!,
                 name = userProperties.getDisplayName(),
                 email = userProperties.email,
-                imageUrl = userProperties.imageUrl,
                 position = userProperties.position,
                 deviceToken = userProperties.deviceToken
             )
         else null
 
-        _action.send(repository.update(request.requestId,
+        val response = requestRepository.update(request.requestId,
             mapOf(
                 Request.FIELD_ENDORSER to request.endorser,
                 Request.FIELD_ENDORSED_TIMESTAMP to Timestamp.now()
-            ))
+            )
         )
+        if (response is Response.Success) {
+            val assignment = Assignment(
+                asset = request.asset,
+                user = request.petitioner,
+                dateAssigned = Timestamp.now()
+            )
+            _action.send(assignmentRepository.create(assignment))
+        } else _action.send(response)
     }
 
     fun create(request: Request) = viewModelScope.launch(IO) {
-        _action.send(repository.create(request))
+        _action.send(requestRepository.create(request))
     }
     fun update(request: Request) = viewModelScope.launch(IO) {
-        _action.send(repository.update(request))
+        _action.send(requestRepository.update(request))
     }
     fun remove(request: Request) = viewModelScope.launch(IO) {
-        _action.send(repository.remove(request))
+        _action.send(requestRepository.remove(request))
     }
 }

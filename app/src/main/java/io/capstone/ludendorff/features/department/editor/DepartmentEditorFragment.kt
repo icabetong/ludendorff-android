@@ -98,7 +98,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             editorViewModel.department.name = binding.nameTextInput.text.toString()
 
             if (editorViewModel.department.name.isNullOrBlank()) {
-                createSnackbar(R.string.feedback_empty_department_name)
+                createSnackbar(R.string.feedback_empty_department_name, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
 

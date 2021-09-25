@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
+import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.databinding.FragmentEditorUserBinding
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.department.Department
@@ -90,7 +91,8 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setInsets(view, binding.appBar.toolbar, arrayOf(binding.departmentTextInputLayout))
+        setInsets(view, binding.appBar.toolbar, arrayOf(binding.departmentTextInputLayout,
+            binding.snackbarAnchor))
 
         binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
@@ -130,6 +132,9 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.managerUsersChip.isChecked = it.hasPermission(User.PERMISSION_MANAGE_USERS)
             binding.administrativeChip.isChecked = it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
 
+            if (it.hasPermission(User.PERMISSION_ADMINISTRATIVE))
+                binding.permissionWarningCard.show()
+
             if (it.department != null)
                 binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
         }
@@ -150,8 +155,9 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
                         binding.root.isEnabled = true
 
                         if (it.throwable is FirebaseAuthInvalidCredentialsException)
-                            createSnackbar(R.string.error_invalid_credentials)
-                        else createSnackbar(R.string.error_auth_failed)
+                            createSnackbar(R.string.error_invalid_credentials,
+                                view = binding.snackbarAnchor)
+                        else createSnackbar(R.string.error_auth_failed, view = binding.snackbarAnchor)
                     }
                     is Response.Success -> {
                         binding.root.isEnabled = true

@@ -245,4 +245,9 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/snackbarAnchor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

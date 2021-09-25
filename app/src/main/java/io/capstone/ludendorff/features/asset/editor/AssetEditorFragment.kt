@@ -157,7 +157,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             }
 
             if (editorViewModel.asset.assetName.isNullOrBlank()) {
-                createSnackbar(R.string.feedback_empty_asset_name)
+                createSnackbar(R.string.feedback_empty_asset_name, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
             if (editorViewModel.getSpecifications().isNullOrEmpty()) {
@@ -199,7 +199,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 if (!key.isNullOrBlank() && !value.isNullOrBlank()) {
                     val specification = Pair(key, value)
                     if (editorViewModel.checkSpecificationIfExists(specification))
-                        createSnackbar(R.string.feedback_specification_exists)
+                        createSnackbar(R.string.feedback_specification_exists, view = binding.snackbarAnchor)
                     else editorViewModel.addSpecification(specification)
                 }
             }
@@ -235,7 +235,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                     positiveButton(R.string.button_remove) {
                         data?.let {
                             editorViewModel.removeSpecification(it)
-                            createSnackbar(R.string.feedback_specification_removed)
+                            createSnackbar(R.string.feedback_specification_removed, view = binding.snackbarAnchor)
                         }
                     }
                     negativeButton(R.string.button_cancel)

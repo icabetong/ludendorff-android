@@ -191,11 +191,11 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
         binding.appBar.toolbarActionButton.setOnClickListener {
             if (editorViewModel.assignment.asset == null) {
-                createSnackbar(R.string.feedback_empty_asset)
+                createSnackbar(R.string.feedback_empty_asset, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
             if (editorViewModel.assignment.user == null) {
-                createSnackbar(R.string.feedback_empty_user)
+                createSnackbar(R.string.feedback_empty_user, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
             if (requestKey != REQUEST_KEY_UPDATE &&
