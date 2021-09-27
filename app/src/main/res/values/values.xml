@@ -33,6 +33,7 @@
         <item name="textInputStyle">@style/Widget.Keeper.TextInput.Layout</item>
         <item name="materialButtonStyle">@style/Widget.Keeper.Button</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.Keeper.Button.Outlined</item>
+        <item name="floatingActionButtonStyle">@style/Widget.Keeper.FloatingActionButton</item>
         <!-- TextAppearance -->
         <item name="textAppearanceBody1">@style/TextAppearance.Keeper.Body</item>
         <item name="textAppearanceBody2">@style/TextAppearance.Keeper.Body.Medium</item>
@@ -113,6 +114,10 @@
         <item name="cardElevation">@dimen/surface_elevation</item>
         <item name="strokeWidth">1dp</item>
     </style>
+    <style name="Widget.Keeper.FloatingActionButton"
+        parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Keeper.SmallComponent</item>
+    </style>
 
     <!-- TextAppearances -->
     <style name="TextAppearance.Keeper" parent="TextAppearance.AppCompat">
@@ -180,5 +185,12 @@
         <item name="android:letterSpacing">0.15</item>
     </style>
     <style name="TextAppearance.Keeper.Caption" parent="TextAppearance.AppCompat.Caption"/>
+
+    <!-- ShapeAppearance -->
+    <style name="ShapeAppearance.Keeper.SmallComponent"
+        parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/shape_small_radius</item>
+    </style>
 
 </resources>

@@ -15,6 +15,8 @@
     <dimen name="surface_radius">4dp</dimen>
     <dimen name="surface_elevation">0dp</dimen>
 
+    <dimen name="shape_small_radius">16dp</dimen>
+
     <dimen name="text_header">26sp</dimen>
     <dimen name="text_list_item">14sp</dimen>
 

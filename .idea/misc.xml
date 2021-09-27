@@ -37,7 +37,7 @@
         <entry key="app/src/main/res/layout/fragment_assets.xml" value="0.26597131681877445" />
         <entry key="app/src/main/res/layout/fragment_assignment.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_category.xml" value="0.21992110453648916" />
+        <entry key="app/src/main/res/layout/fragment_category.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_department.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_editor_asset.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_editor_assignment.xml" value="0.33" />
