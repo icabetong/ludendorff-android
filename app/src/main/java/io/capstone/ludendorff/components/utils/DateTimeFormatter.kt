@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter as Formatter
 class DateTimeFormatter private constructor() {
 
     companion object {
+        const val FIELD_NANOSECONDS = "_nanoseconds"
+        const val FIELD_SECONDS = "_seconds"
+
         private const val FORMAT_TIME_12_HOUR = "h:mm a"
         private const val FORMAT_TIME_24_HOUR = "H:mm"
         private const val FORMAT_DATE_TIME_12_HOUR_SHORT = "M-d, h:mm a"

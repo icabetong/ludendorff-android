@@ -32,7 +32,6 @@ import io.capstone.ludendorff.databinding.FragmentAssignmentBinding
 import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.search.SearchFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collectLatest
@@ -194,7 +193,6 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
             viewModel.action.collectLatest {
                 when(it) {
                     is Response.Error -> {
-                        android.util.Log.e("DEBUG", it.throwable.toString())
                         if (it.throwable is FirebaseFirestoreException &&
                             it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
 
@@ -284,9 +282,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_search ->
-                mainController?.navigate(R.id.navigation_search,
-                    bundleOf(SearchFragment.EXTRA_SEARCH_COLLECTION to
-                        SearchFragment.COLLECTION_ASSIGNMENTS))
+                mainController?.navigate(R.id.navigation_search)
             R.id.action_requests ->
                 mainController?.navigate(R.id.navigation_request)
         }

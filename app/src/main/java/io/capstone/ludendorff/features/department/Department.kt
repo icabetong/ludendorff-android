@@ -6,6 +6,7 @@ import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.user.User
 import io.capstone.ludendorff.features.user.UserCore
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
 @Parcelize
 data class Department @JvmOverloads constructor(

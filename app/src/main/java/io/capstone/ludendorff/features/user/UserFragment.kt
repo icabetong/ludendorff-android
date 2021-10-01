@@ -36,7 +36,6 @@ import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.picker.DepartmentPickerBottomSheet
-import io.capstone.ludendorff.features.search.SearchFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.user.editor.UserEditorFragment
 import kotlinx.coroutines.flow.collect
@@ -303,9 +302,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_search ->
-                mainController?.navigate(R.id.navigation_search,
-                    bundleOf(SearchFragment.EXTRA_SEARCH_COLLECTION
-                            to SearchFragment.COLLECTION_USERS))
+                mainController?.navigate(R.id.navigation_search)
             R.id.action_departments ->
                 mainController?.navigate(R.id.navigation_department)
             R.id.action_sort_last_name_ascending -> {

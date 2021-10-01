@@ -32,6 +32,7 @@
         <entry key="app/src/main/res/drawable/ic_outline_arrow_back_24.xml" value="0.10592105263157894" />
         <entry key="app/src/main/res/drawable/selector_password_toggle.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/shape_search_field.xml" value="0.23026315789473684" />
+        <entry key="app/src/main/res/drawable/shape_search_view.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/shape_searchview.xml" value="0.23026315789473684" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_assets.xml" value="0.26597131681877445" />
@@ -81,19 +82,23 @@
         <entry key="app/src/main/res/layout/layout_empty_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/layout_item_asset.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_item_assignment.xml" value="0.3484375" />
+        <entry key="app/src/main/res/layout/layout_item_department.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_item_home.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_item_notification.xml" value="0.5" />
         <entry key="app/src/main/res/layout/layout_item_profile.xml" value="0.19166666666666668" />
         <entry key="app/src/main/res/layout/layout_item_request.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/layout_item_request_sent.xml" value="0.3484375" />
+        <entry key="app/src/main/res/layout/layout_item_search.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/layout_item_specs_read_only.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/layout_item_user.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/layout_skeleton_asset.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_skeleton_assignment.xml" value="0.3484375" />
+        <entry key="app/src/main/res/layout/layout_skeleton_department.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/layout_skeleton_home.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/layout_skeleton_notification.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/layout_skeleton_request.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/layout_skeleton_request_sent.xml" value="0.3484375" />
+        <entry key="app/src/main/res/layout/layout_skeleton_search.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/layout_skeleton_user.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/layout_status_network.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/menu/menu_actions.xml" value="0.22006578947368421" />

@@ -4,7 +4,9 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import io.capstone.ludendorff.components.utils.IDGenerator
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Parcelize
 data class Category @JvmOverloads constructor(
     var categoryId: String = IDGenerator.generateRandom(),

@@ -58,9 +58,9 @@ class AssignmentRepository @Inject constructor(
             }
 
             val response = deshi.newNotificationPost(request)
-            if (response.code() == 200)
+            if (response.code == 200)
                 Response.Success(Response.Action.CREATE)
-            else throw DeshiException(response.code())
+            else throw DeshiException(response.code)
 
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.CREATE)
@@ -126,9 +126,9 @@ class AssignmentRepository @Inject constructor(
             }
 
             val response = deshi.newNotificationPost(request)
-            if (response.code() == 200)
+            if (response.code == 200)
                 Response.Success(Response.Action.CREATE)
-            else throw DeshiException(response.code())
+            else throw DeshiException(response.code)
 
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.UPDATE)

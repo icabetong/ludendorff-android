@@ -33,9 +33,9 @@ class UserRepository @Inject constructor(
 
             val request = DeshiRequest(token, user.toJSON())
             val response = deshi.requestUserCreate(request)
-            if (response.code() == 200)
+            if (response.code == 200)
                 Response.Success(Response.Action.CREATE)
-            else throw DeshiException(response.code())
+            else throw DeshiException(response.code)
 
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.CREATE)
@@ -95,8 +95,8 @@ class UserRepository @Inject constructor(
                     put(User.FIELD_DISABLED, user.disabled)
                 }
                 val response = deshi.requestUserModify(request)
-                if (response.code() != 200) {
-                    throw DeshiException(response.code())
+                if (response.code != 200) {
+                    throw DeshiException(response.code)
                 }
 
                 firebaseAuth.currentUser?.uid?.let {
@@ -151,9 +151,9 @@ class UserRepository @Inject constructor(
             }
 
             val response = deshi.requestUserRemove(request)
-            if (response.code() == 200)
+            if (response.code == 200)
                 Response.Success(Response.Action.REMOVE)
-            else throw DeshiException(response.code())
+            else throw DeshiException(response.code)
 
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.REMOVE)

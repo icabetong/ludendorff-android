@@ -17,6 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_margin_tiny"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Keeper.List.Title"
             tools:text="Department Name"/>
 
@@ -24,6 +26,8 @@
             android:id="@+id/bodyTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Keeper.Body"
             tools:text="Fedor von Bock"/>
 

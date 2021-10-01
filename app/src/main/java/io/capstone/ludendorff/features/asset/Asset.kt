@@ -9,24 +9,31 @@ import com.google.firebase.Timestamp
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.serialization.StatusSerializer
+import io.capstone.ludendorff.components.serialization.TimestampSerializer
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.CategoryCore
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.Transient
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
+@Serializable
 @Parcelize
 data class Asset @JvmOverloads constructor(
     var assetId: String = IDGenerator.generateRandom(),
     var assetName: String? = null,
+    @Serializable(with = TimestampSerializer::class)
     var dateCreated: Timestamp? = Timestamp.now(),
+    @Serializable(with = StatusSerializer::class)
     var status: Status? = null,
     var category: CategoryCore? = null,
     var specifications: Map<String, String> = emptyMap(),
 ): Parcelable {
-
-    fun generateQRCode(): Bitmap {
-        return Companion.generateQRCode(assetId)
-    }
 
     fun minimize(): AssetCore {
         return AssetCore.from(this)
@@ -82,6 +89,15 @@ data class Asset @JvmOverloads constructor(
             override fun areItemsTheSame(oldItem: Asset, newItem: Asset): Boolean {
                 return oldItem == newItem
             }
+        }
+
+        fun deserialize(json: JsonObject): Asset {
+            return Asset(
+                assetId = json.getValue(FIELD_ID).jsonPrimitive.content,
+                assetName = json.getValue(FIELD_NAME).jsonPrimitive.content,
+                status = Status.parse(json.getValue(FIELD_STATUS).jsonPrimitive.content),
+                specifications = json.getValue(FIELD_SPECIFICATIONS).jsonObject.mapValues { it.toString() }
+            )
         }
 
         fun generateQRCode(id: String): Bitmap {

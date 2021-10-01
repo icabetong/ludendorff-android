@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.api
 
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
 import org.json.JSONObject
 import ru.gildor.coroutines.okhttp.await
 
@@ -9,7 +10,7 @@ class Deshi {
     private val client by lazy { OkHttpClient() }
 
     private fun parse(jsonObject: JSONObject): RequestBody {
-        val type = MediaType.get("application/json; charset=utf-8")
+        val type = "application/json; charset=utf-8".toMediaType()
         return RequestBody.create(type, jsonObject.toString())
     }
 

@@ -36,7 +36,6 @@ import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.search.SearchFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
@@ -306,9 +305,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
     override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_search -> {
-                mainController?.navigate(R.id.navigation_search,
-                    bundleOf(SearchFragment.EXTRA_SEARCH_COLLECTION
-                            to SearchFragment.COLLECTION_ASSETS))
+                mainController?.navigate(R.id.navigation_search)
             }
             R.id.action_category -> {
                 mainController?.navigate(R.id.navigation_category)

@@ -42,7 +42,7 @@
         android:name="io.capstone.ludendorff.features.profile.ProfileFragment"/>
     <fragment
         android:id="@+id/navigation_search"
-        android:name="io.capstone.ludendorff.features.search.SearchFragment"/>
+        android:name="io.capstone.ludendorff.features.category.search.CategorySearchFragment"/>
     <fragment
         android:id="@+id/navigation_notification"
         android:name="io.capstone.ludendorff.features.notification.NotificationFragment"/>

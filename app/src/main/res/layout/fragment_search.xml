@@ -20,87 +20,18 @@
             app:contentInsetEnd="0dp"
             app:navigationIcon="@null">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/searchTextInputLayout"
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                app:startIconTint="@color/keeper_on_surface"
-                app:endIconTint="@color/keeper_on_surface"
-                app:startIconDrawable="@drawable/ic_hero_arrow_left"
-                app:endIconDrawable="@drawable/ic_hero_search"
-                app:endIconMode="custom"
-                app:boxStrokeColor="@color/keeper_shimmer"
-                app:hintEnabled="false"
-                style="@style/Widget.Keeper.TextInput.Layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/searchTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_search">
-                    <requestFocus/>
-                </com.google.android.material.textfield.TextInputEditText>
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginVertical="@dimen/activity_margin_small"
+                android:background="@drawable/shape_search_view"
+                app:queryHint="@string/hint_search"
+                app:queryBackground="@android:color/transparent"
+                app:searchIcon="@drawable/ic_hero_arrow_left"
+                app:iconifiedByDefault="false"/>
 
         </com.google.android.material.appbar.MaterialToolbar>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_small"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:scrollbars="none">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/collectionToggleGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/activity_margin"
-                app:singleLine="true"
-                app:singleSelection="true"
-                app:checkedChip="@id/assetButtonToggle"
-                app:selectionRequired="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/assetButtonToggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/activity_assets"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/categoryButtonToggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/activity_categories"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/userButtonToggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/activity_users"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/departmentButtonToggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/activity_departments"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/assignmentButtonToggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/activity_assignments"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
-
-            </com.google.android.material.chip.ChipGroup>
-
-        </HorizontalScrollView>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -116,7 +47,7 @@
 
             <include
                 android:id="@+id/rowLayout"
-                layout="@layout/layout_skeleton_category"/>
+                layout="@layout/layout_skeleton_search"/>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

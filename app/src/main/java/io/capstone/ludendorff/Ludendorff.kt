@@ -26,4 +26,8 @@ class Ludendorff: Application(), Configuration.Provider {
     override fun getWorkManagerConfiguration(): Configuration = Configuration.Builder()
         .setWorkerFactory(workerFactory)
         .build()
+
+    companion object {
+
+    }
 }

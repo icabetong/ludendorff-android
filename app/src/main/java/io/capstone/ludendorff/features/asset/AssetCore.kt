@@ -4,6 +4,7 @@ import android.os.Parcelable
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.category.CategoryCore
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
 /**
  *  This data class is used in querying
