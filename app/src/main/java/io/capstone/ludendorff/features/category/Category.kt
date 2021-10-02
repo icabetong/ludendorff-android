@@ -2,17 +2,26 @@ package io.capstone.ludendorff.features.category
 
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
+import com.algolia.instantsearch.core.highlighting.HighlightedString
+import com.algolia.instantsearch.helper.highlighting.Highlightable
+import com.algolia.search.model.Attribute
 import io.capstone.ludendorff.components.utils.IDGenerator
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 @Parcelize
 data class Category @JvmOverloads constructor(
     var categoryId: String = IDGenerator.generateRandom(),
     var categoryName: String? = null,
-    var count: Int = 0
-): Parcelable {
+    var count: Int = 0,
+    override val _highlightResult: @RawValue JsonObject? = null
+): Parcelable, Highlightable {
+
+    val highlightedName: HighlightedString?
+        get() = getHighlight(Attribute(FIELD_NAME))
 
     fun minimize(): CategoryCore {
         return CategoryCore.from(this)

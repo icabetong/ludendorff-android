@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appBar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_height">
+
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:id="@+id/collapsingToolbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/keeper_toolbar"
+        app:toolbarId="@id/toolbar"
+        app:expandedTitleMarginStart="@dimen/activity_margin_medium"
+        app:expandedTitleGravity="center_vertical"
+        app:collapsedTitleTextAppearance="@style/TextAppearance.Keeper.Title.Emphasized"
+        app:expandedTitleTextAppearance="@style/TextAppearance.Keeper.Title.Large"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/keeper_toolbar"
+            app:layout_collapseMode="pin"
+            tools:title="@string/app_name"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/searchPlaceholderView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/activity_margin"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/activity_margin"
+            android:padding="@dimen/activity_margin_small"
+            android:background="@drawable/shape_search_query_box"
+            android:text="@string/hint_search"
+            android:textAppearance="@style/TextAppearance.Keeper.Body"
+            android:drawableStart="@drawable/ic_hero_search"
+            android:drawablePadding="@dimen/activity_margin"
+            app:layout_collapseMode="parallax"/>
+
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+</com.google.android.material.appbar.AppBarLayout>

@@ -30,8 +30,8 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentAssignmentBinding
 import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collectLatest

@@ -32,8 +32,8 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentUsersBinding
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.ludendorff.features.shared.BaseFragment

@@ -36,8 +36,8 @@ import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.custom.NavigationItemDecoration
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.databinding.FragmentProfileBinding
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.worker.ImageCompressWorker
 import io.capstone.ludendorff.features.core.worker.ProfileUploadWorker
 import io.capstone.ludendorff.features.profile.actions.ChangeNameBottomSheet

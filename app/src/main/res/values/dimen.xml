@@ -7,7 +7,7 @@
     <dimen name="activity_margin_large">48dp</dimen>
     <dimen name="activity_margin_huge">72dp</dimen>
 
-    <dimen name="toolbar_height">144dp</dimen>
+    <dimen name="toolbar_height">200dp</dimen>
     <dimen name="toolbar_padding_horizontal">4dp</dimen>
     <dimen name="toolbar_keyline">16dp</dimen>
     <dimen name="toolbar_title_expanded_size">28sp</dimen>

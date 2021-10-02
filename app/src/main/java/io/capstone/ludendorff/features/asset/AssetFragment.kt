@@ -32,11 +32,12 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentAssetsBinding
 import io.capstone.ludendorff.features.asset.editor.AssetEditorFragment
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -91,6 +92,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         )
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
+        binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
         binding.swipeRefreshLayout.setColorRes(R.color.keeper_primary, R.color.keeper_surface)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_assets,
@@ -259,6 +261,10 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
             mainController?.navigate(R.id.navigation_editor_asset, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
+        binding.appBar.searchPlaceholderView.setOnClickListener {
+            mainController?.navigate(R.id.navigation_search_asset, null, null,
+                FragmentNavigatorExtras(it to BaseSearchFragment.TRANSITION_SEARCH))
+        }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             assetAdapter.refresh()
@@ -304,9 +310,6 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_search -> {
-                mainController?.navigate(R.id.navigation_search)
-            }
             R.id.action_category -> {
                 mainController?.navigate(R.id.navigation_category)
             }

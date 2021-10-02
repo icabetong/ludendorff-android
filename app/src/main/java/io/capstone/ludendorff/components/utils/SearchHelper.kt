@@ -1,5 +1,6 @@
 package io.capstone.ludendorff.components.utils
 
+import androidx.paging.PagedList
 import com.algolia.instantsearch.helper.android.list.SearcherSingleIndexDataSource
 import com.algolia.instantsearch.helper.searcher.SearcherSingleIndex
 import com.algolia.search.client.ClientSearch
@@ -21,10 +22,15 @@ class SearchHelper(indexName: String) {
 
     fun <T> getDataSource(callback: (json: ResponseSearch.Hit) -> T): SearcherSingleIndexDataSource.Factory<T> {
         return SearcherSingleIndexDataSource.Factory(searcher) {
-            android.util.Log.e("DEBUG", "callback")
             callback(it)
         }
     }
+
+    val config: PagedList.Config
+        get() = PagedList.Config.Builder()
+            .setPageSize(25)
+            .setEnablePlaceholders(false)
+            .build()
 
     companion object {
         private const val ALGOLIA_APP_ID = "H1BMXJXRBE"

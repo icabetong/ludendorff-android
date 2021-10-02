@@ -185,6 +185,18 @@
         <item name="android:letterSpacing">0.15</item>
     </style>
     <style name="TextAppearance.Keeper.Caption" parent="TextAppearance.AppCompat.Caption"/>
+    <style name="TextAppearance.Keeper.Search">
+        <item name="android:textColor">@color/keeper_text_secondary</item>
+    </style>
+    <style name="TextAppearance.Keeper.Search.Title">
+        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textSize">@dimen/text_list_item</item>
+    </style>
+    <style name="TextAppearance.Keeper.Search.Overline">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.15</item>
+    </style>
 
     <!-- ShapeAppearance -->
     <style name="ShapeAppearance.Keeper.SmallComponent"

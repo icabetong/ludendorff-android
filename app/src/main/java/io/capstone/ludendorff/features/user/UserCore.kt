@@ -10,6 +10,7 @@ import kotlinx.serialization.Serializable
  *  the minimal information the user can be
  *  associated to.
  */
+@Serializable
 @Parcelize
 data class UserCore @JvmOverloads constructor(
     var userId: String = IDGenerator.generateRandom(),

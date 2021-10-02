@@ -1,11 +1,10 @@
-package io.capstone.ludendorff.features.category.search
+package io.capstone.ludendorff.features.asset.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -19,17 +18,16 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchBinding
-import io.capstone.ludendorff.features.category.Category
-import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
+import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
-class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Category> {
+class AssetSearchFragment: BaseSearchFragment(), OnItemActionListener<Asset> {
     private var _binding: FragmentSearchBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val searchAdapter = CategorySearchAdapter(this)
-    private val viewModel: CategorySearchViewModel by viewModels()
+    private val searchAdapter = AssetSearchAdapter(this)
+    private val viewModel: AssetSearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,20 +95,24 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
                 is LoadState.Error -> createSnackbar(R.string.error_generic)
             }
         }
-        viewModel.categories.observe(viewLifecycleOwner) {
+        viewModel.assets.observe(viewLifecycleOwner) {
             searchAdapter.submitList(it)
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+
+        }
+    }
+
     override fun onActionPerformed(
-        data: Category?,
+        data: Asset?,
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        if (action == OnItemActionListener.Action.SELECT) {
-            CategoryEditorBottomSheet(childFragmentManager).show {
-                arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)
-            }
-        }
+
     }
 }

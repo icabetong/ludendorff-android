@@ -28,10 +28,11 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentDepartmentBinding
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.department.editor.DepartmentEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -82,6 +83,7 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.swipeRefreshLayout.setColorRes(R.color.keeper_primary, R.color.keeper_surface)
+        binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_departments,
             onNavigationClicked = { controller?.navigateUp() },
@@ -242,6 +244,10 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
             controller?.navigate(R.id.navigation_editor_department, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
+        binding.appBar.searchPlaceholderView.setOnClickListener {
+            controller?.navigate(R.id.navigation_search_department, null, null,
+                FragmentNavigatorExtras(it to BaseSearchFragment.TRANSITION_SEARCH))
+        }
         binding.swipeRefreshLayout.setOnRefreshListener {
             departmentAdapter.refresh()
         }
@@ -266,8 +272,6 @@ class DepartmentFragment: BaseFragment(), OnItemActionListener<Department>,
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_search ->
-                controller?.navigate(R.id.navigation_search)
             R.id.action_sort_name_ascending -> {
                 viewModel.changeSortDirection(Query.Direction.ASCENDING)
                 departmentAdapter.refresh()

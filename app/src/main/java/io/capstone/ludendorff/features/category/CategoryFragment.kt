@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -30,10 +31,11 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentCategoryBinding
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -84,6 +86,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
         )
 
         binding.swipeRefreshLayout.setColorRes(R.color.keeper_primary, R.color.keeper_surface)
+        binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
         binding.appBar.toolbar.setup (
             titleRes = R.string.activity_categories,
             onNavigationClicked = { controller?.navigateUp() },
@@ -252,6 +255,10 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
         binding.actionButton.setOnClickListener {
             CategoryEditorBottomSheet(childFragmentManager).show()
         }
+        binding.appBar.searchPlaceholderView.setOnClickListener {
+            mainController?.navigate(R.id.navigation_search, null, null,
+                FragmentNavigatorExtras(it to BaseSearchFragment.TRANSITION_SEARCH))
+        }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             categoryAdapter.refresh()
@@ -295,8 +302,6 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_search ->
-                mainController?.navigate(R.id.navigation_search)
             R.id.action_sort_name_ascending -> {
                 viewModel.changeSortDirection(Query.Direction.ASCENDING)
                 categoryAdapter.refresh()

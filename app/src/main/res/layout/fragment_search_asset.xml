@@ -43,7 +43,7 @@
 
             <include
                 android:id="@+id/rowLayout"
-                layout="@layout/layout_skeleton_search"/>
+                layout="@layout/layout_skeleton_asset"/>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

@@ -10,6 +10,6 @@
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.Keeper.List.Title"/>
+        android:textAppearance="@style/TextAppearance.Keeper.Search.Title"/>
 
 </FrameLayout>

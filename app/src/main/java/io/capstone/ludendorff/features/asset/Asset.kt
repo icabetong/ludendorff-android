@@ -5,18 +5,20 @@ import android.graphics.Color
 import android.os.Parcelable
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.DiffUtil
+import com.algolia.instantsearch.core.highlighting.HighlightedString
+import com.algolia.instantsearch.helper.highlighting.Highlightable
+import com.algolia.search.model.Attribute
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Exclude
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import io.capstone.ludendorff.R
-import io.capstone.ludendorff.components.serialization.StatusSerializer
-import io.capstone.ludendorff.components.serialization.TimestampSerializer
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.CategoryCore
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.Transient
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
@@ -27,18 +29,25 @@ import kotlinx.serialization.json.jsonPrimitive
 data class Asset @JvmOverloads constructor(
     var assetId: String = IDGenerator.generateRandom(),
     var assetName: String? = null,
-    @Serializable(with = TimestampSerializer::class)
-    var dateCreated: Timestamp? = Timestamp.now(),
-    @Serializable(with = StatusSerializer::class)
+    @Transient
+    var dateCreated: Timestamp? = null,
     var status: Status? = null,
     var category: CategoryCore? = null,
     var specifications: Map<String, String> = emptyMap(),
-): Parcelable {
+    @Exclude
+    override val _highlightResult: @RawValue JsonObject? = null
+): Parcelable, Highlightable {
+
+    val highlightedName: HighlightedString?
+        get() = getHighlight(Attribute(FIELD_NAME))
+    val highlightedCategory: HighlightedString?
+        get() = getHighlight(Attribute(FIELD_CATEGORY_NAME))
 
     fun minimize(): AssetCore {
         return AssetCore.from(this)
     }
 
+    @Serializable
     enum class Status {
         OPERATIONAL,
         IDLE,

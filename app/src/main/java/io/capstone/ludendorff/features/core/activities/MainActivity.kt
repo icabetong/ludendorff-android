@@ -14,8 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.ActivityMainBinding
 import io.capstone.ludendorff.features.assignment.AssignmentViewModel
-import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.services.NotificationServices
+import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseActivity
 import javax.inject.Inject
 

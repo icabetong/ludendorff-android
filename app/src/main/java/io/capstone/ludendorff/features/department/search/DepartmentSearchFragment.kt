@@ -1,11 +1,10 @@
-package io.capstone.ludendorff.features.category.search
+package io.capstone.ludendorff.features.department.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -15,27 +14,25 @@ import com.algolia.instantsearch.helper.android.searchbox.SearchBoxViewAppCompat
 import com.algolia.instantsearch.helper.android.searchbox.connectView
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.hide
-import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.databinding.FragmentSearchBinding
-import io.capstone.ludendorff.features.category.Category
-import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
+import io.capstone.ludendorff.databinding.FragmentSearchDepartmentBinding
+import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
-class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Category> {
-    private var _binding: FragmentSearchBinding? = null
+class DepartmentSearchFragment: BaseSearchFragment(), OnItemActionListener<Department> {
+    private var _binding: FragmentSearchDepartmentBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val searchAdapter = CategorySearchAdapter(this)
-    private val viewModel: CategorySearchViewModel by viewModels()
+    private val searchAdapter = DepartmentSearchAdapter(this)
+    private val viewModel: DepartmentSearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(this,
-            object: OnBackPressedCallback(true) {
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     controller?.navigateUp()
                 }
@@ -47,7 +44,7 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchDepartmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,10 +58,6 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
         setInsets(view, binding.toolbar)
 
         binding.searchTextView.transitionName = TRANSITION_SEARCH
-        binding.toolbar.setup(
-            onNavigationClicked = { controller?.navigateUp() }
-        )
-
         with(binding.recyclerView) {
             itemAnimator = null
             adapter = searchAdapter
@@ -97,20 +90,16 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
                 is LoadState.Error -> createSnackbar(R.string.error_generic)
             }
         }
-        viewModel.categories.observe(viewLifecycleOwner) {
+        viewModel.departments.observe(viewLifecycleOwner) {
             searchAdapter.submitList(it)
         }
     }
 
     override fun onActionPerformed(
-        data: Category?,
+        data: Department?,
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        if (action == OnItemActionListener.Action.SELECT) {
-            CategoryEditorBottomSheet(childFragmentManager).show {
-                arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)
-            }
-        }
+
     }
 }

@@ -35,5 +35,4 @@ object TimestampSerializer: KSerializer<Timestamp> {
         }
     }
 
-
 }
