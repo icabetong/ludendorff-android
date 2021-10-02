@@ -28,7 +28,7 @@ data class Department @JvmOverloads constructor(
     val highlightedName: HighlightedString?
         get() = getHighlight(Attribute(FIELD_NAME))
     val highlightedManager: HighlightedString?
-        get() = getHighlight(Attribute(FIELD_MANAGER_NAME))
+        get() = getHighlight(Attribute(FIELD_MANAGER))
 
     fun minimize(): DepartmentCore {
         return DepartmentCore.from(this)

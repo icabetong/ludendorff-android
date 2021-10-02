@@ -58,7 +58,7 @@ class AssetSearchFragment: BaseSearchFragment(), OnItemActionListener<Asset> {
         super.onViewCreated(view, savedInstanceState)
         setInsets(view, binding.toolbar)
 
-        binding.searchTextView.transitionName = TRANSITION_SEARCH
+        binding.appBar.transitionName = TRANSITION_SEARCH
         binding.toolbar.setup(
             onNavigationClicked = { controller?.navigateUp() }
         )

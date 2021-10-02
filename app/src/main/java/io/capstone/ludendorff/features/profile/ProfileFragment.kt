@@ -1,6 +1,9 @@
 package io.capstone.ludendorff.features.profile
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -30,6 +33,7 @@ import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.afollestad.materialdialogs.list.listItems
+import com.yalantis.ucrop.UCrop
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.CoilProgressDrawable
@@ -45,6 +49,7 @@ import io.capstone.ludendorff.features.profile.actions.ChangePasswordBottomSheet
 import io.capstone.ludendorff.features.shared.BaseFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.io.File
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -77,16 +82,12 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         imageRequestLauncher =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
                 uri?.let {
-                    val data = Data.Builder()
-                        .putString(ImageCompressWorker.EXTRA_SOURCE, uri.toString())
-                        .build()
+                    val tempFile = File.createTempFile("cropped", ".jpg",
+                        requireContext().cacheDir)
+                    val destination = Uri.fromFile(tempFile)
 
-                    val request = OneTimeWorkRequestBuilder<ImageCompressWorker>()
-                        .setInputData(data)
-                        .addTag(ImageCompressWorker.WORKER_TAG)
-                        .build()
-
-                    viewModel.enqueueToWorkManager(request, ImageCompressWorker.WORKER_TAG)
+                    UCrop.of(it, destination)
+                        .start(requireContext(), this)
                 }
             }
 
@@ -446,6 +447,29 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     }
                     negativeButton(R.string.button_cancel)
                 }
+            }
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != Activity.RESULT_OK)
+            return;
+
+        if (requestCode == UCrop.REQUEST_CROP) {
+            data?.let {
+                val workerData = Data.Builder()
+                    .putString(ImageCompressWorker.EXTRA_SOURCE, UCrop.getOutput(data).toString())
+                    .build()
+
+                val request = OneTimeWorkRequestBuilder<ImageCompressWorker>()
+                    .setInputData(workerData)
+                    .addTag(ImageCompressWorker.WORKER_TAG)
+                    .build()
+
+                viewModel.enqueueToWorkManager(request, ImageCompressWorker.WORKER_TAG)
             }
         }
     }

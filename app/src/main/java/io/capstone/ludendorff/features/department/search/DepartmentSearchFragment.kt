@@ -14,6 +14,7 @@ import com.algolia.instantsearch.helper.android.searchbox.SearchBoxViewAppCompat
 import com.algolia.instantsearch.helper.android.searchbox.connectView
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.hide
+import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchDepartmentBinding
@@ -57,7 +58,10 @@ class DepartmentSearchFragment: BaseSearchFragment(), OnItemActionListener<Depar
         super.onViewCreated(view, savedInstanceState)
         setInsets(view, binding.toolbar)
 
-        binding.searchTextView.transitionName = TRANSITION_SEARCH
+        binding.appBar.transitionName = TRANSITION_SEARCH
+        binding.toolbar.setup(
+            onNavigationClicked = { controller?.navigateUp() }
+        )
         with(binding.recyclerView) {
             itemAnimator = null
             adapter = searchAdapter
