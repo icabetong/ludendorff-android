@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -28,6 +29,17 @@ class UserSearchFragment: BaseSearchFragment(), OnItemActionListener<User> {
     private val binding get() = _binding!!
     private val searchAdapter = UserSearchAdapter(this)
     private val viewModel: UserSearchViewModel by activityViewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    controller?.navigateUp()
+                }
+            })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

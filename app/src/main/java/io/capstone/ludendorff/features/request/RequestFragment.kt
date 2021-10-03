@@ -73,6 +73,7 @@ class RequestFragment: BaseFragment(), OnItemActionListener<Request> {
             binding.permissionView.root, binding.errorView.root, binding.shimmerFrameLayout))
 
         binding.swipeRefreshLayout.setColorRes(R.color.keeper_primary, R.color.keeper_surface)
+        binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_requests,
             onNavigationClicked = { controller?.navigateUp() },
