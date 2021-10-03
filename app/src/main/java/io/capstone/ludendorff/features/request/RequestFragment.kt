@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
@@ -28,6 +29,7 @@ import io.capstone.ludendorff.databinding.FragmentRequestBinding
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.request.viewer.RequestViewerBottomSheet
 import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -209,6 +211,10 @@ class RequestFragment: BaseFragment(), OnItemActionListener<Request> {
     override fun onResume() {
         super.onResume()
 
+        binding.appBar.searchPlaceholderView.setOnClickListener {
+            controller?.navigate(R.id.navigation_search_request, null, null,
+                FragmentNavigatorExtras(it to BaseSearchFragment.TRANSITION_SEARCH))
+        }
         binding.swipeRefreshLayout.setOnRefreshListener {
             requestAdapter.refresh()
         }

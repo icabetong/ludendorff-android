@@ -1,55 +1,37 @@
-package io.capstone.ludendorff.features.asset.search
+package io.capstone.ludendorff.features.assignment.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.core.os.bundleOf
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.algolia.instantsearch.helper.android.list.autoScrollToStart
-import com.algolia.instantsearch.helper.android.searchbox.SearchBoxViewAppCompat
-import com.algolia.instantsearch.helper.android.searchbox.connectView
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.databinding.FragmentSearchAssetBinding
-import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.asset.editor.AssetEditorFragment
+import io.capstone.ludendorff.databinding.FragmentSearchAssignmentBinding
+import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
-class AssetSearchFragment: BaseSearchFragment(), OnItemActionListener<Asset> {
-    private var _binding: FragmentSearchAssetBinding? = null
+class AssignmentSearchFragment: BaseSearchFragment(), OnItemActionListener<Assignment> {
+    private var _binding: FragmentSearchAssignmentBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val searchAdapter = AssetSearchAdapter(this)
-    private val viewModel: AssetSearchViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        requireActivity().onBackPressedDispatcher.addCallback(this,
-            object: OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    controller?.navigateUp()
-                }
-            })
-    }
+    private val searchAdapter = AssignmentSearchAdapter(this)
+    private val viewModel: AssignmentSearchViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSearchAssetBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchAssignmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -68,14 +50,10 @@ class AssetSearchFragment: BaseSearchFragment(), OnItemActionListener<Asset> {
         )
 
         with(binding.recyclerView) {
+            autoScrollToStart(searchAdapter)
             itemAnimator = null
             adapter = searchAdapter
-            autoScrollToStart(searchAdapter)
         }
-
-        connection += viewModel.searchBox.connectView(SearchBoxViewAppCompat(binding.searchTextView))
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onStart() {
@@ -101,7 +79,7 @@ class AssetSearchFragment: BaseSearchFragment(), OnItemActionListener<Asset> {
                 is LoadState.Error -> createSnackbar(R.string.error_generic)
             }
         }
-        viewModel.assets.observe(viewLifecycleOwner) {
+        viewModel.assignments.observe(viewLifecycleOwner) {
             searchAdapter.submitList(it)
         }
     }
@@ -112,16 +90,10 @@ class AssetSearchFragment: BaseSearchFragment(), OnItemActionListener<Asset> {
     }
 
     override fun onActionPerformed(
-        data: Asset?,
+        data: Assignment?,
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        if (action == OnItemActionListener.Action.SELECT) {
-            container?.let {
-                controller?.navigate(R.id.navigation_editor_asset,
-                    bundleOf(AssetEditorFragment.EXTRA_ASSET to data), null,
-                    FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT + data?.assetId))
-            }
-        }
+
     }
 }

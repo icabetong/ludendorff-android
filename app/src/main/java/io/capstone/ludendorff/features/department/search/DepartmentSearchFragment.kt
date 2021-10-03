@@ -99,6 +99,11 @@ class DepartmentSearchFragment: BaseSearchFragment(), OnItemActionListener<Depar
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        hideKeyboardFromCurrentFocus(binding.root)
+    }
+
     override fun onActionPerformed(
         data: Department?,
         action: OnItemActionListener.Action,

@@ -18,13 +18,13 @@ import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.databinding.FragmentSearchBinding
+import io.capstone.ludendorff.databinding.FragmentSearchCategoryBinding
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
 class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Category> {
-    private var _binding: FragmentSearchBinding? = null
+    private var _binding: FragmentSearchCategoryBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
@@ -47,7 +47,7 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchCategoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -100,6 +100,11 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
         viewModel.categories.observe(viewLifecycleOwner) {
             searchAdapter.submitList(it)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        hideKeyboardFromCurrentFocus(binding.root)
     }
 
     override fun onActionPerformed(

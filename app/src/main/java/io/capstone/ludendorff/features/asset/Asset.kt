@@ -42,7 +42,7 @@ data class Asset @JvmOverloads constructor(
     val highlightedName: HighlightedString?
         get() = getHighlight(Attribute(FIELD_NAME))
     val highlightedCategory: HighlightedString?
-        get() = getHighlight(Attribute(FIELD_CATEGORY_NAME))
+        get() = getHighlight(Attribute(Category.FIELD_NAME))
 
     fun minimize(): AssetCore {
         return AssetCore.from(this)

@@ -48,6 +48,7 @@
         <entry key="app/src/main/res/layout/fragment_editor_request.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_editor_specification.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_editor_user.xml" value="0.4560787069571328" />
+        <entry key="app/src/main/res/layout/fragment_facet_assets.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.22006578947368421" />
@@ -66,6 +67,8 @@
         <entry key="app/src/main/res/layout/fragment_scan_results.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_search_asset.xml" value="0.261328125" />
+        <entry key="app/src/main/res/layout/fragment_search_assignment.xml" value="0.261328125" />
+        <entry key="app/src/main/res/layout/fragment_search_category.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/fragment_search_department.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/fragment_settings_core.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_users.xml" value="0.18902038132807364" />
@@ -122,6 +125,7 @@
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2019736842105263" />
         <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.2019736842105263" />
         <entry key="app/src/main/res/menu/menu_profile.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/menu/menu_search_assets.xml" value="0.261328125" />
         <entry key="app/src/main/res/xml/xml_settings.xml" value="0.5" />
       </map>
     </option>

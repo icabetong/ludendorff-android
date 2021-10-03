@@ -33,6 +33,7 @@ import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragmen
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -85,6 +86,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         )
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
+        binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.keeper_primary)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_assignments,
@@ -252,6 +254,10 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
     override fun onResume() {
         super.onResume()
 
+        binding.appBar.searchPlaceholderView.setOnClickListener {
+            mainController?.navigate(R.id.navigation_search_assignment, null, null,
+                FragmentNavigatorExtras(it to BaseSearchFragment.TRANSITION_SEARCH))
+        }
         binding.actionButton.setOnClickListener {
             mainController?.navigate(R.id.navigation_editor_assignment, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
@@ -281,8 +287,6 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_search ->
-                mainController?.navigate(R.id.navigation_search)
             R.id.action_requests ->
                 mainController?.navigate(R.id.navigation_request)
         }

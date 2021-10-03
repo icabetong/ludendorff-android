@@ -44,11 +44,20 @@
         android:id="@+id/navigation_search_asset"
         android:name="io.capstone.ludendorff.features.asset.search.AssetSearchFragment"/>
     <fragment
-        android:id="@+id/navigation_search"
+        android:id="@+id/navigation_search_assignment"
+        android:name="io.capstone.ludendorff.features.assignment.search.AssignmentSearchFragment"/>
+    <fragment
+        android:id="@+id/navigation_search_category"
         android:name="io.capstone.ludendorff.features.category.search.CategorySearchFragment"/>
     <fragment
         android:id="@+id/navigation_search_department"
         android:name="io.capstone.ludendorff.features.department.search.DepartmentSearchFragment"/>
+    <fragment
+        android:id="@+id/navigation_search_request"
+        android:name="io.capstone.ludendorff.features.request.search.RequestSearchFragment"/>
+    <fragment
+        android:id="@+id/navigation_search_user"
+        android:name="io.capstone.ludendorff.features.user.search.UserSearchFragment"/>
     <fragment
         android:id="@+id/navigation_notification"
         android:name="io.capstone.ludendorff.features.notification.NotificationFragment"/>

@@ -232,9 +232,6 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_search -> {
-                mainController?.navigate(R.id.navigation_search)
-            }
             R.id.action_sent_requests -> {
                 mainController?.navigate(R.id.navigation_sent_requests)
             }

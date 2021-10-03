@@ -10,6 +10,7 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemAssetBinding
 import io.capstone.ludendorff.features.asset.Asset
+import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagedListAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 
@@ -35,6 +36,7 @@ class AssetSearchAdapter(
                 val style = ForegroundColorSpan(ContextCompat.getColor(root.context,
                     R.color.keeper_primary))
 
+                root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.assetId
                 headerTextView.text = data?.highlightedName?.toSpannedString(style)
                     ?: data?.assetName
                 informationTextView.text = data?.highlightedCategory?.toSpannedString(style)

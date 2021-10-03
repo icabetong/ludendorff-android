@@ -256,7 +256,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             CategoryEditorBottomSheet(childFragmentManager).show()
         }
         binding.appBar.searchPlaceholderView.setOnClickListener {
-            mainController?.navigate(R.id.navigation_search, null, null,
+            mainController?.navigate(R.id.navigation_search_category, null, null,
                 FragmentNavigatorExtras(it to BaseSearchFragment.TRANSITION_SEARCH))
         }
 

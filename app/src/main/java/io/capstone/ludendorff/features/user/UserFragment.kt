@@ -37,6 +37,7 @@ import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.user.editor.UserEditorFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -266,6 +267,10 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
     override fun onResume() {
         super.onResume()
 
+        binding.appBar.searchPlaceholderView.setOnClickListener {
+            mainController?.navigate(R.id.navigation_search_user, null, null,
+                FragmentNavigatorExtras(it to BaseSearchFragment.TRANSITION_SEARCH))
+        }
         binding.actionButton.setOnClickListener {
             mainController?.navigate(R.id.navigation_editor_user, null, null,
                 FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
@@ -301,8 +306,6 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_search ->
-                mainController?.navigate(R.id.navigation_search)
             R.id.action_departments ->
                 mainController?.navigate(R.id.navigation_department)
             R.id.action_sort_last_name_ascending -> {
