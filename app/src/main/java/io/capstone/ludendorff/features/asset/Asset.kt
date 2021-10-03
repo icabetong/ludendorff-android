@@ -13,6 +13,7 @@ import com.google.firebase.firestore.Exclude
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.serialization.TimestampSerializer
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.CategoryCore
@@ -29,7 +30,7 @@ import kotlinx.serialization.json.jsonPrimitive
 data class Asset @JvmOverloads constructor(
     var assetId: String = IDGenerator.generateRandom(),
     var assetName: String? = null,
-    @Transient
+    @Serializable(TimestampSerializer::class)
     var dateCreated: Timestamp? = null,
     var status: Status? = null,
     var category: CategoryCore? = null,
@@ -47,7 +48,6 @@ data class Asset @JvmOverloads constructor(
         return AssetCore.from(this)
     }
 
-    @Serializable
     enum class Status {
         OPERATIONAL,
         IDLE,

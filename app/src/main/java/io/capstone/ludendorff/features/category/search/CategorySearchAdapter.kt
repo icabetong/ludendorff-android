@@ -1,9 +1,12 @@
 package io.capstone.ludendorff.features.category.search
 
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.algolia.instantsearch.helper.android.highlighting.toSpannedString
+import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemSearchBinding
 import io.capstone.ludendorff.features.category.Category
@@ -29,7 +32,10 @@ class CategorySearchAdapter(
 
         override fun onBind(data: Category?) {
             with(binding) {
-                nameTextView.text = data?.highlightedName?.toSpannedString() ?: data?.categoryName
+                val style = ForegroundColorSpan(ContextCompat.getColor(root.context,
+                    R.color.keeper_primary))
+
+                nameTextView.text = data?.highlightedName?.toSpannedString(style) ?: data?.categoryName
 
                 root.setOnClickListener {
                     onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,

@@ -117,10 +117,26 @@ class UserRepository @Inject constructor(
 
     suspend fun update(id: String, fields: Map<String, Any?>): Response<Response.Action> {
         return try {
-            firestore.collection(User.COLLECTION)
-                .document(id)
-                .update(fields)
-                .await()
+            val batchWrite = firestore.batch()
+
+            batchWrite.update(firestore.collection(User.COLLECTION)
+                .document(id), fields)
+
+            firestore.collection(Assignment.COLLECTION)
+                .whereEqualTo(Assignment.FIELD_USER_ID, id)
+                .get().await()
+                .documents.forEach {
+                    batchWrite.update(it.reference, Assignment.FIELD_USER, fields)
+                }
+
+            firestore.collection(Request.COLLECTION)
+                .whereEqualTo(Request.FIELD_PETITIONER_ID, id)
+                .get().await()
+                .documents.forEach {
+                    batchWrite.update(it.reference, Request.FIELD_PETITIONER, fields)
+                }
+
+            batchWrite.commit().await()
 
             firebaseAuth.currentUser?.uid?.let {
                 if (it == id) {
