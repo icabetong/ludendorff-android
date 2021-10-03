@@ -2,6 +2,9 @@ package io.capstone.ludendorff.features.user
 
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
+import com.algolia.instantsearch.core.highlighting.HighlightedString
+import com.algolia.instantsearch.helper.highlighting.Highlightable
+import com.algolia.search.model.Attribute
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
 import io.capstone.ludendorff.components.interfaces.Serializable
@@ -9,9 +12,12 @@ import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.department.Department
 import io.capstone.ludendorff.features.department.DepartmentCore
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+import kotlinx.serialization.json.JsonObject
 import org.json.JSONArray
 import org.json.JSONObject
 
+@kotlinx.serialization.Serializable
 @Parcelize
 data class User @JvmOverloads constructor(
     var userId: String = IDGenerator.generateRandom(),
@@ -23,8 +29,19 @@ data class User @JvmOverloads constructor(
     var position: String? = null,
     var department: DepartmentCore? = null,
     var deviceToken: String? = null,
-    var disabled: Boolean = false
-): Parcelable, Serializable {
+    var disabled: Boolean = false,
+    @Exclude
+    override val _highlightResult: @RawValue JsonObject? = null
+): Parcelable, Serializable, Highlightable {
+
+    val highlightedFirstName: HighlightedString?
+        get() = getHighlight(Attribute(FIELD_FIRST_NAME))
+    val highlightedLastName: HighlightedString?
+        get() = getHighlight(Attribute(FIELD_LAST_NAME))
+    val highlightedPosition: HighlightedString?
+        get() = getHighlight((Attribute(FIELD_POSITION)))
+    val highlightedEmail: HighlightedString?
+        get() = getHighlight((Attribute(FIELD_EMAIL)))
 
     override fun toJSON(): JSONObject {
         return JSONObject().apply {

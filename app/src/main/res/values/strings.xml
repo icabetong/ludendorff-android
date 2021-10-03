@@ -315,6 +315,7 @@
     <string name="channel_id_general">notifications:general</string>
     <string name="channel_id_assignments">notifications:assignments</string>
 
+    <string name="concat_user_name">%1$s %2$s</string>
     <string name="concat_endorsed_by">Endorsed by: %1$s</string>
     <string name="concat_today_at">Today at %1$s</string>
 </resources>

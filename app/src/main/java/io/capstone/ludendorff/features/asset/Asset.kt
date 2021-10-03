@@ -36,7 +36,7 @@ data class Asset @JvmOverloads constructor(
     var category: CategoryCore? = null,
     var specifications: Map<String, String> = emptyMap(),
     @Exclude
-    override val _highlightResult: @RawValue JsonObject? = null
+    override var _highlightResult: @RawValue JsonObject? = null
 ): Parcelable, Highlightable {
 
     val highlightedName: HighlightedString?

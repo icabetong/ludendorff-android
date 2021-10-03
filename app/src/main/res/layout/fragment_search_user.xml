@@ -43,7 +43,7 @@
 
             <include
                 android:id="@+id/rowLayout"
-                layout="@layout/layout_skeleton_category"/>
+                layout="@layout/layout_skeleton_user"/>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

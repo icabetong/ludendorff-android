@@ -10,6 +10,7 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemDepartmentBinding
 import io.capstone.ludendorff.features.department.Department
+import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagedListAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 
@@ -34,6 +35,7 @@ class DepartmentSearchAdapter(
             with(binding) {
                 val style = ForegroundColorSpan(ContextCompat.getColor(root.context, R.color.keeper_primary))
 
+                root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.departmentId
                 titleTextView.text = data?.highlightedName?.toSpannedString(style) ?: data?.name
                 bodyTextView.text = data?.highlightedManager?.toSpannedString(style) ?: data?.manager?.name
 

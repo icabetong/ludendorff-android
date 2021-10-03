@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.algolia.instantsearch.helper.android.list.autoScrollToStart
+import com.algolia.instantsearch.helper.android.searchbox.SearchBoxViewAppCompat
+import com.algolia.instantsearch.helper.android.searchbox.connectView
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setup
@@ -54,6 +57,10 @@ class AssignmentSearchFragment: BaseSearchFragment(), OnItemActionListener<Assig
             itemAnimator = null
             adapter = searchAdapter
         }
+
+        connection += viewModel.searchBox.connectView(SearchBoxViewAppCompat(binding.searchTextView))
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onStart() {

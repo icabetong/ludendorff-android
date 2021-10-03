@@ -70,6 +70,9 @@
         <entry key="app/src/main/res/layout/fragment_search_assignment.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/fragment_search_category.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/fragment_search_department.xml" value="0.261328125" />
+        <entry key="app/src/main/res/layout/fragment_search_home.xml" value="0.261328125" />
+        <entry key="app/src/main/res/layout/fragment_search_request.xml" value="0.261328125" />
+        <entry key="app/src/main/res/layout/fragment_search_user.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/fragment_settings_core.xml" value="0.18914473684210525" />
         <entry key="app/src/main/res/layout/fragment_users.xml" value="0.18902038132807364" />
         <entry key="app/src/main/res/layout/fragment_view_assignment.xml" value="0.18914473684210525" />

@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.algolia.instantsearch.helper.android.list.autoScrollToStart
@@ -19,6 +22,7 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchDepartmentBinding
 import io.capstone.ludendorff.features.department.Department
+import io.capstone.ludendorff.features.department.editor.DepartmentEditorFragment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
 class DepartmentSearchFragment: BaseSearchFragment(), OnItemActionListener<Department> {
@@ -69,6 +73,8 @@ class DepartmentSearchFragment: BaseSearchFragment(), OnItemActionListener<Depar
         }
 
         connection += viewModel.searchBox.connectView(SearchBoxViewAppCompat(binding.searchTextView))
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onStart() {
@@ -109,6 +115,15 @@ class DepartmentSearchFragment: BaseSearchFragment(), OnItemActionListener<Depar
         action: OnItemActionListener.Action,
         container: View?
     ) {
-
+        if (action == OnItemActionListener.Action.SELECT) {
+            container?.let {
+                controller?.navigate(R.id.navigation_editor_department,
+                    bundleOf(DepartmentEditorFragment.EXTRA_DEPARTMENT to data),
+                    null,
+                    FragmentNavigatorExtras(
+                        it to TRANSITION_NAME_ROOT + data?.departmentId)
+                )
+            }
+        }
     }
 }

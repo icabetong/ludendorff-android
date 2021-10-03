@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -72,6 +73,8 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
         }
 
         connection += viewModel.searchBox.connectView(SearchBoxViewAppCompat(binding.searchTextView))
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onStart() {
