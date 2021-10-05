@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.features.category
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import com.algolia.instantsearch.core.highlighting.HighlightedString
 import com.algolia.instantsearch.helper.highlighting.Highlightable
@@ -11,6 +12,7 @@ import kotlinx.parcelize.RawValue
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
+@Keep
 @Serializable
 @Parcelize
 data class Category @JvmOverloads constructor(

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin"
             android:visibility="gone"
-            app:strokeColor="@color/keeper_info"
+            app:strokeColor="@color/brand_info"
             tools:visibility="visible">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -39,11 +39,11 @@
                     android:layout_marginHorizontal="@dimen/activity_margin"
                     android:gravity="center_vertical"
                     android:text="@string/info_dataset_filtered"
-                    android:textColor="@color/keeper_info"
+                    android:textColor="@color/brand_info"
                     android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
                     android:drawableStart="@drawable/ic_hero_information"
                     android:drawablePadding="@dimen/activity_margin"
-                    android:drawableTint="@color/keeper_info"/>
+                    android:drawableTint="@color/brand_info"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/resetButton"
@@ -53,7 +53,7 @@
                     android:layout_marginHorizontal="@dimen/activity_margin"
                     android:layout_gravity="end"
                     android:text="@string/button_reset"
-                    android:textColor="@color/keeper_info"
+                    android:textColor="@color/brand_info"
                     style="@style/Widget.Keeper.Button.Outlined"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>

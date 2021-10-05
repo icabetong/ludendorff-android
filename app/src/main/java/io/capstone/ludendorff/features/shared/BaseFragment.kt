@@ -134,7 +134,7 @@ abstract class BaseFragment: Fragment() {
             interpolator = FastOutSlowInInterpolator()
             setAllContainerColors(
                 MaterialColors.getColor(requireContext(), R.attr.colorSurface,
-                ContextCompat.getColor(requireContext(), R.color.keeper_surface)))
+                ContextCompat.getColor(requireContext(), R.color.brand_surface)))
         }
 
     private fun customPopupProvider(context: Context, anchor: View): CascadePopupMenu {

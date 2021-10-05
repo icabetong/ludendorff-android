@@ -3,23 +3,23 @@
 
     <style name="Theme.Keeper" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color -->
-        <item name="colorPrimary">@color/keeper_primary</item>
-        <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
-        <item name="colorOnPrimary">@color/keeper_on_primary</item>
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryVariant">@color/brand_primary_variant</item>
+        <item name="colorOnPrimary">@color/brand_on_primary</item>
         <!-- Secondary brand color -->
         <item name="colorSecondary">?attr/colorPrimary</item>
         <item name="colorSecondaryVariant">?attr/colorPrimaryVariant</item>
         <item name="colorOnSecondary">?attr/colorOnPrimary</item>
         <!-- Error related colors -->
-        <item name="colorError">@color/keeper_error</item>
-        <item name="colorOnError">@color/keeper_on_error</item>
+        <item name="colorError">@color/brand_error</item>
+        <item name="colorOnError">@color/brand_on_error</item>
         <!-- Cards and other elevated UI stuff -->
-        <item name="colorSurface">@color/keeper_surface</item>
-        <item name="colorOnSurface">@color/keeper_on_surface</item>
+        <item name="colorSurface">@color/brand_surface</item>
+        <item name="colorOnSurface">@color/brand_on_surface</item>
         <!-- Others -->
-        <item name="colorBackgroundFloating">@color/keeper_surface</item>
-        <item name="android:colorBackgroundFloating">@color/keeper_surface</item>
-        <item name="android:windowBackground">@color/keeper_background_main</item>
+        <item name="colorBackgroundFloating">@color/brand_surface</item>
+        <item name="android:colorBackgroundFloating">@color/brand_surface</item>
+        <item name="android:windowBackground">@color/brand_background_main</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!-- Components -->
         <item name="bottomSheetDialogTheme">@style/Component.Keeper.BottomSheet</item>
@@ -46,12 +46,12 @@
     <!-- Components -->
     <style name="Component.Keeper.BottomSheet" parent="Component.Keeper.BottomSheet.Bridge"/>
     <style name="Component.Keeper.BottomSheet.Bridge" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
-        <item name="colorPrimary">@color/keeper_primary</item>
-        <item name="colorPrimaryVariant">@color/keeper_primary_variant</item>
-        <item name="colorSecondary">@color/keeper_secondary</item>
-        <item name="colorSecondaryVariant">@color/keeper_secondary_variant</item>
-        <item name="colorSurface">@color/keeper_surface</item>
-        <item name="colorOnSurface">@color/keeper_on_surface</item>
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryVariant">@color/brand_primary_variant</item>
+        <item name="colorSecondary">@color/brand_primary</item>
+        <item name="colorSecondaryVariant">@color/brand_primary_variant</item>
+        <item name="colorSurface">@color/brand_surface</item>
+        <item name="colorOnSurface">@color/brand_on_surface</item>
         <item name="bottomSheetStyle">@style/Component.Keeper.BottomSheet.Base</item>
         <item name="materialButtonStyle">@style/Widget.Keeper.Button.Secondary</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.Keeper.Button.Outlined.Secondary</item>
@@ -69,21 +69,21 @@
     <style name="Widget.Keeper.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
     <style name="Widget.Keeper.TextInput.Layout.Filled" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"/>
     <style name="Widget.Keeper.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Surface">
-        <item name="android:background">@color/keeper_toolbar</item>
+        <item name="android:background">@color/brand_toolbar_color</item>
     </style>
     <style name="Widget.Keeper.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
         <item name="titleTextAppearance">@style/TextAppearance.Keeper.Title</item>
         <item name="maxButtonHeight">48dp</item>
         <item name="contentInsetStart">@dimen/toolbar_keyline</item>
-        <item name="backgroundColor">@color/keeper_toolbar</item>
+        <item name="backgroundColor">@color/brand_toolbar_color</item>
         <item name="navigationIcon">@drawable/ic_hero_arrow_left</item>
-        <item name="navigationIconTint">@color/keeper_text_primary</item>
+        <item name="navigationIconTint">@color/brand_text_primary</item>
         <item name="android:paddingStart">@dimen/toolbar_padding_horizontal</item>
         <item name="android:paddingEnd">@dimen/toolbar_padding_horizontal</item>
     </style>
     <style name="Widget.Keeper.Toolbar.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="srcCompat">@drawable/ic_hero_dots_vertical</item>
-        <item name="tint">@color/keeper_on_surface</item>
+        <item name="tint">@color/brand_on_surface</item>
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
     </style>
@@ -125,17 +125,17 @@
     </style>
     <style name="TextAppearance.Keeper.Header">
         <item name="fontFamily">@font/font_inter_bold</item>
-        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textColor">@color/brand_text_primary</item>
         <item name="android:textSize">@dimen/text_header</item>
     </style>
     <style name="TextAppearance.Keeper.Header.Component">
         <item name="fontFamily">@font/font_inter_semibold</item>
-        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textColor">@color/brand_text_primary</item>
         <item name="android:textSize">18sp</item>
     </style>
     <style name="TextAppearance.Keeper.Title">
         <item name="fontFamily">@font/font_inter_medium</item>
-        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textColor">@color/brand_text_primary</item>
         <item name="android:textSize">20sp</item>
     </style>
     <style name="TextAppearance.Keeper.Title.Emphasized">
@@ -155,21 +155,21 @@
     <style name="TextAppearance.Keeper.List">
         <item name="fontFamily">@font/font_inter_semibold</item>
         <item name="android:fontFamily">@font/font_inter_semibold</item>
-        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textColor">@color/brand_text_primary</item>
         <item name="android:textSize">@dimen/text_list_item</item>
     </style>
     <style name="TextAppearance.Keeper.List.Title">
-        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textColor">@color/brand_text_primary</item>
         <item name="android:textSize">16sp</item>
     </style>
     <style name="TextAppearance.Keeper.Body">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/keeper_text_secondary</item>
+        <item name="android:textColor">@color/brand_text_secondary</item>
     </style>
     <style name="TextAppearance.Keeper.Body.Medium">
         <item name="fontFamily">@font/font_inter_medium</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textColor">@color/brand_text_primary</item>
     </style>
     <style name="TextAppearance.Keeper.Overline">
         <item name="fontFamily">@font/font_inter_bold</item>
@@ -186,10 +186,10 @@
     </style>
     <style name="TextAppearance.Keeper.Caption" parent="TextAppearance.AppCompat.Caption"/>
     <style name="TextAppearance.Keeper.Search">
-        <item name="android:textColor">@color/keeper_text_secondary</item>
+        <item name="android:textColor">@color/brand_text_secondary</item>
     </style>
     <style name="TextAppearance.Keeper.Search.Title">
-        <item name="android:textColor">@color/keeper_text_primary</item>
+        <item name="android:textColor">@color/brand_text_primary</item>
         <item name="android:textSize">@dimen/text_list_item</item>
     </style>
     <style name="TextAppearance.Keeper.Search.Overline">

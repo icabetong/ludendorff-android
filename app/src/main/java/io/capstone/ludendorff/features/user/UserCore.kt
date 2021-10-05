@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.features.user
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import io.capstone.ludendorff.components.utils.IDGenerator
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
@@ -10,6 +11,7 @@ import kotlinx.serialization.Serializable
  *  the minimal information the user can be
  *  associated to.
  */
+@Keep
 @Serializable
 @Parcelize
 data class UserCore @JvmOverloads constructor(

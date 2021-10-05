@@ -2,6 +2,7 @@ package io.capstone.ludendorff.features.notification
 
 import android.content.Context
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
 import com.google.firebase.messaging.RemoteMessage
@@ -9,6 +10,7 @@ import io.capstone.ludendorff.components.extensions.format
 import io.capstone.ludendorff.features.core.activities.MainActivity
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 data class Notification @JvmOverloads constructor (
     var notificationId: String,

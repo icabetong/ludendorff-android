@@ -6,7 +6,7 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
     <style name="Theme.Keeper.Core.Content">
-        <item name="android:windowBackground">@color/keeper_background_content</item>
+        <item name="android:windowBackground">@color/brand_background_content</item>
     </style>
 
 </resources>

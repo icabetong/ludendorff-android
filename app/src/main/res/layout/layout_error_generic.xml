@@ -17,7 +17,7 @@
         android:layout_height="@dimen/icon_size_large"
         android:layout_marginBottom="@dimen/activity_margin_medium"
         app:srcCompat="@drawable/ic_hero_cube_transparent"
-        app:tint="@color/keeper_text_primary"/>
+        app:tint="@color/brand_text_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"

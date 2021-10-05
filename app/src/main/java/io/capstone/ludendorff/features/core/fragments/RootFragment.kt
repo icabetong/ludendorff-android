@@ -151,7 +151,7 @@ class RootFragment: BaseFragment() {
                 error(R.drawable.ic_flaticon_user)
                 scale(Scale.FILL)
                 transformations(CircleCropTransformation())
-                placeholder(CoilProgressDrawable(requireContext(), R.color.keeper_primary))
+                placeholder(CoilProgressDrawable(requireContext(), R.color.brand_primary))
             }
         else headerBinding.profileImageView.setImageResource(R.drawable.ic_flaticon_user)
 

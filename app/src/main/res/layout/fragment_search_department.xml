@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/keeper_background_content">
+    android:background="@color/brand_background_content">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/keeper_toolbar">
+            android:background="@color/brand_toolbar_color">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchTextView"

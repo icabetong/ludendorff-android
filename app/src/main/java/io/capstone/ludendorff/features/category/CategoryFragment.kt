@@ -85,7 +85,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             binding.actionButton
         )
 
-        binding.swipeRefreshLayout.setColorRes(R.color.keeper_primary, R.color.keeper_surface)
+        binding.swipeRefreshLayout.setColorRes(R.color.brand_primary, R.color.brand_surface)
         binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
         binding.appBar.toolbar.setup (
             titleRes = R.string.activity_categories,

@@ -17,7 +17,7 @@ class SearchHelper(indexName: String) {
         APIKey(ALGOLIA_API_KEY),
         LogLevel.ALL
     )
-    private val index = client.initIndex(IndexName(indexName))
+    val index = client.initIndex(IndexName(indexName))
     val searcher = SearcherSingleIndex(index)
 
     fun <T> getDataSource(callback: (json: ResponseSearch.Hit) -> T): SearcherSingleIndexDataSource.Factory<T> {

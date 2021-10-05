@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <corners android:radius="@dimen/surface_radius"/>
-    <solid android:color="@color/keeper_menu"/>
+    <solid android:color="@color/brand_menu"/>
     <padding android:top="@dimen/activity_margin_tiny"
         android:bottom="@dimen/activity_margin_tiny"/>
 

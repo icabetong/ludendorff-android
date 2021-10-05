@@ -87,7 +87,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.keeper_primary)
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.brand_primary)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_assignments,
             iconRes = R.drawable.ic_hero_menu,

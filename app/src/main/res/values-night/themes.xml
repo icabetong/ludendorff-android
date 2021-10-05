@@ -6,7 +6,7 @@
     </style>
 
     <style name="Component.Keeper.BottomSheet" parent="Component.Keeper.BottomSheet.Bridge">
-        <item name="android:navigationBarColor">@color/keeper_surface</item>
+        <item name="android:navigationBarColor">@color/brand_surface</item>
     </style>
 
 </resources>

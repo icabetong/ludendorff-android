@@ -32,8 +32,9 @@ class AssignmentSearchAdapter (
 
         override fun onBind(data: Assignment?) {
             with(binding) {
-                val style = ForegroundColorSpan(ContextCompat.getColor(root.context,
-                    R.color.keeper_primary))
+                val style = ForegroundColorSpan(
+                    ContextCompat.getColor(root.context,
+                    R.color.brand_primary))
 
                 overlineTextView.text = data?.highlightedCategoryName?.toSpannedString(style)
                     ?: data?.asset?.category?.categoryName

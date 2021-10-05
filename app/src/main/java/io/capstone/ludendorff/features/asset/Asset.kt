@@ -3,6 +3,7 @@ package io.capstone.ludendorff.features.asset
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.DiffUtil
 import com.algolia.instantsearch.core.highlighting.HighlightedString
@@ -25,6 +26,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
+@Keep
 @Serializable
 @Parcelize
 data class Asset @JvmOverloads constructor(

@@ -6,7 +6,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/keeper_background_content"
+    android:background="@color/brand_background_content"
     tools:openDrawer="start">
 
     <androidx.fragment.app.FragmentContainerView
@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/keeper_background_content"
+        android:background="@color/brand_background_content"
         app:headerLayout="@layout/layout_drawer_header"
         app:menu="@menu/menu_navigation"/>
 

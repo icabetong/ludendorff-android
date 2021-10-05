@@ -44,7 +44,7 @@ class UserAdapter(
                         scale(Scale.FILL)
                         transformations(CircleCropTransformation())
                         placeholder(CoilProgressDrawable(binding.root.context,
-                            R.color.keeper_primary))
+                            R.color.brand_primary))
                     }
                 else binding.imageView.setImageResource(R.drawable.ic_flaticon_user)
             }

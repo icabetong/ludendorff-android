@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/keeper_background_content">
+    android:background="@color/brand_background_content">
 
     <include
         android:id="@+id/appBar"
@@ -31,7 +31,7 @@
                 android:hint="@string/hint_asset"
                 app:endIconDrawable="@drawable/ic_hero_chevron_down"
                 app:endIconMode="custom"
-                app:endIconTint="@color/keeper_text_primary"
+                app:endIconTint="@color/brand_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -64,7 +64,7 @@
                     android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
                     android:drawableStart="@drawable/ic_hero_badge_check"
                     android:drawablePadding="@dimen/activity_margin_small"
-                    android:drawableTint="@color/keeper_primary"/>
+                    android:drawableTint="@color/brand_primary"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/assetStatusTextView"
@@ -86,7 +86,7 @@
                     android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
                     android:drawableStart="@drawable/ic_hero_tag"
                     android:drawablePadding="@dimen/activity_margin_small"
-                    android:drawableTint="@color/keeper_primary"/>
+                    android:drawableTint="@color/brand_primary"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/categoryTextView"

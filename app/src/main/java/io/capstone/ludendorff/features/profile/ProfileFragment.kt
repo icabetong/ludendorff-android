@@ -153,7 +153,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     error(R.drawable.ic_hero_user)
                     scale(Scale.FILL)
                     transformations(CircleCropTransformation())
-                    placeholder(CoilProgressDrawable(requireContext(), R.color.keeper_primary))
+                    placeholder(CoilProgressDrawable(requireContext(), R.color.brand_primary))
                 }
             else binding.imageView.setImageResource(R.drawable.ic_flaticon_user)
         }

@@ -31,7 +31,7 @@
         android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
         android:drawableStart="@drawable/ic_hero_desktop_computer"
         android:drawablePadding="@dimen/activity_margin_small"
-        android:drawableTint="@color/keeper_primary"/>
+        android:drawableTint="@color/brand_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/assetNameTextView"
@@ -53,7 +53,7 @@
         android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
         android:drawableStart="@drawable/ic_hero_badge_check"
         android:drawablePadding="@dimen/activity_margin_small"
-        android:drawableTint="@color/keeper_primary"/>
+        android:drawableTint="@color/brand_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/assetStatusTextView"
@@ -75,7 +75,7 @@
         android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
         android:drawableStart="@drawable/ic_hero_tag"
         android:drawablePadding="@dimen/activity_margin_small"
-        android:drawableTint="@color/keeper_primary"/>
+        android:drawableTint="@color/brand_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/categoryTextView"
@@ -97,7 +97,7 @@
         android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
         android:drawableStart="@drawable/ic_hero_user"
         android:drawablePadding="@dimen/activity_margin_small"
-        android:drawableTint="@color/keeper_primary"/>
+        android:drawableTint="@color/brand_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/endorserTextView"

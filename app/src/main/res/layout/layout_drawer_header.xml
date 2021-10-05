@@ -13,7 +13,7 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="@dimen/activity_margin_huge"
-        android:background="@color/keeper_background_content"
+        android:background="@color/brand_background_content"
         app:srcCompat="@drawable/ic_flaticon_user"/>
 
     <TextView

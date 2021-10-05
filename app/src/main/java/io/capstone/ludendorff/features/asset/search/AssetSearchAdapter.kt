@@ -33,8 +33,9 @@ class AssetSearchAdapter(
 
         override fun onBind(data: Asset?) {
             with(binding) {
-                val style = ForegroundColorSpan(ContextCompat.getColor(root.context,
-                    R.color.keeper_primary))
+                val style = ForegroundColorSpan(
+                    ContextCompat.getColor(root.context,
+                    R.color.brand_primary))
 
                 root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.assetId
                 headerTextView.text = data?.highlightedName?.toSpannedString(style)

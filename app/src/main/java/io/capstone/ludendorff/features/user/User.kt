@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.features.user
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import com.algolia.instantsearch.core.highlighting.HighlightedString
 import com.algolia.instantsearch.helper.highlighting.Highlightable
@@ -17,6 +18,7 @@ import kotlinx.serialization.json.JsonObject
 import org.json.JSONArray
 import org.json.JSONObject
 
+@Keep
 @kotlinx.serialization.Serializable
 @Parcelize
 data class User @JvmOverloads constructor(

@@ -11,7 +11,7 @@
         android:id="@+id/collapsingToolbarLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/keeper_toolbar"
+        android:background="@color/brand_toolbar_color"
         app:toolbarId="@id/toolbar"
         app:expandedTitleMarginStart="@dimen/activity_margin_medium"
         app:collapsedTitleTextAppearance="@style/TextAppearance.Keeper.Title.Emphasized"
@@ -22,7 +22,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/keeper_toolbar"
+            android:background="@color/brand_toolbar_color"
             app:layout_collapseMode="pin"
             tools:title="@string/app_name"/>
 

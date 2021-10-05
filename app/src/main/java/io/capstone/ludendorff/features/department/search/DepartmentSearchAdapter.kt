@@ -33,7 +33,7 @@ class DepartmentSearchAdapter(
 
         override fun onBind(data: Department?) {
             with(binding) {
-                val style = ForegroundColorSpan(ContextCompat.getColor(root.context, R.color.keeper_primary))
+                val style = ForegroundColorSpan(ContextCompat.getColor(root.context, R.color.brand_primary))
 
                 root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.departmentId
                 titleTextView.text = data?.highlightedName?.toSpannedString(style) ?: data?.name

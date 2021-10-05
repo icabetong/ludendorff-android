@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/keeper_background_content">
+    android:background="@color/brand_background_content">
 
     <include
         android:id="@+id/appBar"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:visibility="gone"
-                app:strokeColor="@color/keeper_info"
+                app:strokeColor="@color/brand_info"
                 tools:visibility="visible">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -40,11 +40,11 @@
                     android:layout_margin="@dimen/activity_margin"
                     android:gravity="center_vertical"
                     android:text="@string/info_account_will_be_disabled"
-                    android:textColor="@color/keeper_info"
+                    android:textColor="@color/brand_info"
                     android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
                     android:drawableStart="@drawable/ic_hero_information"
                     android:drawablePadding="@dimen/activity_margin"
-                    android:drawableTint="@color/keeper_info"/>
+                    android:drawableTint="@color/brand_info"/>
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -54,7 +54,7 @@
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:layout_marginVertical="@dimen/activity_margin_small"
                 android:text="@string/hint_credentials"
-                android:textColor="@color/keeper_primary_variant"
+                android:textColor="@color/brand_primary_variant"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -83,7 +83,7 @@
                 android:layout_marginBottom="@dimen/activity_margin_small"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/hint_permissions"
-                android:textColor="@color/keeper_primary_variant"
+                android:textColor="@color/brand_primary_variant"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
             <HorizontalScrollView
@@ -146,7 +146,7 @@
                 android:layout_marginVertical="@dimen/activity_margin_small"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:visibility="gone"
-                app:strokeColor="@color/keeper_info"
+                app:strokeColor="@color/brand_info"
                 tools:visibility="visible">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -154,11 +154,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/activity_margin_small"
                     android:text="@string/info_administrative_permissions"
-                    android:textColor="@color/keeper_info"
+                    android:textColor="@color/brand_info"
                     android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
                     android:drawableStart="@drawable/ic_hero_information"
                     android:drawablePadding="@dimen/activity_margin"
-                    android:drawableTint="@color/keeper_info"/>
+                    android:drawableTint="@color/brand_info"/>
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -169,7 +169,7 @@
                 android:layout_marginBottom="@dimen/activity_margin_small"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/hint_information"
-                android:textColor="@color/keeper_primary_variant"
+                android:textColor="@color/brand_primary_variant"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -228,7 +228,7 @@
                 android:hint="@string/hint_department"
                 app:endIconDrawable="@drawable/ic_hero_chevron_down"
                 app:endIconMode="custom"
-                app:endIconTint="@color/keeper_text_primary"
+                app:endIconTint="@color/brand_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText

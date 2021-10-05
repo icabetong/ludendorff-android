@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "714424681363-he058nqbjhv5ik2olne73l74lriho5df.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "io.capstone.ludendorff",
-            "certificate_hash": "87aa26418462684bbbf8e9d4d638e33ab5378e42"
-          }
-        },
-        {
           "client_id": "714424681363-br44i7k90419thfopo1rlr95re1h9cfr.apps.googleusercontent.com",
           "client_type": 3
         }

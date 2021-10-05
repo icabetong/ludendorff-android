@@ -38,7 +38,7 @@ class UserSearchAdapter(
         override fun onBind(data: User?) {
             with(binding) {
                 val style = ForegroundColorSpan(ContextCompat.getColor(root.context,
-                    R.color.keeper_primary))
+                    R.color.brand_primary))
 
                 root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.userId
                 overlineTextView.text = data?.highlightedPosition?.toSpannedString(style)
@@ -55,7 +55,7 @@ class UserSearchAdapter(
                         transformations(CircleCropTransformation())
                         placeholder(
                             CoilProgressDrawable(binding.root.context,
-                            R.color.keeper_primary)
+                            R.color.brand_primary)
                         )
                     }
                 else binding.imageView.setImageResource(R.drawable.ic_flaticon_user)
