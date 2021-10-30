@@ -318,4 +318,9 @@
     <string name="concat_user_name">%1$s %2$s</string>
     <string name="concat_endorsed_by">Endorsed by: %1$s</string>
     <string name="concat_today_at">Today at %1$s</string>
+
+    <string name="credit_open_source_libraries">Open Source Libraries</string>
+    <string name="credit_other_resources">Other Resources</string>
+    <string name="credit_ui_icons_title">Heroicons</string>
+    <string name="credit_ui_icons_summary">Tailwind</string>
 </resources>

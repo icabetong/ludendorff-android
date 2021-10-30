@@ -49,15 +49,15 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(this,
-            object: OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    val drawer = getNavigationDrawer()
-                    if (drawer?.isDrawerOpen(GravityCompat.START) == true)
-                        drawer.closeDrawer(GravityCompat.START)
-                    else controller?.navigateUp()
-                }
-            })
+//        requireActivity().onBackPressedDispatcher.addCallback(this,
+//            object: OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    val drawer = getNavigationDrawer()
+//                    if (drawer?.isDrawerOpen(GravityCompat.START) == true)
+//                        drawer.closeDrawer(GravityCompat.START)
+//                    else controller?.navigateUp()
+//                }
+//            })
     }
 
     override fun onCreateView(

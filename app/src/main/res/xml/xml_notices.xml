@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:key="KEY_LIBRARIES"
+        app:title="@string/credit_open_source_libraries"/>
+
+    <PreferenceCategory
+        app:title="@string/credit_other_resources">
+
+        <Preference
+            app:key="KEY_UI_ICONS"
+            app:title="@string/credit_ui_icons_title"
+            app:summary="@string/credit_ui_icons_summary"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

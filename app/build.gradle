@@ -7,6 +7,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs'
     id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'com.mikepenz.aboutlibraries.plugin'
 }
 
 android {
@@ -71,6 +72,7 @@ dependencies {
     implementation 'com.algolia:algoliasearch:3.8.0'
     implementation 'com.algolia:instantsearch-android:2.11.0'
     implementation 'com.github.yalantis:ucrop:2.2.6'
+    implementation 'com.mikepenz:aboutlibraries-core:8.9.4'
 
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.fragment:fragment-ktx:1.3.6'
@@ -85,9 +87,9 @@ dependencies {
     implementation 'androidx.biometric:biometric:1.1.0'
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    kapt 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
+    kapt 'androidx.lifecycle:lifecycle-common-java8:2.3.0'
 
     implementation 'androidx.hilt:hilt-work:1.0.0'
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
