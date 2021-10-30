@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import com.algolia.instantsearch.helper.android.list.autoScrollToStart
 import com.algolia.instantsearch.helper.android.searchbox.SearchBoxViewAppCompat
@@ -25,7 +26,7 @@ class RequestSearchFragment: BaseSearchFragment(), OnItemActionListener<Request>
 
     private val binding get() = _binding!!
     private val searchAdapter = RequestSearchAdapter(this)
-    private val viewModel: RequestSearchViewModel by activityViewModels()
+    private val viewModel: RequestSearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -28,7 +29,7 @@ class UserSearchFragment: BaseSearchFragment(), OnItemActionListener<User> {
 
     private val binding get() = _binding!!
     private val searchAdapter = UserSearchAdapter(this)
-    private val viewModel: UserSearchViewModel by activityViewModels()
+    private val viewModel: UserSearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

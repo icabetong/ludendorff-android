@@ -8,6 +8,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -31,7 +33,7 @@ class AssetSearchFragment: BaseSearchFragment(), OnItemActionListener<Asset> {
 
     private val binding get() = _binding!!
     private val searchAdapter = AssetSearchAdapter(this)
-    private val viewModel: AssetSearchViewModel by activityViewModels()
+    private val viewModel: AssetSearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
