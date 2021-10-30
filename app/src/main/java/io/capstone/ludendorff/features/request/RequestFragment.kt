@@ -13,12 +13,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
+import io.capstone.ludendorff.components.custom.SwipeItemCallback
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setColorRes
@@ -70,7 +72,7 @@ class RequestFragment: BaseFragment(), OnItemActionListener<Request> {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setInsets(view, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout, binding.emptyView.root,
-            binding.permissionView.root, binding.errorView.root, binding.shimmerFrameLayout))
+            binding.permissionView.root, binding.errorView.root, binding.shimmerFrameLayout, binding.snackBarAnchor))
 
         binding.swipeRefreshLayout.setColorRes(R.color.brand_primary, R.color.brand_surface)
         binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
@@ -83,6 +85,9 @@ class RequestFragment: BaseFragment(), OnItemActionListener<Request> {
         with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
             adapter = requestAdapter
+
+            ItemTouchHelper(SwipeItemCallback(context, requestAdapter))
+                .attachToRecyclerView(this)
         }
     }
 
@@ -179,10 +184,10 @@ class RequestFragment: BaseFragment(), OnItemActionListener<Request> {
                             when(it.action) {
                                 Response.Action.CREATE ->
                                     createSnackbar(R.string.feedback_request_create_error,
-                                        binding.errorView.root)
+                                        binding.snackBarAnchor)
                                 Response.Action.REMOVE ->
                                     createSnackbar(R.string.feedback_request_remove_error,
-                                        binding.errorView.root)
+                                        binding.snackBarAnchor)
                                 else -> {}
                             }
                         }
@@ -191,10 +196,10 @@ class RequestFragment: BaseFragment(), OnItemActionListener<Request> {
                         when(it.data) {
                             Response.Action.CREATE ->
                                 createSnackbar(R.string.feedback_request_created,
-                                    binding.errorView.root)
+                                    binding.snackBarAnchor)
                             Response.Action.REMOVE ->
                                 createSnackbar(R.string.feedback_request_removed,
-                                    binding.errorView.root)
+                                    binding.snackBarAnchor)
                             else -> {}
                         }
                     }
@@ -232,7 +237,10 @@ class RequestFragment: BaseFragment(), OnItemActionListener<Request> {
                     arguments = bundleOf(RequestViewerBottomSheet.EXTRA_REQUEST to data)
                 }
             }
-            OnItemActionListener.Action.DELETE -> TODO()
+            OnItemActionListener.Action.DELETE -> {
+                data?.let { r -> viewModel.remove(r) }
+                requestAdapter.refresh()
+            }
         }
     }
 }

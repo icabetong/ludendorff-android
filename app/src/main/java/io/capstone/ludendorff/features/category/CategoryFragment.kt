@@ -105,7 +105,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             addItemDecoration(GenericItemDecoration(context))
             adapter = categoryAdapter
 
-            ItemTouchHelper(SwipeItemCallback(requireContext(), categoryAdapter))
+            ItemTouchHelper(SwipeItemCallback(context, categoryAdapter))
                 .attachToRecyclerView(this)
         }
     }

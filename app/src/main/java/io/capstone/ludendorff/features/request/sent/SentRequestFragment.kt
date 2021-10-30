@@ -12,10 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
+import io.capstone.ludendorff.components.custom.SwipeItemCallback
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setColorRes
@@ -24,6 +26,7 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentRequestSentBinding
 import io.capstone.ludendorff.features.request.Request
+import io.capstone.ludendorff.features.request.RequestViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -36,6 +39,7 @@ class SentRequestFragment: BaseFragment(), OnItemActionListener<Request> {
     private val binding get() = _binding!!
     private val requestAdapter = SentRequestAdapter(this)
     private val viewModel: SentRequestViewModel by activityViewModels()
+    private val requestViewModel: RequestViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +80,9 @@ class SentRequestFragment: BaseFragment(), OnItemActionListener<Request> {
         with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
             adapter = requestAdapter
+
+            ItemTouchHelper(SwipeItemCallback(context, requestAdapter))
+                .attachToRecyclerView(this)
         }
     }
 
@@ -180,7 +187,10 @@ class SentRequestFragment: BaseFragment(), OnItemActionListener<Request> {
                     arguments = bundleOf(SentRequestViewerBottomSheet.EXTRA_REQUEST to data)
                 }
             }
-            OnItemActionListener.Action.DELETE -> TODO()
+            OnItemActionListener.Action.DELETE -> {
+                data?.let { r -> requestViewModel.remove(r) }
+                requestAdapter.refresh()
+            }
         }
     }
 }

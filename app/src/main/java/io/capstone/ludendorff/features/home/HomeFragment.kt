@@ -16,6 +16,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
@@ -31,6 +33,7 @@ import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.assignment.AssignmentViewModel
 import io.capstone.ludendorff.features.assignment.viewer.AssignmentViewer
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.request.RequestViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,20 +48,8 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
     private val binding get() = _binding!!
     private val homeAdapter = HomeAdapter(this)
     private val viewModel: HomeViewModel by activityViewModels()
+    private val requestViewModel: RequestViewModel by activityViewModels()
     private val assignmentViewModel: AssignmentViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        requireActivity().onBackPressedDispatcher.addCallback(this,
-//            object: OnBackPressedCallback(true) {
-//                override fun handleOnBackPressed() {
-//                    val drawer = getNavigationDrawer()
-//                    if (drawer?.isDrawerOpen(GravityCompat.START) == true)
-//                        drawer.closeDrawer(GravityCompat.START)
-//                    else controller?.navigateUp()
-//                }
-//            })
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -194,6 +185,46 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
                         binding.emptyView.root.hide()
                         if (it.refresh.endOfPaginationReached)
                             binding.emptyView.root.isVisible = homeAdapter.itemCount < 1
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            requestViewModel.action.collectLatest {
+                when(it) {
+                    is Response.Error -> {
+                        if (it.throwable is FirebaseFirestoreException &&
+                            it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+
+                            MaterialDialog(requireContext()).show {
+                                lifecycleOwner(viewLifecycleOwner)
+                                title(R.string.error_no_permission)
+                                message(R.string.error_no_permission_summary_write)
+                                positiveButton()
+                            }
+                        } else {
+                            when(it.action) {
+                                Response.Action.CREATE ->
+                                    createSnackbar(R.string.feedback_request_create_error,
+                                        binding.errorView.root)
+                                Response.Action.REMOVE ->
+                                    createSnackbar(R.string.feedback_request_remove_error,
+                                        binding.errorView.root)
+                                else -> {}
+                            }
+                        }
+                    }
+                    is Response.Success -> {
+                        when(it.data) {
+                            Response.Action.CREATE ->
+                                createSnackbar(R.string.feedback_request_created,
+                                    binding.errorView.root)
+                            Response.Action.REMOVE ->
+                                createSnackbar(R.string.feedback_request_removed,
+                                    binding.errorView.root)
+                            else -> {}
+                        }
                     }
                 }
             }

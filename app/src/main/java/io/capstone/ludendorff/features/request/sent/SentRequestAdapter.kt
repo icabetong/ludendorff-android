@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
+import io.capstone.ludendorff.components.interfaces.SwipeableAdapter
 import io.capstone.ludendorff.databinding.LayoutItemRequestSentBinding
 import io.capstone.ludendorff.features.request.Request
 import io.capstone.ludendorff.features.shared.BasePagingAdapter
@@ -12,7 +13,8 @@ import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class SentRequestAdapter(
     private val onItemActionListener: OnItemActionListener<Request>
-): BasePagingAdapter<Request, SentRequestAdapter.SentRequestViewHolder>(Request.DIFF_CALLBACK) {
+): BasePagingAdapter<Request, SentRequestAdapter.SentRequestViewHolder>(Request.DIFF_CALLBACK),
+    SwipeableAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SentRequestViewHolder {
         val binding = LayoutItemRequestSentBinding.inflate(LayoutInflater.from(parent.context),
@@ -22,6 +24,11 @@ class SentRequestAdapter(
 
     override fun onBindViewHolder(holder: SentRequestViewHolder, position: Int) {
         holder.onBind(getItem(position))
+    }
+
+    override fun onSwipe(position: Int, direction: Int) {
+        onItemActionListener.onActionPerformed(getItem(position), OnItemActionListener.Action.DELETE,
+            null)
     }
 
     inner class SentRequestViewHolder(itemView: View): BaseViewHolder<Request>(itemView) {
