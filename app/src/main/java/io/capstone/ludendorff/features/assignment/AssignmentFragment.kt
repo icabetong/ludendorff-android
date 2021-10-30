@@ -37,6 +37,7 @@ import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 
 @AndroidEntryPoint
 class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
@@ -222,10 +223,9 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
                                         positiveButton()
                                     }
                                 }
-                                else -> showGenericError(it.action)
+                                else -> showGenericError(it.throwable, it.action)
                             }
-                        } else
-                            showGenericError(it.action)
+                        } else showGenericError(it.throwable, it.action)
                     }
                     is Response.Success -> {
                         when(it.data) {
@@ -292,7 +292,10 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         }
     }
 
-    private fun showGenericError(action: Response.Action?) {
+    private fun showGenericError(throwable: Throwable?, action: Response.Action?) {
+        if (throwable is SocketTimeoutException)
+            return;
+
         when(action) {
             Response.Action.CREATE ->
                 createSnackbar(R.string.feedback_assignment_create_error, binding.actionButton)

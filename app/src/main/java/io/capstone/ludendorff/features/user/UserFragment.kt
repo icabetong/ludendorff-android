@@ -42,6 +42,7 @@ import io.capstone.ludendorff.features.user.editor.UserEditorFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 
 @AndroidEntryPoint
 class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.CascadeMenuDelegate,
@@ -153,9 +154,6 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                                         positiveButton()
                                     }
                                 }
-                                DeshiException.Code.PRECONDITION_FAILED -> {
-                                    showGenericError(it.action)
-                                }
                                 DeshiException.Code.UNPROCESSABLE_ENTITY -> {
                                     MaterialDialog(requireContext()).show {
                                         lifecycleOwner(viewLifecycleOwner)
@@ -164,11 +162,11 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                                         positiveButton()
                                     }
                                 }
-                                DeshiException.Code.GENERIC -> {
-                                    showGenericError(it.action)
-                                }
+                                DeshiException.Code.PRECONDITION_FAILED ->
+                                    showGenericError(it.throwable, it.action)
+                                DeshiException.Code.GENERIC -> showGenericError(it.throwable, it.action)
                             }
-                        } else showGenericError(it.action)
+                        } else showGenericError(it.throwable, it.action)
                     }
                     is Response.Success -> {
                         when(it.data) {
@@ -382,7 +380,10 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
         }
     }
 
-    private fun showGenericError(action: Response.Action?) {
+    private fun showGenericError(throwable: Throwable?, action: Response.Action?) {
+        if (throwable is SocketTimeoutException)
+            return
+
         when(action) {
             Response.Action.CREATE ->
                 createSnackbar(R.string.feedback_user_create_error, binding.actionButton)

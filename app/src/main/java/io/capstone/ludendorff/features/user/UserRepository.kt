@@ -33,6 +33,7 @@ class UserRepository @Inject constructor(
 
             val request = DeshiRequest(token, user.toJSON())
             val response = deshi.requestUserCreate(request)
+            response.close()
             if (response.code == 200)
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code)
@@ -95,6 +96,7 @@ class UserRepository @Inject constructor(
                     put(User.FIELD_DISABLED, user.disabled)
                 }
                 val response = deshi.requestUserModify(request)
+                response.close()
                 if (response.code != 200) {
                     throw DeshiException(response.code)
                 }
@@ -167,6 +169,7 @@ class UserRepository @Inject constructor(
             }
 
             val response = deshi.requestUserRemove(request)
+            response.close()
             if (response.code == 200)
                 Response.Success(Response.Action.REMOVE)
             else throw DeshiException(response.code)
