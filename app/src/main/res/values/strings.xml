@@ -321,6 +321,8 @@
 
     <string name="credit_open_source_libraries">Open Source Libraries</string>
     <string name="credit_other_resources">Other Resources</string>
+    <string name="credit_user_icon_title">Default User Avatar</string>
+    <string name="credit_user_icon_summary">FreePik</string>
     <string name="credit_ui_icons_title">Heroicons</string>
     <string name="credit_ui_icons_summary">Tailwind</string>
 </resources>

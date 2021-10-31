@@ -54,6 +54,7 @@
         <entry key="app/src/main/res/layout/fragment_editor_user.xml" value="0.4560787069571328" />
         <entry key="app/src/main/res/layout/fragment_facet_assets.xml" value="0.261328125" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_libraries.xml" value="0.139453125" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2019736842105263" />
@@ -133,6 +134,7 @@
         <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.2019736842105263" />
         <entry key="app/src/main/res/menu/menu_profile.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/menu/menu_search_assets.xml" value="0.261328125" />
+        <entry key="app/src/main/res/xml/xml_notices.xml" value="0.139453125" />
         <entry key="app/src/main/res/xml/xml_settings.xml" value="0.5" />
       </map>
     </option>

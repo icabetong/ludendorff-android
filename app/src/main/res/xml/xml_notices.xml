@@ -3,14 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
-        app:key="KEY_LIBRARIES"
+        app:key="preference:libraries"
         app:title="@string/credit_open_source_libraries"/>
 
     <PreferenceCategory
         app:title="@string/credit_other_resources">
 
         <Preference
-            app:key="KEY_UI_ICONS"
+            app:key="preference:user"
+            app:title="@string/credit_user_icon_title"
+            app:summary="@string/credit_user_icon_summary"/>
+
+        <Preference
+            app:key="preference:icons"
             app:title="@string/credit_ui_icons_title"
             app:summary="@string/credit_ui_icons_summary"/>
     </PreferenceCategory>

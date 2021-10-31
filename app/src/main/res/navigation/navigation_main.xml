@@ -67,6 +67,9 @@
     <fragment
         android:id="@+id/navigation_notices_settings"
         android:name="io.capstone.ludendorff.features.settings.notices.NoticeSettingsFragment"/>
+    <fragment
+        android:id="@+id/navigation_libraries"
+        android:name="io.capstone.ludendorff.features.settings.notices.LibrariesFragment"/>
 
     <!-- Editor Destinations -->
     <fragment
