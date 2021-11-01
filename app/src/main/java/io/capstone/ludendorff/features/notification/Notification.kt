@@ -7,18 +7,19 @@ import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
 import com.google.firebase.messaging.RemoteMessage
 import io.capstone.ludendorff.components.extensions.format
+import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.core.activities.MainActivity
 import kotlinx.parcelize.Parcelize
 
 @Keep
 @Parcelize
 data class Notification @JvmOverloads constructor (
-    var notificationId: String,
-    var title: String?,
-    var body: String?,
-    var payload: String?,
-    var senderId: String?,
-    var receiverId: String?,
+    var notificationId: String = IDGenerator.generateRandom(),
+    var title: String? = null,
+    var body: String? = null,
+    var payload: String? = null,
+    var senderId: String? = null,
+    var receiverId: String? = null,
     var timestamp: Timestamp? = null,
     var extras: Map<String, String?> = emptyMap()
 ): Parcelable {
@@ -28,7 +29,7 @@ data class Notification @JvmOverloads constructor (
     }
 
     fun formatTimestamp(context: Context): String? {
-        return timestamp?.format(context)
+        return timestamp?.format(context, true)
     }
 
     companion object {

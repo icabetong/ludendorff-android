@@ -203,6 +203,7 @@
     <string name="feedback_request_create_error">Error creating request</string>
     <string name="feedback_request_remove_error">Error removing request</string>
     <string name="feedback_request_endorse_error">Error endorsing request</string>
+    <string name="feedback_notification_removed">Notification successfully removed</string>
     <string name="feedback_token_update_success">Default device registered</string>
     <string name="feedback_token_update_error">Error registering as default device</string>
     <string name="feedback_network_limited_or_unavailable">Network is limited or unavailable</string>

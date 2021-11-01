@@ -20,7 +20,7 @@ fun Timestamp.isToday(): Boolean {
     return this.toLocalDateTime().isToday()
 }
 
-fun Timestamp?.format(context: Context): String? {
+fun Timestamp?.format(context: Context, isShort: Boolean = false): String? {
     if (this == null)
         return null
 
@@ -28,6 +28,6 @@ fun Timestamp?.format(context: Context): String? {
         String.format(context.getString(R.string.concat_today_at),
             DateTimeFormatter.getTimeFormatter(context)
                 .format(this.toLocalDateTime()))
-    else DateTimeFormatter.getDateTimeFormatter(context)
+    else DateTimeFormatter.getDateTimeFormatter(context, isShort)
         .format(this.toLocalDateTime())
 }
