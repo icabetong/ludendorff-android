@@ -10,12 +10,16 @@ import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.BaseViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class NotificationViewModel @Inject constructor(
     firestore: FirebaseFirestore,
-    auth: FirebaseAuth
+    auth: FirebaseAuth,
+    private val repository: NotificationRepository
 ): BaseViewModel() {
 
     private val notificationQuery = firestore.collection(Notification.COLLECTION)
@@ -27,4 +31,10 @@ class NotificationViewModel @Inject constructor(
         NotificationPagingSource(notificationQuery)
     }.flow.cachedIn(viewModelScope)
 
+    private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
+    val action = _action.receiveAsFlow()
+
+    fun remove(notification: Notification) = viewModelScope.launch {
+        _action.send(repository.remove(notification))
+    }
 }

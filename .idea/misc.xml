@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_assets.xml" value="0.11822916666666666" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_category.xml" value="0.11822916666666666" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_home.xml" value="0.28125" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_notification.xml" value="0.33" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_request.xml" value="0.28125" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_library.xml" value="0.28125" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/xml/xml_notices.xml" value="0.35572916666666665" />

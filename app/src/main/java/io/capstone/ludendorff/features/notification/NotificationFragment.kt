@@ -12,25 +12,34 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ItemTouchHelper
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
+import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
+import io.capstone.ludendorff.components.custom.SwipeItemCallback
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setColorRes
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
+import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentNotificationBinding
+import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.BaseFragment
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class NotificationFragment: BaseFragment() {
+@AndroidEntryPoint
+class NotificationFragment: BaseFragment(), OnItemActionListener<Notification> {
     private var _binding: FragmentNotificationBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val notificationAdapter = NotificationAdapter()
+    private val notificationAdapter = NotificationAdapter(this)
     private val viewModel: NotificationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,12 +80,54 @@ class NotificationFragment: BaseFragment() {
         with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
             adapter = notificationAdapter
+
+            ItemTouchHelper(SwipeItemCallback(context, notificationAdapter))
+                .attachToRecyclerView(this)
         }
     }
 
     override fun onStart() {
         super.onStart()
         controller = findNavController()
+
+        /**
+         *  Use Kotlin's coroutines to fetch the current loadState of
+         *  the PagingAdapter; we will use the viewLifecycleOwner to
+         *  avoid memory leaks as we are using fragments as the presenter.
+         */
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.action.collect {
+                when(it) {
+                    is Response.Error -> {
+                        if (it.throwable is FirebaseFirestoreException &&
+                            it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+
+                            MaterialDialog(requireContext()).show {
+                                lifecycleOwner(viewLifecycleOwner)
+                                title(R.string.error_no_permission)
+                                message(R.string.error_no_permission_summary_write)
+                                positiveButton()
+                            }
+                        } else {
+                            when(it.action) {
+                                Response.Action.REMOVE ->
+                                    createSnackbar(R.string.error_generic, binding.snackbarAnchor)
+                                else -> {}
+                            }
+                        }
+                    }
+                    is Response.Success -> {
+                        notificationAdapter.refresh()
+                        when(it.data) {
+                            Response.Action.REMOVE ->
+                                createSnackbar(R.string.feedback_notification_removed,
+                                    binding.snackbarAnchor)
+                            else -> {}
+                        }
+                    }
+                }
+            }
+        }
 
         /**
          *  Use Kotlin's coroutines to fetch the current loadState of
@@ -118,6 +169,7 @@ class NotificationFragment: BaseFragment() {
                         }
 
                         errorState?.let { e ->
+                            android.util.Log.e("DEBUG", e.toString())
                             /**
                              *  Check if the error that have returned is
                              *  EmptySnapshotException, which is used if
@@ -157,6 +209,26 @@ class NotificationFragment: BaseFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.notifications.collectLatest {
                 notificationAdapter.submitData(it)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            notificationAdapter.refresh()
+        }
+    }
+
+    override fun onActionPerformed(
+        data: Notification?,
+        action: OnItemActionListener.Action,
+        container: View?
+    ) {
+        when(action) {
+            OnItemActionListener.Action.SELECT -> throw IllegalStateException("This Operation is Unsupported")
+            OnItemActionListener.Action.DELETE -> {
+                data?.let { notification -> viewModel.remove(notification) }
             }
         }
     }
