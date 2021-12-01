@@ -87,6 +87,7 @@
     <string name="hint_location">Location</string>
     <string name="hint_remarks">Remarks</string>
     <string name="hint_assignment">Assignment</string>
+    <string name="hint_copies">Copies</string>
     <string name="hint_search">Enter a query</string>
 
     <string name="button_add">Add</string>
@@ -104,6 +105,7 @@
     <string name="button_disable">Disable</string>
     <string name="button_enable">Enable</string>
     <string name="button_endorse">Endorse</string>
+    <string name="button_duplicate">Duplicate</string>
     <string name="button_forgot_password">Forgot Password?</string>
     <string name="button_select_image">Select Image</string>
     <string name="button_use_today">Use Today\'s Date</string>
@@ -124,6 +126,7 @@
     <string name="menu_remove">Remove</string>
     <string name="menu_sign_out">Sign out</string>
     <string name="menu_view_qrcode">View QR Code</string>
+    <string name="menu_copy">Duplicate</string>
     <string name="menu_update_avatar">Update Avatar</string>
     <string name="menu_remove_avatar">Remove Avatar</string>
     <string name="menu_change_name">Change Name</string>
@@ -264,6 +267,8 @@
     <string name="error_assignment_not_exist_header">Assignment doesn\'t exist</string>
     <string name="error_assignment_not_exist_summary">There are no user assigned for this asset. However the information for the asset are below.</string>
 
+    <string name="dialog_copy_title">Duplicate Record?</string>
+    <string name="dialog_copy_message">You can create duplicated copy of the records in the database, to avoid manual input.</string>
     <string name="dialog_send_reset_link_title">Send Password Reset Link</string>
     <string name="dialog_send_reset_link_message">If you forgot your password for this account, you can request to reset it requesting a reset email.</string>
     <string name="dialog_send_reset_link_message_no_email">Enter your email address associated with your account to receive a email that can link you to reset your account\'s password.</string>

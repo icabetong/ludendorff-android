@@ -54,6 +54,9 @@ class AssetViewModel @Inject constructor(
     fun create(asset: Asset) = viewModelScope.launch(IO) {
         _action.send(repository.create(asset))
     }
+    fun createAll(assets: List<Asset>) = viewModelScope.launch(IO) {
+        _action.send(repository.createAll(assets))
+    }
     fun update(asset: Asset, previousCategoryId: String? = null) = viewModelScope.launch(IO) {
         _action.send(repository.update(asset, previousCategoryId))
     }

@@ -31,6 +31,28 @@ class AssetRepository @Inject constructor(
         }
     }
 
+    suspend fun createAll(assets: List<Asset>): Response<Response.Action> {
+        return try {
+            firestore.runBatch { writeBatch ->
+                assets.forEach {
+                    writeBatch.set(firestore.collection(Asset.COLLECTION).document(it.assetId),
+                        it)
+                }
+
+                assets[0].category?.categoryId?.let {
+                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
+                        mapOf(Category.FIELD_COUNT to FieldValue.increment(assets.size.toLong())))
+                }
+            }.await()
+
+            Response.Success(Response.Action.CREATE)
+        } catch (exception: FirebaseFirestoreException) {
+            Response.Error(exception, Response.Action.CREATE)
+        } catch (exception: Exception) {
+            Response.Error(exception, Response.Action.CREATE)
+        }
+    }
+
     suspend fun create(asset: Asset): Response<Response.Action> {
         return try {
             firestore.runBatch { writeBatch ->

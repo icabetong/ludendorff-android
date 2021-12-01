@@ -1,6 +1,8 @@
 package io.capstone.ludendorff.features.asset.editor
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +14,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
+import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.databinding.FragmentEditorAssetBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetViewModel
@@ -244,6 +248,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         }
     }
 
+    @SuppressLint("CheckResult")
     override fun onMenuItemClicked(id: Int) {
         when(id) {
             R.id.action_view_qrcode -> {
@@ -251,6 +256,26 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                     arguments = bundleOf(
                         QRCodeViewBottomSheet.EXTRA_ASSET_ID to editorViewModel.asset.assetId
                     )
+                }
+            }
+            R.id.action_copy -> {
+                MaterialDialog(requireContext()).show {
+                    lifecycleOwner(viewLifecycleOwner)
+                    title(R.string.dialog_copy_title)
+                    message(R.string.dialog_copy_message)
+                    input(hintRes = R.string.hint_copies, inputType = InputType.TYPE_CLASS_NUMBER) { _, text ->
+                        val base = editorViewModel.asset
+
+                        val copies = text.toString().toInt()
+                        val assets = mutableListOf<Asset>()
+                        for (i in 0 until copies) {
+                            assets.add(base.copy(assetId = IDGenerator.generateRandom()))
+                        }
+                        viewModel.createAll(assets)
+                        controller?.navigateUp()
+                    }
+                    positiveButton(R.string.button_duplicate)
+                    negativeButton(R.string.button_cancel)
                 }
             }
             R.id.action_remove -> {
