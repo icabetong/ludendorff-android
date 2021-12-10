@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.GravityCompat
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -20,6 +21,7 @@ import coil.size.Scale
 import coil.transform.CircleCropTransformation
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.CoilProgressDrawable
@@ -47,6 +49,7 @@ class RootFragment: BaseFragment() {
     private val viewModel: CoreViewModel by activityViewModels()
 
     @Inject lateinit var userProperties: UserProperties
+    @Inject lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,9 +104,24 @@ class RootFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
-        viewModel.subscribeToDocumentChanges()
-        viewModel.userData.observe(viewLifecycleOwner) {
-            setProperties(it)
+        if (firebaseAuth.currentUser?.isAnonymous == false) {
+            viewModel.subscribeToDocumentChanges()
+            viewModel.userData.observe(viewLifecycleOwner) {
+                setProperties(it)
+            }
+        } else {
+            headerBinding.nameTextView.setText(R.string.authentication_anonymous_user)
+            headerBinding.emailTextView.isVisible = false
+            with(binding.navigationView.menu) {
+                findItem(R.id.navigation_scan).isChecked = true
+                findItem(R.id.navigation_user_home).isVisible = false
+                findItem(R.id.navigation_assets).isVisible = false
+                findItem(R.id.navigation_users).isVisible = false
+                findItem(R.id.navigation_assignments).isVisible = false
+                findItem(R.id.navigation_notification).isVisible = false
+            }
+
+            controller?.navigate(R.id.navigation_scan)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

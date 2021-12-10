@@ -8,6 +8,7 @@ import androidx.navigation.Navigation
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.work.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.BuildConfig
@@ -24,6 +25,7 @@ class CorePreferences: BasePreference() {
 
     @Inject lateinit var userPreferences: UserPreferences
     @Inject lateinit var firebaseMessaging: FirebaseMessaging
+    @Inject lateinit var firebaseAuth: FirebaseAuth
 
     private val authViewModel: CoreViewModel by activityViewModels()
     private val workManager by lazy {
@@ -39,11 +41,13 @@ class CorePreferences: BasePreference() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findPreference<Preference>(PREFERENCE_KEY_USER)
-            ?.setOnPreferenceClickListener {
+        findPreference<Preference>(PREFERENCE_KEY_USER)?.apply {
+            isVisible = firebaseAuth.currentUser?.isAnonymous != true
+            setOnPreferenceClickListener {
                 controller?.navigate(R.id.navigation_profile)
                 true
             }
+        }
 
         findPreference<ListPreference>(PREFERENCE_KEY_THEME)
             ?.setOnPreferenceChangeListener { _, newTheme ->

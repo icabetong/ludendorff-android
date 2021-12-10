@@ -112,6 +112,7 @@
     <string name="button_pick_date">Pick Date</string>
     <string name="button_end_assignment">End Assignment</string>
     <string name="button_reconnect">Reconnect</string>
+    <string name="button_sign_in_anonymously">Sign in Anonymously</string>
 
     <string name="menu_filter">Filter</string>
     <string name="menu_sort">Sort</string>
@@ -137,6 +138,7 @@
     <string name="authentication_welcome_back">Welcome Back</string>
     <string name="authentication_confirm">Authentication is Required</string>
     <string name="authentication_confirm_summary">Provide your credentials to continue.</string>
+    <string name="authentication_anonymous_user">Anonymous User</string>
 
     <string name="asset_status_option_operational">Operational</string>
     <string name="asset_status_option_idle">Idle</string>

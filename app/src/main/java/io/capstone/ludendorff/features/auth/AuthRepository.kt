@@ -15,6 +15,17 @@ class AuthRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
 ){
 
+    suspend fun authenticateAsGuest(): Response<Unit> {
+        return try {
+            val task = firebaseAuth.signInAnonymously().await()
+            if (task != null)
+                Response.Success(Unit)
+            else throw Exception()
+        } catch (exception: Exception) {
+            Response.Error(exception);
+        }
+    }
+
     suspend fun authenticate(email: String, password: String): Response<Unit> {
         return try {
             return if (email.isNotBlank() && password.isNotBlank()) {

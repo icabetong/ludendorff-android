@@ -140,9 +140,20 @@ class AuthFragment: BaseFragment() {
             binding.authenticateButton.isEnabled = false
             binding.progressIndicator.show()
             binding.authenticateButton.setText(R.string.button_authenticating)
+            binding.anonymousButton.isEnabled = false
 
             viewModel.authenticate(binding.emailTextInput.text.toString(),
                 binding.passwordTextInput.text.toString())
+        }
+        binding.anonymousButton.setOnClickListener {
+            binding.emailTextInputLayout.isEnabled = false
+            binding.passwordTextInputLayout.isEnabled = false
+            binding.authenticateButton.isEnabled = false
+            binding.progressIndicator.show()
+            binding.anonymousButton.isEnabled = false
+            binding.anonymousButton.setText(R.string.button_authenticating)
+
+            viewModel.authenticateAsGuest()
         }
         binding.passwordTextInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -188,6 +199,9 @@ class AuthFragment: BaseFragment() {
 
         if (!binding.authenticateButton.isEnabled)
             binding.authenticateButton.isEnabled = true
+
+        if (!binding.anonymousButton.isEnabled)
+            binding.anonymousButton.isEnabled = true
 
         if (binding.progressIndicator.isVisible)
             binding.progressIndicator.hide()

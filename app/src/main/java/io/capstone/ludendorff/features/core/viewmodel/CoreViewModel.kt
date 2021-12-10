@@ -43,7 +43,7 @@ class CoreViewModel @Inject constructor(
     val passwordResetEmail = _passwordResetEmailSent.receiveAsFlow()
 
     init {
-        if (firebaseAuth.currentUser != null)
+        if (firebaseAuth.currentUser != null && firebaseAuth.currentUser?.isAnonymous == false)
             subscribeToDocumentChanges()
     }
 
@@ -73,6 +73,10 @@ class CoreViewModel @Inject constructor(
             val response = repository.authenticate(email, password)
             _authStatus.send(response)
         }
+    }
+
+    fun authenticateAsGuest() = viewModelScope.launch(IO) {
+        _authStatus.send(repository.authenticateAsGuest())
     }
 
     fun checkCurrentUser(): FirebaseUser? = repository.checkCurrentUser()
