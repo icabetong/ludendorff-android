@@ -170,11 +170,11 @@ class AssignmentRepository @Inject constructor(
         }
     }
 
-    suspend fun fetchWithFieldValue(field: String, value: String): Response<Assignment?> = withContext(IO) {
+    suspend fun fetchWithFieldValue(field: String, value: String, orderWith: String = Assignment.FIELD_ID): Response<Assignment?> = withContext(IO) {
         return@withContext try {
             val task = firestore.collection(Assignment.COLLECTION)
                 .whereEqualTo(field, value)
-                .orderBy(field, Query.Direction.ASCENDING)
+                .orderBy(orderWith, Query.Direction.ASCENDING)
                 .get().await()
 
             if (task.isEmpty)

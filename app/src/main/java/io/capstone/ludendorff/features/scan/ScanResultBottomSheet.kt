@@ -50,7 +50,6 @@ class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
                     binding.decodeErrorView.root.show()
                     binding.detailsLayout.hide()
                     binding.progressIndicator.hide()
-
                 }
                 is Response.Success -> {
                     binding.decodeErrorView.root.hide()
