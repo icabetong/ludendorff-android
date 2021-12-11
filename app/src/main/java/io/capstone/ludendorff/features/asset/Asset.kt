@@ -18,6 +18,7 @@ import io.capstone.ludendorff.components.serialization.TimestampSerializer
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.CategoryCore
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import kotlinx.serialization.Serializable
@@ -27,7 +28,6 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
 @Keep
-@Serializable
 @Parcelize
 data class Asset @JvmOverloads constructor(
     var assetId: String = IDGenerator.generateRandom(),
@@ -37,14 +37,7 @@ data class Asset @JvmOverloads constructor(
     var status: Status? = null,
     var category: CategoryCore? = null,
     var specifications: Map<String, String> = emptyMap(),
-    @Exclude
-    override var _highlightResult: @RawValue JsonObject? = null
-): Parcelable, Highlightable {
-
-    val highlightedName: HighlightedString?
-        get() = getHighlight(Attribute(FIELD_NAME))
-    val highlightedCategory: HighlightedString?
-        get() = getHighlight(Attribute(Category.FIELD_NAME))
+): Parcelable {
 
     fun minimize(): AssetCore {
         return AssetCore.from(this)
@@ -90,7 +83,7 @@ data class Asset @JvmOverloads constructor(
         const val FIELD_CATEGORY_NAME = "${FIELD_CATEGORY}.${Category.FIELD_NAME}"
         const val FIELD_SPECIFICATIONS = "specifications"
 
-        const val ID_PREFIX = "clsu://keeper/"
+        const val ID_PREFIX = "clsu://ludendorff/"
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Asset>() {
             override fun areContentsTheSame(oldItem: Asset, newItem: Asset): Boolean {
@@ -100,15 +93,6 @@ data class Asset @JvmOverloads constructor(
             override fun areItemsTheSame(oldItem: Asset, newItem: Asset): Boolean {
                 return oldItem == newItem
             }
-        }
-
-        fun deserialize(json: JsonObject): Asset {
-            return Asset(
-                assetId = json.getValue(FIELD_ID).jsonPrimitive.content,
-                assetName = json.getValue(FIELD_NAME).jsonPrimitive.content,
-                status = Status.parse(json.getValue(FIELD_STATUS).jsonPrimitive.content),
-                specifications = json.getValue(FIELD_SPECIFICATIONS).jsonObject.mapValues { it.toString() }
-            )
         }
 
         fun generateQRCode(id: String): Bitmap {

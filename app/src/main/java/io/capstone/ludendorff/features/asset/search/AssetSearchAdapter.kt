@@ -16,7 +16,7 @@ import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class AssetSearchAdapter(
     private val onItemActionListener: OnItemActionListener<Asset>
-): BasePagedListAdapter<Asset, AssetSearchAdapter.AssetSearchViewHolder>(Asset.DIFF_CALLBACK) {
+): BasePagedListAdapter<AssetSearch, AssetSearchAdapter.AssetSearchViewHolder>(AssetSearch.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetSearchViewHolder {
         val binding = LayoutItemAssetBinding.inflate(LayoutInflater.from(parent.context),
@@ -28,10 +28,10 @@ class AssetSearchAdapter(
         holder.onBind(getItem(position))
     }
 
-    inner class AssetSearchViewHolder(itemView: View): BaseViewHolder<Asset>(itemView) {
+    inner class AssetSearchViewHolder(itemView: View): BaseViewHolder<AssetSearch>(itemView) {
         private val binding = LayoutItemAssetBinding.bind(itemView)
 
-        override fun onBind(data: Asset?) {
+        override fun onBind(data: AssetSearch?) {
             with(binding) {
                 val style = ForegroundColorSpan(
                     ContextCompat.getColor(root.context,
@@ -44,8 +44,8 @@ class AssetSearchAdapter(
                     ?: data?.category?.categoryName
 
                 root.setOnClickListener {
-                    onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
-                        binding.root)
+                    onItemActionListener.onActionPerformed(data?.toAsset(),
+                        OnItemActionListener.Action.SELECT, binding.root)
                 }
             }
         }

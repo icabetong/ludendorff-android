@@ -167,6 +167,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                         }
 
                         errorState?.let { e ->
+                            android.util.Log.e("DEBUG", e.toString())
                             /**
                              *  Check if the error that have returned is
                              *  EmptySnapshotException, which is used if

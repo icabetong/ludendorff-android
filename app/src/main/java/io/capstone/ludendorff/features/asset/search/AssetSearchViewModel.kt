@@ -23,12 +23,11 @@ class AssetSearchViewModel: BaseViewModel() {
     private val searchHelper = SearchHelper(Asset.COLLECTION)
     private val searcher = searchHelper.searcher
 
-    val assets: LiveData<PagedList<Asset>> =
+    val assets: LiveData<PagedList<AssetSearch>> =
         LivePagedListBuilder(searchHelper.getDataSource {
-            it.deserialize(Asset.serializer())
+            it.deserialize(AssetSearch.serializer())
         }, searchHelper.config).build()
     val searchBox = SearchBoxConnectorPagedList(searcher, listOf(assets))
-
 
     init {
         connection += searchBox
