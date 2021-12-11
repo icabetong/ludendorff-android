@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -19,6 +20,7 @@ import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.api.DeshiException
@@ -29,19 +31,22 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentAssignmentBinding
+import io.capstone.ludendorff.features.asset.Asset
+import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
 import io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.user.User
+import io.capstone.ludendorff.features.user.picker.UserPickerBottomSheet
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 
 @AndroidEntryPoint
 class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
-    OnItemActionListener<Assignment> {
+    OnItemActionListener<Assignment>, FragmentResultListener {
     private var _binding: FragmentAssignmentBinding? = null
     private var controller: NavController? = null
     private var mainController: NavController? = null
@@ -104,6 +109,9 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
+
+        registerForFragmentResult(arrayOf(AssetPickerBottomSheet.REQUEST_KEY_PICK,
+            UserPickerBottomSheet.REQUEST_KEY_PICK), this);
     }
 
     override fun onStart() {
@@ -265,6 +273,14 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         binding.swipeRefreshLayout.setOnRefreshListener {
             assignmentAdapter.refresh()
         }
+        binding.resetButton.setOnClickListener {
+            viewModel.filterValue = null
+            viewModel.filterConstraint = null
+            viewModel.rebuildQuery()
+            assignmentAdapter.refresh()
+
+            binding.informationCard.isVisible = false
+        }
     }
 
     override fun onActionPerformed(
@@ -289,6 +305,67 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         when(id) {
             R.id.action_requests ->
                 mainController?.navigate(R.id.navigation_request)
+            R.id.action_sort_asset_name_ascending -> {
+                viewModel.sortMethod = Assignment.FIELD_ASSET_NAME
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                assignmentAdapter.refresh()
+            }
+            R.id.action_sort_asset_name_descending -> {
+                viewModel.sortMethod = Assignment.FIELD_ASSET_NAME
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                assignmentAdapter.refresh()
+            }
+            R.id.action_sort_category_ascending -> {
+                viewModel.sortMethod = Assignment.FIELD_CATEGORY_NAME
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                assignmentAdapter.refresh()
+            }
+            R.id.action_sort_category_descending -> {
+                viewModel.sortMethod = Assignment.FIELD_CATEGORY_NAME
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                assignmentAdapter.refresh()
+            }
+            R.id.action_filter_asset -> {
+                viewModel.filterConstraint = Assignment.FIELD_ASSET_ID
+                AssetPickerBottomSheet(childFragmentManager)
+                    .show()
+            }
+            R.id.action_filter_user -> {
+                viewModel.filterConstraint = Assignment.FIELD_USER_ID
+                UserPickerBottomSheet(childFragmentManager)
+                    .show()
+            }
+        }
+    }
+
+    override fun onFragmentResult(requestKey: String, result: Bundle) {
+        when(requestKey) {
+            AssetPickerBottomSheet.REQUEST_KEY_PICK -> {
+                result.getParcelable<Asset>(AssetPickerBottomSheet.EXTRA_ASSET)?.let {
+                    viewModel.filterValue = it.assetId
+                    viewModel.rebuildQuery()
+                    assignmentAdapter.refresh()
+
+                    binding.informationCard.isVisible = true
+                    binding.informationCardText.text = String.format(getString(R.string.info_dataset_filtered),
+                        it.assetName, getString(R.string.hint_asset))
+                }
+            }
+            UserPickerBottomSheet.REQUEST_KEY_PICK -> {
+                result.getParcelable<User>(UserPickerBottomSheet.EXTRA_USER)?.let {
+                    viewModel.filterValue = it.userId
+                    viewModel.rebuildQuery()
+                    assignmentAdapter.refresh()
+
+                    binding.informationCard.isVisible = true
+                    binding.informationCardText.text = String.format(getString(R.string.info_dataset_filtered),
+                        it.getDisplayName(), getString(R.string.hint_user))
+                }
+            }
         }
     }
 

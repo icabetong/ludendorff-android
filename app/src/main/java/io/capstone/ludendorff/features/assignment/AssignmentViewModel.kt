@@ -18,10 +18,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AssignmentViewModel @Inject constructor(
-    firestore: FirebaseFirestore,
+    private val firestore: FirebaseFirestore,
     private val repository: AssignmentRepository,
     userPreferences: UserPreferences
 ): BaseViewModel() {
+
+    var sortMethod = Assignment.FIELD_ASSET_NAME
+    var sortDirection = Query.Direction.ASCENDING
+    var filterConstraint: String? = null
+    var filterValue: String? = null
 
     private val _assignment = Channel<Response<Assignment?>>(Channel.BUFFERED)
     val assignment = _assignment.receiveAsFlow()
@@ -29,6 +34,7 @@ class AssignmentViewModel @Inject constructor(
     private val assignmentQuery: Query = firestore.collection(Assignment.COLLECTION)
         .orderBy(Assignment.FIELD_ASSET_NAME, userPreferences.sortDirection)
         .limit(Response.QUERY_LIMIT.toLong())
+    private var currentQuery = assignmentQuery
 
     val assignments = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
         AssignmentPagingSource(assignmentQuery)
@@ -36,6 +42,17 @@ class AssignmentViewModel @Inject constructor(
 
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()
+
+    fun rebuildQuery() {
+        currentQuery = firestore.collection(Assignment.COLLECTION)
+            .orderBy(sortMethod, sortDirection)
+        android.util.Log.e("DEBUG", "${sortMethod}:${sortDirection}")
+
+        if (filterConstraint != null)
+            currentQuery = currentQuery.whereEqualTo(filterConstraint!!, filterValue)
+
+        currentQuery = currentQuery.limit(Response.QUERY_LIMIT.toLong())
+    }
 
     fun create(assignment: Assignment) = viewModelScope.launch(IO) {
         _action.send(repository.create(assignment))

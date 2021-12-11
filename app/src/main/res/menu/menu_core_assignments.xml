@@ -38,20 +38,6 @@
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
-            <item
-                android:title="@string/hint_last_name"
-                android:icon="@drawable/ic_hero_user">
-                <menu>
-                    <item
-                        android:id="@+id/action_sort_last_name_ascending"
-                        android:title="@string/sort_direction_ascending"
-                        android:icon="@drawable/ic_hero_sort_ascending"/>
-                    <item
-                        android:id="@+id/action_sort_last_name_descending"
-                        android:title="@string/sort_direction_descending"
-                        android:icon="@drawable/ic_hero_sort_descending"/>
-                </menu>
-            </item>
         </menu>
     </item>
 

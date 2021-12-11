@@ -71,6 +71,7 @@ data class Assignment @JvmOverloads constructor(
         const val FIELD_USER = "user"
         const val FIELD_USER_ID = "${FIELD_USER}.${User.FIELD_ID}"
         const val FIELD_USER_NAME = "${FIELD_USER}.${User.FIELD_NAME}"
+        const val FIELD_USER_LAST_NAME = "${FIELD_USER}.${User.FIELD_LAST_NAME}"
         const val FIELD_DATE_ASSIGNED = "dateAssigned"
         const val FIELD_DATE_RETURNED = "dateReturned"
         const val FIELD_LOCATION = "location"
