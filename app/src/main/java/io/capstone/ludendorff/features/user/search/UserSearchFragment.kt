@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.algolia.instantsearch.helper.android.list.autoScrollToStart
@@ -22,6 +24,7 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchUserBinding
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.user.User
+import io.capstone.ludendorff.features.user.editor.UserEditorFragment
 
 class UserSearchFragment: BaseSearchFragment(), OnItemActionListener<User> {
     private var _binding: FragmentSearchUserBinding? = null
@@ -114,6 +117,14 @@ class UserSearchFragment: BaseSearchFragment(), OnItemActionListener<User> {
         action: OnItemActionListener.Action,
         container: View?
     ) {
-
+        if (action == OnItemActionListener.Action.SELECT) {
+            container?.let {
+                controller?.navigate(R.id.navigation_editor_user,
+                    bundleOf(UserEditorFragment.EXTRA_USER to data), null,
+                    FragmentNavigatorExtras(
+                        it to TRANSITION_NAME_ROOT + data?.userId)
+                )
+            }
+        }
     }
 }
