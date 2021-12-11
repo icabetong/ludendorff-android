@@ -10,10 +10,15 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.algolia.instantsearch.helper.android.list.autoScrollToStart
 import com.algolia.instantsearch.helper.android.searchbox.SearchBoxViewAppCompat
 import com.algolia.instantsearch.helper.android.searchbox.connectView
+import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setup
+import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchRequestBinding
 import io.capstone.ludendorff.features.request.Request
@@ -71,6 +76,39 @@ class RequestSearchFragment: BaseSearchFragment(), OnItemActionListener<Request>
         connection += viewModel.searchBox.connectView(SearchBoxViewAppCompat(binding.searchTextView))
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        controller = findNavController()
+
+        searchAdapter.addLoadStateListener { _, loadState ->
+            when(loadState) {
+                LoadState.Loading -> {
+                    binding.recyclerView.hide()
+                    binding.emptyView.root.hide()
+                    binding.shimmerFrameLayout.show()
+                }
+                is LoadState.NotLoading -> {
+                    binding.recyclerView.hide()
+                    binding.emptyView.root.hide()
+                    binding.shimmerFrameLayout.hide()
+
+                    if (searchAdapter.itemCount > 0)
+                        binding.recyclerView.show()
+                    else binding.emptyView.root.show()
+                }
+                is LoadState.Error -> createSnackbar(R.string.error_generic)
+            }
+        }
+        viewModel.requests.observe(viewLifecycleOwner) {
+            searchAdapter.submitList(it)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        hideKeyboardFromCurrentFocus(binding.root)
     }
 
     override fun onActionPerformed(
