@@ -18,7 +18,6 @@ class RequestRepository @Inject constructor(
                 .set(request).await()
 
             Response.Success(Response.Action.CREATE)
-
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.CREATE)
         }

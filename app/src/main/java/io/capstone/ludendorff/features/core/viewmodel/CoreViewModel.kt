@@ -43,7 +43,7 @@ class CoreViewModel @Inject constructor(
     val passwordResetEmail = _passwordResetEmailSent.receiveAsFlow()
 
     init {
-        if (firebaseAuth.currentUser != null && firebaseAuth.currentUser?.isAnonymous == false)
+        if (firebaseAuth.currentUser != null && firebaseAuth.currentUser?.isAnonymous != true)
             subscribeToDocumentChanges()
     }
 

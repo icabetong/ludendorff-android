@@ -207,10 +207,10 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
                             when(it.action) {
                                 Response.Action.CREATE ->
                                     createSnackbar(R.string.feedback_request_create_error,
-                                        binding.errorView.root)
+                                        binding.actionButton)
                                 Response.Action.REMOVE ->
                                     createSnackbar(R.string.feedback_request_remove_error,
-                                        binding.errorView.root)
+                                        binding.actionButton)
                                 else -> {}
                             }
                         }
@@ -219,10 +219,10 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
                         when(it.data) {
                             Response.Action.CREATE ->
                                 createSnackbar(R.string.feedback_request_created,
-                                    binding.errorView.root)
+                                    binding.actionButton)
                             Response.Action.REMOVE ->
                                 createSnackbar(R.string.feedback_request_removed,
-                                    binding.errorView.root)
+                                    binding.actionButton)
                             else -> {}
                         }
                     }

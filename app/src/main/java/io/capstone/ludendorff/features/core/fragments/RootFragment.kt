@@ -104,7 +104,7 @@ class RootFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
-        if (firebaseAuth.currentUser?.isAnonymous == false) {
+        if (firebaseAuth.currentUser?.isAnonymous != true) {
             viewModel.subscribeToDocumentChanges()
             viewModel.userData.observe(viewLifecycleOwner) {
                 setProperties(it)

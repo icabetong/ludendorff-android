@@ -146,7 +146,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
 
         authViewModel.userData.observe(viewLifecycleOwner) {
 
-            binding.nameTextView.text = it.getDisplayName()
+            binding.nameTextView.text = if (it.firstName == null || it.lastName == null)
+                getString(R.string.authentication_anonymous_user) else it.getDisplayName()
             binding.emailTextView.text = it.email
             if (it.imageUrl != null)
                 binding.imageView.load(it.imageUrl) {
