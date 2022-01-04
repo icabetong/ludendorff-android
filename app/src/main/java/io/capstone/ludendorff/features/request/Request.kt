@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.features.request
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import com.algolia.instantsearch.helper.highlighting.Highlightable
 import com.google.firebase.Timestamp
@@ -16,7 +17,7 @@ import kotlinx.parcelize.RawValue
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
-@Serializable
+@Keep
 @Parcelize
 data class Request @JvmOverloads constructor(
     var requestId: String = IDGenerator.generateRandom(),
@@ -26,10 +27,8 @@ data class Request @JvmOverloads constructor(
     @Serializable(with = TimestampSerializer::class)
     var endorsedTimestamp: Timestamp? = null,
     @Serializable(with = TimestampSerializer::class)
-    var submittedTimestamp: Timestamp? = null,
-    @Exclude
-    override var _highlightResult: @RawValue JsonObject? = null
-): Parcelable, Highlightable {
+    var submittedTimestamp: Timestamp? = null
+): Parcelable {
 
     companion object {
         const val COLLECTION = "requests"

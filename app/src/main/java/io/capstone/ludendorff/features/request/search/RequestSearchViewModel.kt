@@ -15,9 +15,9 @@ class RequestSearchViewModel: BaseViewModel() {
     private val searchHelper = SearchHelper(Request.COLLECTION)
     private val searcher = searchHelper.searcher
 
-    val requests: LiveData<PagedList<Request>> =
+    val requests: LiveData<PagedList<RequestSearch>> =
         LivePagedListBuilder(searchHelper.getDataSource {
-            it.deserialize(Request.serializer())
+            it.deserialize(RequestSearch.serializer())
         }, searchHelper.config).build()
     val searchBox = SearchBoxConnectorPagedList(searcher, listOf(requests))
 

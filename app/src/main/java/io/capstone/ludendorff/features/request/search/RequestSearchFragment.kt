@@ -25,7 +25,7 @@ import io.capstone.ludendorff.features.request.Request
 import io.capstone.ludendorff.features.request.viewer.RequestViewerBottomSheet
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
-class RequestSearchFragment: BaseSearchFragment(), OnItemActionListener<Request> {
+class RequestSearchFragment: BaseSearchFragment(), OnItemActionListener<RequestSearch> {
     private var _binding: FragmentSearchRequestBinding? = null
     private var controller: NavController? = null
 
@@ -112,7 +112,7 @@ class RequestSearchFragment: BaseSearchFragment(), OnItemActionListener<Request>
     }
 
     override fun onActionPerformed(
-        data: Request?,
+        data: RequestSearch?,
         action: OnItemActionListener.Action,
         container: View?
     ) {

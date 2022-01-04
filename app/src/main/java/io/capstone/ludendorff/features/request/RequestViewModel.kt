@@ -23,10 +23,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RequestViewModel @Inject constructor(
-    private val firestore: FirebaseFirestore,
+    firestore: FirebaseFirestore,
     private val requestRepository: RequestRepository,
     private val assignmentRepository: AssignmentRepository,
-    private val userPreferences: UserPreferences,
     private val userProperties: UserProperties
 ): BaseViewModel() {
 

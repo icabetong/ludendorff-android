@@ -10,8 +10,8 @@ import io.capstone.ludendorff.features.shared.BasePagedListAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class RequestSearchAdapter(
-    private val onItemActionListener: OnItemActionListener<Request>
-): BasePagedListAdapter<Request, RequestSearchAdapter.RequestSearchViewHolder>(Request.DIFF_CALLBACK) {
+    private val onItemActionListener: OnItemActionListener<RequestSearch>
+): BasePagedListAdapter<RequestSearch, RequestSearchAdapter.RequestSearchViewHolder>(RequestSearch.DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestSearchViewHolder {
         val binding = LayoutItemRequestBinding.inflate(LayoutInflater.from(parent.context),
@@ -23,10 +23,10 @@ class RequestSearchAdapter(
         holder.onBind(getItem(position))
     }
 
-    inner class RequestSearchViewHolder(itemView: View): BaseViewHolder<Request>(itemView) {
+    inner class RequestSearchViewHolder(itemView: View): BaseViewHolder<RequestSearch>(itemView) {
         private val binding = LayoutItemRequestBinding.bind(itemView)
 
-        override fun onBind(data: Request?) {
+        override fun onBind(data: RequestSearch?) {
             with(binding) {
 
             }
