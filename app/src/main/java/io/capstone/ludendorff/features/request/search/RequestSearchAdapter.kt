@@ -28,7 +28,13 @@ class RequestSearchAdapter(
 
         override fun onBind(data: RequestSearch?) {
             with(binding) {
+                titleTextView.text = data?.asset?.assetName
+                bodyTextView.text = data?.petitioner?.name
 
+                root.setOnClickListener {
+                    onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
+                        null)
+                }
             }
         }
     }
