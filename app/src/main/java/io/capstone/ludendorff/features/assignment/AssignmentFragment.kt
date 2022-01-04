@@ -305,40 +305,6 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         when(id) {
             R.id.action_requests ->
                 mainController?.navigate(R.id.navigation_request)
-            R.id.action_sort_asset_name_ascending -> {
-                viewModel.sortMethod = Assignment.FIELD_ASSET_NAME
-                viewModel.sortDirection = Query.Direction.ASCENDING
-                viewModel.rebuildQuery()
-                assignmentAdapter.refresh()
-            }
-            R.id.action_sort_asset_name_descending -> {
-                viewModel.sortMethod = Assignment.FIELD_ASSET_NAME
-                viewModel.sortDirection = Query.Direction.DESCENDING
-                viewModel.rebuildQuery()
-                assignmentAdapter.refresh()
-            }
-            R.id.action_sort_category_ascending -> {
-                viewModel.sortMethod = Assignment.FIELD_CATEGORY_NAME
-                viewModel.sortDirection = Query.Direction.ASCENDING
-                viewModel.rebuildQuery()
-                assignmentAdapter.refresh()
-            }
-            R.id.action_sort_category_descending -> {
-                viewModel.sortMethod = Assignment.FIELD_CATEGORY_NAME
-                viewModel.sortDirection = Query.Direction.DESCENDING
-                viewModel.rebuildQuery()
-                assignmentAdapter.refresh()
-            }
-            R.id.action_filter_asset -> {
-                viewModel.filterConstraint = Assignment.FIELD_ASSET_ID
-                AssetPickerBottomSheet(childFragmentManager)
-                    .show()
-            }
-            R.id.action_filter_user -> {
-                viewModel.filterConstraint = Assignment.FIELD_USER_ID
-                UserPickerBottomSheet(childFragmentManager)
-                    .show()
-            }
         }
     }
 

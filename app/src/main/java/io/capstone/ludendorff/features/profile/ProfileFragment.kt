@@ -145,7 +145,6 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         controller = findNavController()
 
         authViewModel.userData.observe(viewLifecycleOwner) {
-
             binding.nameTextView.text = if (it.firstName == null || it.lastName == null)
                 getString(R.string.authentication_anonymous_user) else it.getDisplayName()
             binding.emailTextView.text = it.email
