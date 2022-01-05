@@ -32,8 +32,8 @@ class RequestSearchAdapter(
                 bodyTextView.text = data?.petitioner?.name
 
                 root.setOnClickListener {
-                    onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
-                        null)
+                    onItemActionListener.onActionPerformed(data,
+                        OnItemActionListener.Action.SELECT,null)
                 }
             }
         }

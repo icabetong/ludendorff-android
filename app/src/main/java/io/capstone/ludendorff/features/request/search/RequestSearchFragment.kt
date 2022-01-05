@@ -117,10 +117,9 @@ class RequestSearchFragment: BaseSearchFragment(), OnItemActionListener<RequestS
         container: View?
     ) {
         if (action == OnItemActionListener.Action.SELECT) {
-            container?.let {
-                RequestViewerBottomSheet(childFragmentManager).show {
-                    arguments = bundleOf(RequestViewerBottomSheet.EXTRA_REQUEST to data)
-                }
+            RequestViewerBottomSheet(childFragmentManager).show {
+                arguments = bundleOf(RequestViewerBottomSheet.EXTRA_REQUEST
+                        to data?.toRequest())
             }
         }
     }

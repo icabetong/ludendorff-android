@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -29,7 +30,7 @@ class RequestEditorFragment: BaseEditorFragment(), FragmentResultListener {
 
     private val binding get() = _binding!!
     private val editorViewModel: RequestEditorViewModel by viewModels()
-    private val viewModel: RequestViewModel by viewModels()
+    private val viewModel: RequestViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

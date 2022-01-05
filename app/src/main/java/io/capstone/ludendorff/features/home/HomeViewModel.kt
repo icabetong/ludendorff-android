@@ -10,13 +10,19 @@ import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
+import io.capstone.ludendorff.features.request.Request
+import io.capstone.ludendorff.features.request.RequestRepository
 import io.capstone.ludendorff.features.shared.BaseViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     firestore: FirebaseFirestore,
-    auth: FirebaseAuth
+    auth: FirebaseAuth,
 ): BaseViewModel() {
 
     private val homeQuery: Query = firestore.collection(Assignment.COLLECTION)
@@ -27,4 +33,5 @@ class HomeViewModel @Inject constructor(
     val assignments = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
         HomePagingSource(homeQuery)
     }.flow.cachedIn(viewModelScope)
+
 }
