@@ -296,6 +296,9 @@
     <string name="dialog_no_date_assignment_message">You left the \"Date Assigned\" attribute empty, do you want to default it to today\'s date or pick another one instead?</string>
     <string name="dialog_ending_assignment_title">End Assignment?</string>
     <string name="dialog_ending_assignment_message">If you end this assignment it means that the asset is no longer in the hands of its recorded user, and thus brought back to the inventory. Are you sure you want to continue?</string>
+    <string name="dialog_no_category_title">No Category Selected</string>
+    <string name="dialog_no_category_message_has_previous">You did not select any category for this asset. We will use the previous one.</string>
+    <string name="dialog_no_category_message">You did not select any category for this asset. Select one to continue.</string>
 
     <string name="settings_group_interface">Interface</string>
     <string name="settings_group_notifications">Notifications</string>

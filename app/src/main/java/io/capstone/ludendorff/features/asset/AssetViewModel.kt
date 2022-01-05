@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.components.persistence.UserPreferences
+import io.capstone.ludendorff.features.category.CategoryCore
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -57,8 +58,8 @@ class AssetViewModel @Inject constructor(
     fun createAll(assets: List<Asset>) = viewModelScope.launch(IO) {
         _action.send(repository.createAll(assets))
     }
-    fun update(asset: Asset, previousCategoryId: String? = null) = viewModelScope.launch(IO) {
-        _action.send(repository.update(asset, previousCategoryId))
+    fun update(asset: Asset, previousCategory: CategoryCore? = null) = viewModelScope.launch(IO) {
+        _action.send(repository.update(asset, previousCategory))
     }
     fun remove(asset: Asset) = viewModelScope.launch(IO) {
         _action.send(repository.remove(asset))

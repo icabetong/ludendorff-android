@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.CategoryCore
 import io.capstone.ludendorff.features.shared.BaseViewModel
 
 class AssetEditorViewModel: BaseViewModel() {
@@ -12,11 +13,10 @@ class AssetEditorViewModel: BaseViewModel() {
     internal val specifications: LiveData<MutableList<Pair<String, String>>> = _specifications
 
     var asset = Asset()
-    var previousCategoryId: String? = null
-
+    var previousCategory: CategoryCore? = null
 
     fun triggerCategoryChanged(newCategory: Category) {
-        previousCategoryId = asset.category?.categoryId
+        previousCategory = asset.category
         asset.category = newCategory.minimize()
     }
 

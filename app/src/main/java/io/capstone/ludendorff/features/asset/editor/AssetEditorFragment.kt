@@ -164,21 +164,36 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 createSnackbar(R.string.feedback_empty_asset_name, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
-            if (editorViewModel.getSpecifications().isNullOrEmpty()) {
-                MaterialDialog(requireContext()).show {
-                    lifecycleOwner(viewLifecycleOwner)
-                    title(R.string.dialog_save_without_specification_title)
-                    message(R.string.dialog_save_without_specification_message)
-                    positiveButton(R.string.button_continue)
-                    negativeButton { return@negativeButton }
+            if (editorViewModel.asset.category == null) {
+                if (editorViewModel.previousCategory == null) {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.dialog_no_category_title)
+                        message(R.string.dialog_no_category_message)
+                        positiveButton(android.R.string.ok)
+                    }
+                } else {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.dialog_no_category_title)
+                        message(R.string.dialog_no_category_message_has_previous)
+                        positiveButton(R.string.button_continue) {
+                            onSaveAsset()
+                        }
+                        negativeButton(R.string.button_cancel)
+                    }
                 }
+            } else {
+                onSaveAsset()
             }
-
-            if (requestKey == REQUEST_KEY_CREATE)
-                viewModel.create(editorViewModel.asset)
-            else viewModel.update(editorViewModel.asset, editorViewModel.previousCategoryId)
-            controller?.navigateUp()
         }
+    }
+
+    private fun onSaveAsset() {
+        if (requestKey == REQUEST_KEY_CREATE)
+            viewModel.create(editorViewModel.asset)
+        else viewModel.update(editorViewModel.asset, editorViewModel.previousCategory)
+        controller?.navigateUp()
     }
 
     override fun onStop() {
@@ -193,7 +208,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                     binding.categoryTextInput.setText(it.categoryName)
                     binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
 
-                    if (editorViewModel.previousCategoryId != it.categoryId)
+                    if (editorViewModel.previousCategory?.categoryId != it.categoryId)
                         editorViewModel.triggerCategoryChanged(it)
                 }
             }

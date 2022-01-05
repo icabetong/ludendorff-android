@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.CategoryCore
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.request.Request
 import kotlinx.coroutines.tasks.await
@@ -73,7 +74,7 @@ class AssetRepository @Inject constructor(
         }
     }
 
-    suspend fun update(asset: Asset, categoryId: String? = null): Response<Response.Action> {
+    suspend fun update(asset: Asset, category: CategoryCore? = null): Response<Response.Action> {
         return try {
             val batchWrite = firestore.batch()
             batchWrite.set(firestore.collection(Asset.COLLECTION)
@@ -83,8 +84,8 @@ class AssetRepository @Inject constructor(
              *  Increment the count of the
              *  new category.
              */
-            categoryId?.let {
-                batchWrite.update(firestore.collection(Category.COLLECTION).document(it),
+            category?.let {
+                batchWrite.update(firestore.collection(Category.COLLECTION).document(it.categoryId),
                     mapOf(Category.FIELD_COUNT to FieldValue.increment(-1)))
             }
 
