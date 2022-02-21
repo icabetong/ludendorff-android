@@ -145,8 +145,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         controller = findNavController()
 
         authViewModel.userData.observe(viewLifecycleOwner) {
-            binding.nameTextView.text = if (it.firstName == null || it.lastName == null)
-                getString(R.string.authentication_anonymous_user) else it.getDisplayName()
+            binding.nameTextView.text = if (it.getDisplayName().isNotBlank()) it.getDisplayName()
+                else getString(R.string.authentication_anonymous_user)
             binding.emailTextView.text = it.email
             if (it.imageUrl != null)
                 binding.imageView.load(it.imageUrl) {
@@ -442,8 +442,9 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
                     title(R.string.dialog_sign_out_title)
                     message(R.string.dialog_sign_out_message)
                     positiveButton(R.string.button_continue) {
-                        authViewModel.unsubscribeToDocumentChanges()
-                        controller?.navigate(R.id.to_navigation_auth)
+                        authViewModel.unsubscribeToDocumentChanges {
+                            controller?.navigate(R.id.to_navigation_auth)
+                        }
                     }
                     negativeButton(R.string.button_cancel)
                 }

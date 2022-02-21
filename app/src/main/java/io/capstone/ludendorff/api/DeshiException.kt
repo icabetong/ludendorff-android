@@ -4,12 +4,12 @@ class DeshiException(val code: Code): Exception(code.getMessage()) {
 
     constructor(code: Int): this(Code.parse(code))
 
-    enum class Code(code: Int) {
-        UNAUTHORIZED(401),
-        FORBIDDEN(403),
-        PRECONDITION_FAILED(412),
-        UNPROCESSABLE_ENTITY(422),
-        GENERIC(500);
+    enum class Code {
+        UNAUTHORIZED,
+        FORBIDDEN,
+        PRECONDITION_FAILED,
+        UNPROCESSABLE_ENTITY,
+        GENERIC;
 
         fun getMessage(): String {
             return when(this) {

@@ -62,10 +62,12 @@ class CoreViewModel @Inject constructor(
             }
     }
 
-    fun unsubscribeToDocumentChanges() {
+    fun unsubscribeToDocumentChanges(onComplete: () -> Unit) {
         snapshot?.remove()
-        firebaseAuth.signOut()
         userProperties.clear()
+        firebaseAuth.currentUser?.delete()?.addOnSuccessListener {
+            onComplete()
+        }
     }
 
     fun authenticate(email: String, password: String) = viewModelScope.launch(IO) {
