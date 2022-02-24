@@ -11,7 +11,7 @@ import java.util.*
 
 class UserPreferences(private val context: Context?) {
     private val sharedPreference by lazy {
-        PreferenceManager.getDefaultSharedPreferences(context)
+        PreferenceManager.getDefaultSharedPreferences(context!!)
     }
 
     enum class Theme {
