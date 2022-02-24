@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="brand_primary">#bd93f9</color>
-    <color name="brand_primary_variant">#8b65c6</color>
+    <color name="brand_primary">#14b8a6</color>
+    <color name="brand_primary_variant">#0f766e</color>
     <color name="brand_on_primary">@android:color/black</color>
 
-    <color name="brand_surface">#44475a</color>
+    <color name="brand_surface">#4b5563</color>
     <color name="brand_on_surface">@android:color/white</color>
 
     <color name="brand_info">#8be9fd</color>
@@ -13,12 +13,12 @@
     <color name="brand_text_primary">@android:color/white</color>
     <color name="brand_text_secondary">#e0e0e0</color>
 
-    <color name="brand_background_content">#282a36</color>
-    <color name="brand_background_main">#1e1f29</color>
+    <color name="brand_background_content">#1f2937</color>
+    <color name="brand_background_main">#111827</color>
     <color name="brand_status_bar_color">@color/brand_background_main</color>
     <color name="brand_navigation_bar_color">@color/brand_background_main</color>
     <color name="brand_toolbar_color">@color/brand_background_content</color>
-    <color name="brand_menu">#44475a</color>
+    <color name="brand_menu">#4b5563</color>
 
-    <color name="keeper_shimmer">#44475a</color>
+    <color name="keeper_shimmer">#4b5563</color>
 </resources>

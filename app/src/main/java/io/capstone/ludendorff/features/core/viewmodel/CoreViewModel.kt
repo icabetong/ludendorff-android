@@ -65,8 +65,10 @@ class CoreViewModel @Inject constructor(
     fun unsubscribeToDocumentChanges(onComplete: () -> Unit) {
         snapshot?.remove()
         userProperties.clear()
-        firebaseAuth.currentUser?.delete()?.addOnSuccessListener {
-            onComplete()
+        if (firebaseAuth.currentUser?.isAnonymous == true) {
+            firebaseAuth.currentUser?.delete()?.addOnSuccessListener {
+                onComplete()
+            }
         }
     }
 

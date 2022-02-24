@@ -66,8 +66,8 @@
     <style name="Widget.Keeper.TextView" parent="android:Widget.TextView">
         <item name="android:textAppearance">@style/TextAppearance.Keeper</item>
     </style>
-    <style name="Widget.Keeper.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
-    <style name="Widget.Keeper.TextInput.Layout.Filled" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"/>
+    <style name="Widget.Keeper.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
+    <style name="Widget.Keeper.TextInput.Layout.Filled" parent="Widget.MaterialComponents.TextInputLayout.FilledBox"/>
     <style name="Widget.Keeper.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Surface">
         <item name="android:background">@color/brand_toolbar_color</item>
     </style>

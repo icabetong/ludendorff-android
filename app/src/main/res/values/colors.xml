@@ -2,11 +2,11 @@
 <resources>
 
     <!-- Adapter Launcher Icon -->
-    <color name="ic_launcher_background">#1E1F29</color>
+    <color name="ic_launcher_background">#14B8A6</color>
 
-    <color name="brand_primary">#6272a4</color>
-    <color name="brand_primary_variant">#344775</color>
-    <color name="brand_on_primary">@android:color/white</color>
+    <color name="brand_primary">#14b8a6</color>
+    <color name="brand_primary_variant">#0f766e</color>
+    <color name="brand_on_primary">@android:color/black</color>
 
     <color name="brand_info">@color/brand_primary</color>
     <color name="brand_on_info">@color/brand_on_primary</color>
@@ -17,8 +17,8 @@
     <color name="brand_surface">@android:color/white</color>
     <color name="brand_on_surface">@android:color/black</color>
 
-    <color name="brand_text_primary">#282a36</color>
-    <color name="brand_text_secondary">#44475a</color>
+    <color name="brand_text_primary">#374151</color>
+    <color name="brand_text_secondary">#9ca3af</color>
 
     <color name="brand_background_content">#ffffff</color>
     <color name="brand_background_main">#f8f8f2</color>
