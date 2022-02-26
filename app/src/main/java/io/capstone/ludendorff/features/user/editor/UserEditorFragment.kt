@@ -97,7 +97,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_user_create,
-            iconRes = R.drawable.ic_hero_x,
+            iconRes = R.drawable.ic_round_close_24,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_editor_user,
             onMenuOptionClicked = ::onMenuItemClicked,
@@ -136,7 +136,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 binding.permissionWarningCard.show()
 
             if (it.department != null)
-                binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
         }
 
         registerForFragmentResult(
@@ -187,7 +187,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
             if (editorViewModel.user.department != null) {
                 editorViewModel.user.department = null
                 binding.departmentTextInput.setText(R.string.hint_not_set)
-                binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+                binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
             } else
                 DepartmentPickerBottomSheet(childFragmentManager)
                     .show()
@@ -255,7 +255,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
                     editorViewModel.user.department = it.minimize()
 
                     binding.departmentTextInput.setText(it.name)
-                    binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                    binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
                 }
             }
         }

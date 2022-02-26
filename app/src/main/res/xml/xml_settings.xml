@@ -11,7 +11,7 @@
         <ListPreference
             android:key="preference:theme"
             android:title="@string/settings_theme_title"
-            android:icon="@drawable/ic_hero_color_swatch"
+            android:icon="@drawable/ic_round_palette_24"
             android:entries="@array/settings_theme_options"
             android:entryValues="@array/settings_theme_options_values"
             android:defaultValue="system"
@@ -20,7 +20,7 @@
         <ListPreference
             android:key="preference:sort"
             android:title="@string/settings_default_sort_direction"
-            android:icon="@drawable/ic_hero_sort_ascending"
+            android:icon="@drawable/ic_round_sort_by_alpha_24"
             android:entries="@array/settings_sort_directions_options"
             android:entryValues="@array/settings_sort_directions_values"
             android:defaultValue="ascending"
@@ -48,7 +48,7 @@
         <Preference
             android:key="preference:notices"
             android:title="@string/settings_third_party_notices"
-            android:icon="@drawable/ic_hero_scale"/>
+            android:icon="@drawable/ic_round_copyright_24"/>
 
     </PreferenceCategory>
 

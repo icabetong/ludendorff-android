@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_category"
         android:title="@string/menu_categories"
-        android:icon="@drawable/ic_hero_tag"/>
+        android:icon="@drawable/ic_round_local_offer_24"/>
 
     <item
         android:title="@string/menu_sort"
@@ -13,7 +13,7 @@
         <menu>
             <item
                 android:title="@string/hint_asset_name"
-                android:icon="@drawable/ic_hero_hashtag">
+                android:icon="@drawable/ic_round_edit_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_name_ascending"
@@ -27,7 +27,7 @@
             </item>
             <item
                 android:title="@string/hint_status"
-                android:icon="@drawable/ic_hero_badge_check">
+                android:icon="@drawable/ic_round_verified_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_status_ascending"
@@ -41,7 +41,7 @@
             </item>
             <item
                 android:title="@string/hint_category"
-                android:icon="@drawable/ic_hero_tag">
+                android:icon="@drawable/ic_round_local_offer_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_category_ascending"
@@ -58,11 +58,11 @@
 
     <item
         android:title="@string/menu_filter"
-        android:icon="@drawable/ic_hero_filter">
+        android:icon="@drawable/ic_round_filter_alt_24">
         <menu>
             <item
                 android:title="@string/hint_status"
-                android:icon="@drawable/ic_hero_badge_check">
+                android:icon="@drawable/ic_round_verified_24">
                 <menu>
                     <item
                         android:id="@+id/action_filter_operational"
@@ -81,7 +81,7 @@
             <item
                 android:id="@+id/action_filter_category"
                 android:title="@string/hint_category"
-                android:icon="@drawable/ic_hero_tag"/>
+                android:icon="@drawable/ic_round_local_offer_24"/>
         </menu>
     </item>
 

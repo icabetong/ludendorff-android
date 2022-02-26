@@ -95,7 +95,7 @@ class ScanFragment: BaseFragment(), FragmentResultListener {
         binding.appBar.appBar.setExpanded(false)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_scan,
-            iconRes = R.drawable.ic_hero_menu,
+            iconRes = R.drawable.ic_round_menu_24,
             onNavigationClicked = { triggerNavigationDrawer() }
         )
 

@@ -74,7 +74,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_assignment_create,
-            iconRes = R.drawable.ic_hero_x,
+            iconRes = R.drawable.ic_round_close_24,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_editor_assignment,
             onMenuOptionClicked = ::onMenuItemClicked,
@@ -100,11 +100,11 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.remarksTextInput.setText(it.remarks)
 
             if (it.asset != null)
-                binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
             if (it.user != null)
-                binding.userTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                binding.userTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
             if (it.dateAssigned != null)
-                binding.dateAssignedTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                binding.dateAssignedTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
         }
 
         registerForFragmentResult(
@@ -138,7 +138,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 editorViewModel.assignment.asset = null
                 editorViewModel.previousAssetId = null
 
-                binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+                binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
                 binding.assetTextInput.setText(R.string.hint_not_set)
             } else
                 AssetPickerBottomSheet(childFragmentManager)
@@ -149,7 +149,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 editorViewModel.previousUserId = null
                 editorViewModel.assignment.user = null
 
-                binding.userTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+                binding.userTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
                 binding.userTextInput.setText(R.string.hint_not_set)
             } else
                 UserPickerBottomSheet(childFragmentManager)
@@ -160,7 +160,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 editorViewModel.assignment.dateAssigned = null
 
                 binding.dateAssignedTextInput.setText(R.string.hint_not_set)
-                binding.dateAssignedTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_calendar)
+                binding.dateAssignedTextInputLayout.setEndIconDrawable(R.drawable.ic_round_calendar_month_24)
             } else
                 MaterialDialog(requireContext()).show {
                     lifecycleOwner(viewLifecycleOwner)
@@ -169,7 +169,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
                         val formattedDate = timestamp.format(requireContext())
                         binding.dateAssignedTextInput.setText(formattedDate)
-                        binding.dateAssignedTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                        binding.dateAssignedTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
                         editorViewModel.assignment.dateAssigned = timestamp
                     }
                 }
@@ -251,7 +251,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             AssetPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Asset>(AssetPickerBottomSheet.EXTRA_ASSET)?.let {
                     binding.assetTextInput.setText(it.assetName)
-                    binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                    binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
 
                     if (this.requestKey == REQUEST_KEY_UPDATE)
                         editorViewModel.previousAssetId = editorViewModel.assignment.asset?.assetId
@@ -261,7 +261,7 @@ class AssignmentEditorFragment: BaseEditorFragment(), FragmentResultListener,
             UserPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<User>(UserPickerBottomSheet.EXTRA_USER)?.let {
                     binding.userTextInput.setText(it.getDisplayName())
-                    binding.userTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                    binding.userTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
 
                     if (this.requestKey == REQUEST_KEY_UPDATE)
                         editorViewModel.previousUserId = editorViewModel.assignment.user?.userId

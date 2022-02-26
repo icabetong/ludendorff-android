@@ -41,7 +41,7 @@
                     android:text="@string/info_dataset_filtered"
                     android:textColor="@color/brand_info"
                     android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
-                    android:drawableStart="@drawable/ic_hero_information"
+                    android:drawableStart="@drawable/ic_round_info_24"
                     android:drawablePadding="@dimen/activity_margin"
                     android:drawableTint="@color/brand_info"/>
 
@@ -111,6 +111,6 @@
         android:layout_margin="@dimen/activity_margin"
         android:contentDescription="@string/button_add"
         android:layout_gravity="bottom|end"
-        app:srcCompat="@drawable/ic_hero_plus"/>
+        app:srcCompat="@drawable/ic_round_add_24"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

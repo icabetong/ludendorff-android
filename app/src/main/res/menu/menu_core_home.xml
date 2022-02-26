@@ -4,6 +4,6 @@
     <item
         android:id="@+id/action_sent_requests"
         android:title="@string/menu_sent_requests"
-        android:icon="@drawable/ic_hero_paper_airplane"/>
+        android:icon="@drawable/ic_round_send_24"/>
 
 </menu>

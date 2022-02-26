@@ -73,7 +73,7 @@ class NotificationFragment: BaseFragment(), OnItemActionListener<Notification> {
         binding.swipeRefreshLayout.setColorRes(R.color.brand_primary, R.color.brand_surface)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_notifications,
-            iconRes = R.drawable.ic_hero_arrow_left,
+            iconRes = R.drawable.ic_round_arrow_back_24,
             onNavigationClicked = { controller?.navigateUp() }
         )
 

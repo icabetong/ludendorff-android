@@ -96,7 +96,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.brand_primary)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_assignments,
-            iconRes = R.drawable.ic_hero_menu,
+            iconRes = R.drawable.ic_round_menu_24,
             onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_core_assignments,
             onMenuOptionClicked = ::onMenuItemClicked

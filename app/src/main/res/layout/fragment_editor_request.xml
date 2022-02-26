@@ -29,7 +29,7 @@
                 android:layout_marginTop="@dimen/activity_margin"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:hint="@string/hint_asset"
-                app:endIconDrawable="@drawable/ic_hero_chevron_down"
+                app:endIconDrawable="@drawable/ic_round_keyboard_arrow_down_24"
                 app:endIconMode="custom"
                 app:endIconTint="@color/brand_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
@@ -62,7 +62,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/hint_status"
                     android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
-                    android:drawableStart="@drawable/ic_hero_badge_check"
+                    android:drawableStart="@drawable/ic_round_verified_24"
                     android:drawablePadding="@dimen/activity_margin_small"
                     android:drawableTint="@color/brand_primary"/>
 
@@ -84,7 +84,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/hint_category"
                     android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
-                    android:drawableStart="@drawable/ic_hero_tag"
+                    android:drawableStart="@drawable/ic_round_local_offer_24"
                     android:drawablePadding="@dimen/activity_margin_small"
                     android:drawableTint="@color/brand_primary"/>
 

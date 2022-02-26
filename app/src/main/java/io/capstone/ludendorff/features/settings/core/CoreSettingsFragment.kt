@@ -51,7 +51,7 @@ class CoreSettingsFragment: BaseFragment() {
         controller = findNavController()
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_settings,
-            iconRes = R.drawable.ic_hero_arrow_left,
+            iconRes = R.drawable.ic_round_arrow_back_24,
             onNavigationClicked = { controller?.navigateUp() }
         )
 

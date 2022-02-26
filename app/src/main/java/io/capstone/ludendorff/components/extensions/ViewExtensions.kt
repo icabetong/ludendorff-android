@@ -32,7 +32,7 @@ fun View.show() {
 
 fun Toolbar.setup(
     @StringRes titleRes: Int = 0,
-    @DrawableRes iconRes: Int = R.drawable.ic_hero_arrow_left,
+    @DrawableRes iconRes: Int = R.drawable.ic_round_arrow_back_24,
     onNavigationClicked: (() -> Unit)? = null,
     @MenuRes menuRes: Int = 0,
     onMenuOptionClicked: ((itemId: Int) -> Unit)? = null,

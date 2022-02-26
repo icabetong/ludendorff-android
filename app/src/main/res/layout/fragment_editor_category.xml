@@ -49,6 +49,6 @@
         android:layout_marginEnd="@dimen/activity_margin"
         android:layout_gravity="end"
         android:text="@string/button_save"
-        app:icon="@drawable/ic_hero_check"/>
+        app:icon="@drawable/ic_round_check_24"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

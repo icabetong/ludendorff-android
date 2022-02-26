@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/action_departments"
-        android:icon="@drawable/ic_hero_office_building"
+        android:icon="@drawable/ic_round_domain_24"
         android:title="@string/menu_departments"/>
 
     <item
@@ -12,7 +12,7 @@
         <menu>
             <item
                 android:title="@string/hint_last_name"
-                android:icon="@drawable/ic_hero_hashtag">
+                android:icon="@drawable/ic_round_edit_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_last_name_ascending"
@@ -26,7 +26,7 @@
             </item>
             <item
                 android:title="@string/hint_first_name"
-                android:icon="@drawable/ic_hero_pencil">
+                android:icon="@drawable/ic_round_edit_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_first_name_ascending"
@@ -40,7 +40,7 @@
             </item>
             <item
                 android:title="@string/hint_email"
-                android:icon="@drawable/ic_hero_at_symbol">
+                android:icon="@drawable/ic_round_alternate_email_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_email_ascending"
@@ -54,7 +54,7 @@
             </item>
             <item
                 android:title="@string/hint_position"
-                android:icon="@drawable/ic_hero_briefcase">
+                android:icon="@drawable/ic_round_work_outline_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_position_ascending"
@@ -71,12 +71,12 @@
 
     <item
         android:title="@string/menu_filter"
-        android:icon="@drawable/ic_hero_filter">
+        android:icon="@drawable/ic_round_filter_alt_24">
         <menu>
             <item
                 android:id="@+id/action_filter_department"
                 android:title="@string/hint_department"
-                android:icon="@drawable/ic_hero_office_building"/>
+                android:icon="@drawable/ic_round_domain_24"/>
         </menu>
     </item>
 

@@ -64,7 +64,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
         binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_department_create,
-            iconRes = R.drawable.ic_hero_x,
+            iconRes = R.drawable.ic_round_close_24,
             onNavigationClicked = { controller?.navigateUp() },
             customTitleView = binding.appBar.toolbarTitleTextView
         )
@@ -80,7 +80,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             binding.managerTextInput.setText(it.manager?.name)
 
             if (it.manager != null)
-                binding.managerTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                binding.managerTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
         }
 
         registerForFragmentResult(arrayOf(UserPickerBottomSheet.REQUEST_KEY_PICK), this)
@@ -112,7 +112,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             if (editorViewModel.department.manager != null) {
                 editorViewModel.department.manager = null
                 binding.managerTextInput.setText(R.string.hint_vacant)
-                binding.managerTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+                binding.managerTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
             } else
                 UserPickerBottomSheet(childFragmentManager)
                     .show()
@@ -129,7 +129,7 @@ class DepartmentEditorFragment: BaseEditorFragment(), FragmentResultListener {
             UserPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<User>(UserPickerBottomSheet.EXTRA_USER)?.let {
                     binding.managerTextInput.setText(it.getDisplayName())
-                    binding.managerTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                    binding.managerTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
 
                     editorViewModel.triggerManagerChanged(it)
                 }

@@ -83,7 +83,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/hint_asset_name"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
-                android:drawableStart="@drawable/ic_hero_desktop_computer"
+                android:drawableStart="@drawable/ic_round_desktop_windows_24"
                 android:drawablePadding="@dimen/activity_margin_small"
                 android:drawableTint="@color/brand_primary"/>
 
@@ -105,7 +105,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/hint_status"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
-                android:drawableStart="@drawable/ic_hero_badge_check"
+                android:drawableStart="@drawable/ic_round_verified_24"
                 android:drawablePadding="@dimen/activity_margin_small"
                 android:drawableTint="@color/brand_primary"/>
 
@@ -127,7 +127,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/hint_category"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
-                android:drawableStart="@drawable/ic_hero_tag"
+                android:drawableStart="@drawable/ic_round_local_offer_24"
                 android:drawablePadding="@dimen/activity_margin_small"
                 android:drawableTint="@color/brand_primary"/>
 

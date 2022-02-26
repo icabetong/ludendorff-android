@@ -120,7 +120,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         setInsets(view, binding.appBar.toolbar, bottomView = binding.recyclerView)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_profile,
-            iconRes = R.drawable.ic_hero_arrow_left,
+            iconRes = R.drawable.ic_round_arrow_back_24,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_profile,
             onMenuOptionClicked = ::onMenuItemClicked
@@ -150,7 +150,7 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
             binding.emailTextView.text = it.email
             if (it.imageUrl != null)
                 binding.imageView.load(it.imageUrl) {
-                    error(R.drawable.ic_hero_user)
+                    error(R.drawable.ic_round_account_circle_24)
                     scale(Scale.FILL)
                     transformations(CircleCropTransformation())
                     placeholder(CoilProgressDrawable(requireContext(), R.color.brand_primary))

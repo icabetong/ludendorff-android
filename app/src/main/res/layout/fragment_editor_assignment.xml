@@ -46,7 +46,7 @@
                         android:text="@string/info_assignment_ending"
                         android:textColor="@color/brand_info"
                         android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
-                        android:drawableStart="@drawable/ic_hero_information"
+                        android:drawableStart="@drawable/ic_round_info_24"
                         android:drawablePadding="@dimen/activity_margin"
                         android:drawableTint="@color/brand_info"/>
 
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:hint="@string/hint_asset"
-                app:endIconDrawable="@drawable/ic_hero_chevron_down"
+                app:endIconDrawable="@drawable/ic_round_keyboard_arrow_down_24"
                 app:endIconMode="custom"
                 app:endIconTint="@color/brand_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:hint="@string/hint_user"
-                app:endIconDrawable="@drawable/ic_hero_chevron_down"
+                app:endIconDrawable="@drawable/ic_round_keyboard_arrow_down_24"
                 app:endIconMode="custom"
                 app:endIconTint="@color/brand_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:hint="@string/hint_date_assigned"
-                app:endIconDrawable="@drawable/ic_hero_calendar"
+                app:endIconDrawable="@drawable/ic_round_calendar_month_24"
                 app:endIconMode="custom"
                 app:endIconTint="@color/brand_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">

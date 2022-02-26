@@ -26,7 +26,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/titleView"
-            tools:srcCompat="@drawable/ic_hero_location_marker"/>
+            tools:srcCompat="@drawable/ic_round_key_24"/>
 
         <TextView
             android:id="@+id/titleView"

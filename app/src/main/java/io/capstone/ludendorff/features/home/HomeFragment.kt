@@ -78,7 +78,7 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
         binding.swipeRefreshLayout.setColorRes(R.color.brand_primary, R.color.brand_surface)
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_home,
-            iconRes = R.drawable.ic_hero_menu,
+            iconRes = R.drawable.ic_round_menu_24,
             onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_core_home,
             onMenuOptionClicked = ::onMenuItemClicked

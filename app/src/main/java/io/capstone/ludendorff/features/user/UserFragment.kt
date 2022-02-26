@@ -96,7 +96,7 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
         binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
         binding.appBar.toolbar.setup(
             titleRes = R.string.activity_users,
-            iconRes = R.drawable.ic_hero_menu,
+            iconRes = R.drawable.ic_round_menu_24,
             onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_core_users,
             onMenuOptionClicked = ::onMenuItemClicked

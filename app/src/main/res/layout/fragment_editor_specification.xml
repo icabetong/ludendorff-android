@@ -69,7 +69,7 @@
         android:layout_gravity="end"
         android:enabled="false"
         android:text="@string/button_save"
-        app:icon="@drawable/ic_hero_check"
+        app:icon="@drawable/ic_round_check_24"
         tools:enabled="true"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

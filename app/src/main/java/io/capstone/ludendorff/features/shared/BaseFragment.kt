@@ -64,7 +64,7 @@ abstract class BaseFragment: Fragment() {
         toolbar: MaterialToolbar,
         navigation: () -> Unit,
         @StringRes id: Int = 0,
-        @DrawableRes icon: Int = R.drawable.ic_hero_arrow_left,
+        @DrawableRes icon: Int = R.drawable.ic_round_arrow_back_24,
         @MenuRes menu: Int = 0,
         menuListener: ((id: Int) -> Unit)? = null)
     {

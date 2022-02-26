@@ -14,7 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/brand_background_content"
         app:layout_collapseMode="pin"
-        app:navigationIcon="@drawable/ic_hero_x"
+        app:navigationIcon="@drawable/ic_round_close_24"
         tools:title="@string/app_name">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -78,7 +78,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_asset_create,
-            iconRes = R.drawable.ic_hero_x,
+            iconRes = R.drawable.ic_round_close_24,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_editor_asset,
             onMenuOptionClicked = ::onMenuItemClicked,
@@ -110,7 +110,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             } else binding.operationalChip.isEnabled = false
 
             if (it.category != null)
-                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
         }
 
         with(binding.recyclerView) {
@@ -144,7 +144,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             if (editorViewModel.asset.category != null) {
                 editorViewModel.asset.category = null
                 binding.categoryTextInput.setText(R.string.hint_not_set)
-                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
             } else
                 CategoryPickerBottomSheet(childFragmentManager)
                     .show()
@@ -206,7 +206,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
                     binding.categoryTextInput.setText(it.categoryName)
-                    binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                    binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
 
                     if (editorViewModel.previousCategory?.categoryId != it.categoryId)
                         editorViewModel.triggerCategoryChanged(it)

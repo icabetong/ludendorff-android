@@ -29,13 +29,12 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/icon_size_large"
             android:layout_height="@dimen/icon_size_large"
-            android:layout_marginBottom="@dimen/activity_margin_medium"
-            app:srcCompat="@drawable/ic_hero_camera"/>
+            android:layout_marginBottom="@dimen/activity_margin"
+            app:srcCompat="@drawable/ic_round_camera_alt_24"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_margin_tiny"
             android:text="@string/error_camera_permission_header"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
@@ -64,6 +63,6 @@
         android:layout_margin="@dimen/activity_margin"
         android:layout_gravity="bottom|end"
         android:contentDescription="@string/button_select_image"
-        app:srcCompat="@drawable/ic_hero_photograph"/>
+        app:srcCompat="@drawable/ic_round_image_24"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -17,7 +17,7 @@ class SwipeItemCallback<T: SwipeableAdapter>(context: Context, private var adapt
 
     private val isThemeDark: Boolean = (context.resources.configuration.uiMode
             and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-    private val iconTrash = ContextCompat.getDrawable(context, R.drawable.ic_hero_trash)
+    private val iconTrash = ContextCompat.getDrawable(context, R.drawable.ic_round_delete_24)
     private val backgroundTrash: ColorDrawable
 
     init {

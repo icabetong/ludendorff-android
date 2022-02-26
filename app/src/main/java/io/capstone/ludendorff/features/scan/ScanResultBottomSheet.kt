@@ -65,8 +65,8 @@ class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
 
                         it.user?.let { user ->
                             binding.profileImageView.load(user.imageUrl) {
-                                placeholder(R.drawable.ic_hero_user)
-                                error(R.drawable.ic_hero_user)
+                                placeholder(R.drawable.ic_round_account_circle_24)
+                                error(R.drawable.ic_round_account_circle_24)
                                 transformations(CircleCropTransformation())
                             }
                             binding.userNameTextView.text = user.name
@@ -90,7 +90,7 @@ class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
                     binding.progressIndicator.hide()
                     binding.detailsLayout.show()
 
-                    binding.profileImageView.setImageResource(R.drawable.ic_hero_exclamation)
+                    binding.profileImageView.setImageResource(R.drawable.ic_round_healing_24)
                     binding.userNameTextView.setText(R.string.error_assignment_not_exist_header)
                     binding.emailTextView.setText(R.string.error_assignment_not_exist_summary)
 

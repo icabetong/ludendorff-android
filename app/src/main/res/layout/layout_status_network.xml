@@ -18,6 +18,6 @@
         android:text="@string/feedback_network_limited_or_unavailable"
         android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
         android:drawablePadding="@dimen/activity_margin_small"
-        app:drawableStartCompat="@drawable/ic_hero_status_offline" />
+        app:drawableStartCompat="@drawable/ic_round_cloud_off_24" />
 
 </FrameLayout>

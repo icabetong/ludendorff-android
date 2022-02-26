@@ -6,21 +6,21 @@
     <item
         android:id="@+id/action_enable"
         android:title="@string/menu_enable"
-        android:icon="@drawable/ic_hero_check_circle"
+        android:icon="@drawable/ic_round_visibility_24"
         android:visible="false"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_disable"
         android:title="@string/menu_disable"
-        android:icon="@drawable/ic_hero_ban"
+        android:icon="@drawable/ic_round_visibility_off_24"
         android:visible="false"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_remove"
         android:title="@string/menu_remove"
-        android:icon="@drawable/ic_hero_trash"
+        android:icon="@drawable/ic_round_delete_24"
         android:visible="false"
         app:showAsAction="never"/>
 

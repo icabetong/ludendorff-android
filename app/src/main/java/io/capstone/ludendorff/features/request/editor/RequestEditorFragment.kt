@@ -91,7 +91,7 @@ class RequestEditorFragment: BaseEditorFragment(), FragmentResultListener {
                 binding.categoryTextView.text = null
                 binding.assetStatusTextView.text = null
 
-                binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_chevron_down)
+                binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
             } else
                 AssetPickerBottomSheet(childFragmentManager)
                     .show()
@@ -122,7 +122,7 @@ class RequestEditorFragment: BaseEditorFragment(), FragmentResultListener {
                     binding.detailsLayout.isVisible = true
                     binding.assetTextInput.setText(it.assetName)
                     binding.categoryTextView.text = it.category?.categoryName
-                    binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_hero_x)
+                    binding.assetTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
 
                     it.status?.getStringRes()?.also { res ->
                         binding.assetStatusTextView.setText(res)

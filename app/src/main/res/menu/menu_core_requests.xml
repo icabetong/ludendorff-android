@@ -7,7 +7,7 @@
         <menu>
             <item
                 android:title="@string/hint_petitioner"
-                android:icon="@drawable/ic_hero_user">
+                android:icon="@drawable/ic_round_account_circle_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_petitioner_ascending"
@@ -21,7 +21,7 @@
             </item>
             <item
                 android:title="@string/hint_asset_name"
-                android:icon="@drawable/ic_hero_hashtag">
+                android:icon="@drawable/ic_round_edit_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_asset_name_ascending"
@@ -35,7 +35,7 @@
             </item>
             <item
                 android:title="@string/hint_category"
-                android:icon="@drawable/ic_hero_tag">
+                android:icon="@drawable/ic_round_local_offer_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_category_ascending"
@@ -52,7 +52,7 @@
 
     <item
         android:title="@string/menu_filter"
-        android:icon="@drawable/ic_hero_filter">
+        android:icon="@drawable/ic_round_filter_alt_24">
 
     </item>
 </menu>

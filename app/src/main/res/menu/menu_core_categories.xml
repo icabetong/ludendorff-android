@@ -7,7 +7,7 @@
         <menu>
             <item
                 android:title="@string/hint_name"
-                android:icon="@drawable/ic_hero_hashtag">
+                android:icon="@drawable/ic_round_edit_24">
                 <menu>
                     <item
                         android:id="@+id/action_sort_name_ascending"
