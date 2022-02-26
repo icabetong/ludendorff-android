@@ -18,6 +18,7 @@
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/ic_round_assignment_24.xml" value="0.36615384615384616" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/ic_round_desktop_windows_24.xml" value="0.36615384615384616" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/ic_round_devices_24.xml" value="0.36615384615384616" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/navigation_item_tint.xml" value="0.36615384615384616" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/selector_password_toggle.xml" value="0.36615384615384616" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/activity_main.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/dialog_duplicate.xml" value="0.35025641025641024" />
@@ -44,7 +45,7 @@
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_picker_image.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_profile.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_request.xml" value="0.28125" />
-        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_root.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_root.xml" value="0.67" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_scan.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_search_asset.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_search_assignment.xml" value="0.35025641025641024" />
