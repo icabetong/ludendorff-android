@@ -7,8 +7,8 @@
     <color name="brand_surface">#4b5563</color>
     <color name="brand_on_surface">@android:color/white</color>
 
-    <color name="brand_info">#8be9fd</color>
-    <color name="brand_on_info">#000000</color>
+    <color name="brand_info">#06b6d4</color>
+    <color name="brand_on_info">@android:color/black</color>
 
     <color name="brand_text_primary">@android:color/white</color>
     <color name="brand_text_secondary">#e0e0e0</color>

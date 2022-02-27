@@ -54,7 +54,7 @@
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:layout_marginVertical="@dimen/activity_margin_small"
                 android:text="@string/hint_credentials"
-                android:textColor="@color/brand_primary_variant"
+                android:textColor="@color/brand_primary"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -83,7 +83,7 @@
                 android:layout_marginBottom="@dimen/activity_margin_small"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/hint_permissions"
-                android:textColor="@color/brand_primary_variant"
+                android:textColor="@color/brand_primary"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
             <HorizontalScrollView
@@ -169,7 +169,7 @@
                 android:layout_marginBottom="@dimen/activity_margin_small"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/hint_information"
-                android:textColor="@color/brand_primary_variant"
+                android:textColor="@color/brand_primary"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
             <com.google.android.material.textfield.TextInputLayout

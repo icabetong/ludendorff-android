@@ -15,9 +15,10 @@
             app:summary="@string/credit_user_icon_summary"/>
 
         <Preference
-            app:key="preference:icons"
-            app:title="@string/credit_ui_icons_title"
-            app:summary="@string/credit_ui_icons_summary"/>
+            app:key="preference:search"
+            app:title="@string/credit_search_provider_title"
+            app:summary="@string/credit_search_provider_summary"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

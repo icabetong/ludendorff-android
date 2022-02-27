@@ -214,7 +214,7 @@
     <string name="feedback_network_limited_or_unavailable">Network is limited or unavailable</string>
 
     <string name="empty_no_home_header">No Assets Assigned</string>
-    <string name="empty_no_home_summary">There are no assets assigned to your name.</string>
+    <string name="empty_no_home_summary">There are no assets assigned to you; however you can request one by tapping the button below</string>
     <string name="empty_no_assets_header">No Assets Added</string>
     <string name="empty_no_assets_summary">There are no assets available.</string>
     <string name="empty_no_users_header">No Users Added</string>
@@ -334,6 +334,6 @@
     <string name="credit_other_resources">Other Resources</string>
     <string name="credit_user_icon_title">Default User Avatar</string>
     <string name="credit_user_icon_summary">FreePik</string>
-    <string name="credit_ui_icons_title">Heroicons</string>
-    <string name="credit_ui_icons_summary">Tailwind</string>
+    <string name="credit_search_provider_title">Search Provider</string>
+    <string name="credit_search_provider_summary">Algolia</string>
 </resources>

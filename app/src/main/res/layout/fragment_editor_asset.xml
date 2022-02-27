@@ -45,7 +45,7 @@
             android:layout_marginBottom="@dimen/activity_margin_small"
             android:layout_marginHorizontal="@dimen/activity_margin"
             android:text="@string/hint_status"
-            android:textColor="@color/brand_primary_variant"
+            android:textColor="@color/brand_primary"
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
         <HorizontalScrollView
@@ -124,7 +124,7 @@
             android:layout_marginBottom="@dimen/activity_margin_small"
             android:layout_marginHorizontal="@dimen/activity_margin"
             android:text="@string/hint_specifications"
-            android:textColor="@color/brand_primary_variant"
+            android:textColor="@color/brand_primary"
             android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
         <androidx.recyclerview.widget.RecyclerView

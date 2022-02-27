@@ -29,6 +29,5 @@ class NoticePreferences: BasePreference() {
         const val URL_AVATAR_AUTHOR = "https://www.flaticon.com/free-icon/user_149071"
         const val PREFERENCE_LIBRARIES = "preference:libraries"
         const val PREFERENCE_USER_ICON = "preference:user"
-        const val PREFERENCE_ICONS = "preference:icons"
     }
 }

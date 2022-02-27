@@ -8,10 +8,10 @@
     <color name="brand_primary_variant">#0f766e</color>
     <color name="brand_on_primary">@android:color/black</color>
 
-    <color name="brand_info">@color/brand_primary</color>
-    <color name="brand_on_info">@color/brand_on_primary</color>
+    <color name="brand_info">#06b6d4</color>
+    <color name="brand_on_info">@android:color/black</color>
 
-    <color name="brand_error">#ff5555</color>
+    <color name="brand_error">#ef4444</color>
     <color name="brand_on_error">@android:color/black</color>
 
     <color name="brand_surface">@android:color/white</color>
