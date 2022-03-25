@@ -303,8 +303,7 @@ class AssignmentFragment: BaseFragment(), BaseFragment.CascadeMenuDelegate,
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_requests ->
-                mainController?.navigate(R.id.navigation_request)
+
         }
     }
 

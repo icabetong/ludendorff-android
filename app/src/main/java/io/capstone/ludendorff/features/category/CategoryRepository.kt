@@ -5,7 +5,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.request.Request
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton

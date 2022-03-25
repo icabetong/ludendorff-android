@@ -10,7 +10,6 @@ import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.department.Department
-import io.capstone.ludendorff.features.request.Request
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton

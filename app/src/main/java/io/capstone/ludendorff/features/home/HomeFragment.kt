@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
-import androidx.core.view.GravityCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
@@ -33,7 +30,6 @@ import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.assignment.AssignmentViewModel
 import io.capstone.ludendorff.features.assignment.viewer.AssignmentViewer
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.request.RequestViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -241,8 +237,7 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
         super.onResume()
 
         binding.actionButton.setOnClickListener {
-            mainController?.navigate(R.id.navigation_editor_request, null, null,
-                FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
+
         }
         binding.swipeRefreshLayout.setOnRefreshListener {
             homeAdapter.refresh()
@@ -263,9 +258,7 @@ class HomeFragment: BaseFragment(), OnItemActionListener<Assignment>,
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_sent_requests -> {
-                mainController?.navigate(R.id.navigation_sent_requests)
-            }
+
         }
     }
 }
