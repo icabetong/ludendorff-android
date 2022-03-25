@@ -89,6 +89,12 @@
     <string name="hint_assignment">Assignment</string>
     <string name="hint_copies">Copies</string>
     <string name="hint_search">Enter a query</string>
+    <string name="hint_stock_number">Stock Number</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_classification">Classification</string>
+    <string name="hint_type">Type</string>
+    <string name="hint_unit_of_measure">Unit of Measure</string>
+    <string name="hint_unit_value">Unit Value</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>

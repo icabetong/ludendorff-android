@@ -283,8 +283,9 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
                         val copies = text.toString().toInt()
                         val assets = mutableListOf<Asset>()
-                        for (i in 0 until copies) {
-                            assets.add(base.copy(assetId = IDGenerator.generateRandom()))
+                        for (i in 0 until copies - 1) {
+                            assets.add(base.copy(assetId = IDGenerator.generateRandom(),
+                                status = if (base.status == Asset.Status.OPERATIONAL) Asset.Status.IDLE else base.status))
                         }
                         viewModel.createAll(assets)
                         controller?.navigateUp()

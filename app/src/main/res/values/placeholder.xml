@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="placeholder_stock_number">example: \"OS–XXX–X1–000\"</string>
+    <string name="placeholder_item_description">example: \"A4 Bond Paper\"</string>
+    <string name="placeholder_item_classification">example: \"Paper\"</string>
+    <string name="placeholder_item_type">example: \"Office Supplies\"</string>
+    <string name="placeholder_item_unit_of_measure">example: \"ream\"</string>
+    <string name="placeholder_item_unit_value">example: \"99.99\"</string>
+    <string name="placeholder_item_remarks">example: \"Common Supplies\"</string>
+</resources>

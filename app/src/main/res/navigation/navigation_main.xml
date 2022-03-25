@@ -74,7 +74,7 @@
     <!-- Editor Destinations -->
     <fragment
         android:id="@+id/navigation_editor_asset"
-        android:name="io.capstone.ludendorff.features.asset.editor.AssetEditorFragment"/>
+        android:name="io.capstone.ludendorff.features.item.editor.ItemEditorFragment"/>
     <fragment
         android:id="@+id/navigation_editor_user"
         android:name="io.capstone.ludendorff.features.user.editor.UserEditorFragment"/>
