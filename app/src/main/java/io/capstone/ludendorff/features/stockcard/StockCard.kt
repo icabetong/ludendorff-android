@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.card
+package io.capstone.ludendorff.features.stockcard
 
 import android.os.Parcelable
 import com.google.firebase.Timestamp

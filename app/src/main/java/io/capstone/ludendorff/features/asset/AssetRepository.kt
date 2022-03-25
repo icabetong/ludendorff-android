@@ -3,7 +3,6 @@ package io.capstone.ludendorff.features.asset
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.CategoryCore
 import io.capstone.ludendorff.features.core.backend.Response
@@ -96,20 +95,6 @@ class AssetRepository @Inject constructor(
                 batchWrite.update(firestore.collection(Category.COLLECTION).document(it),
                     mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
             }
-
-            firestore.collection(Assignment.COLLECTION)
-                .whereEqualTo(Assignment.FIELD_ASSET_ID, asset.assetId)
-                .get().await()
-                .documents.forEach {
-                    batchWrite.update(it.reference, Assignment.FIELD_ASSET, asset.minimize())
-                }
-
-            firestore.collection(Request.COLLECTION)
-                .whereEqualTo(Request.FIELD_ASSET_ID, asset.assetId)
-                .get().await()
-                .documents.forEach {
-                    batchWrite.update(it.reference, Request.FIELD_ASSET, asset.minimize())
-                }
 
             batchWrite.commit().await()
 

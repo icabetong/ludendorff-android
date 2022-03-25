@@ -2,22 +2,18 @@
     <string name="app_name">Ludendorff</string>
 
     <string name="activity_authentication">Authentication</string>
-    <string name="activity_home">Home</string>
     <string name="activity_notifications">Notifications</string>
     <string name="activity_scan">Scan</string>
     <string name="activity_assets">Assets</string>
     <string name="activity_users">Users</string>
     <string name="activity_assignments">Assignments</string>
     <string name="activity_settings">Settings</string>
-    <string name="activity_sent_requests">Sent Requests</string>
     <string name="activity_categories">Categories</string>
     <string name="activity_departments">Departments</string>
-    <string name="activity_requests">Requests</string>
     <string name="activity_options">Options</string>
     <string name="activity_result">Result</string>
     <string name="activity_profile">Profile</string>
 
-    <string name="navigation_home">@string/activity_home</string>
     <string name="navigation_notification">@string/activity_notifications</string>
     <string name="navigation_scan">@string/activity_scan</string>
     <string name="navigation_assets">@string/activity_assets</string>
@@ -73,8 +69,6 @@
     <string name="hint_department">Department</string>
     <string name="hint_user">User</string>
     <string name="hint_position">Position</string>
-    <string name="hint_petitioner">Petitioner</string>
-    <string name="hint_endorser">Endorser</string>
     <string name="hint_credentials">Credentials</string>
     <string name="hint_information">Information</string>
     <string name="hint_permissions">Permissions</string>
@@ -208,12 +202,6 @@
     <string name="feedback_assignment_create_error">Error creating assignment</string>
     <string name="feedback_assignment_remove_error">Error removing assignment</string>
     <string name="feedback_assignment_update_error">Error updating assignment</string>
-    <string name="feedback_request_created">Request successfully created</string>
-    <string name="feedback_request_removed">Request successfully removed</string>
-    <string name="feedback_request_endorsed">Request successfully endorsed</string>
-    <string name="feedback_request_create_error">Error creating request</string>
-    <string name="feedback_request_remove_error">Error removing request</string>
-    <string name="feedback_request_endorse_error">Error endorsing request</string>
     <string name="feedback_notification_removed">Notification successfully removed</string>
     <string name="feedback_token_update_success">Default device registered</string>
     <string name="feedback_token_update_error">Error registering as default device</string>

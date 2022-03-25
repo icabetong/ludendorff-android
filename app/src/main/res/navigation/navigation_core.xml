@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_core"
-    app:startDestination="@id/navigation_user_home">
+    app:startDestination="@id/navigation_assets">
 
-    <fragment
-        android:id="@+id/navigation_user_home"
-        android:name="io.capstone.ludendorff.features.home.HomeFragment"/>
     <fragment
         android:id="@+id/navigation_scan"
         android:name="io.capstone.ludendorff.features.scan.ScanFragment"/>
@@ -17,13 +13,7 @@
     <fragment
         android:id="@+id/navigation_users"
         android:name="io.capstone.ludendorff.features.user.UserFragment"/>
-    <fragment
-        android:id="@+id/navigation_assignments"
-        android:name="io.capstone.ludendorff.features.assignment.AssignmentFragment"/>
 
-    <action
-        android:id="@+id/to_navigation_user_home"
-        app:destination="@id/navigation_user_home"/>
     <action
         android:id="@+id/to_navigation_scan"
         app:destination="@id/navigation_scan"/>
@@ -33,8 +23,5 @@
     <action
         android:id="@+id/to_navigation_users"
         app:destination="@id/navigation_users"/>
-    <action
-        android:id="@+id/to_navigation_assignments"
-        app:destination="@id/navigation_assignments"/>
 
 </navigation>

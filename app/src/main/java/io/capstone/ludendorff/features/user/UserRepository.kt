@@ -7,7 +7,6 @@ import io.capstone.ludendorff.api.Deshi
 import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.api.DeshiRequest
 import io.capstone.ludendorff.components.persistence.UserProperties
-import io.capstone.ludendorff.features.assignment.Assignment
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.department.Department
 import kotlinx.coroutines.tasks.await

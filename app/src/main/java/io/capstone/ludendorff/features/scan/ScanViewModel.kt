@@ -6,8 +6,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetRepository
-import io.capstone.ludendorff.features.assignment.Assignment
-import io.capstone.ludendorff.features.assignment.AssignmentRepository
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -16,7 +14,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ScanViewModel @Inject constructor(
-    private val assignmentRepository: AssignmentRepository,
     private val assetRepository: AssetRepository
 ): BaseViewModel() {
     private var decodedAssetId: String? = null
@@ -39,7 +36,7 @@ class ScanViewModel @Inject constructor(
     }
 
     private fun fetch(id: String) = viewModelScope.launch(IO) {
-        val response = assignmentRepository.fetchWithFieldValue(Assignment.FIELD_ASSET_ID, id)
+
 
         /**
          *  Check if the response is successful, then
@@ -47,10 +44,10 @@ class ScanViewModel @Inject constructor(
          *  if it does not exist, fallback the asset document
          *  instead
          */
-        if (response is Response.Success) {
-            if (response.data == null) {
-                _asset.postValue(assetRepository.fetch(id))
-            } else _assignment.postValue(response)
-        } else _assignment.postValue(response)
+//        if (response is Response.Success) {
+//            if (response.data == null) {
+//                _asset.postValue(assetRepository.fetch(id))
+//            } else _assignment.postValue(response)
+//        } else _assignment.postValue(response)
     }
 }

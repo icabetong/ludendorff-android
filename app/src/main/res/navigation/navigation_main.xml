@@ -26,9 +26,6 @@
 
     <!-- Secondary Destinations -->
     <fragment
-        android:id="@+id/navigation_sent_requests"
-        android:name="io.capstone.ludendorff.features.request.sent.SentRequestFragment"/>
-    <fragment
         android:id="@+id/navigation_category"
         android:name="io.capstone.ludendorff.features.category.CategoryFragment"/>
     <fragment
@@ -40,9 +37,6 @@
     <fragment
         android:id="@+id/navigation_search_asset"
         android:name="io.capstone.ludendorff.features.asset.search.AssetSearchFragment"/>
-    <fragment
-        android:id="@+id/navigation_search_assignment"
-        android:name="io.capstone.ludendorff.features.assignment.search.AssignmentSearchFragment"/>
     <fragment
         android:id="@+id/navigation_search_category"
         android:name="io.capstone.ludendorff.features.category.search.CategorySearchFragment"/>
@@ -75,8 +69,5 @@
     <fragment
         android:id="@+id/navigation_editor_department"
         android:name="io.capstone.ludendorff.features.department.editor.DepartmentEditorFragment" />
-    <fragment
-        android:id="@+id/navigation_editor_assignment"
-        android:name="io.capstone.ludendorff.features.assignment.editor.AssignmentEditorFragment"/>
 
 </navigation>
