@@ -159,8 +159,7 @@ class RootFragment: BaseFragment() {
     }
 
     private fun setProperties(it: User) {
-        headerBinding.nameTextView.text = if (it.getDisplayName().isNotEmpty()) it.getDisplayName()
-            else getString(R.string.authentication_anonymous_user)
+        headerBinding.nameTextView.text = it.getDisplayName().ifEmpty { getString(R.string.authentication_anonymous_user) }
         headerBinding.emailTextView.text = it.email
         if (it.imageUrl != null)
             headerBinding.profileImageView.load(it.imageUrl) {

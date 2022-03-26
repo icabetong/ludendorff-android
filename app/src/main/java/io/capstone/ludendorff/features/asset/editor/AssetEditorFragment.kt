@@ -99,6 +99,10 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
         }
 
+        if (binding.stockNumberTextInput.hasFocus()) {
+            binding.stockNumberTextInput.hint = getString(R.string.placeholder_item_stock_number)
+        }
+
         registerForFragmentResult(
             arrayOf(TypePickerBottomSheet.REQUEST_KEY_PICK), this)
     }
