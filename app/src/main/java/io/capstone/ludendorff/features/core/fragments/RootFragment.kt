@@ -116,7 +116,6 @@ class RootFragment: BaseFragment() {
                 findItem(R.id.navigation_scan).isChecked = true
                 findItem(R.id.navigation_assets).isVisible = false
                 findItem(R.id.navigation_users).isVisible = false
-                findItem(R.id.navigation_assignments).isVisible = false
                 findItem(R.id.navigation_notification).isVisible = false
             }
 
@@ -173,8 +172,6 @@ class RootFragment: BaseFragment() {
         else headerBinding.profileImageView.setImageResource(R.drawable.ic_flaticon_user)
 
         with(binding.navigationView.menu) {
-            findItem(R.id.navigation_assignments)
-                .isVisible = it.hasPermission(User.PERMISSION_ADMINISTRATIVE)
 
             findItem(R.id.navigation_users)
                 .isVisible = it.hasPermission(User.PERMISSION_MANAGE_USERS) ||

@@ -20,11 +20,6 @@
             android:title="@string/navigation_users"
             android:icon="@drawable/ic_round_people_outline_24"/>
 
-        <item
-            android:id="@+id/navigation_assignments"
-            android:title="@string/navigation_assignments"
-            android:icon="@drawable/ic_round_assignment_24"/>
-
     </group>
 
     <group
