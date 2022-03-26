@@ -10,134 +10,147 @@
         android:id="@+id/appBar"
         layout="@layout/layout_appbar_editor"/>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/assetNameTextInputLayout"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            android:hint="@string/hint_asset_name"
-            style="@style/Widget.Keeper.TextInput.Layout">
+            android:layout_height="match_parent"
+            android:padding="@dimen/activity_margin"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/assetNameTextInput"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/stockNumberTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                android:inputType="text">
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_stock_number"
+                style="@style/Widget.Keeper.TextInput.Layout">
 
-                <requestFocus/>
-
-            </com.google.android.material.textfield.TextInputEditText>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            android:text="@string/hint_status"
-            android:textColor="@color/brand_primary"
-            android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/statusChipGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/activity_margin"
-                app:singleSelection="true"
-                app:selectionRequired="true"
-                app:singleLine="true"
-                app:checkedChip="@id/idleChip">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/operationalChip"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/stockNumberTextInput"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/asset_status_option_operational"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
+                    android:imeOptions="actionNext"
+                    android:inputType="text">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/idleChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/asset_status_option_idle"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
+                    <requestFocus/>
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/underMaintenanceChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/asset_status_option_under_maintenance"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
+                </com.google.android.material.textfield.TextInputEditText>
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/retiredChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/asset_status_option_retired"
-                    style="@style/Widget.Keeper.Chip.Choice"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.chip.ChipGroup>
-
-        </HorizontalScrollView>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/categoryTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            android:hint="@string/hint_category"
-            app:endIconDrawable="@drawable/ic_round_keyboard_arrow_down_24"
-            app:endIconMode="custom"
-            app:endIconTint="@color/brand_text_primary"
-            style="@style/Widget.Keeper.TextInput.Layout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/categoryTextInput"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/descriptionTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                android:focusable="false"
-                android:text="@string/hint_not_set"/>
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_description"
+                style="@style/Widget.Keeper.TextInput.Layout">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descriptionTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            android:text="@string/hint_specifications"
-            android:textColor="@color/brand_primary"
-            android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/typeTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_type"
+                app:endIconDrawable="@drawable/ic_round_arrow_drop_down_24"
+                app:endIconMode="custom"
+                app:endIconTint="@color/brand_text_primary"
+                style="@style/Widget.Keeper.TextInput.Layout">
 
-        <include
-            android:id="@+id/addAction"
-            layout="@layout/layout_item_add"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/typeTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:focusable="false"/>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/classificationTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_classification"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/classificationTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/unitOfMeasureTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_unit_of_measure"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/unitOfMeasureTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/unitValueTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_unit_value"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/unitValueTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/remarksTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_remarks"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/remarksTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/snackbarAnchor"

@@ -6,12 +6,6 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/navigation_user_home"
-            android:title="@string/navigation_home"
-            android:icon="@drawable/ic_round_home_24"
-            android:checked="true"/>
-
-        <item
             android:id="@+id/navigation_scan"
             android:title="@string/navigation_scan"
             android:icon="@drawable/ic_round_qr_code_scanner_24"/>

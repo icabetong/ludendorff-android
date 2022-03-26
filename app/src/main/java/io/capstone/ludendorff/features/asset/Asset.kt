@@ -3,101 +3,48 @@ package io.capstone.ludendorff.features.asset
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Parcelable
-import androidx.annotation.Keep
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.DiffUtil
-import com.algolia.instantsearch.core.highlighting.HighlightedString
-import com.algolia.instantsearch.helper.highlighting.Highlightable
-import com.algolia.search.model.Attribute
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.Exclude
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
-import io.capstone.ludendorff.R
-import io.capstone.ludendorff.components.serialization.TimestampSerializer
-import io.capstone.ludendorff.components.utils.IDGenerator
-import io.capstone.ludendorff.features.category.Category
-import io.capstone.ludendorff.features.category.CategoryCore
-import kotlinx.parcelize.IgnoredOnParcel
+import io.capstone.ludendorff.features.type.TypeCore
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
 
-@Keep
 @Parcelize
 data class Asset @JvmOverloads constructor(
-    var assetId: String = IDGenerator.generateRandom(),
-    var assetName: String? = null,
-    @Serializable(TimestampSerializer::class)
-    var dateCreated: Timestamp? = null,
-    var status: Status? = null,
-    var category: CategoryCore? = null,
-    var specifications: Map<String, String> = emptyMap(),
+    var stockNumber: String = "",
+    var description: String? = null,
+    var classification: String? = null,
+    var type: TypeCore? = null,
+    var unitOfMeasure: String? = null,
+    var unitValue: Double = 0.0,
+    var remarks: String? = null,
 ): Parcelable {
-
-    fun minimize(): AssetCore {
-        return AssetCore.from(this)
-    }
-
-    enum class Status {
-        OPERATIONAL,
-        IDLE,
-        UNDER_MAINTENANCE,
-        RETIRED;
-
-        @StringRes
-        fun getStringRes(): Int {
-            return when(this) {
-                OPERATIONAL -> R.string.asset_status_option_operational
-                IDLE -> R.string.asset_status_option_idle
-                UNDER_MAINTENANCE -> R.string.asset_status_option_under_maintenance
-                RETIRED -> R.string.asset_status_option_retired
-            }
-        }
-
-        companion object {
-            fun parse(value: String?): Status {
-                return when(value) {
-                    OPERATIONAL.toString() -> OPERATIONAL
-                    IDLE.toString() -> IDLE
-                    UNDER_MAINTENANCE.toString() -> UNDER_MAINTENANCE
-                    RETIRED.toString() -> RETIRED
-                    else -> throw IllegalArgumentException("Not a valid Status object")
-                }
-            }
-        }
-    }
 
     companion object {
         const val COLLECTION = "assets"
-        const val FIELD_ID = "assetId"
-        const val FIELD_NAME = "assetName"
-        const val FIELD_DATE_CREATED = "dateCreated"
-        const val FIELD_STATUS = "status"
-        const val FIELD_CATEGORY = "category"
-        const val FIELD_CATEGORY_ID = "${FIELD_CATEGORY}.${Category.FIELD_ID}"
-        const val FIELD_CATEGORY_NAME = "${FIELD_CATEGORY}.${Category.FIELD_NAME}"
-        const val FIELD_SPECIFICATIONS = "specifications"
+        const val FIELD_STOCK_NUMBER = "stockNumber"
+        const val FIELD_DESCRIPTION = "description"
+        const val FIELD_CLASSIFICATION = "classification"
+        const val FIELD_TYPE = "type"
+        const val FIELD_UNIT_OF_MEASURE = "unitOfMeasure"
+        const val FIELD_UNIT_VALUE = "unitValue"
+        const val FIELD_REMARKS = "remarks"
 
         const val ID_PREFIX = "clsu://ludendorff/"
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Asset>() {
-            override fun areContentsTheSame(oldItem: Asset, newItem: Asset): Boolean {
-                return oldItem.assetId == newItem.assetId
+            override fun areContentsTheSame(oldAsset: Asset, newAsset: Asset): Boolean {
+                return oldAsset == newAsset
             }
 
-            override fun areItemsTheSame(oldItem: Asset, newItem: Asset): Boolean {
-                return oldItem == newItem
+            override fun areItemsTheSame(oldAsset: Asset, newAsset: Asset): Boolean {
+                return oldAsset.stockNumber == newAsset.stockNumber
             }
         }
 
-        fun generateQRCode(id: String): Bitmap {
+        fun generateQRCode(number: String): Bitmap {
             val bitMatrix = QRCodeWriter().encode(
-                "${ID_PREFIX}${id}", BarcodeFormat.QR_CODE,
+                "$ID_PREFIX${number}", BarcodeFormat.QR_CODE,
                 128, 128)
             val bitmap = Bitmap.createBitmap(bitMatrix.width, bitMatrix.height,
                 Bitmap.Config.RGB_565)
@@ -113,5 +60,7 @@ data class Asset @JvmOverloads constructor(
 
             return bitmap
         }
+
     }
+
 }

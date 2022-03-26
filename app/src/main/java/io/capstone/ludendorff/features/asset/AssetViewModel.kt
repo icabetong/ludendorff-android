@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.components.persistence.UserPreferences
-import io.capstone.ludendorff.features.category.CategoryCore
+import io.capstone.ludendorff.features.type.TypeCore
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -24,13 +24,13 @@ class AssetViewModel @Inject constructor(
     userPreferences: UserPreferences,
 ): BaseViewModel() {
 
-    var sortMethod = Asset.FIELD_NAME
+    var sortMethod = Asset.FIELD_STOCK_NUMBER
     var sortDirection = Query.Direction.ASCENDING
     var filterConstraint: String? = null
     var filterValue: String? = null
 
     private val assetQuery: Query = firestore.collection(Asset.COLLECTION)
-        .orderBy(Asset.FIELD_NAME, userPreferences.sortDirection)
+        .orderBy(Asset.FIELD_STOCK_NUMBER, userPreferences.sortDirection)
         .limit(Response.QUERY_LIMIT.toLong())
     private var currentQuery = assetQuery
 
@@ -55,11 +55,8 @@ class AssetViewModel @Inject constructor(
     fun create(asset: Asset) = viewModelScope.launch(IO) {
         _action.send(repository.create(asset))
     }
-    fun createAll(assets: List<Asset>) = viewModelScope.launch(IO) {
-        _action.send(repository.createAll(assets))
-    }
-    fun update(asset: Asset, previousCategory: CategoryCore? = null) = viewModelScope.launch(IO) {
-        _action.send(repository.update(asset, previousCategory))
+    fun update(asset: Asset, previousType: TypeCore? = null) = viewModelScope.launch(IO) {
+        _action.send(repository.update(asset, previousType))
     }
     fun remove(asset: Asset) = viewModelScope.launch(IO) {
         _action.send(repository.remove(asset))

@@ -37,11 +37,11 @@ class AssetSearchAdapter(
                     ContextCompat.getColor(root.context,
                     R.color.brand_primary))
 
-                root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.assetId
+                root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.stockNumber
                 headerTextView.text = data?.highlightedName?.toSpannedString(style)
-                    ?: data?.assetName
+                    ?: data?.description
                 informationTextView.text = data?.highlightedCategory?.toSpannedString(style)
-                    ?: data?.category?.categoryName
+                    ?: data?.classification
 
                 root.setOnClickListener {
                     onItemActionListener.onActionPerformed(data?.toAsset(),

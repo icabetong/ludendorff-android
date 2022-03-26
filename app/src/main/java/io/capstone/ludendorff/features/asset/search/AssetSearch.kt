@@ -5,41 +5,39 @@ import androidx.recyclerview.widget.DiffUtil
 import com.algolia.instantsearch.core.highlighting.HighlightedString
 import com.algolia.instantsearch.helper.highlighting.Highlightable
 import com.algolia.search.model.Attribute
-import com.google.firebase.Timestamp
-import io.capstone.ludendorff.components.serialization.TimestampSerializer
-import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.category.Category
-import io.capstone.ludendorff.features.category.CategoryCore
+import io.capstone.ludendorff.features.type.Type
+import io.capstone.ludendorff.features.type.TypeCore
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
 @Keep
 @Serializable
 data class AssetSearch @JvmOverloads constructor(
-    var assetId: String = IDGenerator.generateRandom(),
-    var assetName: String? = null,
-    @Serializable(TimestampSerializer::class)
-    var dateCreated: Timestamp? = null,
-    var status: Asset.Status? = null,
-    var category: CategoryCore? = null,
-    var specifications: Map<String, String> = emptyMap(),
+    var stockNumber: String = "",
+    var description: String? = null,
+    var classification: String? = null,
+    var type: TypeCore? = null,
+    var unitOfMeasure: String? = null,
+    var unitValue: Double = 0.0,
+    var remarks: String? = null,
     override val _highlightResult: JsonObject? = null
 ): Highlightable {
 
     val highlightedName: HighlightedString?
-        get() = getHighlight(Attribute(Asset.FIELD_NAME))
+        get() = getHighlight(Attribute(Asset.FIELD_DESCRIPTION))
     val highlightedCategory: HighlightedString?
-        get() = getHighlight(Attribute(Category.FIELD_NAME))
+        get() = getHighlight(Attribute(Type.FIELD_NAME))
 
     fun toAsset(): Asset {
         return Asset(
-            assetId = this.assetId,
-            assetName = this.assetName,
-            dateCreated = this.dateCreated,
-            status = this.status,
-            category = this.category,
-            specifications = this.specifications
+            stockNumber = this.stockNumber,
+            description = this.description,
+            classification = this.classification,
+            type = this.type,
+            unitOfMeasure = this.unitOfMeasure,
+            unitValue = this.unitValue,
+            remarks = this.remarks,
         )
     }
 
@@ -50,7 +48,7 @@ data class AssetSearch @JvmOverloads constructor(
             }
 
             override fun areItemsTheSame(oldItem: AssetSearch, newItem: AssetSearch): Boolean {
-                return oldItem.assetId == newItem.assetId
+                return oldItem.stockNumber == newItem.stockNumber
             }
         }
     }

@@ -60,29 +60,6 @@ class UserRepository @Inject constructor(
                     }
             }
 
-            firestore.collection(Assignment.COLLECTION)
-                .whereEqualTo(Assignment.FIELD_USER_ID, user.userId)
-                .get().await()
-                .documents.forEach {
-                    batchWrite.update(it.reference, Assignment.FIELD_USER, user.minimize())
-                }
-
-            firestore.collection(Request.COLLECTION)
-                .whereEqualTo(Request.FIELD_PETITIONER_ID, user.userId)
-                .get().await()
-                .documents.forEach {
-                    batchWrite.update(it.reference, Request.FIELD_PETITIONER, user.minimize())
-                }
-
-            if (user.hasPermission(User.PERMISSION_ADMINISTRATIVE)) {
-                firestore.collection(Request.COLLECTION)
-                    .whereEqualTo(Request.FIELD_ENDORSER_ID, user.userId)
-                    .get().await()
-                    .documents.forEach {
-                        batchWrite.update(it.reference, Request.FIELD_ENDORSER, user.minimize())
-                    }
-            }
-
             batchWrite.commit().await()
 
             if (statusChanged) {
@@ -121,20 +98,6 @@ class UserRepository @Inject constructor(
 
             batchWrite.update(firestore.collection(User.COLLECTION)
                 .document(id), fields)
-
-            firestore.collection(Assignment.COLLECTION)
-                .whereEqualTo(Assignment.FIELD_USER_ID, id)
-                .get().await()
-                .documents.forEach {
-                    batchWrite.update(it.reference, Assignment.FIELD_USER, fields)
-                }
-
-            firestore.collection(Request.COLLECTION)
-                .whereEqualTo(Request.FIELD_PETITIONER_ID, id)
-                .get().await()
-                .documents.forEach {
-                    batchWrite.update(it.reference, Request.FIELD_PETITIONER, fields)
-                }
 
             batchWrite.commit().await()
 

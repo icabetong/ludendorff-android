@@ -8,7 +8,7 @@
     <string name="activity_users">Users</string>
     <string name="activity_assignments">Assignments</string>
     <string name="activity_settings">Settings</string>
-    <string name="activity_categories">Categories</string>
+    <string name="activity_types">Types</string>
     <string name="activity_departments">Departments</string>
     <string name="activity_options">Options</string>
     <string name="activity_result">Result</string>
@@ -19,7 +19,7 @@
     <string name="navigation_assets">@string/activity_assets</string>
     <string name="navigation_users">@string/activity_users</string>
     <string name="navigation_assignments">@string/activity_assignments</string>
-    <string name="navigation_categories">@string/activity_categories</string>
+    <string name="navigation_types">@string/activity_types</string>
     <string name="navigation_departments">@string/activity_departments</string>
     <string name="navigation_notifications">@string/activity_notifications</string>
     <string name="navigation_settings">@string/activity_settings</string>
@@ -30,11 +30,9 @@
     <string name="title_department_create">Create Department</string>
     <string name="title_department_update">Edit Department</string>
     <string name="title_department_select">Select Department</string>
-    <string name="title_specs_create">Create Specification</string>
-    <string name="title_specs_update">Edit Specification</string>
-    <string name="title_category_create">Create Category</string>
-    <string name="title_category_update">Edit Category</string>
-    <string name="title_category_select">Select Category</string>
+    <string name="title_type_create">Create Type</string>
+    <string name="title_type_update">Edit Type</string>
+    <string name="title_type_select">Select Type</string>
     <string name="title_user_create">Create User</string>
     <string name="title_user_update">Edit User</string>
     <string name="title_user_select">Select User</string>
@@ -58,7 +56,6 @@
     <string name="hint_last_name">Last Name</string>
     <string name="hint_asset_name">Asset Name</string>
     <string name="hint_status">Status</string>
-    <string name="hint_category">Category</string>
     <string name="hint_specifications">Specifications</string>
     <string name="hint_name">Name</string>
     <string name="hint_value">Value</string>
@@ -116,7 +113,7 @@
 
     <string name="menu_filter">Filter</string>
     <string name="menu_sort">Sort</string>
-    <string name="menu_categories">Categories</string>
+    <string name="menu_types">Types</string>
     <string name="menu_departments">Departments</string>
     <string name="menu_requests">Requests</string>
     <string name="menu_sent_requests">Sent Requests</string>
@@ -157,7 +154,10 @@
     <string name="sort_direction_descending">Descending</string>
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
-    <string name="feedback_empty_asset_name">You forgot to enter the asset name</string>
+    <string name="feedback_empty_asset_description">You forgot to enter the asset description</string>
+    <string name="feedback_empty_asset_classification">You forgot to enter the classification</string>
+    <string name="feedback_empty_unit_value">You forgot to enter the unit value</string>
+    <string name="feedback_empty_unit_of_measure">You forgot to enter the unit of measure</string>
     <string name="feedback_empty_department_name">You forgot to enter the department name</string>
     <string name="feedback_empty_first_name">You forgot to enter the first name</string>
     <string name="feedback_empty_last_name">You forgot to enter the last name</string>
@@ -172,12 +172,12 @@
     <string name="feedback_updated_password">Successfully changed password</string>
     <string name="feedback_reset_link_sent">Password reset link sent</string>
     <string name="feedback_qr_code_saved_as_image">QR-Code saved as image</string>
-    <string name="feedback_category_created">Category successfully created</string>
-    <string name="feedback_category_removed">Category successfully removed</string>
-    <string name="feedback_category_updated">Category successfully updated</string>
-    <string name="feedback_category_create_error">Error creating category</string>
-    <string name="feedback_category_remove_error">Error removing category</string>
-    <string name="feedback_category_update_error">Error updating category</string>
+    <string name="feedback_type_created">Type successfully created</string>
+    <string name="feedback_type_removed">Type successfully removed</string>
+    <string name="feedback_type_updated">Type successfully updated</string>
+    <string name="feedback_type_create_error">Error creating type</string>
+    <string name="feedback_type_remove_error">Error removing type</string>
+    <string name="feedback_type_update_error">Error updating type</string>
     <string name="feedback_asset_created">Asset successfully created</string>
     <string name="feedback_asset_removed">Asset successfully removed</string>
     <string name="feedback_asset_updated">Asset successfully updated</string>
@@ -196,37 +196,23 @@
     <string name="feedback_department_create_error">Error creating department</string>
     <string name="feedback_department_remove_error">Error removing department</string>
     <string name="feedback_department_update_error">Error updating department</string>
-    <string name="feedback_assignment_created">Assignment successfully created</string>
-    <string name="feedback_assignment_removed">Assignment successfully removed</string>
-    <string name="feedback_assignment_updated">Assignment successfully updated</string>
-    <string name="feedback_assignment_create_error">Error creating assignment</string>
-    <string name="feedback_assignment_remove_error">Error removing assignment</string>
-    <string name="feedback_assignment_update_error">Error updating assignment</string>
     <string name="feedback_notification_removed">Notification successfully removed</string>
     <string name="feedback_token_update_success">Default device registered</string>
     <string name="feedback_token_update_error">Error registering as default device</string>
     <string name="feedback_network_limited_or_unavailable">Network is limited or unavailable</string>
 
-    <string name="empty_no_home_header">No Assets Assigned</string>
-    <string name="empty_no_home_summary">There are no assets assigned to you; however you can request one by tapping the button below</string>
     <string name="empty_no_assets_header">No Assets Added</string>
     <string name="empty_no_assets_summary">There are no assets available.</string>
     <string name="empty_no_users_header">No Users Added</string>
     <string name="empty_no_users_summary">There are no users available.</string>
-    <string name="empty_no_categories_header">No Categories Added</string>
-    <string name="empty_no_categories_summary">There are no categories available that can be used to organize the assets.</string>
+    <string name="empty_no_types_header">No Types Added</string>
+    <string name="empty_no_types_summary">There are no types available that can be used to organize the assets.</string>
     <string name="empty_no_departments_header">No Departments Added</string>
     <string name="empty_no_departments_summary">There are no departments available that can be used to assign the users from.</string>
-    <string name="empty_no_assignments_header">No Assignments Available</string>
-    <string name="empty_no_assignments_summary">There are currently no records of assigned assets to the users.</string>
     <string name="empty_no_scanned_code_header">Scan a QR-Code</string>
     <string name="empty_no_scanned_code_summary">You\'ll need to scan a valid QR-Code first to view its embedded data.</string>
     <string name="empty_no_notifications_header">No Notifications</string>
     <string name="empty_no_notifications_summary">Once a notification pops up in your device, it will be shown here.</string>
-    <string name="empty_no_requests_header">No Requests</string>
-    <string name="empty_no_requests_summary">If a user requests for an asset, they will appear here. However there is none at the moment.</string>
-    <string name="empty_no_sent_requests_header">No Sent Requests</string>
-    <string name="empty_no_sent_requests_summary">You have not sent any requests for an assignment yet; once you do, they will appear here.</string>
     <string name="empty_no_search_results_header">No Results Found</string>
     <string name="empty_no_search_results_summary">There are no results matching in your query, try using other terms.</string>
 
@@ -270,16 +256,10 @@
     <string name="dialog_send_reset_link_message_no_email">Enter your email address associated with your account to receive a email that can link you to reset your account\'s password.</string>
     <string name="dialog_sign_out_title">Sign out?</string>
     <string name="dialog_sign_out_message">Are you sure you want to end your session? You will need to enter your credentials again next time.</string>
-    <string name="dialog_save_without_specification_title">Save without specifications?</string>
-    <string name="dialog_save_without_specification_message">Specification adds bits of details of assets. Are you sure you don\'t want to add one?</string>
     <string name="dialog_remove_asset_title">Remove asset?</string>
     <string name="dialog_remove_asset_message">Are you sure you want to remove this asset? Once finished, this action cannot be undone.</string>
-    <string name="dialog_remove_specification_title">Remove specification?</string>
-    <string name="dialog_remove_specification_message">Are you sure you want to remove this specification? You can\'t recover this information in the future.</string>
     <string name="dialog_remove_user_title">Remove user?</string>
     <string name="dialog_remove_user_message">Are you sure you want to remove this user? Once finished, this action cannot be undone.</string>
-    <string name="dialog_remove_assignment_title">Remove assignment?</string>
-    <string name="dialog_remove_assignment_message">Are you sure you want to remove this assignment? Once finished, this action cannot be undone.</string>
     <string name="dialog_disable_user_title">Disable this user account?</string>
     <string name="dialog_disable_user_message">Are you sure you want to disable this user account? With proper permissions, you can always enable this account in the future.</string>
     <string name="dialog_enable_user_title">Enable this user account?</string>
@@ -288,11 +268,9 @@
     <string name="dialog_confirm_location_empty_message">It is recommended that you provide the location data for the assignment. To easier track the asset later on. However, there are circumstances that a location data is not applicable.</string>
     <string name="dialog_no_date_assigned_title">Default to this date?</string>
     <string name="dialog_no_date_assignment_message">You left the \"Date Assigned\" attribute empty, do you want to default it to today\'s date or pick another one instead?</string>
-    <string name="dialog_ending_assignment_title">End Assignment?</string>
-    <string name="dialog_ending_assignment_message">If you end this assignment it means that the asset is no longer in the hands of its recorded user, and thus brought back to the inventory. Are you sure you want to continue?</string>
-    <string name="dialog_no_category_title">No Category Selected</string>
-    <string name="dialog_no_category_message_has_previous">You did not select any category for this asset. We will use the previous one.</string>
-    <string name="dialog_no_category_message">You did not select any category for this asset. Select one to continue.</string>
+    <string name="dialog_no_type_title">No Type Selected</string>
+    <string name="dialog_no_type_message_has_previous">You did not select any type for this asset. We will use the previous one.</string>
+    <string name="dialog_no_type_message">You did not select any type for this asset. Select one to continue.</string>
 
     <string name="settings_group_interface">Interface</string>
     <string name="settings_group_notifications">Notifications</string>
@@ -321,7 +299,6 @@
     <string name="channel_id_assignments">notifications:assignments</string>
 
     <string name="concat_user_name">%1$s %2$s</string>
-    <string name="concat_endorsed_by">Endorsed by: %1$s</string>
     <string name="concat_today_at">Today at %1$s</string>
 
     <string name="credit_open_source_libraries">Open Source Libraries</string>

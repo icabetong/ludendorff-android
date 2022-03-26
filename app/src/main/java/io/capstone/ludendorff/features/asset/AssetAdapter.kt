@@ -27,9 +27,9 @@ class AssetAdapter(
         private val binding = LayoutItemAssetBinding.bind(itemView)
 
         override fun onBind(data: Asset?) {
-            binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.assetId
-            binding.headerTextView.text = data?.assetName
-            binding.informationTextView.text = data?.category?.categoryName
+            binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.stockNumber
+            binding.headerTextView.text = data?.description
+            binding.informationTextView.text = data?.type?.categoryName
 
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT, it)

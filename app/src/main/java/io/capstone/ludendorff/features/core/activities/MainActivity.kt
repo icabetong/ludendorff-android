@@ -24,7 +24,6 @@ class MainActivity: BaseActivity() {
     private lateinit var controller: NavController
 
     private val viewModel: CoreViewModel by viewModels()
-    private val assignmentViewModel: AssignmentViewModel by viewModels()
 
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var notificationManager: NotificationManager
@@ -34,23 +33,6 @@ class MainActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        intent?.also {
-            when(it.action) {
-                ACTION_ASSIGNMENT -> {
-                    val id = it.getIntExtra(NotificationServices.EXTRA_NOTIFICATION_ID,
-                        0)
-                    notificationManager.cancel(id)
-
-                    it.getStringExtra(NotificationServices.EXTRA_PAYLOAD)?.also { payload ->
-                        assignmentViewModel.fetch(payload)
-                    }
-                }
-                ACTION_REQUEST -> {
-                    TODO()
-                }
-            }
-        }
 
         controller = Navigation.findNavController(this, R.id.navHostFragment)
 

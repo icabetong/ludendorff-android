@@ -44,39 +44,6 @@ class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
     override fun onStart() {
         super.onStart()
 
-        viewModel.assignment.observe(viewLifecycleOwner) { response ->
-            when(response) {
-                is Response.Error -> {
-                    binding.decodeErrorView.root.show()
-                    binding.detailsLayout.hide()
-                    binding.progressIndicator.hide()
-                }
-                is Response.Success -> {
-                    binding.decodeErrorView.root.hide()
-                    binding.progressIndicator.hide()
-                    binding.detailsLayout.show()
-
-                    response.data?.let {
-                        binding.assetNameTextView.text = it.asset?.assetName
-                        binding.categoryTextView.text = it.asset?.category?.categoryName
-                        it.asset?.status?.let { status ->
-                            binding.assetStatusTextView.setText(status.getStringRes())
-                        }
-
-                        it.user?.let { user ->
-                            binding.profileImageView.load(user.imageUrl) {
-                                placeholder(R.drawable.ic_round_account_circle_24)
-                                error(R.drawable.ic_round_account_circle_24)
-                                transformations(CircleCropTransformation())
-                            }
-                            binding.userNameTextView.text = user.name
-                            binding.emailTextView.text = user.email
-                        }
-                    }
-                }
-            }
-        }
-
         viewModel.asset.observe(viewLifecycleOwner) { response ->
             when(response) {
                 is Response.Error -> {
@@ -95,12 +62,8 @@ class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
                     binding.emailTextView.setText(R.string.error_assignment_not_exist_summary)
 
                     response.data.let {
-                        binding.assetNameTextView.text = it.assetName
-                        binding.categoryTextView.text = it.category?.categoryName
-
-                        it.status?.let { status ->
-                            binding.assetStatusTextView.setText(status.getStringRes())
-                        }
+                        binding.assetNameTextView.text = it.description
+                        binding.categoryTextView.text = it.classification
                     }
                 }
             }

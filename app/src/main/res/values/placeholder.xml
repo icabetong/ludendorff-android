@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="placeholder_stock_number">example: \"OS–XXX–X1–000\"</string>
+    <string name="placeholder_item_stock_number">example: \"OS–XXX–X1–000\"</string>
     <string name="placeholder_item_description">example: \"A4 Bond Paper\"</string>
     <string name="placeholder_item_classification">example: \"Paper\"</string>
     <string name="placeholder_item_type">example: \"Office Supplies\"</string>

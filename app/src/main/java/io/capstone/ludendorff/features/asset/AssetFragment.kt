@@ -20,7 +20,6 @@ import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
@@ -32,8 +31,8 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentAssetsBinding
 import io.capstone.ludendorff.features.asset.editor.AssetEditorFragment
-import io.capstone.ludendorff.features.category.Category
-import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
+import io.capstone.ludendorff.features.type.Type
+import io.capstone.ludendorff.features.type.picker.TypePickerBottomSheet
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
@@ -111,7 +110,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         registerForFragmentResult(arrayOf(
-            CategoryPickerBottomSheet.REQUEST_KEY_PICK
+            TypePickerBottomSheet.REQUEST_KEY_PICK
         ), this)
     }
 
@@ -167,7 +166,6 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                         }
 
                         errorState?.let { e ->
-                            android.util.Log.e("DEBUG", e.toString())
                             /**
                              *  Check if the error that have returned is
                              *  EmptySnapshotException, which is used if
@@ -291,7 +289,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                     mainController?.navigate(R.id.navigation_editor_asset,
                         bundleOf(AssetEditorFragment.EXTRA_ASSET to data), null,
                         FragmentNavigatorExtras(
-                            it to TRANSITION_NAME_ROOT + data?.assetId)
+                            it to TRANSITION_NAME_ROOT + data?.stockNumber)
                     )
                 }
             }
@@ -311,106 +309,106 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_category -> {
-                mainController?.navigate(R.id.navigation_category)
+            R.id.action_type -> {
+                mainController?.navigate(R.id.navigation_type)
             }
-            R.id.action_sort_name_ascending -> {
-                viewModel.sortMethod = Asset.FIELD_NAME
-                viewModel.sortDirection = Query.Direction.ASCENDING
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-            }
-            R.id.action_sort_name_descending -> {
-                viewModel.sortMethod = Asset.FIELD_NAME
-                viewModel.sortDirection = Query.Direction.DESCENDING
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-            }
-            R.id.action_sort_status_ascending -> {
-                viewModel.sortMethod = Asset.FIELD_STATUS
-                viewModel.sortDirection = Query.Direction.ASCENDING
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-            }
-            R.id.action_sort_status_descending -> {
-                viewModel.sortMethod = Asset.FIELD_STATUS
-                viewModel.sortDirection = Query.Direction.DESCENDING
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-            }
-            R.id.action_sort_category_ascending -> {
-                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
-                viewModel.sortDirection = Query.Direction.ASCENDING
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-            }
-            R.id.action_sort_category_descending -> {
-                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
-                viewModel.sortDirection = Query.Direction.DESCENDING
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-            }
-            R.id.action_filter_operational -> {
-                viewModel.filterConstraint = Asset.FIELD_STATUS
-                viewModel.filterValue = Asset.Status.OPERATIONAL.toString()
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-
-                binding.informationCard.isVisible = true
-                binding.informationCardText.text =
-                    String.format(getString(R.string.info_dataset_filtered),
-                        getString(R.string.asset_status_option_operational),
-                        getString(R.string.hint_status))
-            }
-            R.id.action_filter_idle -> {
-                viewModel.filterConstraint = Asset.FIELD_STATUS
-                viewModel.filterValue = Asset.Status.IDLE.toString()
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-
-                binding.informationCard.isVisible = true
-                binding.informationCardText.text =
-                    String.format(getString(R.string.info_dataset_filtered),
-                        getString(R.string.asset_status_option_idle),
-                        getString(R.string.hint_status))
-
-            }
-            R.id.action_filter_under_maintenance -> {
-                viewModel.filterConstraint = Asset.FIELD_STATUS
-                viewModel.filterValue = Asset.Status.UNDER_MAINTENANCE.toString()
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-
-                binding.informationCard.isVisible = true
-                binding.informationCardText.text =
-                    String.format(getString(R.string.info_dataset_filtered),
-                        getString(R.string.asset_status_option_under_maintenance),
-                        getString(R.string.hint_status))
-            }
-            R.id.action_filter_retired -> {
-                viewModel.filterConstraint = Asset.FIELD_STATUS
-                viewModel.filterValue = Asset.Status.RETIRED.toString()
-                viewModel.rebuildQuery()
-                assetAdapter.refresh()
-
-                binding.informationCard.isVisible = true
-                binding.informationCardText.text =
-                    String.format(getString(R.string.info_dataset_filtered),
-                        getString(R.string.asset_status_option_retired),
-                        getString(R.string.hint_status))
-            }
-            R.id.action_filter_category -> {
-                viewModel.filterConstraint = Asset.FIELD_CATEGORY_ID
-                CategoryPickerBottomSheet(childFragmentManager)
-                    .show()
-            }
+//            R.id.action_sort_name_ascending -> {
+//                viewModel.sortMethod = Asset.FIELD_NAME
+//                viewModel.sortDirection = Query.Direction.ASCENDING
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//            }
+//            R.id.action_sort_name_descending -> {
+//                viewModel.sortMethod = Asset.FIELD_NAME
+//                viewModel.sortDirection = Query.Direction.DESCENDING
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//            }
+//            R.id.action_sort_status_ascending -> {
+//                viewModel.sortMethod = Asset.FIELD_STATUS
+//                viewModel.sortDirection = Query.Direction.ASCENDING
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//            }
+//            R.id.action_sort_status_descending -> {
+//                viewModel.sortMethod = Asset.FIELD_STATUS
+//                viewModel.sortDirection = Query.Direction.DESCENDING
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//            }
+//            R.id.action_sort_category_ascending -> {
+//                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
+//                viewModel.sortDirection = Query.Direction.ASCENDING
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//            }
+//            R.id.action_sort_category_descending -> {
+//                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
+//                viewModel.sortDirection = Query.Direction.DESCENDING
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//            }
+//            R.id.action_filter_operational -> {
+//                viewModel.filterConstraint = Asset.FIELD_STATUS
+//                viewModel.filterValue = Asset.Status.OPERATIONAL.toString()
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//
+//                binding.informationCard.isVisible = true
+//                binding.informationCardText.text =
+//                    String.format(getString(R.string.info_dataset_filtered),
+//                        getString(R.string.asset_status_option_operational),
+//                        getString(R.string.hint_status))
+//            }
+//            R.id.action_filter_idle -> {
+//                viewModel.filterConstraint = Asset.FIELD_STATUS
+//                viewModel.filterValue = Asset.Status.IDLE.toString()
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//
+//                binding.informationCard.isVisible = true
+//                binding.informationCardText.text =
+//                    String.format(getString(R.string.info_dataset_filtered),
+//                        getString(R.string.asset_status_option_idle),
+//                        getString(R.string.hint_status))
+//
+//            }
+//            R.id.action_filter_under_maintenance -> {
+//                viewModel.filterConstraint = Asset.FIELD_STATUS
+//                viewModel.filterValue = Asset.Status.UNDER_MAINTENANCE.toString()
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//
+//                binding.informationCard.isVisible = true
+//                binding.informationCardText.text =
+//                    String.format(getString(R.string.info_dataset_filtered),
+//                        getString(R.string.asset_status_option_under_maintenance),
+//                        getString(R.string.hint_status))
+//            }
+//            R.id.action_filter_retired -> {
+//                viewModel.filterConstraint = Asset.FIELD_STATUS
+//                viewModel.filterValue = Asset.Status.RETIRED.toString()
+//                viewModel.rebuildQuery()
+//                assetAdapter.refresh()
+//
+//                binding.informationCard.isVisible = true
+//                binding.informationCardText.text =
+//                    String.format(getString(R.string.info_dataset_filtered),
+//                        getString(R.string.asset_status_option_retired),
+//                        getString(R.string.hint_status))
+//            }
+//            R.id.action_filter_category -> {
+//                viewModel.filterConstraint = Asset.FIELD_CATEGORY_ID
+//                CategoryPickerBottomSheet(childFragmentManager)
+//                    .show()
+//            }
         }
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when(requestKey) {
-            CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
-                result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
+            TypePickerBottomSheet.REQUEST_KEY_PICK -> {
+                result.getParcelable<Type>(TypePickerBottomSheet.EXTRA_CATEGORY)?.let {
                     viewModel.filterValue = it.categoryId
                     viewModel.rebuildQuery()
                     assetAdapter.refresh()
@@ -418,7 +416,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                     binding.informationCard.isVisible = true
                     binding.informationCardText.text =
                         String.format(getString(R.string.info_dataset_filtered),
-                            it.categoryName, getString(R.string.hint_category))
+                            it.categoryName, getString(R.string.hint_type))
                 }
             }
         }

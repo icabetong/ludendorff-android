@@ -2,7 +2,6 @@ package io.capstone.ludendorff.features.asset.editor
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,27 +13,23 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
-import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.databinding.FragmentEditorAssetBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetViewModel
 import io.capstone.ludendorff.features.asset.qrcode.QRCodeViewBottomSheet
-import io.capstone.ludendorff.features.category.Category
-import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
+import io.capstone.ludendorff.features.type.Type
+import io.capstone.ludendorff.features.type.picker.TypePickerBottomSheet
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
-import io.capstone.ludendorff.features.specs.SpecsAdapter
-import io.capstone.ludendorff.features.specs.editor.SpecsEditorBottomSheet
 
 @AndroidEntryPoint
 class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
-    OnItemActionListener<Pair<String, String>>, BaseFragment.CascadeMenuDelegate {
+    BaseFragment.CascadeMenuDelegate, View.OnFocusChangeListener {
     private var _binding: FragmentEditorAssetBinding? = null
     private var controller: NavController? = null
     private var requestKey = REQUEST_KEY_CREATE
@@ -42,7 +37,6 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
     private val binding get() = _binding!!
     private val editorViewModel: AssetEditorViewModel by viewModels()
     private val viewModel: AssetViewModel by activityViewModels()
-    private val specsAdapter = SpecsAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +67,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setInsets(view, binding.appBar.toolbar, arrayOf(binding.addAction.root))
+        setInsets(view, binding.appBar.toolbar, arrayOf(binding.remarksTextInputLayout))
 
         binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
@@ -88,95 +82,88 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         arguments?.getParcelable<Asset>(EXTRA_ASSET)?.let {
             requestKey = REQUEST_KEY_UPDATE
             editorViewModel.asset = it
-            editorViewModel.setSpecifications(ArrayList(it.specifications.toList()))
 
-            binding.root.transitionName = TRANSITION_NAME_ROOT + it.assetId
+            binding.root.transitionName = TRANSITION_NAME_ROOT + it.stockNumber
             binding.appBar.toolbarTitleTextView.setText(R.string.title_asset_update)
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
 
-            binding.assetNameTextInput.setText(it.assetName)
-            binding.categoryTextInput.setText(it.category?.categoryName)
-            when(it.status) {
-                Asset.Status.OPERATIONAL -> binding.operationalChip.isChecked = true
-                Asset.Status.IDLE -> binding.idleChip.isChecked = true
-                Asset.Status.UNDER_MAINTENANCE -> binding.underMaintenanceChip.isChecked = true
-                Asset.Status.RETIRED -> binding.retiredChip.isChecked = true
-                null -> binding.idleChip.isChecked = true
-            }
-            if (it.status == Asset.Status.OPERATIONAL) {
-                binding.idleChip.isEnabled = false
-                binding.underMaintenanceChip.isEnabled = false
-                binding.retiredChip.isEnabled = false
-            } else binding.operationalChip.isEnabled = false
+            binding.stockNumberTextInput.setText(it.stockNumber)
+            binding.descriptionTextInput.setText(it.description)
+            binding.classificationTextInput.setText(it.classification)
+            binding.typeTextInput.setText(it.type?.categoryName)
+            binding.unitOfMeasureTextInput.setText(it.unitOfMeasure)
+            binding.unitValueTextInput.setText(it.unitValue.toString())
+            binding.remarksTextInput.setText(it.remarks)
 
-            if (it.category != null)
-                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
-        }
-
-        with(binding.recyclerView) {
-            adapter = specsAdapter
+            if (it.type != null)
+                binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
         }
 
         registerForFragmentResult(
-            arrayOf(
-                SpecsEditorBottomSheet.REQUEST_KEY_CREATE,
-                SpecsEditorBottomSheet.REQUEST_KEY_UPDATE,
-                CategoryPickerBottomSheet.REQUEST_KEY_PICK
-            ), this)
+            arrayOf(TypePickerBottomSheet.REQUEST_KEY_PICK), this)
     }
 
     override fun onStart() {
         super.onStart()
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-
-        editorViewModel.specifications.observe(viewLifecycleOwner) {
-            specsAdapter.submitList(it)
-        }
     }
 
     override fun onResume() {
         super.onResume()
 
-        binding.addAction.addActionButton.setOnClickListener {
-            SpecsEditorBottomSheet(childFragmentManager).show()
-        }
-        binding.categoryTextInputLayout.setEndIconOnClickListener {
-            if (editorViewModel.asset.category != null) {
-                editorViewModel.asset.category = null
-                binding.categoryTextInput.setText(R.string.hint_not_set)
-                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
+        binding.stockNumberTextInput.onFocusChangeListener = this
+        binding.descriptionTextInput.onFocusChangeListener = this
+        binding.classificationTextInput.onFocusChangeListener = this
+        binding.unitOfMeasureTextInput.onFocusChangeListener = this
+        binding.unitValueTextInput.onFocusChangeListener = this
+        binding.remarksTextInput.onFocusChangeListener = this
+
+        binding.typeTextInputLayout.setEndIconOnClickListener {
+            if (editorViewModel.asset.type != null) {
+                editorViewModel.asset.type = null
+                binding.typeTextInput.setText(R.string.hint_not_set)
+                binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
             } else
-                CategoryPickerBottomSheet(childFragmentManager)
+                TypePickerBottomSheet(childFragmentManager)
                     .show()
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
-            editorViewModel.asset.assetName = binding.assetNameTextInput.text.toString()
-            editorViewModel.asset.specifications = editorViewModel.getSpecifications().toMap()
-            editorViewModel.asset.status = when(binding.statusChipGroup.checkedChipId) {
-                R.id.operationalChip -> Asset.Status.OPERATIONAL
-                R.id.idleChip -> Asset.Status.IDLE
-                R.id.underMaintenanceChip -> Asset.Status.UNDER_MAINTENANCE
-                R.id.retiredChip -> Asset.Status.RETIRED
-                else -> throw NullPointerException()
-            }
+            editorViewModel.asset.stockNumber = binding.stockNumberTextInput.text.toString()
+            editorViewModel.asset.description = binding.descriptionTextInput.text.toString()
+            editorViewModel.asset.classification = binding.classificationTextInput.text.toString()
+            editorViewModel.asset.unitOfMeasure = binding.unitOfMeasureTextInput.text.toString()
+            editorViewModel.asset.unitValue = binding.unitValueTextInput.text.toString().toDoubleOrNull() ?: 0.0
+            editorViewModel.asset.remarks = binding.remarksTextInput.text.toString()
 
-            if (editorViewModel.asset.assetName.isNullOrBlank()) {
-                createSnackbar(R.string.feedback_empty_asset_name, view = binding.snackbarAnchor)
+            if (editorViewModel.asset.description.isNullOrBlank()) {
+                createSnackbar(R.string.feedback_empty_asset_description, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
-            if (editorViewModel.asset.category == null) {
-                if (editorViewModel.previousCategory == null) {
+            if (editorViewModel.asset.classification.isNullOrBlank()) {
+                createSnackbar(R.string.feedback_empty_asset_classification, view = binding.snackbarAnchor)
+                return@setOnClickListener
+            }
+            if (editorViewModel.asset.unitOfMeasure.isNullOrBlank()) {
+                createSnackbar(R.string.feedback_empty_unit_of_measure, view = binding.snackbarAnchor)
+                return@setOnClickListener
+            }
+            if (editorViewModel.asset.unitValue <= 0) {
+                createSnackbar(R.string.feedback_empty_unit_value, view = binding.snackbarAnchor)
+                return@setOnClickListener
+            }
+            if (editorViewModel.asset.type == null) {
+                if (editorViewModel.previousType == null) {
                     MaterialDialog(requireContext()).show {
                         lifecycleOwner(viewLifecycleOwner)
-                        title(R.string.dialog_no_category_title)
-                        message(R.string.dialog_no_category_message)
+                        title(R.string.dialog_no_type_title)
+                        message(R.string.dialog_no_type_message)
                         positiveButton(android.R.string.ok)
                     }
                 } else {
                     MaterialDialog(requireContext()).show {
                         lifecycleOwner(viewLifecycleOwner)
-                        title(R.string.dialog_no_category_title)
-                        message(R.string.dialog_no_category_message_has_previous)
+                        title(R.string.dialog_no_type_title)
+                        message(R.string.dialog_no_type_message_has_previous)
                         positiveButton(R.string.button_continue) {
                             onSaveAsset()
                         }
@@ -192,7 +179,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
     private fun onSaveAsset() {
         if (requestKey == REQUEST_KEY_CREATE)
             viewModel.create(editorViewModel.asset)
-        else viewModel.update(editorViewModel.asset, editorViewModel.previousCategory)
+        else viewModel.update(editorViewModel.asset, editorViewModel.previousType)
         controller?.navigateUp()
     }
 
@@ -203,61 +190,13 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when (requestKey) {
-            CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
-                result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
-                    binding.categoryTextInput.setText(it.categoryName)
-                    binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
+            TypePickerBottomSheet.REQUEST_KEY_PICK -> {
+                result.getParcelable<Type>(TypePickerBottomSheet.EXTRA_CATEGORY)?.let {
+                    binding.typeTextInput.setText(it.categoryName)
+                    binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
 
-                    if (editorViewModel.previousCategory?.categoryId != it.categoryId)
+                    if (editorViewModel.previousType?.categoryId != it.categoryId)
                         editorViewModel.triggerCategoryChanged(it)
-                }
-            }
-            SpecsEditorBottomSheet.REQUEST_KEY_CREATE -> {
-                val key = result.getString(SpecsEditorBottomSheet.EXTRA_KEY)
-                val value = result.getString(SpecsEditorBottomSheet.EXTRA_VALUE)
-                if (!key.isNullOrBlank() && !value.isNullOrBlank()) {
-                    val specification = Pair(key, value)
-                    if (editorViewModel.checkSpecificationIfExists(specification))
-                        createSnackbar(R.string.feedback_specification_exists, view = binding.snackbarAnchor)
-                    else editorViewModel.addSpecification(specification)
-                }
-            }
-            SpecsEditorBottomSheet.REQUEST_KEY_UPDATE -> {
-                val key = result.getString(SpecsEditorBottomSheet.EXTRA_KEY)
-                val value = result.getString(SpecsEditorBottomSheet.EXTRA_VALUE)
-                if (!key.isNullOrBlank() && !value.isNullOrBlank()) {
-                    editorViewModel.updateSpecification(Pair(key, value))
-                }
-            }
-        }
-    }
-
-    override fun onActionPerformed(
-        data: Pair<String, String>?,
-        action: OnItemActionListener.Action,
-        container: View?
-    ) {
-        when (action) {
-            OnItemActionListener.Action.SELECT -> {
-                SpecsEditorBottomSheet(childFragmentManager).show {
-                    arguments = bundleOf(
-                        SpecsEditorBottomSheet.EXTRA_KEY to data?.first,
-                        SpecsEditorBottomSheet.EXTRA_VALUE to data?.second
-                    )
-                }
-            }
-            OnItemActionListener.Action.DELETE -> {
-                MaterialDialog(requireContext()).show {
-                    lifecycleOwner(viewLifecycleOwner)
-                    title(R.string.dialog_remove_specification_title)
-                    message(R.string.dialog_remove_specification_message)
-                    positiveButton(R.string.button_remove) {
-                        data?.let {
-                            editorViewModel.removeSpecification(it)
-                            createSnackbar(R.string.feedback_specification_removed, view = binding.snackbarAnchor)
-                        }
-                    }
-                    negativeButton(R.string.button_cancel)
                 }
             }
         }
@@ -269,29 +208,8 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             R.id.action_view_qrcode -> {
                 QRCodeViewBottomSheet(childFragmentManager).show {
                     arguments = bundleOf(
-                        QRCodeViewBottomSheet.EXTRA_ASSET_ID to editorViewModel.asset.assetId
+                        QRCodeViewBottomSheet.EXTRA_ASSET_ID to editorViewModel.asset.stockNumber
                     )
-                }
-            }
-            R.id.action_copy -> {
-                MaterialDialog(requireContext()).show {
-                    lifecycleOwner(viewLifecycleOwner)
-                    title(R.string.dialog_copy_title)
-                    message(R.string.dialog_copy_message)
-                    input(hintRes = R.string.hint_copies, inputType = InputType.TYPE_CLASS_NUMBER) { _, text ->
-                        val base = editorViewModel.asset
-
-                        val copies = text.toString().toInt()
-                        val assets = mutableListOf<Asset>()
-                        for (i in 0 until copies - 1) {
-                            assets.add(base.copy(assetId = IDGenerator.generateRandom(),
-                                status = if (base.status == Asset.Status.OPERATIONAL) Asset.Status.IDLE else base.status))
-                        }
-                        viewModel.createAll(assets)
-                        controller?.navigateUp()
-                    }
-                    positiveButton(R.string.button_duplicate)
-                    negativeButton(R.string.button_cancel)
                 }
             }
             R.id.action_remove -> {
@@ -307,6 +225,26 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                         negativeButton(R.string.button_cancel)
                     }
                 }
+            }
+        }
+    }
+
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        if (v is TextInputEditText) {
+            if (hasFocus) {
+                val hintResId: Int = when(v.id) {
+                    R.id.stockNumberTextInput -> R.string.placeholder_item_stock_number
+                    R.id.descriptionTextInput -> R.string.placeholder_item_description
+                    R.id.classificationTextInput -> R.string.placeholder_item_classification
+                    R.id.unitOfMeasureTextInput -> R.string.placeholder_item_unit_of_measure
+                    R.id.unitValueTextInput -> R.string.placeholder_item_unit_value
+                    R.id.remarksTextInput -> R.string.placeholder_item_remarks
+                    else -> 0
+                }
+                val placeholder = if (hintResId != 0) getString(hintResId) else null
+                v.hint = placeholder
+            } else {
+                v.hint = null
             }
         }
     }

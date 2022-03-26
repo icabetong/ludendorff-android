@@ -21,9 +21,6 @@ class ScanViewModel @Inject constructor(
     private val _assetId = MutableLiveData<String>(null)
     val assetId: LiveData<String?> = _assetId
 
-    private val _assignment: MutableLiveData<Response<Assignment?>> = MutableLiveData(null)
-    val assignment: LiveData<Response<Assignment?>> = _assignment
-
     private val _asset: MutableLiveData<Response<Asset>> = MutableLiveData(null)
     val asset: LiveData<Response<Asset>> = _asset
 

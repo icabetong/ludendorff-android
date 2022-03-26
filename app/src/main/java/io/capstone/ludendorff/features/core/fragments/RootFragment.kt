@@ -114,7 +114,6 @@ class RootFragment: BaseFragment() {
             headerBinding.emailTextView.isVisible = false
             with(binding.navigationView.menu) {
                 findItem(R.id.navigation_scan).isChecked = true
-                findItem(R.id.navigation_user_home).isVisible = false
                 findItem(R.id.navigation_assets).isVisible = false
                 findItem(R.id.navigation_users).isVisible = false
                 findItem(R.id.navigation_assignments).isVisible = false

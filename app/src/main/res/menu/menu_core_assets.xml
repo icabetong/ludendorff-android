@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_category"
-        android:title="@string/menu_categories"
+        android:id="@+id/action_type"
+        android:title="@string/menu_types"
         android:icon="@drawable/ic_round_local_offer_24"/>
 
     <item
@@ -40,7 +39,7 @@
                 </menu>
             </item>
             <item
-                android:title="@string/hint_category"
+                android:title="@string/hint_type"
                 android:icon="@drawable/ic_round_local_offer_24">
                 <menu>
                     <item
@@ -79,8 +78,8 @@
                 </menu>
             </item>
             <item
-                android:id="@+id/action_filter_category"
-                android:title="@string/hint_category"
+                android:id="@+id/action_filter_type"
+                android:title="@string/hint_type"
                 android:icon="@drawable/ic_round_local_offer_24"/>
         </menu>
     </item>
