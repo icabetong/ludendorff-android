@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/brand_background_content">
@@ -19,13 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/activity_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/stockNumberTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin_small"
                 android:hint="@string/hint_stock_number"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
@@ -41,6 +43,28 @@
                 </com.google.android.material.textfield.TextInputEditText>
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/stockNumberWarningCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:visibility="gone"
+                app:strokeColor="@color/brand_info"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_margin_small"
+                    android:text="@string/info_stock_number"
+                    android:textColor="@color/brand_info"
+                    android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
+                    android:drawableStart="@drawable/ic_round_info_24"
+                    android:drawablePadding="@dimen/activity_margin"
+                    android:drawableTint="@color/brand_info"/>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionTextInputLayout"

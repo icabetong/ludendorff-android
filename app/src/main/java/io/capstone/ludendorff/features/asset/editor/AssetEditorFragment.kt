@@ -17,7 +17,9 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setup
+import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.databinding.FragmentEditorAssetBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetViewModel
@@ -101,6 +103,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
         if (binding.stockNumberTextInput.hasFocus()) {
             binding.stockNumberTextInput.hint = getString(R.string.placeholder_item_stock_number)
+            binding.stockNumberWarningCard.show()
         }
 
         registerForFragmentResult(
@@ -234,9 +237,15 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        if (v is TextInputEditText) {
+        if (v?.id == R.id.stockNumberTextInput) {
+            binding.stockNumberWarningCard.show()
+        } else {
+            binding.stockNumberWarningCard.hide()
+        }
+
+        if (v is TextInputEditText?) {
             if (hasFocus) {
-                val hintResId: Int = when(v.id) {
+                val hintResId: Int = when(v?.id) {
                     R.id.stockNumberTextInput -> R.string.placeholder_item_stock_number
                     R.id.descriptionTextInput -> R.string.placeholder_item_description
                     R.id.classificationTextInput -> R.string.placeholder_item_classification
@@ -246,9 +255,10 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                     else -> 0
                 }
                 val placeholder = if (hintResId != 0) getString(hintResId) else null
-                v.hint = placeholder
+                v?.hint = placeholder
+
             } else {
-                v.hint = null
+                v?.hint = null
             }
         }
     }

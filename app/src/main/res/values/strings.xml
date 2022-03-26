@@ -222,6 +222,7 @@
     <string name="info_account_will_be_enabled">This account will be enabled when you tap "Save".</string>
     <string name="info_assignment_ending">This assignment will be ended and will have an timestamp for the return of the asset when you tap "Save".</string>
     <string name="info_administrative_permissions">Adding \"Administrative\" permission overrides lower permission rules.</string>
+    <string name="info_stock_number">Enter a unique stock number that will be used for the asset; take not that this cannot be changed later.</string>
 
     <string name="error_generic">An error occurred</string>
     <string name="error_generic_summary">Oops, something went wrong; in the meantime, try grabbing a cup of coffee, and try again.</string>
@@ -271,6 +272,8 @@
     <string name="dialog_no_type_title">No Type Selected</string>
     <string name="dialog_no_type_message_has_previous">You did not select any type for this asset. We will use the previous one.</string>
     <string name="dialog_no_type_message">You did not select any type for this asset. Select one to continue.</string>
+    <string name="dialog_no_stock_number_title">Enter a stock number first</string>
+    <string name="dialog_no_stock_number_message">A stock number is used to link an item to the qr-code, so please enter one.</string>
 
     <string name="settings_group_interface">Interface</string>
     <string name="settings_group_notifications">Notifications</string>
