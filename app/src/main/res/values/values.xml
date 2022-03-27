@@ -175,6 +175,7 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:letterSpacing">0.15</item>
+        <item name="android:textColor">@color/brand_text_primary</item>
     </style>
     <style name="TextAppearance.Keeper.Overline.Primary">
         <item name="fontFamily">@font/font_inter_bold</item>
@@ -204,4 +205,5 @@
         <item name="cornerSize">@dimen/shape_small_radius</item>
     </style>
 
+    <style name="MonthPickerDialogStyle"/>
 </resources>

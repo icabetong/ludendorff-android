@@ -33,4 +33,10 @@
     <color name="ucrop_color_toolbar">@color/brand_toolbar_color</color>
     <color name="ucrop_color_toolbar_widget">@color/brand_on_surface</color>
     <color name="ucrop_color_blaze_orange">@color/brand_primary</color>
+
+    <!-- YearMonthPicker -->
+    <color name="fontWhiteEnable">#FFF</color>
+    <color name="fontWhiteDisable">#85FFFFFF</color>
+    <color name="fontBlackEnable">#000000</color>
+    <color name="fontBlackDisable">#50000000</color>
 </resources>

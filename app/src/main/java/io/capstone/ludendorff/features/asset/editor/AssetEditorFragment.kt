@@ -31,7 +31,7 @@ import io.capstone.ludendorff.features.shared.BaseFragment
 
 @AndroidEntryPoint
 class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
-    BaseFragment.CascadeMenuDelegate, View.OnFocusChangeListener {
+    BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentEditorAssetBinding? = null
     private var controller: NavController? = null
     private var requestKey = REQUEST_KEY_CREATE
@@ -92,18 +92,13 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.stockNumberTextInput.setText(it.stockNumber)
             binding.descriptionTextInput.setText(it.description)
             binding.classificationTextInput.setText(it.classification)
-            binding.typeTextInput.setText(it.type?.categoryName)
+            binding.typeTextInput.setText(it.type?.typeName)
             binding.unitOfMeasureTextInput.setText(it.unitOfMeasure)
             binding.unitValueTextInput.setText(it.unitValue.toString())
             binding.remarksTextInput.setText(it.remarks)
 
             if (it.type != null)
                 binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
-        }
-
-        if (binding.stockNumberTextInput.hasFocus()) {
-            binding.stockNumberTextInput.hint = getString(R.string.placeholder_item_stock_number)
-            binding.stockNumberWarningCard.show()
         }
 
         registerForFragmentResult(
@@ -117,13 +112,6 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onResume() {
         super.onResume()
-
-        binding.stockNumberTextInput.onFocusChangeListener = this
-        binding.descriptionTextInput.onFocusChangeListener = this
-        binding.classificationTextInput.onFocusChangeListener = this
-        binding.unitOfMeasureTextInput.onFocusChangeListener = this
-        binding.unitValueTextInput.onFocusChangeListener = this
-        binding.remarksTextInput.onFocusChangeListener = this
 
         binding.typeTextInputLayout.setEndIconOnClickListener {
             if (editorViewModel.asset.type != null) {
@@ -199,10 +187,10 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
         when (requestKey) {
             TypePickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Type>(TypePickerBottomSheet.EXTRA_CATEGORY)?.let {
-                    binding.typeTextInput.setText(it.categoryName)
+                    binding.typeTextInput.setText(it.typeName)
                     binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
 
-                    if (editorViewModel.previousType?.categoryId != it.categoryId)
+                    if (editorViewModel.previousType?.typeId != it.typeId)
                         editorViewModel.triggerCategoryChanged(it)
                 }
             }
@@ -232,33 +220,6 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                         negativeButton(R.string.button_cancel)
                     }
                 }
-            }
-        }
-    }
-
-    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        if (v?.id == R.id.stockNumberTextInput) {
-            binding.stockNumberWarningCard.show()
-        } else {
-            binding.stockNumberWarningCard.hide()
-        }
-
-        if (v is TextInputEditText?) {
-            if (hasFocus) {
-                val hintResId: Int = when(v?.id) {
-                    R.id.stockNumberTextInput -> R.string.placeholder_item_stock_number
-                    R.id.descriptionTextInput -> R.string.placeholder_item_description
-                    R.id.classificationTextInput -> R.string.placeholder_item_classification
-                    R.id.unitOfMeasureTextInput -> R.string.placeholder_item_unit_of_measure
-                    R.id.unitValueTextInput -> R.string.placeholder_item_unit_value
-                    R.id.remarksTextInput -> R.string.placeholder_item_remarks
-                    else -> 0
-                }
-                val placeholder = if (hintResId != 0) getString(hintResId) else null
-                v?.hint = placeholder
-
-            } else {
-                v?.hint = null
             }
         }
     }

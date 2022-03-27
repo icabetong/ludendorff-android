@@ -16,8 +16,8 @@ import kotlinx.serialization.json.JsonObject
 @Serializable
 @Parcelize
 data class Type @JvmOverloads constructor(
-    var categoryId: String = IDGenerator.generateRandom(),
-    var categoryName: String? = null,
+    var typeId: String = IDGenerator.generateRandom(),
+    var typeName: String? = null,
     var count: Int = 0,
     override val _highlightResult: @RawValue JsonObject? = null
 ): Parcelable, Highlightable {
@@ -30,14 +30,14 @@ data class Type @JvmOverloads constructor(
     }
 
     companion object {
-        const val COLLECTION = "categories"
-        const val FIELD_ID = "categoryId"
-        const val FIELD_NAME = "categoryName"
+        const val COLLECTION = "types"
+        const val FIELD_ID = "typeId"
+        const val FIELD_NAME = "typeName"
         const val FIELD_COUNT = "count"
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Type>() {
             override fun areItemsTheSame(oldItem: Type, newItem: Type): Boolean {
-                return oldItem.categoryId == newItem.categoryId
+                return oldItem.typeId == newItem.typeId
             }
 
             override fun areContentsTheSame(oldItem: Type, newItem: Type): Boolean {

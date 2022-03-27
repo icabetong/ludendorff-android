@@ -10,15 +10,15 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Parcelize
 data class TypeCore @JvmOverloads constructor(
-    var categoryId: String = IDGenerator.generateRandom(),
-    var categoryName: String? = null
+    var typeId: String = IDGenerator.generateRandom(),
+    var typeName: String? = null
 ): Parcelable {
 
     companion object {
         fun from(type: Type): TypeCore {
             return TypeCore(
-                categoryId = type.categoryId,
-                categoryName = type.categoryName
+                typeId = type.typeId,
+                typeName = type.typeName
             )
         }
     }

@@ -15,7 +15,7 @@ class TypeRepository @Inject constructor(
     suspend fun create(data: Type): Response<Response.Action> {
         return try {
             firestore.collection(Type.COLLECTION)
-                .document(data.categoryId)
+                .document(data.typeId)
                 .set(data)
                 .await()
 
@@ -30,7 +30,7 @@ class TypeRepository @Inject constructor(
     suspend fun update(data: Type): Response<Response.Action> {
         return try {
             val batchWrite = firestore.batch()
-            batchWrite.set(firestore.collection(Type.COLLECTION).document(data.categoryId),
+            batchWrite.set(firestore.collection(Type.COLLECTION).document(data.typeId),
                 data)
 
 //            firestore.collection(Asset.COLLECTION)
@@ -53,7 +53,7 @@ class TypeRepository @Inject constructor(
     suspend fun remove(type: Type): Response<Response.Action> {
         return try {
             firestore.collection(Type.COLLECTION)
-                .document(type.categoryId)
+                .document(type.typeId)
                 .delete()
                 .await()
 

@@ -43,7 +43,7 @@ class TypeEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
             viewModel.type = it
 
             binding.componentHeaderTextView.setText(R.string.title_type_update)
-            binding.nameTextInput.setText(it.categoryName)
+            binding.nameTextInput.setText(it.typeName)
         }
 
         binding.actionButton.setOnClickListener {

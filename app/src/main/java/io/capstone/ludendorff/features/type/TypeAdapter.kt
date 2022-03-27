@@ -33,7 +33,7 @@ class TypeAdapter(
         private val binding = LayoutItemTypeBinding.bind(itemView)
 
         override fun onBind(data: Type?) {
-            binding.nameTextView.text = data?.categoryName
+            binding.nameTextView.text = data?.typeName
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
                     null)

@@ -36,7 +36,7 @@ class TypeSearchAdapter(
                     ContextCompat.getColor(root.context,
                     R.color.brand_primary))
 
-                nameTextView.text = data?.highlightedName?.toSpannedString(style) ?: data?.categoryName
+                nameTextView.text = data?.highlightedName?.toSpannedString(style) ?: data?.typeName
 
                 root.setOnClickListener {
                     onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,

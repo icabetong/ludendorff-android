@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Keeper.Core.Content">
+        android:theme="@style/Theme.Keeper.Core.Content"
+        tools:replace="android:allowBackup">
 
         <activity android:name="io.capstone.ludendorff.features.core.activities.MainActivity"
             android:theme="@style/Theme.Keeper.Core"

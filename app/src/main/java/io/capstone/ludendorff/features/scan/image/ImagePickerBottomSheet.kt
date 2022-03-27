@@ -60,7 +60,7 @@ class ImagePickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
                 }
                 is Response.Success -> {
                     binding.errorView.root.hide()
-                    imageAdapter.submitList(it.data)
+                    imageAdapter.submitList(it.data.toMutableList())
                 }
             }
         }

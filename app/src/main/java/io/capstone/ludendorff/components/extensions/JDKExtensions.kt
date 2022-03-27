@@ -9,6 +9,9 @@ import java.util.*
 fun Calendar.toTimestamp(): Timestamp {
     return Timestamp(this.time)
 }
+fun Calendar.toLocalDate(): LocalDate {
+    return LocalDate.of(this.get(Calendar.YEAR), this.get(Calendar.MONTH), this.get(Calendar.DAY_OF_MONTH))
+}
 
 fun ZonedDateTime.isToday(): Boolean {
     return LocalDate.now().isEqual(this.toLocalDate())

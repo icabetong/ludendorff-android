@@ -409,14 +409,14 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         when(requestKey) {
             TypePickerBottomSheet.REQUEST_KEY_PICK -> {
                 result.getParcelable<Type>(TypePickerBottomSheet.EXTRA_CATEGORY)?.let {
-                    viewModel.filterValue = it.categoryId
+                    viewModel.filterValue = it.typeId
                     viewModel.rebuildQuery()
                     assetAdapter.refresh()
 
                     binding.informationCard.isVisible = true
                     binding.informationCardText.text =
                         String.format(getString(R.string.info_dataset_filtered),
-                            it.categoryName, getString(R.string.hint_type))
+                            it.typeName, getString(R.string.hint_type))
                 }
             }
         }

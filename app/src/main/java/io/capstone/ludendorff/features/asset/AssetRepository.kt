@@ -36,10 +36,10 @@ class AssetRepository @Inject constructor(
                 writeBatch.set(firestore.collection(Asset.COLLECTION).document(asset.stockNumber),
                     asset)
 
-//                asset.category?.categoryId?.let {
-//                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
-//                        mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
-//                }
+                asset.type?.typeId?.let {
+                    writeBatch.update(firestore.collection(Type.COLLECTION).document(it),
+                        mapOf(Type.FIELD_COUNT to FieldValue.increment(1)))
+                }
             }.await()
 
             Response.Success(Response.Action.CREATE)
@@ -61,7 +61,7 @@ class AssetRepository @Inject constructor(
              *  new category.
              */
             type?.let {
-                batchWrite.update(firestore.collection(Type.COLLECTION).document(it.categoryId),
+                batchWrite.update(firestore.collection(Type.COLLECTION).document(it.typeId),
                     mapOf(Type.FIELD_COUNT to FieldValue.increment(-1)))
             }
 
@@ -69,10 +69,10 @@ class AssetRepository @Inject constructor(
              *  At the same time, decrement the
              *  count of the old category
              */
-//            asset.category?.categoryId?.let {
-//                batchWrite.update(firestore.collection(Category.COLLECTION).document(it),
-//                    mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
-//            }
+            asset.type?.typeId?.let {
+                batchWrite.update(firestore.collection(Type.COLLECTION).document(it),
+                    mapOf(Type.FIELD_COUNT to FieldValue.increment(1)))
+            }
 
             batchWrite.commit().await()
 
@@ -90,10 +90,10 @@ class AssetRepository @Inject constructor(
                 writeBatch.delete(firestore.collection(Asset.COLLECTION)
                     .document(asset.stockNumber))
 
-//                asset.category?.categoryId?.let {
-//                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
-//                        mapOf(Category.FIELD_COUNT to FieldValue.increment(-1)))
-//                }
+                asset.type?.typeId?.let {
+                    writeBatch.update(firestore.collection(Type.COLLECTION).document(it),
+                        mapOf(Type.FIELD_COUNT to FieldValue.increment(-1)))
+                }
             }.await()
 
             Response.Success(Response.Action.REMOVE)

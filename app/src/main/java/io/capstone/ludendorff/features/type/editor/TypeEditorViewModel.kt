@@ -8,7 +8,7 @@ class TypeEditorViewModel: BaseViewModel() {
     var type: Type = Type()
 
     fun triggerNameChanged(name: String) {
-        type.categoryName = name
+        type.typeName = name
     }
 
 }
