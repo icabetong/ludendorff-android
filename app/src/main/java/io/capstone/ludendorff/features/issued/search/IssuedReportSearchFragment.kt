@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.inventory.search
+package io.capstone.ludendorff.features.issued.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,18 +19,17 @@ import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.databinding.FragmentSearchInventoryBinding
-import io.capstone.ludendorff.features.inventory.editor.InventoryReportEditorFragment
+import io.capstone.ludendorff.databinding.FragmentSearchIssueBinding
+import io.capstone.ludendorff.features.issued.editor.IssuedReportEditorFragment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
-class InventoryReportSearchFragment: BaseSearchFragment(),
-    OnItemActionListener<InventoryReportSearch> {
-    private var _binding: FragmentSearchInventoryBinding? = null
+class IssuedReportSearchFragment: BaseSearchFragment(), OnItemActionListener<IssuedReportSearch> {
+    private var _binding: FragmentSearchIssueBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val searchAdapter = InventoryReportSearchAdapter(this)
-    private val viewModel: InventoryReportSearchViewModel by viewModels()
+    private val searchAdapter = IssuedReportSearchAdapter(this)
+    private val viewModel: IssuedReportSearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +47,7 @@ class InventoryReportSearchFragment: BaseSearchFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSearchInventoryBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchIssueBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -62,9 +61,8 @@ class InventoryReportSearchFragment: BaseSearchFragment(),
         setInsets(view, binding.toolbar)
 
         binding.appBar.transitionName = TRANSITION_SEARCH
-        binding.toolbar.setup(
-            onNavigationClicked = { controller?.navigateUp() }
-        )
+        binding.toolbar.setup(onNavigationClicked = { controller?.navigateUp()})
+
         with(binding.recyclerView) {
             itemAnimator = null
             adapter = searchAdapter
@@ -99,7 +97,7 @@ class InventoryReportSearchFragment: BaseSearchFragment(),
                 is LoadState.Error -> createSnackbar(R.string.error_generic)
             }
         }
-        viewModel.inventoryReport.observe(viewLifecycleOwner) {
+        viewModel.issuedReport.observe(viewLifecycleOwner) {
             searchAdapter.submitList(it)
         }
     }
@@ -110,18 +108,15 @@ class InventoryReportSearchFragment: BaseSearchFragment(),
     }
 
     override fun onActionPerformed(
-        data: InventoryReportSearch?,
+        data: IssuedReportSearch?,
         action: OnItemActionListener.Action,
         container: View?
     ) {
         if (action == OnItemActionListener.Action.SELECT) {
             container?.let {
-                controller?.navigate(R.id.navigation_editor_inventory,
-                    bundleOf(
-                        InventoryReportEditorFragment.EXTRA_INVENTORY_REPORT
-                                to data?.toInventoryReport()
-                    )
-                )
+                controller?.navigate(R.id.navigation_editor_issued,
+                    bundleOf(IssuedReportEditorFragment.EXTRA_ISSUED_REPORT
+                            to data?.toIssuedReport()))
             }
         }
     }

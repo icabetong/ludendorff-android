@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemInventoryItemBinding
 import io.capstone.ludendorff.features.shared.BaseAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 
-class InventoryItemAdapter: BaseAdapter<InventoryItemAdapter.InventoryItemViewHolder>() {
+class InventoryItemAdapter(private val actionListener: OnItemActionListener<InventoryItem>)
+    : BaseAdapter<InventoryItemAdapter.InventoryItemViewHolder>() {
 
     private val items = mutableListOf<InventoryItem>()
 
@@ -33,12 +35,16 @@ class InventoryItemAdapter: BaseAdapter<InventoryItemAdapter.InventoryItemViewHo
         return items.size
     }
 
-    class InventoryItemViewHolder(itemView: View): BaseViewHolder<InventoryItem>(itemView) {
+    inner class InventoryItemViewHolder(itemView: View): BaseViewHolder<InventoryItem>(itemView) {
         private val binding = LayoutItemInventoryItemBinding.bind(itemView)
 
         override fun onBind(data: InventoryItem?) {
             binding.headerTextView.text = data?.description
             binding.informationTextView.text = data?.article
+            binding.root.setOnClickListener {
+                actionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
+                    null)
+            }
         }
     }
 

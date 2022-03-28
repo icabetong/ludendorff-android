@@ -34,28 +34,32 @@
             android:id="@+id/ok_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@android:string/ok"
-            android:textAllCaps="true"
+            android:layout_alignParentEnd="true"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingRight="24dp"
-            android:paddingLeft="24dp"
-            android:textStyle="bold"/>
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:text="@android:string/ok"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/brand_primary"
+            android:textAppearance="@style/TextAppearance.Keeper" />
 
         <TextView
             android:id="@+id/cancel_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/ok_action"
+            android:layout_toStartOf="@+id/ok_action"
             android:text="@android:string/cancel"
             android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/brand_primary"
+            android:textAppearance="@style/TextAppearance.Keeper"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingRight="24dp"
-            android:paddingLeft="24dp"
-            android:textStyle="bold"/>
-    </RelativeLayout>
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp" />
 
+    </RelativeLayout>
 
 </LinearLayout>

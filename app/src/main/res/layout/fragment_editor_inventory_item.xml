@@ -46,21 +46,21 @@
                 android:textAppearance="@style/TextAppearance.Keeper.List.Title"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/quantityIssuedTextInputLayout"
+                android:id="@+id/balancePerCardTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/activity_margin"
-                android:hint="@string/hint_quantity_issued"
+                android:hint="@string/hint_balance_per_card"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/quantityIssuedTextInput"
+                    android:id="@+id/balancePerCardTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="number">
+                    android:inputType="numberDecimal">
 
                     <requestFocus/>
 
@@ -69,20 +69,20 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/responsibilityCenterTextInputLayout"
+                android:id="@+id/onHandCountTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/activity_margin"
-                android:hint="@string/hint_responsibility_center"
+                android:hint="@string/hint_on_hand_count"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/responsibilityCenterTextInput"
+                    android:id="@+id/onHandCountTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

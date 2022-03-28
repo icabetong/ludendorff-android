@@ -47,6 +47,12 @@
         android:id="@+id/navigation_search_user"
         android:name="io.capstone.ludendorff.features.user.search.UserSearchFragment"/>
     <fragment
+        android:id="@+id/navigation_search_inventory"
+        android:name="io.capstone.ludendorff.features.inventory.search.InventoryReportSearchFragment"/>
+    <fragment
+        android:id="@+id/navigation_search_issue"
+        android:name="io.capstone.ludendorff.features.issued.search.IssuedReportSearchFragment"/>
+    <fragment
         android:id="@+id/navigation_notification"
         android:name="io.capstone.ludendorff.features.notification.NotificationFragment"/>
     <fragment

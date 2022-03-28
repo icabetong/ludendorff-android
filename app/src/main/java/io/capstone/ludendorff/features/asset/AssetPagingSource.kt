@@ -20,8 +20,8 @@ class AssetPagingSource(
             val currentPage = params.key ?: assetQuery.get().await()
 
             if (currentPage.documents.isNotEmpty()) {
-                val lastVisibleCategory = currentPage.documents[currentPage.size() - 1]
-                val nextPage = assetQuery.startAfter(lastVisibleCategory).get().await()
+                val lastVisibleAsset = currentPage.documents[currentPage.size() - 1]
+                val nextPage = assetQuery.startAfter(lastVisibleAsset).get().await()
                 LoadResult.Page(
                     data = currentPage.toObjects(Asset::class.java),
                     prevKey = null,

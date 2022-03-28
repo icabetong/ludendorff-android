@@ -81,7 +81,7 @@
                 android:layout_marginBottom="@dimen/activity_margin_tiny"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:gravity="center_vertical"
-                android:text="@string/hint_asset_name"
+                android:text="@string/hint_asset_description"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
                 android:drawableStart="@drawable/ic_round_desktop_windows_24"
                 android:drawablePadding="@dimen/activity_margin_small"

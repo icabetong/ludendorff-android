@@ -2,67 +2,51 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_type"
-        android:title="@string/menu_types"
-        android:icon="@drawable/ic_round_local_offer_24"/>
-
-    <item
         android:title="@string/menu_sort"
         android:icon="@drawable/ic_hero_sort_ascending">
         <menu>
             <item
-                android:title="@string/hint_asset_description"
-                android:icon="@drawable/ic_round_edit_24">
+                android:title="@string/hint_serial_number"
+                android:icon="@drawable/ic_round_123_24">
                 <menu>
                     <item
-                        android:id="@+id/action_sort_asset_description_ascending"
+                        android:id="@+id/action_sort_name_ascending"
                         android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
-                        android:id="@+id/action_sort_asset_description_descending"
+                        android:id="@+id/action_sort_name_descending"
                         android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
             <item
-                android:title="@string/hint_stock_number"
-                android:icon="@drawable/ic_round_numbers_24">
+                android:title="@string/hint_fund_cluster"
+                android:icon="@drawable/ic_round_attach_money_24">
                 <menu>
                     <item
-                        android:id="@+id/action_sort_stock_number_ascending"
+                        android:id="@+id/action_sort_status_ascending"
                         android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
-                        android:id="@+id/action_sort_stock_number_descending"
+                        android:id="@+id/action_sort_status_descending"
                         android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
             <item
-                android:title="@string/hint_type"
-                android:icon="@drawable/ic_round_local_offer_24">
+                android:title="@string/hint_entity_name"
+                android:icon="@drawable/ic_round_perm_identity_24">
                 <menu>
                     <item
-                        android:id="@+id/action_sort_type_ascending"
+                        android:id="@+id/action_sort_entity_name_ascending"
                         android:title="@string/sort_direction_ascending"
                         android:icon="@drawable/ic_hero_sort_ascending"/>
                     <item
-                        android:id="@+id/action_sort_type_descending"
+                        android:id="@+id/action_sort_entity_name_descending"
                         android:title="@string/sort_direction_descending"
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
-        </menu>
-    </item>
-
-    <item
-        android:title="@string/menu_filter"
-        android:icon="@drawable/ic_round_filter_alt_24">
-        <menu>
-            <item
-                android:id="@+id/action_filter_type"
-                android:title="@string/hint_type"
-                android:icon="@drawable/ic_round_local_offer_24"/>
         </menu>
     </item>
 

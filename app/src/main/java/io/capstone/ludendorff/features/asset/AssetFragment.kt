@@ -20,6 +20,7 @@ import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
@@ -312,96 +313,47 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
             R.id.action_type -> {
                 mainController?.navigate(R.id.navigation_type)
             }
-//            R.id.action_sort_name_ascending -> {
-//                viewModel.sortMethod = Asset.FIELD_NAME
-//                viewModel.sortDirection = Query.Direction.ASCENDING
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//            }
-//            R.id.action_sort_name_descending -> {
-//                viewModel.sortMethod = Asset.FIELD_NAME
-//                viewModel.sortDirection = Query.Direction.DESCENDING
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//            }
-//            R.id.action_sort_status_ascending -> {
-//                viewModel.sortMethod = Asset.FIELD_STATUS
-//                viewModel.sortDirection = Query.Direction.ASCENDING
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//            }
-//            R.id.action_sort_status_descending -> {
-//                viewModel.sortMethod = Asset.FIELD_STATUS
-//                viewModel.sortDirection = Query.Direction.DESCENDING
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//            }
-//            R.id.action_sort_category_ascending -> {
-//                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
-//                viewModel.sortDirection = Query.Direction.ASCENDING
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//            }
-//            R.id.action_sort_category_descending -> {
-//                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
-//                viewModel.sortDirection = Query.Direction.DESCENDING
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//            }
-//            R.id.action_filter_operational -> {
-//                viewModel.filterConstraint = Asset.FIELD_STATUS
-//                viewModel.filterValue = Asset.Status.OPERATIONAL.toString()
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//
-//                binding.informationCard.isVisible = true
-//                binding.informationCardText.text =
-//                    String.format(getString(R.string.info_dataset_filtered),
-//                        getString(R.string.asset_status_option_operational),
-//                        getString(R.string.hint_status))
-//            }
-//            R.id.action_filter_idle -> {
-//                viewModel.filterConstraint = Asset.FIELD_STATUS
-//                viewModel.filterValue = Asset.Status.IDLE.toString()
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//
-//                binding.informationCard.isVisible = true
-//                binding.informationCardText.text =
-//                    String.format(getString(R.string.info_dataset_filtered),
-//                        getString(R.string.asset_status_option_idle),
-//                        getString(R.string.hint_status))
-//
-//            }
-//            R.id.action_filter_under_maintenance -> {
-//                viewModel.filterConstraint = Asset.FIELD_STATUS
-//                viewModel.filterValue = Asset.Status.UNDER_MAINTENANCE.toString()
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//
-//                binding.informationCard.isVisible = true
-//                binding.informationCardText.text =
-//                    String.format(getString(R.string.info_dataset_filtered),
-//                        getString(R.string.asset_status_option_under_maintenance),
-//                        getString(R.string.hint_status))
-//            }
-//            R.id.action_filter_retired -> {
-//                viewModel.filterConstraint = Asset.FIELD_STATUS
-//                viewModel.filterValue = Asset.Status.RETIRED.toString()
-//                viewModel.rebuildQuery()
-//                assetAdapter.refresh()
-//
-//                binding.informationCard.isVisible = true
-//                binding.informationCardText.text =
-//                    String.format(getString(R.string.info_dataset_filtered),
-//                        getString(R.string.asset_status_option_retired),
-//                        getString(R.string.hint_status))
-//            }
-//            R.id.action_filter_category -> {
-//                viewModel.filterConstraint = Asset.FIELD_CATEGORY_ID
-//                CategoryPickerBottomSheet(childFragmentManager)
-//                    .show()
-//            }
+            R.id.action_sort_asset_description_ascending -> {
+                viewModel.sortMethod = Asset.FIELD_DESCRIPTION
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_asset_description_descending -> {
+                viewModel.sortMethod = Asset.FIELD_DESCRIPTION
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_stock_number_ascending -> {
+                viewModel.sortMethod = Asset.FIELD_STOCK_NUMBER
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_stock_number_descending -> {
+                viewModel.sortMethod = Asset.FIELD_STOCK_NUMBER
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_type_ascending -> {
+                viewModel.sortMethod = Asset.FIELD_TYPE_NAME
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_sort_type_descending -> {
+                viewModel.sortMethod = Asset.FIELD_TYPE_NAME
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                assetAdapter.refresh()
+            }
+            R.id.action_filter_type -> {
+                viewModel.filterConstraint = Asset.FIELD_TYPE_ID
+                TypePickerBottomSheet(childFragmentManager)
+                    .show()
+            }
         }
     }
 

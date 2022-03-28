@@ -30,7 +30,7 @@ class IssuedReportEditorViewModel: BaseViewModel() {
         _issuedItems.value = mutableListOf()
         val index = newItems.indexOfFirst { it.stockNumber == item.stockNumber }
         if (index >= 0) {
-            newItems[index] = item.copy()
+            newItems[index] = item
             _issuedItems.value = newItems
         }
     }

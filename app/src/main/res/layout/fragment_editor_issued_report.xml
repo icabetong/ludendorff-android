@@ -67,7 +67,7 @@
             style="@style/Widget.Keeper.TextInput.Layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/entityNameMonthTextInput"
+                android:id="@+id/entityNameTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"

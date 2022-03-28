@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -25,21 +26,27 @@ import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getDa
 import io.capstone.ludendorff.databinding.FragmentEditorIssuedReportBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
+import io.capstone.ludendorff.features.issued.IssuedReport
+import io.capstone.ludendorff.features.issued.IssuedReportViewModel
 import io.capstone.ludendorff.features.issued.item.IssuedItem
 import io.capstone.ludendorff.features.issued.item.IssuedItemAdapter
 import io.capstone.ludendorff.features.issued.item.IssuedItemEditorBottomSheet
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 import okhttp3.internal.format
 
 @AndroidEntryPoint
 class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
-    OnItemActionListener<IssuedItem> {
+    OnItemActionListener<IssuedItem>, BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentEditorIssuedReportBinding? = null
     private var controller: NavController? = null
+    private var requestKey: String = REQUEST_KEY_CREATE
 
     private val binding get() = _binding!!
     private val editorViewModel: IssuedReportEditorViewModel by viewModels()
+    private val viewModel: IssuedReportViewModel by activityViewModels()
     private val issuedItemAdapter = IssuedItemAdapter(this)
+    private val formatter = getDateFormatter(withYear = true, isShort = true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,9 +83,25 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_issued_create,
             iconRes = R.drawable.ic_round_close_24,
+            menuRes = R.menu.menu_editor,
+            onMenuOptionClicked = ::onMenuItemClicked,
             onNavigationClicked = { controller?.navigateUp() },
             customTitleView = binding.appBar.toolbarTitleTextView
         )
+
+        arguments?.getParcelable<IssuedReport>(EXTRA_ISSUED_REPORT)?.let {
+            requestKey = REQUEST_KEY_UPDATE
+            editorViewModel.issuedReport = it
+
+            binding.root.transitionName = TRANSITION_NAME_ROOT + it.issuedReportId
+            binding.appBar.toolbarTitleTextView.setText(R.string.title_issued_update)
+            binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
+
+            binding.fundClusterTextInput.setText(it.fundCluster)
+            binding.entityNameTextInput.setText(it.entityName)
+            binding.serialNumberTextInput.setText(it.serialNumber)
+            binding.dateTextInput.setText(formatter.format(it.date.toLocalDate()))
+        }
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
@@ -112,8 +135,37 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
             AssetPickerBottomSheet(childFragmentManager)
                 .show()
         }
+        binding.appBar.toolbarActionButton.setOnClickListener {
+            with(editorViewModel.issuedReport) {
+                fundCluster = binding.fundClusterTextInput.text.toString()
+                entityName = binding.entityNameTextInput.text.toString()
+                serialNumber = binding.serialNumberTextInput.text.toString()
+            }
+
+            if (editorViewModel.issuedReport.fundCluster.isNullOrBlank()) {
+                createSnackbar(R.string.feedback_empty_fund_cluster, view = binding.snackbarAnchor)
+                return@setOnClickListener
+            }
+            if (editorViewModel.issuedReport.entityName.isNullOrBlank()) {
+                createSnackbar(R.string.feedback_empty_entity_name, view = binding.snackbarAnchor)
+                return@setOnClickListener
+            }
+            if (editorViewModel.issuedReport.serialNumber.isNullOrBlank()) {
+                createSnackbar(R.string.feedback_empty_serial_number, view = binding.snackbarAnchor)
+                return@setOnClickListener
+            }
+
+            onSaveIssuedReport()
+        }
         binding.dateTextInput.setOnClickListener(::invokeDatePicker)
         binding.dateTextInputLayout.setEndIconOnClickListener(::invokeDatePicker)
+    }
+
+    private fun onSaveIssuedReport() {
+        if (requestKey == REQUEST_KEY_CREATE)
+            viewModel.create(editorViewModel.issuedReport)
+        else viewModel.update(editorViewModel.issuedReport)
+        controller?.navigateUp()
     }
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
@@ -144,7 +196,6 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
             datePicker { _, calendar ->
                 editorViewModel.issuedReport.date = calendar.toTimestamp()
 
-                val formatter = getDateFormatter(withYear = true, isShort = true)
                 binding.dateTextInput.setText(formatter.format(calendar.toLocalDate()))
             }
         }
@@ -165,4 +216,28 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
         }
     }
 
+    override fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_remove -> {
+                if (requestKey == REQUEST_KEY_UPDATE) {
+                    MaterialDialog(requireContext()).show {
+                        lifecycleOwner(viewLifecycleOwner)
+                        title(R.string.dialog_remove_report_title)
+                        message(R.string.dialog_remove_report_message)
+                        positiveButton(R.string.button_remove) {
+                            viewModel.remove(editorViewModel.issuedReport)
+                            controller?.navigateUp()
+                        }
+                        negativeButton(R.string.button_cancel)
+                    }
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val REQUEST_KEY_CREATE = "request:create"
+        const val REQUEST_KEY_UPDATE = "request:update"
+        const val EXTRA_ISSUED_REPORT = "extra:issued"
+    }
 }

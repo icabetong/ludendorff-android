@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class IssuedItem @JvmOverloads constructor(
-    var stockNumber: String? = null,
+    var stockNumber: String = "",
     var description: String? = null,
     var unitOfMeasure: String? = null,
     var quantityIssued: Int = 0,

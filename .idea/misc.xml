@@ -18,15 +18,16 @@
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/ic_round_assignment_24.xml" value="0.36615384615384616" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/ic_round_desktop_windows_24.xml" value="0.36615384615384616" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/ic_round_devices_24.xml" value="0.36615384615384616" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/ic_round_numbers_24.xml" value="0.23" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/ic_round_perm_identity_24.xml" value="0.23" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/ic_round_qr_code_24.xml" value="0.23" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/navigation_item_tint.xml" value="0.36615384615384616" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/drawable/selector_password_toggle.xml" value="0.36615384615384616" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout-land/month_picker_view.xml" value="0.215625" />
-        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout-land/month_view_header.xml" value="0.215625" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout-land/month_view_header.xml" value="0.33" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/activity_main.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/dialog_duplicate.xml" value="0.35025641025641024" />
-        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_assets.xml" value="0.5" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_assets.xml" value="0.1" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_assignment.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_auth.xml" value="0.5686927560366362" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_category.xml" value="0.11822916666666666" />
@@ -38,9 +39,10 @@
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_category.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_department.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_entity.xml" value="0.35025641025641024" />
-        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_inventory_report.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_inventory_item.xml" value="0.33" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_inventory_report.xml" value="0.5" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_issued_item.xml" value="0.3118440779610195" />
-        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_issued_report.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_issued_report.xml" value="0.1" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_item.xml" value="0.5" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_request.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_editor_specification.xml" value="0.35025641025641024" />
@@ -64,6 +66,8 @@
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_search_assignment.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_search_category.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_search_department.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_search_home.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_search_issue.xml" value="0.12222222222222222" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_type.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_users.xml" value="0.196875" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/fragment_view_assignment.xml" value="0.35025641025641024" />
@@ -96,16 +100,21 @@
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_asset.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_department.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_inventory_item.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_inventory_report.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_issued_item.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_issued_report.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_library.xml" value="0.28125" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_notification.xml" value="0.5" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_profile.xml" value="0.196875" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_search.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_item_user.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_skeleton_assignment.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_skeleton_issued_report.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_status_network.xml" value="0.196875" />
-        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_year_label.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/layout_year_label.xml" value="0.67" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/month_picker_dialog.xml" value="0.17760416666666667" />
-        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/month_picker_view.xml" value="0.17760416666666667" />
-        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/month_view_header.xml" value="0.17760416666666667" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/month_picker_view.xml" value="0.5" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/month_view_header.xml" value="0.5" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/layout/year_label_text_view.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_actions.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_core_assets.xml" value="0.196875" />
@@ -113,7 +122,9 @@
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_core_categories.xml" value="0.196875" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_core_departments.xml" value="0.196875" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_core_home.xml" value="0.35025641025641024" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_core_inventories.xml" value="0.1" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_core_inventory.xml" value="0.33" />
+        <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_core_issues.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_core_requests.xml" value="0.196875" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_core_users.xml" value="0.196875" />
         <entry key="..\:/Users/isaia/Documents/GitHub/ludendorff-android/app/src/main/res/menu/menu_editor.xml" value="0.196875" />

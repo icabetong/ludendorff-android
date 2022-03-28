@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.inventory
+package io.capstone.ludendorff.features.issued
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -17,29 +17,29 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class InventoryReportViewModel @Inject constructor(
+class IssuedReportViewModel @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val repository: InventoryReportRepository,
+    private val repository: IssuedReportRepository,
     userPreferences: UserPreferences
 ): BaseViewModel() {
 
-    var sortMethod = InventoryReport.FIELD_FUND_CLUSTER
+    var sortMethod = IssuedReport.FIELD_FUND_CLUSTER
     var sortDirection = Query.Direction.ASCENDING
     var filterConstraint: String? = null
     var filterValue: String? = null
 
-    private val inventoryQuery: Query = firestore.collection(InventoryReport.COLLECTION)
-        .orderBy(InventoryReport.FIELD_FUND_CLUSTER, userPreferences.sortDirection)
+    private val inventoryQuery: Query = firestore.collection(IssuedReport.COLLECTION)
+        .orderBy(IssuedReport.FIELD_FUND_CLUSTER, userPreferences.sortDirection)
         .limit(Response.QUERY_LIMIT.toLong())
     private var currentQuery = inventoryQuery
 
     private var pager = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
-        InventoryReportPagingSource(currentQuery)
+        IssuedReportPagingSource(currentQuery)
     }.flow.cachedIn(viewModelScope)
-    val inventoryReports = pager
+    val issuedReports = pager
 
     fun rebuildQuery() {
-        currentQuery = firestore.collection(InventoryReport.COLLECTION)
+        currentQuery = firestore.collection(IssuedReport.COLLECTION)
             .orderBy(sortMethod, sortDirection)
 
         if (filterConstraint != null)
@@ -51,13 +51,13 @@ class InventoryReportViewModel @Inject constructor(
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()
 
-    fun create(inventoryReport: InventoryReport) = viewModelScope.launch(IO) {
-        _action.send(repository.create(inventoryReport))
+    fun create(issuedReport: IssuedReport) = viewModelScope.launch(IO) {
+        _action.send(repository.create(issuedReport))
     }
-    fun update(inventoryReport: InventoryReport) = viewModelScope.launch(IO) {
-        _action.send(repository.update(inventoryReport))
+    fun update(issuedReport: IssuedReport) = viewModelScope.launch(IO) {
+        _action.send(repository.update(issuedReport))
     }
-    fun remove(inventoryReport: InventoryReport) = viewModelScope.launch(IO) {
-        _action.send(repository.remove(inventoryReport))
+    fun remove(issuedReport: IssuedReport) = viewModelScope.launch(IO) {
+        _action.send(repository.remove(issuedReport))
     }
 }

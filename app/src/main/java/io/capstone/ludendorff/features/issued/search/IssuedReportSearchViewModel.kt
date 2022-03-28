@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.inventory.search
+package io.capstone.ludendorff.features.issued.search
 
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
@@ -6,20 +6,20 @@ import androidx.paging.PagedList
 import com.algolia.instantsearch.core.connection.ConnectionHandler
 import com.algolia.instantsearch.helper.android.searchbox.SearchBoxConnectorPagedList
 import io.capstone.ludendorff.components.utils.SearchHelper
-import io.capstone.ludendorff.features.inventory.InventoryReport
+import io.capstone.ludendorff.features.issued.IssuedReport
 import io.capstone.ludendorff.features.shared.BaseViewModel
 
-class InventoryReportSearchViewModel: BaseViewModel() {
+class IssuedReportSearchViewModel: BaseViewModel() {
 
     private val connection = ConnectionHandler()
-    private val searchHelper = SearchHelper(InventoryReport.COLLECTION)
+    private val searchHelper = SearchHelper(IssuedReport.COLLECTION)
     private val searcher = searchHelper.searcher
 
-    val inventoryReport: LiveData<PagedList<InventoryReportSearch>> =
+    val issuedReport: LiveData<PagedList<IssuedReportSearch>> =
         LivePagedListBuilder(searchHelper.getDataSource {
-            it.deserialize(InventoryReportSearch.serializer())
+            it.deserialize(IssuedReportSearch.serializer())
         }, searchHelper.config).build()
-    val searchBox = SearchBoxConnectorPagedList(searcher, listOf(inventoryReport))
+    val searchBox = SearchBoxConnectorPagedList(searcher, listOf(issuedReport))
 
     init {
         connection += searchBox

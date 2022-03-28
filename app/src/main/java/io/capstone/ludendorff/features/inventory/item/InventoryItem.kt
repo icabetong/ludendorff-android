@@ -1,15 +1,17 @@
 package io.capstone.ludendorff.features.inventory.item
 
 import android.os.Parcelable
+import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.type.Type
+import io.capstone.ludendorff.features.type.TypeCore
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class InventoryItem @JvmOverloads constructor(
-    var stockNumber: String? = null,
+    var stockNumber: String = "",
     var article: String? = null,
     var description: String? = null,
-    var type: Type? = null,
+    var type: TypeCore? = null,
     var unitOfMeasure: String? = null,
     var unitValue: Double = 0.0,
     var balancePerCard: Int = 0,
@@ -27,5 +29,17 @@ class InventoryItem @JvmOverloads constructor(
         const val FIELD_BALANCE_PER_CARD = "balancePerCard"
         const val FIELD_ON_HAND_COUNT = "onHandCount"
         const val FIELD_REMARKS = "remarks"
+
+        fun fromAsset(asset: Asset): InventoryItem {
+            return InventoryItem(
+                stockNumber = asset.stockNumber,
+                article = asset.classification,
+                description = asset.description,
+                type = asset.type,
+                unitOfMeasure = asset.unitOfMeasure,
+                unitValue = asset.unitValue,
+                remarks = asset.remarks,
+            )
+        }
     }
 }

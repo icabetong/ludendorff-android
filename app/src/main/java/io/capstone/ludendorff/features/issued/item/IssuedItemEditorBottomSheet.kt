@@ -9,10 +9,12 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.databinding.FragmentEditorIssuedItemBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
+@AndroidEntryPoint
 class IssuedItemEditorBottomSheet(fragmentManager: FragmentManager): BaseBottomSheet(fragmentManager) {
     private var _binding: FragmentEditorIssuedItemBinding? = null
     private var requestKey: String = REQUEST_KEY_CREATE

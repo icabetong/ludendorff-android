@@ -6,6 +6,7 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
+import io.capstone.ludendorff.features.type.Type
 import io.capstone.ludendorff.features.type.TypeCore
 import kotlinx.parcelize.Parcelize
 
@@ -26,6 +27,8 @@ data class Asset @JvmOverloads constructor(
         const val FIELD_DESCRIPTION = "description"
         const val FIELD_CLASSIFICATION = "classification"
         const val FIELD_TYPE = "type"
+        const val FIELD_TYPE_ID = "${FIELD_TYPE}.${Type.FIELD_ID}"
+        const val FIELD_TYPE_NAME = "${FIELD_TYPE}.${Type.FIELD_NAME}"
         const val FIELD_UNIT_OF_MEASURE = "unitOfMeasure"
         const val FIELD_UNIT_VALUE = "unitValue"
         const val FIELD_REMARKS = "remarks"
