@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/action_type"
+        android:title="@string/menu_types"
+        android:icon="@drawable/ic_round_local_offer_24"/>
+
+    <item
         android:title="@string/menu_sort"
         android:icon="@drawable/ic_hero_sort_ascending">
         <menu>
