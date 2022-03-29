@@ -53,6 +53,9 @@
         android:id="@+id/navigation_search_issue"
         android:name="io.capstone.ludendorff.features.issued.search.IssuedReportSearchFragment"/>
     <fragment
+        android:id="@+id/navigation_search_stock_card"
+        android:name="io.capstone.ludendorff.features.stockcard.search.StockCardSearchFragment"/>
+    <fragment
         android:id="@+id/navigation_notification"
         android:name="io.capstone.ludendorff.features.notification.NotificationFragment"/>
     <fragment
@@ -78,6 +81,9 @@
     <fragment
         android:id="@+id/navigation_editor_issued"
         android:name="io.capstone.ludendorff.features.issued.editor.IssuedReportEditorFragment" />
+    <fragment
+        android:id="@+id/navigation_editor_stock_card"
+        android:name="io.capstone.ludendorff.features.stockcard.editor.StockCardEditorFragment" />
     <fragment
         android:id="@+id/navigation_editor_department"
         android:name="io.capstone.ludendorff.features.department.editor.DepartmentEditorFragment" />

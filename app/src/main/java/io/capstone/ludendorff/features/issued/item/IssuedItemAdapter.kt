@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemIssuedItemBinding
 import io.capstone.ludendorff.features.shared.BaseAdapter
-import io.capstone.ludendorff.features.shared.BaseListAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class IssuedItemAdapter(private val actionListener: OnItemActionListener<IssuedItem>)

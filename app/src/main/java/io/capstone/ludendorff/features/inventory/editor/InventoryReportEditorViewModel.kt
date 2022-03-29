@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.inventory.InventoryReport
 import io.capstone.ludendorff.features.inventory.InventoryReportRepository

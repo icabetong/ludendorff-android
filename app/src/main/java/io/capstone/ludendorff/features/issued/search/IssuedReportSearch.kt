@@ -1,17 +1,13 @@
 package io.capstone.ludendorff.features.issued.search
 
-import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.algolia.instantsearch.core.highlighting.HighlightedString
 import com.algolia.instantsearch.helper.highlighting.Highlightable
 import com.algolia.search.model.Attribute
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.Exclude
 import io.capstone.ludendorff.components.serialization.TimestampSerializer
 import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.issued.IssuedReport
-import io.capstone.ludendorff.features.issued.item.IssuedItem
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 

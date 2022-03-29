@@ -19,7 +19,7 @@ data class InventoryReport @JvmOverloads constructor(
     var entityPosition: String? = null,
     var yearMonth: String? = null,
     var accountabilityDate: Timestamp = Timestamp.now(),
-    @Exclude
+    @get:Exclude
     var items: List<InventoryItem> = emptyList(),
 ): Parcelable {
 

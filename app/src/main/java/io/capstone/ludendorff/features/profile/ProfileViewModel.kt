@@ -2,7 +2,10 @@ package io.capstone.ludendorff.features.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import androidx.work.*
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -21,7 +22,6 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.toLocalDate
 import io.capstone.ludendorff.components.extensions.toTimestamp
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.components.utils.DateTimeFormatter
 import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getDateFormatter
 import io.capstone.ludendorff.databinding.FragmentEditorIssuedReportBinding
 import io.capstone.ludendorff.features.asset.Asset
@@ -33,7 +33,6 @@ import io.capstone.ludendorff.features.issued.item.IssuedItemAdapter
 import io.capstone.ludendorff.features.issued.item.IssuedItemEditorBottomSheet
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
-import okhttp3.internal.format
 
 @AndroidEntryPoint
 class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
@@ -118,6 +117,10 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
         super.onStart()
         controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
+        editorViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.progressIndicator.isVisible = it
+            binding.addActionButton.addActionButton.isEnabled = !it
+        }
         editorViewModel.issuedItems.observe(viewLifecycleOwner) {
             issuedItemAdapter.submit(it)
         }

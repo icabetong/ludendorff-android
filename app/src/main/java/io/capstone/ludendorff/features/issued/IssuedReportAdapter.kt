@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemIssuedReportBinding
-import io.capstone.ludendorff.features.shared.BaseAdapter
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagingAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder

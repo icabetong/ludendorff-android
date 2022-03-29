@@ -2,19 +2,46 @@ package io.capstone.ludendorff.features.issued.editor
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.issued.IssuedReport
+import io.capstone.ludendorff.features.issued.IssuedReportRepository
 import io.capstone.ludendorff.features.issued.item.IssuedItem
 import io.capstone.ludendorff.features.shared.BaseViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class IssuedReportEditorViewModel: BaseViewModel() {
+@HiltViewModel
+class IssuedReportEditorViewModel @Inject constructor(
+    private val repository: IssuedReportRepository
+): BaseViewModel() {
 
     var issuedReport = IssuedReport()
+        set(value) {
+            field = value
+            fetchItems()
+        }
 
     private val _issuedItems = MutableLiveData<List<IssuedItem>>(mutableListOf())
     val issuedItems: LiveData<List<IssuedItem>> = _issuedItems
 
+    private val _isLoading = MutableLiveData<Boolean>(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     private val items: List<IssuedItem> get() {
         return _issuedItems.value ?: mutableListOf()
+    }
+
+    private fun fetchItems() = viewModelScope.launch(Dispatchers.IO) {
+        _isLoading.postValue(true)
+        val response = repository.fetch(issuedReport.issuedReportId)
+        if (response is Response.Success) {
+            _issuedItems.postValue(response.data ?: emptyList())
+        }
+
+        _isLoading.postValue(false)
     }
 
     fun insert(item: IssuedItem) {

@@ -7,7 +7,6 @@ import com.google.firebase.auth.FirebaseUser
 import io.capstone.ludendorff.components.exceptions.EmptyCredentialsException
 import io.capstone.ludendorff.features.core.backend.Response
 import kotlinx.coroutines.tasks.await
-import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 

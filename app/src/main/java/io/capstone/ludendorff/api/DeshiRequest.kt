@@ -1,5 +1,6 @@
 package io.capstone.ludendorff.api
 
+import org.json.JSONArray
 import org.json.JSONObject
 
 class DeshiRequest (
@@ -21,8 +22,8 @@ class DeshiRequest (
     fun put(key: String, value: Boolean) {
         payload?.put(key, value)
     }
-    fun putExtras(map: Map<String, String?>) {
-        payload?.put(EXTRAS, JSONObject(map))
+    fun putArray(key: String, value: JSONArray) {
+        payload?.put(key, value)
     }
 
     fun toJSONObject(): JSONObject {

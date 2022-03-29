@@ -1,7 +1,7 @@
 package io.capstone.ludendorff.features.type.editor
 
-import io.capstone.ludendorff.features.type.Type
 import io.capstone.ludendorff.features.shared.BaseViewModel
+import io.capstone.ludendorff.features.type.Type
 
 class TypeEditorViewModel: BaseViewModel() {
 

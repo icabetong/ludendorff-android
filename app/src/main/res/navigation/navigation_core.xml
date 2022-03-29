@@ -17,6 +17,9 @@
         android:id="@+id/navigation_issued"
         android:name="io.capstone.ludendorff.features.issued.IssuedReportFragment"/>
     <fragment
+        android:id="@+id/navigation_stock_card"
+        android:name="io.capstone.ludendorff.features.stockcard.StockCardFragment"/>
+    <fragment
         android:id="@+id/navigation_users"
         android:name="io.capstone.ludendorff.features.user.UserFragment"/>
 
@@ -32,6 +35,9 @@
     <action
         android:id="@+id/to_navigation_issued"
         app:destination="@id/navigation_issued"/>
+    <action
+        android:id="@+id/to_navigation_stock_card"
+        app:destination="@id/navigation_stock_card"/>
     <action
         android:id="@+id/to_navigation_users"
         app:destination="@id/navigation_users"/>

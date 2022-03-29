@@ -14,20 +14,17 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
-import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setup
-import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.databinding.FragmentEditorAssetBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetViewModel
 import io.capstone.ludendorff.features.asset.qrcode.QRCodeViewBottomSheet
-import io.capstone.ludendorff.features.type.Type
-import io.capstone.ludendorff.features.type.picker.TypePickerBottomSheet
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.type.Type
+import io.capstone.ludendorff.features.type.picker.TypePickerBottomSheet
 
 @AndroidEntryPoint
 class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,

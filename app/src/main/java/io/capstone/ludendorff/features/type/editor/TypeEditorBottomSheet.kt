@@ -11,8 +11,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.FragmentEditorTypeBinding
-import io.capstone.ludendorff.features.type.Type
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
+import io.capstone.ludendorff.features.type.Type
 
 class TypeEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentEditorTypeBinding? = null

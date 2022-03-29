@@ -22,7 +22,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.work.*
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
+import androidx.work.workDataOf
 import coil.load
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
@@ -50,7 +53,6 @@ import io.capstone.ludendorff.features.shared.BaseFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
-import java.util.*
 import java.util.concurrent.Executor
 
 @AndroidEntryPoint

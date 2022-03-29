@@ -17,10 +17,10 @@ import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentPickerTypeBinding
+import io.capstone.ludendorff.features.shared.BaseBottomSheet
 import io.capstone.ludendorff.features.type.Type
 import io.capstone.ludendorff.features.type.TypeAdapter
 import io.capstone.ludendorff.features.type.TypeViewModel
-import io.capstone.ludendorff.features.shared.BaseBottomSheet
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

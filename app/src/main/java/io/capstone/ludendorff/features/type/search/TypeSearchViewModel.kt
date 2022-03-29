@@ -6,8 +6,8 @@ import androidx.paging.PagedList
 import com.algolia.instantsearch.core.connection.ConnectionHandler
 import com.algolia.instantsearch.helper.android.searchbox.SearchBoxConnectorPagedList
 import io.capstone.ludendorff.components.utils.SearchHelper
-import io.capstone.ludendorff.features.type.Type
 import io.capstone.ludendorff.features.shared.BaseViewModel
+import io.capstone.ludendorff.features.type.Type
 
 class TypeSearchViewModel: BaseViewModel() {
 

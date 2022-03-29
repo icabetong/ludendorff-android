@@ -4,15 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.algolia.instantsearch.core.connection.ConnectionHandler
-import com.algolia.instantsearch.core.selectable.list.SelectionMode
-import com.algolia.instantsearch.helper.android.filter.state.connectPagedList
 import com.algolia.instantsearch.helper.android.searchbox.SearchBoxConnectorPagedList
-import com.algolia.instantsearch.helper.filter.facet.FacetListConnector
-import com.algolia.instantsearch.helper.filter.facet.FacetListPresenterImpl
-import com.algolia.instantsearch.helper.filter.facet.FacetSortCriterion
-import com.algolia.instantsearch.helper.filter.state.FilterState
-import com.algolia.instantsearch.helper.searcher.connectFilterState
-import com.algolia.search.model.Attribute
 import io.capstone.ludendorff.components.utils.SearchHelper
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.shared.BaseViewModel

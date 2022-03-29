@@ -23,8 +23,8 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.toLocalDate
 import io.capstone.ludendorff.components.extensions.toTimestamp
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getMonthStringRes
 import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getDateFormatter
+import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getMonthStringRes
 import io.capstone.ludendorff.databinding.FragmentEditorInventoryReportBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
@@ -239,13 +239,10 @@ class InventoryReportEditorFragment: BaseEditorFragment(), FragmentResultListene
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        when(action) {
-            OnItemActionListener.Action.SELECT -> {
-                InventoryItemEditorBottomSheet(childFragmentManager).show {
-                    arguments = bundleOf(InventoryItemEditorBottomSheet.EXTRA_INVENTORY_ITEM to data)
-                }
+        if (action == OnItemActionListener.Action.SELECT) {
+            InventoryItemEditorBottomSheet(childFragmentManager).show {
+                arguments = bundleOf(InventoryItemEditorBottomSheet.EXTRA_INVENTORY_ITEM to data)
             }
-            OnItemActionListener.Action.DELETE -> {}
         }
     }
 

@@ -81,7 +81,9 @@ class InventoryReportFragment: BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setInsets(binding.root, binding.appBar.toolbar, emptyArray(), binding.actionButton)
+        setInsets(binding.root, binding.appBar.toolbar, arrayOf(binding.swipeRefreshLayout,
+            binding.emptyView.root, binding.errorView.root, binding.shimmerFrameLayout),
+            binding.actionButton)
 
         binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH

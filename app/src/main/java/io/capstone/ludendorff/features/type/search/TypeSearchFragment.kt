@@ -20,9 +20,9 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchCategoryBinding
+import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.type.Type
 import io.capstone.ludendorff.features.type.editor.TypeEditorBottomSheet
-import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
 class TypeSearchFragment: BaseSearchFragment(), OnItemActionListener<Type> {
     private var _binding: FragmentSearchCategoryBinding? = null

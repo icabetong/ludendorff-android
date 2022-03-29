@@ -21,6 +21,14 @@ class Deshi {
         return client.newCall(request).await()
     }
 
+    suspend fun requestInventoryItemsUpdate(deshiRequest: DeshiRequest): Response {
+        val request = Request.Builder()
+            .url("${SERVER_URL}${REQUEST_UPDATE_INVENTORY}")
+            .patch(parse(deshiRequest.toJSONObject()))
+            .build()
+        return start(request)
+    }
+
     suspend fun requestUserCreate(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_CREATE_USER}")
@@ -60,6 +68,7 @@ class Deshi {
         const val REQUEST_CREATE_USER = "create-user"
         const val REQUEST_REMOVE_USER = "remove-user"
         const val REQUEST_MODIFY_USER = "modify-user"
+        const val REQUEST_UPDATE_INVENTORY = "inventory-items"
 
     }
 }

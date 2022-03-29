@@ -2,9 +2,9 @@ package io.capstone.ludendorff.features.inventory.item
 
 import android.os.Parcelable
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.type.Type
 import io.capstone.ludendorff.features.type.TypeCore
 import kotlinx.parcelize.Parcelize
+import org.json.JSONObject
 
 @Parcelize
 class InventoryItem @JvmOverloads constructor(
@@ -18,6 +18,20 @@ class InventoryItem @JvmOverloads constructor(
     var onHandCount: Int = 0,
     var remarks: String? = null,
 ): Parcelable {
+
+    fun toJSONObject(): JSONObject {
+        return JSONObject().also {
+            it.put(FIELD_STOCK_NUMBER, stockNumber)
+            it.put(FIELD_ARTICLE, article)
+            it.put(FIELD_DESCRIPTION, description)
+            it.put(FIELD_TYPE, type)
+            it.put(FIELD_UNIT_OF_MEASURE, unitOfMeasure)
+            it.put(FIELD_UNIT_VALUE, unitValue)
+            it.put(FIELD_BALANCE_PER_CARD, balancePerCard)
+            it.put(FIELD_ON_HAND_COUNT, onHandCount)
+            it.put(FIELD_REMARKS, remarks)
+        }
+    }
 
     companion object {
         const val FIELD_STOCK_NUMBER = "stockNumber"

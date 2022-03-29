@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
-import coil.load
-import coil.transform.CircleCropTransformation
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.show
