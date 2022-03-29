@@ -38,6 +38,7 @@ class StockCardEditorViewModel @Inject constructor(
         _isLoading.postValue(true)
         val response = repository.fetch(stockCard.stockCardId)
         if (response is Response.Success) {
+            stockCard.entries = response.data
             _entries.postValue(response.data ?: emptyList())
         }
 

@@ -69,6 +69,8 @@ class Deshi {
         const val REQUEST_REMOVE_USER = "remove-user"
         const val REQUEST_MODIFY_USER = "modify-user"
         const val REQUEST_UPDATE_INVENTORY = "inventory-items"
-
+        const val REQUEST_UPDATE_ISSUED = "issued-items"
+        const val REQUEST_UPDATE_STOCK_CARDS = "stock-card-entries";
+        const val EXTRA_ID = "id"
     }
 }

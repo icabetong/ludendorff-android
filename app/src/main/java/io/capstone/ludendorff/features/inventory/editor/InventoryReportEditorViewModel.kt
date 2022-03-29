@@ -38,6 +38,7 @@ class InventoryReportEditorViewModel @Inject constructor(
         _isLoading.postValue(true)
         val response = repository.fetch(inventoryReport.inventoryReportId)
         if (response is Response.Success) {
+            inventoryReport.items = response.data
             _inventoryItems.postValue(response.data ?: emptyList())
         }
 

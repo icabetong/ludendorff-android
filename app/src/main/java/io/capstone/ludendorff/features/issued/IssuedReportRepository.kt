@@ -32,14 +32,15 @@ class IssuedReportRepository @Inject constructor(
 
     suspend fun create(issuedReport: IssuedReport): Response<Response.Action> {
         return try {
-            val collection = firestore.collection(IssuedReport.COLLECTION)
-            firestore.runBatch {
-                val reference = collection.document(issuedReport.issuedReportId)
-                it.set(reference, issuedReport)
+            val reportsReference = firestore.collection(IssuedReport.COLLECTION)
+            val documentReference = reportsReference.document(issuedReport.issuedReportId)
+            val itemsReference = documentReference.collection(IssuedReport.FIELD_ITEMS)
 
-                val itemsCollection = reference.collection(IssuedReport.FIELD_ITEMS)
-                issuedReport.items.forEach { item ->
-                    it.set(itemsCollection.document(item.stockNumber), item)
+            firestore.runBatch {
+                it.set(documentReference, issuedReport)
+
+                for (item in issuedReport.items) {
+                    it.set(itemsReference.document(item.stockNumber), item)
                 }
             }.await()
 
@@ -53,14 +54,18 @@ class IssuedReportRepository @Inject constructor(
 
     suspend fun update(issuedReport: IssuedReport): Response<Response.Action> {
         return try {
-            val collection = firestore.collection(IssuedReport.COLLECTION)
-            firestore.runBatch {
-                val reference = collection.document(issuedReport.issuedReportId)
-                it.set(reference, issuedReport)
+            val reportsReference = firestore.collection(IssuedReport.COLLECTION)
+            val documentReference = reportsReference.document(issuedReport.issuedReportId)
+            val itemsReference = documentReference.collection(IssuedReport.FIELD_ITEMS)
+            val snapshot = itemsReference.get().await()
+            for (doc in snapshot.documents) {
+                doc.reference.delete().await()
+            }
 
-                val itemsCollection = reference.collection(IssuedReport.FIELD_ITEMS)
-                issuedReport.items.forEach { item ->
-                    it.set(itemsCollection.document(item.stockNumber), item)
+            firestore.runBatch {
+                it.set(documentReference, issuedReport)
+                for (item in issuedReport.items) {
+                    it.set(itemsReference.document(item.stockNumber), item)
                 }
             }.await()
 
@@ -74,15 +79,15 @@ class IssuedReportRepository @Inject constructor(
 
     suspend fun remove(issuedReport: IssuedReport): Response<Response.Action> {
         return try {
-            val collection = firestore.collection(IssuedReport.COLLECTION)
+            val reportsReference = firestore.collection(IssuedReport.COLLECTION)
             firestore.runBatch {
-                val reference = collection.document(issuedReport.issuedReportId)
-                it.delete(reference)
-
+                val reference = reportsReference.document(issuedReport.issuedReportId)
                 val itemsCollection = reference.collection(IssuedReport.FIELD_ITEMS)
-                issuedReport.items.forEach { item ->
+                for (item in issuedReport.items) {
                     it.delete(itemsCollection.document(item.stockNumber))
                 }
+
+                it.delete(reference)
             }.await()
 
             Response.Success(Response.Action.REMOVE)

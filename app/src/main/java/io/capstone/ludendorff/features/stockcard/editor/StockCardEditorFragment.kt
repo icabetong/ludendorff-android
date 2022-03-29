@@ -122,6 +122,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
         super.onResume()
 
         binding.assetTextInputLayout.setEndIconOnClickListener {
+            hideKeyboardFromCurrentFocus(binding.root)
             AssetPickerBottomSheet(childFragmentManager)
                 .show()
         }

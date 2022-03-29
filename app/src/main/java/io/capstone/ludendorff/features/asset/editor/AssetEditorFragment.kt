@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -85,6 +86,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.root.transitionName = TRANSITION_NAME_ROOT + it.stockNumber
             binding.appBar.toolbarTitleTextView.setText(R.string.title_asset_update)
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
+            binding.stockNumberWarningCard.isVisible = false
 
             binding.stockNumberTextInput.setText(it.stockNumber)
             binding.descriptionTextInput.setText(it.description)
@@ -115,9 +117,11 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 editorViewModel.asset.type = null
                 binding.typeTextInput.setText(R.string.hint_not_set)
                 binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
-            } else
+            } else {
+                hideKeyboardFromCurrentFocus(binding.root)
                 TypePickerBottomSheet(childFragmentManager)
                     .show()
+            }
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
             editorViewModel.asset.stockNumber = binding.stockNumberTextInput.text.toString()

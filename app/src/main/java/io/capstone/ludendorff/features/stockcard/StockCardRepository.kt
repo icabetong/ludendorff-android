@@ -3,7 +3,6 @@ package io.capstone.ludendorff.features.stockcard
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.inventory.InventoryReport
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -55,13 +54,17 @@ class StockCardRepository @Inject constructor(
     suspend fun update(stockCard: StockCard): Response<Response.Action> {
         return try {
             val collection = firestore.collection(StockCard.COLLECTION)
+            val reference = collection.document(stockCard.stockCardId)
+            val entriesReference = reference.collection(StockCard.FIELD_ENTRIES)
+            val snapshot = entriesReference.get().await()
+            for (doc in snapshot.documents) {
+                doc.reference.delete().await()
+            }
+
             firestore.runBatch {
-                val reference = collection.document(stockCard.stockCardId)
-                val entriesReference = reference.collection(StockCard.FIELD_ENTRIES)
-                stockCard.entries.forEach { entry ->
+                for (entry in stockCard.entries) {
                     it.set(entriesReference.document(entry.stockCardEntryId), entry)
                 }
-
                 it.set(reference, stockCard)
             }.await()
 
@@ -75,15 +78,15 @@ class StockCardRepository @Inject constructor(
 
     suspend fun remove(stockCard: StockCard): Response<Response.Action> {
         return try {
-            val collection = firestore.collection(InventoryReport.COLLECTION)
+            val cardReference = firestore.collection(StockCard.COLLECTION)
+            val documentReference = cardReference.document(stockCard.stockCardId)
+            val entriesReference = documentReference.collection(StockCard.FIELD_ENTRIES)
+
             firestore.runBatch {
-                val reference = collection.document(stockCard.stockCardId)
-                val entriesReference = reference.collection(StockCard.FIELD_ENTRIES)
-                stockCard.entries.forEach { entry ->
+                for (entry in stockCard.entries) {
                     it.delete(entriesReference.document(entry.stockCardEntryId))
                 }
-
-                it.delete(reference)
+                it.delete(documentReference)
             }.await()
 
             Response.Success(Response.Action.REMOVE)

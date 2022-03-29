@@ -39,14 +39,15 @@ class InventoryReportRepository @Inject constructor(
 
     suspend fun create(inventoryReport: InventoryReport): Response<Response.Action> {
         return try {
-            val collection = firestore.collection(InventoryReport.COLLECTION)
-            firestore.runBatch {
-                val reference = collection.document(inventoryReport.inventoryReportId)
-                val itemsCollection = reference.collection(InventoryReport.FIELD_ITEMS)
-                it.set(reference, inventoryReport)
+            val reportsReference = firestore.collection(InventoryReport.COLLECTION)
+            val documentReference = reportsReference.document(inventoryReport.inventoryReportId)
+            val itemsReference = documentReference.collection(InventoryReport.FIELD_ITEMS)
 
-                inventoryReport.items.forEach { item ->
-                    it.set(itemsCollection.document(item.stockNumber), item)
+            firestore.runBatch {
+                it.set(documentReference, inventoryReport)
+
+                for (item in inventoryReport.items) {
+                    it.set(itemsReference.document(item.stockNumber), item)
                 }
             }.await()
 
@@ -54,7 +55,7 @@ class InventoryReportRepository @Inject constructor(
                 ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
 
             val request = DeshiRequest(token)
-            request.put("id", inventoryReport.inventoryReportId)
+            request.put(Deshi.EXTRA_ID, inventoryReport.inventoryReportId)
             request.putArray(InventoryReport.FIELD_ITEMS,
                 inventoryReport.items.map { it.toJSONObject() }.toJSONArray())
             val response = deshi.requestInventoryItemsUpdate(request)
@@ -73,16 +74,33 @@ class InventoryReportRepository @Inject constructor(
 
     suspend fun update(inventoryReport: InventoryReport): Response<Response.Action> {
         return try {
-            val collection = firestore.collection(InventoryReport.COLLECTION)
-            firestore.runBatch {
-                val reference = collection.document(inventoryReport.inventoryReportId)
-                val itemsCollection = reference.collection(InventoryReport.FIELD_ITEMS)
-                inventoryReport.items.forEach { item ->
-                    it.set(itemsCollection.document(item.stockNumber), item)
-                }
+            val reportReference = firestore.collection(InventoryReport.COLLECTION)
+            val documentReference = reportReference.document(inventoryReport.inventoryReportId)
+            val itemsReference = documentReference.collection(InventoryReport.FIELD_ITEMS)
+            val snapshot = itemsReference.get().await()
+            for (doc in snapshot.documents) {
+                doc.reference.delete().await()
+            }
 
-                it.set(reference, inventoryReport)
+            firestore.runBatch {
+                it.set(documentReference, inventoryReport)
+                for (item in inventoryReport.items) {
+                    it.set(itemsReference.document(item.stockNumber), item)
+                }
             }.await()
+
+            val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
+                ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
+
+            val request = DeshiRequest(token)
+            request.put(Deshi.EXTRA_ID, inventoryReport.inventoryReportId)
+            request.putArray(InventoryReport.FIELD_ITEMS,
+                inventoryReport.items.map { it.toJSONObject() }.toJSONArray())
+            val response = deshi.requestInventoryItemsUpdate(request)
+            response.close()
+            if (response.code == 200)
+                Response.Success(Response.Action.CREATE)
+            else throw DeshiException(response.code)
 
             Response.Success(Response.Action.UPDATE)
         } catch (exception: FirebaseFirestoreException) {
@@ -94,15 +112,16 @@ class InventoryReportRepository @Inject constructor(
 
     suspend fun remove(inventoryReport: InventoryReport): Response<Response.Action> {
         return try {
-            val collection = firestore.collection(InventoryReport.COLLECTION)
+            val reportReference = firestore.collection(InventoryReport.COLLECTION)
+            val documentReference = reportReference.document(inventoryReport.inventoryReportId)
+            val itemReference = documentReference.collection(InventoryReport.FIELD_ITEMS)
+
             firestore.runBatch {
-                val reference = collection.document(inventoryReport.inventoryReportId)
-                val itemsCollection = reference.collection(InventoryReport.FIELD_ITEMS)
-                inventoryReport.items.forEach { item ->
-                    it.delete(itemsCollection.document(item.stockNumber))
+                for (item in inventoryReport.items) {
+                    it.delete(itemReference.document(item.stockNumber))
                 }
 
-                it.delete(reference)
+                it.delete(documentReference)
             }.await()
 
             Response.Success(Response.Action.REMOVE)

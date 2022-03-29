@@ -27,7 +27,7 @@ class IssuedReportEditorViewModel @Inject constructor(
     private val _issuedItems = MutableLiveData<List<IssuedItem>>(mutableListOf())
     val issuedItems: LiveData<List<IssuedItem>> = _issuedItems
 
-    private val _isLoading = MutableLiveData<Boolean>(false)
+    private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val items: List<IssuedItem> get() {
@@ -38,6 +38,7 @@ class IssuedReportEditorViewModel @Inject constructor(
         _isLoading.postValue(true)
         val response = repository.fetch(issuedReport.issuedReportId)
         if (response is Response.Success) {
+            issuedReport.items = response.data
             _issuedItems.postValue(response.data ?: emptyList())
         }
 

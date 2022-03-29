@@ -1,6 +1,8 @@
 package io.capstone.ludendorff.features.stockcard
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +19,10 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
@@ -40,7 +44,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class StockCardFragment: BaseFragment(), OnItemActionListener<StockCard> {
+class StockCardFragment: BaseFragment(), OnItemActionListener<StockCard>,
+    BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentStockCardBinding? = null
     private var controller: NavController? = null
     private var mainController: NavController? = null
@@ -92,6 +97,7 @@ class StockCardFragment: BaseFragment(), OnItemActionListener<StockCard> {
             iconRes = R.drawable.ic_round_menu_24,
             onNavigationClicked = { triggerNavigationDrawer() },
             menuRes = R.menu.menu_core_stock_card,
+            onMenuOptionClicked = ::onMenuItemClicked
         )
 
         with(binding.recyclerView) {
@@ -283,7 +289,90 @@ class StockCardFragment: BaseFragment(), OnItemActionListener<StockCard> {
                     )
                 }
             }
-            OnItemActionListener.Action.DELETE -> TODO()
+            OnItemActionListener.Action.DELETE -> {
+                MaterialDialog(requireContext()).show {
+                    lifecycleOwner(viewLifecycleOwner)
+                    title(R.string.dialog_remove_stock_card_title)
+                    message(R.string.dialog_remove_stock_card_message)
+                    positiveButton(R.string.button_remove) {
+                        data?.let { item -> viewModel.remove(item) }
+                    }
+                    negativeButton(R.string.button_cancel)
+                }
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    override fun onMenuItemClicked(id: Int) {
+        when(id) {
+            R.id.action_sort_entity_name_ascending -> {
+                viewModel.sortMethod = StockCard.FIELD_ENTITY_NAME
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                stockCardAdapter.refresh()
+            }
+            R.id.action_sort_entity_name_descending -> {
+                viewModel.sortMethod = StockCard.FIELD_ENTITY_NAME
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                stockCardAdapter.refresh()
+            }
+            R.id.action_sort_asset_description_ascending -> {
+                viewModel.sortMethod = StockCard.FIELD_DESCRIPTION
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                stockCardAdapter.refresh()
+            }
+            R.id.action_sort_asset_description_descending -> {
+                viewModel.sortMethod = StockCard.FIELD_DESCRIPTION
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                stockCardAdapter.refresh()
+            }
+            R.id.action_sort_stock_number_ascending -> {
+                viewModel.sortMethod = StockCard.FIELD_STOCK_NUMBER
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                stockCardAdapter.refresh()
+            }
+            R.id.action_sort_stock_number_descending -> {
+                viewModel.sortMethod = StockCard.FIELD_STOCK_NUMBER
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                stockCardAdapter.refresh()
+            }
+            R.id.action_sort_measure_ascending -> {
+                viewModel.sortMethod = StockCard.FIELD_UNIT_OF_MEASURE
+                viewModel.sortDirection = Query.Direction.ASCENDING
+                viewModel.rebuildQuery()
+                stockCardAdapter.refresh()
+            }
+            R.id.action_sort_measure_descending -> {
+                viewModel.sortMethod = StockCard.FIELD_UNIT_OF_MEASURE
+                viewModel.sortDirection = Query.Direction.DESCENDING
+                viewModel.rebuildQuery()
+                stockCardAdapter.refresh()
+            }
+            R.id.action_filter_measure -> {
+                viewModel.filterConstraint = StockCard.FIELD_UNIT_OF_MEASURE
+                MaterialDialog(requireContext()).show {
+                    lifecycleOwner(viewLifecycleOwner)
+                    title(R.string.dialog_unit_of_measure)
+                    input(inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS) { _, text ->
+                        viewModel.filterValue = text.toString()
+                        viewModel.rebuildQuery()
+                        stockCardAdapter.refresh()
+
+                        binding.informationCard.isVisible = true
+                        binding.informationCardText.text =
+                            String.format(getString(R.string.info_dataset_filtered),
+                                text, getString(R.string.hint_unit_of_measure))
+                    }
+                    positiveButton(R.string.button_continue)
+                    negativeButton(R.string.button_cancel)
+                }
+            }
         }
     }
 }
