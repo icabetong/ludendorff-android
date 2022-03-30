@@ -61,6 +61,11 @@
     <style name="Component.Keeper.BottomSheet.Base" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/shape_bottom_sheet</item>
     </style>
+    <style name="Component.Keeper.Picker" parent="Theme.Keeper">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 
     <!-- Widgets -->
     <style name="Widget.Keeper.TextView" parent="android:Widget.TextView">
@@ -206,4 +211,8 @@
     </style>
 
     <style name="MonthPickerDialogStyle"/>
+    <style name="Animation">
+        <item name="android:windowEnterAnimation">@anim/enter_slide_up</item>
+        <item name="android:windowReturnTransition">@anim/exit_slide_down</item>
+    </style>
 </resources>

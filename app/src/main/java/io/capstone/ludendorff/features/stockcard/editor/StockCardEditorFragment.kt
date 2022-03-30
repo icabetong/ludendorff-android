@@ -21,7 +21,7 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentEditorStockCardBinding
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
+import io.capstone.ludendorff.features.asset.picker.AssetPickerFragment
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.stockcard.StockCard
@@ -100,7 +100,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
             adapter = entryAdapter
         }
 
-        registerForFragmentResult(arrayOf(AssetPickerBottomSheet.REQUEST_KEY_PICK,
+        registerForFragmentResult(arrayOf(AssetPickerFragment.REQUEST_KEY_PICK,
             StockCardEntryEditorBottomSheet.REQUEST_KEY_CREATE,
             StockCardEntryEditorBottomSheet.REQUEST_KEY_UPDATE), this)
     }
@@ -123,7 +123,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
 
         binding.assetTextInputLayout.setEndIconOnClickListener {
             hideKeyboardFromCurrentFocus(binding.root)
-            AssetPickerBottomSheet(childFragmentManager)
+            AssetPickerFragment(childFragmentManager)
                 .show()
         }
         binding.addActionButton.addActionButton.setOnClickListener {
@@ -197,8 +197,8 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when(requestKey) {
-            AssetPickerBottomSheet.REQUEST_KEY_PICK -> {
-                result.getParcelable<Asset>(AssetPickerBottomSheet.EXTRA_ASSET)?.let {
+            AssetPickerFragment.REQUEST_KEY_PICK -> {
+                result.getParcelable<Asset>(AssetPickerFragment.EXTRA_ASSET)?.let {
                     binding.assetTextInput.setText(it.description)
 
                     with(editorViewModel.stockCard) {

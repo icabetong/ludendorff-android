@@ -27,7 +27,7 @@ import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getDa
 import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getMonthStringRes
 import io.capstone.ludendorff.databinding.FragmentEditorInventoryReportBinding
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
+import io.capstone.ludendorff.features.asset.picker.AssetPickerFragment
 import io.capstone.ludendorff.features.inventory.InventoryReport
 import io.capstone.ludendorff.features.inventory.InventoryReportViewModel
 import io.capstone.ludendorff.features.inventory.item.InventoryItem
@@ -114,7 +114,7 @@ class InventoryReportEditorFragment: BaseEditorFragment(), FragmentResultListene
         }
 
         registerForFragmentResult(arrayOf(
-            AssetPickerBottomSheet.REQUEST_KEY_PICK,
+            AssetPickerFragment.REQUEST_KEY_PICK,
             InventoryItemEditorBottomSheet.REQUEST_KEY_CREATE,
             InventoryItemEditorBottomSheet.REQUEST_KEY_UPDATE), this)
     }
@@ -141,7 +141,7 @@ class InventoryReportEditorFragment: BaseEditorFragment(), FragmentResultListene
         super.onResume()
 
         binding.addActionButton.addActionButton.setOnClickListener {
-            AssetPickerBottomSheet(childFragmentManager)
+            AssetPickerFragment(childFragmentManager)
                 .show()
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
@@ -186,8 +186,8 @@ class InventoryReportEditorFragment: BaseEditorFragment(), FragmentResultListene
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when(requestKey) {
-            AssetPickerBottomSheet.REQUEST_KEY_PICK -> {
-                result.getParcelable<Asset>(AssetPickerBottomSheet.EXTRA_ASSET)?.let {
+            AssetPickerFragment.REQUEST_KEY_PICK -> {
+                result.getParcelable<Asset>(AssetPickerFragment.EXTRA_ASSET)?.let {
                     InventoryItemEditorBottomSheet(childFragmentManager).show {
                         arguments = bundleOf(
                             InventoryItemEditorBottomSheet.EXTRA_ASSET to it

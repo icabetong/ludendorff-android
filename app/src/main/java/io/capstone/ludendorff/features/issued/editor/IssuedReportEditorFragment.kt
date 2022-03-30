@@ -25,7 +25,7 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getDateFormatter
 import io.capstone.ludendorff.databinding.FragmentEditorIssuedReportBinding
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.asset.picker.AssetPickerBottomSheet
+import io.capstone.ludendorff.features.asset.picker.AssetPickerFragment
 import io.capstone.ludendorff.features.issued.IssuedReport
 import io.capstone.ludendorff.features.issued.IssuedReportViewModel
 import io.capstone.ludendorff.features.issued.item.IssuedItem
@@ -108,7 +108,7 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
         }
 
         registerForFragmentResult(arrayOf(
-            AssetPickerBottomSheet.REQUEST_KEY_PICK,
+            AssetPickerFragment.REQUEST_KEY_PICK,
             IssuedItemEditorBottomSheet.REQUEST_KEY_CREATE,
             IssuedItemEditorBottomSheet.REQUEST_KEY_UPDATE), this)
     }
@@ -135,7 +135,7 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
         super.onResume()
 
         binding.addActionButton.addActionButton.setOnClickListener {
-            AssetPickerBottomSheet(childFragmentManager)
+            AssetPickerFragment(childFragmentManager)
                 .show()
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
@@ -173,10 +173,10 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when(requestKey) {
-            AssetPickerBottomSheet.REQUEST_KEY_PICK -> {
-                result.getParcelable<Asset>(AssetPickerBottomSheet.EXTRA_ASSET)?.let {
+            AssetPickerFragment.REQUEST_KEY_PICK -> {
+                result.getParcelable<Asset>(AssetPickerFragment.EXTRA_ASSET)?.let {
                     IssuedItemEditorBottomSheet(childFragmentManager).show {
-                        arguments = bundleOf(AssetPickerBottomSheet.EXTRA_ASSET to it)
+                        arguments = bundleOf(AssetPickerFragment.EXTRA_ASSET to it)
                     }
                 }
             }

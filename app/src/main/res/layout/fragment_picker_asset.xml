@@ -6,24 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/componentHeaderTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/activity_margin"
-        android:text="@string/title_asset_select"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/keeper_shimmer"/>
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/layout_appbar_search_core"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minHeight="@dimen/bottom_sheet_picker_height">
+        android:layout_height="match_parent">
 
         <ProgressBar
             android:id="@+id/progressIndicator"

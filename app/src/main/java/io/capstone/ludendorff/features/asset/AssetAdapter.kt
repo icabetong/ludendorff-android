@@ -29,7 +29,7 @@ class AssetAdapter(
         override fun onBind(data: Asset?) {
             binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.stockNumber
             binding.headerTextView.text = data?.description
-            binding.informationTextView.text = data?.type?.typeName
+            binding.informationTextView.text = data?.classification
 
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT, it)

@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import com.algolia.instantsearch.helper.android.searchbox.SearchBoxViewAppCompat
+import com.algolia.instantsearch.helper.android.searchbox.connectView
 import dagger.hilt.android.AndroidEntryPoint
+import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
@@ -19,18 +23,20 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentPickerAssetBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetAdapter
-import io.capstone.ludendorff.features.shared.BaseBottomSheet
+import io.capstone.ludendorff.features.asset.search.AssetSearchAdapter
+import io.capstone.ludendorff.features.shared.BasePickerFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
+class AssetPickerFragment(manager: FragmentManager): BasePickerFragment(manager),
     OnItemActionListener<Asset> {
     private var _binding: FragmentPickerAssetBinding? = null
 
     private val binding get() = _binding!!
     private val viewModel: AssetPickerViewModel by viewModels()
     private val assetAdapter = AssetAdapter(this)
+    private val assetSearchAdapter = AssetSearchAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +50,29 @@ class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupToolbar(binding.appBar.toolbar, R.string.title_asset_select, R.menu.menu_picker, { this.dismiss() }) {  }
+
+        searchView?.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            viewModel.onSearchMode = hasFocus
+
+            searchView?.isIconified = !hasFocus
+            binding.recyclerView.adapter = if (hasFocus)
+                assetSearchAdapter
+            else assetAdapter
+        }
+        searchView?.setOnCloseListener {
+            dismissSearch()
+            viewModel.onSearchMode = false
+            true
+        }
+
+        searchView?.let {
+            connectionHandler += viewModel.searchBox.connectView(SearchBoxViewAppCompat(it))
+        }
         with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
             adapter = assetAdapter
@@ -56,6 +82,25 @@ class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
     override fun onStart() {
         super.onStart()
 
+        assetSearchAdapter.addLoadStateListener { _, loadState ->
+            when(loadState) {
+                LoadState.Loading -> {
+                    binding.recyclerView.hide()
+                    binding.emptyView.root.hide()
+                    binding.progressIndicator.show()
+                }
+                is LoadState.NotLoading -> {
+                    binding.recyclerView.show()
+                    binding.emptyView.root.hide()
+                    binding.progressIndicator.hide()
+
+                    if (assetSearchAdapter.itemCount > 0)
+                        binding.recyclerView.show()
+                    else binding.emptyView.root.show()
+                }
+                is LoadState.Error -> binding.errorView.root.hide()
+            }
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             assetAdapter.loadStateFlow.collectLatest {
                 when (it.refresh) {
@@ -70,7 +115,6 @@ class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
                             it.refresh is LoadState.Error -> it.refresh as LoadState.Error
                             else -> null
                         }
-
 
                         errorState?.let { e ->
                             binding.emptyView.root.hide()
@@ -105,6 +149,9 @@ class AssetPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager)
             viewModel.assets.collectLatest {
                 assetAdapter.submitData(it)
             }
+        }
+        viewModel.searchResults.observe(viewLifecycleOwner) {
+            assetSearchAdapter.submitList(it)
         }
     }
 
