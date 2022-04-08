@@ -13,6 +13,7 @@
         <!-- Error related colors -->
         <item name="colorError">@color/brand_error</item>
         <item name="colorOnError">@color/brand_on_error</item>
+        <!-- Warning related colors -->
         <!-- Cards and other elevated UI stuff -->
         <item name="colorSurface">@color/brand_surface</item>
         <item name="colorOnSurface">@color/brand_on_surface</item>

@@ -146,7 +146,7 @@
                 android:layout_marginVertical="@dimen/activity_margin_small"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:visibility="gone"
-                app:strokeColor="@color/brand_info"
+                app:strokeColor="@color/brand_warning"
                 tools:visibility="visible">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -154,11 +154,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/activity_margin_small"
                     android:text="@string/info_administrative_permissions"
-                    android:textColor="@color/brand_info"
+                    android:textColor="@color/brand_warning"
                     android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
                     android:drawableStart="@drawable/ic_round_info_24"
                     android:drawablePadding="@dimen/activity_margin"
-                    android:drawableTint="@color/brand_info"/>
+                    android:drawableTint="@color/brand_warning"/>
 
             </com.google.android.material.card.MaterialCardView>
 
