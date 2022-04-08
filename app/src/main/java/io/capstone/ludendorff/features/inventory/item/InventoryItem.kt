@@ -17,6 +17,7 @@ class InventoryItem @JvmOverloads constructor(
     var balancePerCard: Int = 0,
     var onHandCount: Int = 0,
     var remarks: String? = null,
+    var supplier: String? = null,
 ): Parcelable {
 
     fun toJSONObject(): JSONObject {
@@ -30,6 +31,7 @@ class InventoryItem @JvmOverloads constructor(
             it.put(FIELD_BALANCE_PER_CARD, balancePerCard)
             it.put(FIELD_ON_HAND_COUNT, onHandCount)
             it.put(FIELD_REMARKS, remarks)
+            it.put(FIELD_SUPPLIER, supplier)
         }
     }
 
@@ -43,6 +45,7 @@ class InventoryItem @JvmOverloads constructor(
         const val FIELD_BALANCE_PER_CARD = "balancePerCard"
         const val FIELD_ON_HAND_COUNT = "onHandCount"
         const val FIELD_REMARKS = "remarks"
+        const val FIELD_SUPPLIER = "supplier"
 
         fun fromAsset(asset: Asset): InventoryItem {
             return InventoryItem(

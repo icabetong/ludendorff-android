@@ -51,6 +51,7 @@ class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(
             binding.descriptionTextView.text = it.description
             binding.balancePerCardTextInput.setText(it.balancePerCard.toString())
             binding.onHandCountTextInput.setText(it.onHandCount.toString())
+            binding.supplierTextInput.setText(it.supplier)
         }
 
         binding.actionButton.setOnClickListener {
@@ -66,6 +67,9 @@ class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(
         }
         binding.onHandCountTextInput.doAfterTextChanged {
             viewModel.triggerOnHandCountChanged(it.toString())
+        }
+        binding.supplierTextInput.doAfterTextChanged {
+            viewModel.triggerSupplierChanged(it.toString())
         }
     }
 

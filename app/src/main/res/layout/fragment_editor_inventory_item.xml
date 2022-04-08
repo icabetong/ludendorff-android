@@ -86,6 +86,24 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/supplierTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_supplier"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/supplierTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/actionButton"
                 android:layout_width="wrap_content"

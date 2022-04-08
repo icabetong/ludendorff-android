@@ -120,6 +120,7 @@
     <string name="hint_balance_quantity">Balance Quantity</string>
     <string name="hint_balance_total_price">Balance Total Price</string>
     <string name="hint_asset_item">Asset Item</string>
+    <string name="hint_supplier">Supplier</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>

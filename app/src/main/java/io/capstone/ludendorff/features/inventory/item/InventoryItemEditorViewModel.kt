@@ -27,4 +27,8 @@ class InventoryItemEditorViewModel: BaseViewModel() {
             inventoryItem.onHandCount = 0
         }
     }
+
+    fun triggerSupplierChanged(supplier: String) {
+        inventoryItem.supplier = supplier
+    }
 }
