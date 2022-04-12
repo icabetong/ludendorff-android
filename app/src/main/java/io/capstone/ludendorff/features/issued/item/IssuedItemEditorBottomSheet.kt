@@ -10,9 +10,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import io.capstone.ludendorff.components.utils.IntegerInputFilter
 import io.capstone.ludendorff.databinding.FragmentEditorIssuedItemBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
+import java.text.NumberFormat
+import java.util.*
 
 @AndroidEntryPoint
 class IssuedItemEditorBottomSheet(fragmentManager: FragmentManager): BaseBottomSheet(fragmentManager) {
@@ -21,6 +24,9 @@ class IssuedItemEditorBottomSheet(fragmentManager: FragmentManager): BaseBottomS
 
     private val binding get() = _binding!!
     private val viewModel: IssuedItemEditorViewModel by viewModels()
+    private val formatter = NumberFormat.getCurrencyInstance().apply {
+        currency = Currency.getInstance("PHP")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +54,7 @@ class IssuedItemEditorBottomSheet(fragmentManager: FragmentManager): BaseBottomS
         arguments?.getParcelable<IssuedItem>(EXTRA_ISSUED_ITEM)?.let {
             requestKey = REQUEST_KEY_UPDATE
             viewModel.issuedItem = it
+            viewModel.recompute()
 
             binding.descriptionTextView.text = it.description
             binding.quantityIssuedTextInput.setText(it.quantityIssued.toString())
@@ -61,11 +68,19 @@ class IssuedItemEditorBottomSheet(fragmentManager: FragmentManager): BaseBottomS
             this.dismiss()
         }
 
+        binding.quantityIssuedTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.quantityIssuedTextInput.doAfterTextChanged {
             viewModel.triggerQuantityIssuedChanged(it.toString())
         }
         binding.responsibilityCenterTextInput.doAfterTextChanged {
             viewModel.triggerResponsibilityCenterChanged(it.toString())
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.amount.observe(viewLifecycleOwner) {
+            binding.amountTextInput.setText(formatter.format(it))
         }
     }
 

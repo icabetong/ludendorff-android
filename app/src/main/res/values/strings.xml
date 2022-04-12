@@ -124,6 +124,8 @@
     <string name="hint_asset_item">Asset Item</string>
     <string name="hint_supplier">Supplier</string>
     <string name="hint_unit_price">Unit Price</string>
+    <string name="hint_total_value">Total Value</string>
+    <string name="hint_amount">Amount</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>

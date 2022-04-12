@@ -46,6 +46,24 @@
                 android:textAppearance="@style/TextAppearance.Keeper.List.Title"/>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/supplierTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_supplier"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/supplierTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/balancePerCardTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,20 +105,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/supplierTextInputLayout"
+                android:id="@+id/totalValueTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/activity_margin"
-                android:hint="@string/hint_supplier"
+                android:hint="@string/hint_total_value"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/supplierTextInput"
+                    android:id="@+id/totalValueTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:enabled="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

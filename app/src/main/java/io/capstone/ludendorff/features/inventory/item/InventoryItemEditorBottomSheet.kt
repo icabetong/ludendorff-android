@@ -10,9 +10,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import io.capstone.ludendorff.components.utils.IntegerInputFilter
 import io.capstone.ludendorff.databinding.FragmentEditorInventoryItemBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
+import java.text.NumberFormat
+import java.util.*
 
 @AndroidEntryPoint
 class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
@@ -21,6 +24,9 @@ class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(
 
     private val binding get() = _binding!!
     private val viewModel: InventoryItemEditorViewModel by viewModels()
+    private val formatter = NumberFormat.getCurrencyInstance().apply {
+        currency = Currency.getInstance("PHP")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +53,7 @@ class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(
         arguments?.getParcelable<InventoryItem>(EXTRA_INVENTORY_ITEM)?.let {
             requestKey = REQUEST_KEY_UPDATE
             viewModel.inventoryItem = it
+            viewModel.recompute()
 
             binding.descriptionTextView.text = it.description
             binding.balancePerCardTextInput.setText(it.balancePerCard.toString())
@@ -58,10 +65,11 @@ class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(
             setFragmentResult(requestKey,
                 bundleOf(EXTRA_INVENTORY_ITEM to viewModel.inventoryItem)
             )
-
             this.dismiss()
         }
 
+        binding.balancePerCardTextInput.filters = arrayOf(IntegerInputFilter.instance)
+        binding.onHandCountTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.balancePerCardTextInput.doAfterTextChanged {
             viewModel.triggerBalancePerCardChanged(it.toString())
         }
@@ -70,6 +78,13 @@ class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(
         }
         binding.supplierTextInput.doAfterTextChanged {
             viewModel.triggerSupplierChanged(it.toString())
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.totalValue.observe(viewLifecycleOwner) {
+            binding.totalValueTextInput.setText(formatter.format(it))
         }
     }
 

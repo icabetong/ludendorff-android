@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.components.extensions.toLocalDate
 import io.capstone.ludendorff.components.extensions.toTimestamp
 import io.capstone.ludendorff.components.utils.DateTimeFormatter
+import io.capstone.ludendorff.components.utils.IntegerInputFilter
 import io.capstone.ludendorff.databinding.FragmentEditorStockCardEntryBinding
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
@@ -68,6 +69,10 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
         binding.dateTextInputLayout.setEndIconOnClickListener(::onInvokeDatePicker)
         binding.dateTextInput.setOnClickListener(::onInvokeDatePicker)
 
+        binding.receiptQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
+        binding.requestedQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
+        binding.issueQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
+        binding.balanceQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.referenceTextInput.doAfterTextChanged {
             viewModel.triggerReferenceChanged(it.toString())
         }
