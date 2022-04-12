@@ -28,6 +28,7 @@ import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.databinding.FragmentRootBinding
 import io.capstone.ludendorff.databinding.LayoutDrawerHeaderBinding
+import io.capstone.ludendorff.features.auth.FinishSetupFragmentDirections
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.profile.ProfileFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
@@ -108,6 +109,9 @@ class RootFragment: BaseFragment() {
             viewModel.subscribeToDocumentChanges()
             viewModel.userData.observe(viewLifecycleOwner) {
                 setProperties(it)
+                if (!it.setupCompleted) {
+                    mainController?.navigate(RootFragmentDirections.toNavigationFinishSetup())
+                }
             }
         } else {
             headerBinding.nameTextView.setText(R.string.authentication_anonymous_user)

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.work.ExistingWorkPolicy
@@ -93,11 +93,17 @@ class CorePreferences: BasePreference() {
                 controller?.navigate(R.id.navigation_notices_settings)
                 true
             }
+
+        findPreference<Preference>(PREFERENCE_KEY_DISPLAY)
+            ?.setOnPreferenceClickListener {
+                controller?.navigate(R.id.navigation_data_display_settings)
+                true
+            }
     }
 
     override fun onStart() {
         super.onStart()
-        controller = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+        controller = findNavController()
 
         authViewModel.userData.observe(viewLifecycleOwner) {
             findPreference<Preference>(PREFERENCE_KEY_USER)?.run {
@@ -114,6 +120,8 @@ class CorePreferences: BasePreference() {
         const val PREFERENCE_KEY_DEVICE_DEFAULT = "preference:device_default"
         const val PREFERENCE_KEY_BUILD = "preference:build"
         const val PREFERENCE_KEY_NOTICE = "preference:notices"
+
+        const val PREFERENCE_KEY_DISPLAY = "preference:display"
     }
 
 }

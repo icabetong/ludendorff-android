@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
+import io.capstone.ludendorff.components.persistence.UserPreferences
+import io.capstone.ludendorff.components.utils.DateTimeFormatter
 import io.capstone.ludendorff.databinding.LayoutItemStockCardBinding
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagingAdapter
@@ -24,12 +26,31 @@ class StockCardAdapter(private val onItemActionListener: OnItemActionListener<St
 
     inner class StockCardViewHolder(itemView: View): BaseViewHolder<StockCard>(itemView) {
         private val binding = LayoutItemStockCardBinding.bind(itemView)
+        private val userPreferences = UserPreferences(itemView.context)
 
         override fun onBind(data: StockCard?) {
             binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.stockCardId
-            binding.overlineTextView.text = data?.stockNumber
-            binding.headerTextView.text = data?.description
-            binding.informationTextView.text = data?.entityName
+            binding.overlineTextView.text = when(userPreferences.dataStockCardOverline) {
+                StockCard.FIELD_STOCK_NUMBER -> data?.stockNumber
+                StockCard.FIELD_ENTITY_NAME -> data?.entityName
+                StockCard.FIELD_DESCRIPTION -> data?.description
+                StockCard.FIELD_UNIT_OF_MEASURE -> data?.unitOfMeasure
+                else -> data?.stockNumber
+            }
+            binding.headerTextView.text = when(userPreferences.dataStockCardOverline) {
+                StockCard.FIELD_STOCK_NUMBER -> data?.stockNumber
+                StockCard.FIELD_ENTITY_NAME -> data?.entityName
+                StockCard.FIELD_DESCRIPTION -> data?.description
+                StockCard.FIELD_UNIT_OF_MEASURE -> data?.unitOfMeasure
+                else -> data?.description
+            }
+            binding.informationTextView.text = when(userPreferences.dataStockCardOverline) {
+                StockCard.FIELD_STOCK_NUMBER -> data?.stockNumber
+                StockCard.FIELD_ENTITY_NAME -> data?.entityName
+                StockCard.FIELD_DESCRIPTION -> data?.description
+                StockCard.FIELD_UNIT_OF_MEASURE -> data?.unitOfMeasure
+                else -> data?.entityName
+            }
 
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,

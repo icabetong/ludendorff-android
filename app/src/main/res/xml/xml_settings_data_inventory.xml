@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <io.capstone.ludendorff.components.custom.preference.ImagePreference
+        app:srcVector="@drawable/list_threeline_overline"/>
+
+    <ListPreference
+        android:key="preference:data:inventory:overline"
+        android:title="@string/settings_data_list_overline"
+        android:entries="@array/data_display_inventory_list_overline_options"
+        android:entryValues="@array/data_display_inventory_list_overline_values"
+        android:defaultValue="yearMonth"
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false"/>
+
+    <io.capstone.ludendorff.components.custom.preference.ImagePreference
+        app:srcVector="@drawable/list_threeline_header"/>
+
+    <ListPreference
+        android:key="preference:data:inventory:header"
+        android:title="@string/settings_data_list_header"
+        android:entries="@array/data_display_inventory_list_header_options"
+        android:entryValues="@array/data_display_inventory_list_header_values"
+        android:defaultValue="fundCluster"
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false"/>
+
+    <io.capstone.ludendorff.components.custom.preference.ImagePreference
+        app:srcVector="@drawable/list_threeline_summary"/>
+
+    <ListPreference
+        android:key="preference:data:inventory:summary"
+        android:title="@string/settings_data_list_summary"
+        android:entries="@array/data_display_inventory_list_summary_options"
+        android:entryValues="@array/data_display_inventory_list_summary_values"
+        android:defaultValue="entityName"
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false"/>
+
+</PreferenceScreen>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="io.capstone.ludendorff.components.preference.ImagePreference">
+        <attr name="srcVector" format="integer"/>
+    </declare-styleable>
     <declare-styleable name="monthPickerDialog">
         <!-- Header Style -->
         <attr name="headerTitleColor" format="color" />

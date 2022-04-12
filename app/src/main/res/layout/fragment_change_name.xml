@@ -18,7 +18,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/keeper_shimmer"/>
+        android:background="@color/brand_shimmer"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/firstNameTextInputLayout"

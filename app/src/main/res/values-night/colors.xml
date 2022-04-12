@@ -30,5 +30,6 @@
     <color name="brand_toolbar_color">@color/brand_background_content</color>
     <color name="brand_menu">#4b5563</color>
 
-    <color name="keeper_shimmer">#4b5563</color>
+    <color name="brand_surface_alpha">#001f2937</color>
+    <color name="brand_shimmer">#4b5563</color>
 </resources>

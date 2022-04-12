@@ -32,6 +32,7 @@ data class User @JvmOverloads constructor(
     var department: DepartmentCore? = null,
     var deviceToken: String? = null,
     var disabled: Boolean = false,
+    var setupCompleted: Boolean = false,
     @Exclude
     override val _highlightResult: @RawValue JsonObject? = null
 ): Parcelable, Serializable, Highlightable {
@@ -88,6 +89,7 @@ data class User @JvmOverloads constructor(
         const val FIELD_DEPARTMENT_NAME = "${FIELD_DEPARTMENT}.${Department.FIELD_NAME}"
         const val FIELD_DEVICE_TOKEN = "deviceToken"
         const val FIELD_DISABLED = "disabled"
+        const val FIELD_SETUP_COMPLETED = "setupCompleted"
 
         const val PERMISSION_READ = 1
         const val PERMISSION_WRITE = 2

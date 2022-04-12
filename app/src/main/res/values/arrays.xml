@@ -1,5 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="data_display_asset_list_header_options">
+        <item>@string/hint_description</item>
+        <item>@string/hint_stock_number</item>
+    </string-array>
+    <string-array name="data_display_asset_list_header_values">
+        <item>description</item>
+        <item>stockNumber</item>
+    </string-array>
+    <string-array name="data_display_asset_list_summary_options">
+        <item>@string/hint_classification</item>
+        <item>@string/hint_type</item>
+        <item>@string/hint_unit_of_measure</item>
+        <item>@string/hint_unit_value</item>
+        <item>@string/hint_remarks</item>
+    </string-array>
+    <string-array name="data_display_asset_list_summary_values">
+        <item>classification</item>
+        <item>type</item>
+        <item>unitOfMeasure</item>
+        <item>unitValue</item>
+        <item>remarks</item>
+    </string-array>
+    <string-array name="data_display_inventory_list_overline_options">
+        <item>@string/hint_year_month</item>
+        <item>@string/hint_accountability_date</item>
+        <item>@string/hint_fund_cluster</item>
+    </string-array>
+    <string-array name="data_display_inventory_list_overline_values">
+        <item>yearMonth</item>
+        <item>accountabilityDate</item>
+        <item>fundCluster</item>
+    </string-array>
+    <string-array name="data_display_inventory_list_header_options">
+        <item>@string/hint_fund_cluster</item>
+        <item>@string/hint_entity_name</item>
+        <item>@string/hint_accountability_date</item>
+    </string-array>
+    <string-array name="data_display_inventory_list_header_values">
+        <item>fundCluster</item>
+        <item>entityName</item>
+        <item>accountabilityDate</item>
+    </string-array>
+    <string-array name="data_display_inventory_list_summary_options">
+        <item>@string/hint_year_month</item>
+        <item>@string/hint_accountability_date</item>
+        <item>@string/hint_entity_name</item>
+        <item>@string/hint_entity_position</item>
+    </string-array>
+    <string-array name="data_display_inventory_list_summary_values">
+        <item>yearMonth</item>
+        <item>accountabilityDate</item>
+        <item>entityName</item>
+        <item>entityPosition</item>
+    </string-array>
+    <string-array name="data_display_issued_list_overline_options">
+        <item>@string/hint_entity_name</item>
+        <item>@string/hint_fund_cluster</item>
+        <item>@string/hint_serial_number</item>
+        <item>@string/hint_date</item>
+    </string-array>
+    <string-array name="data_display_issued_list_overline_values">
+        <item>entityName</item>
+        <item>fundCluster</item>
+        <item>serialNumber</item>
+        <item>date</item>
+    </string-array>
+    <string-array name="data_display_issued_list_header_options">
+        <item>@string/hint_entity_name</item>
+        <item>@string/hint_fund_cluster</item>
+        <item>@string/hint_serial_number</item>
+        <item>@string/hint_date</item>
+    </string-array>
+    <string-array name="data_display_issued_list_header_values">
+        <item>entityName</item>
+        <item>fundCluster</item>
+        <item>serialNumber</item>
+        <item>date</item>
+    </string-array>
+    <string-array name="data_display_issued_list_summary_options">
+        <item>@string/hint_entity_name</item>
+        <item>@string/hint_fund_cluster</item>
+        <item>@string/hint_serial_number</item>
+        <item>@string/hint_date</item>
+    </string-array>
+    <string-array name="data_display_issued_list_summary_values">
+        <item>entityName</item>
+        <item>fundCluster</item>
+        <item>serialNumber</item>
+        <item>date</item>
+    </string-array>
+    <string-array name="data_display_stock_card_list_overline_options">
+        <item>@string/hint_stock_number</item>
+        <item>@string/hint_entity_name</item>
+        <item>@string/hint_description</item>
+        <item>@string/hint_unit_of_measure</item>
+    </string-array>
+    <string-array name="data_display_stock_card_list_overline_values">
+        <item>stockNumber</item>
+        <item>entityName</item>
+        <item>description</item>
+        <item>unitOfMeasure</item>
+    </string-array>
+    <string-array name="data_display_stock_card_list_header_options">
+        <item>@string/hint_stock_number</item>
+        <item>@string/hint_entity_name</item>
+        <item>@string/hint_description</item>
+        <item>@string/hint_unit_of_measure</item>
+    </string-array>
+    <string-array name="data_display_stock_card_list_header_values">
+        <item>stockNumber</item>
+        <item>entityName</item>
+        <item>description</item>
+        <item>unitOfMeasure</item>
+    </string-array>
+    <string-array name="data_display_stock_card_list_summary_options">
+        <item>@string/hint_stock_number</item>
+        <item>@string/hint_entity_name</item>
+        <item>@string/hint_description</item>
+        <item>@string/hint_unit_of_measure</item>
+        <item>@string/hint_unit_price</item>
+    </string-array>
+    <string-array name="data_display_stock_card_list_summary_values">
+        <item>stockNumber</item>
+        <item>entityName</item>
+        <item>description</item>
+        <item>unitOfMeasure</item>
+        <item>unitPrice</item>
+    </string-array>
+    <string-array name="data_display_user_list_overline_options">
+        <item>@string/hint_email</item>
+        <item>@string/hint_position</item>
+        <item>@string/hint_department</item>
+    </string-array>
+    <string-array name="data_display_user_list_overline_values">
+        <item>email</item>
+        <item>position</item>
+        <item>department</item>
+    </string-array>
+    <string-array name="data_display_user_list_summary_options">
+        <item>@string/hint_email</item>
+        <item>@string/hint_position</item>
+        <item>@string/hint_department</item>
+    </string-array>
+    <string-array name="data_display_user_list_summary_values">
+        <item>email</item>
+        <item>position</item>
+        <item>department</item>
+    </string-array>
 
     <string-array name="profile_avatar_actions">
         <item>@string/menu_update_avatar</item>

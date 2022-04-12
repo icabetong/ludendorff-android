@@ -26,6 +26,12 @@
             android:defaultValue="ascending"
             app:useSimpleSummaryProvider="true"/>
 
+        <Preference
+            android:key="preference:display"
+            android:title="@string/settings_data_display"
+            android:summary="@string/settings_data_display_summary"
+            android:icon="@drawable/ic_round_bar_chart_24"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

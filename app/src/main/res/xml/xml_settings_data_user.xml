@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <io.capstone.ludendorff.components.custom.preference.ImagePreference
+        app:srcVector="@drawable/list_threeline_overline"/>
+
+    <ListPreference
+        android:key="preference:data:user:overline"
+        android:title="@string/settings_data_list_overline"
+        android:entries="@array/data_display_user_list_overline_options"
+        android:entryValues="@array/data_display_user_list_overline_values"
+        android:defaultValue="position"
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false"/>
+
+    <io.capstone.ludendorff.components.custom.preference.ImagePreference
+        app:srcVector="@drawable/list_threeline_summary"/>
+
+    <ListPreference
+        android:key="preference:data:user:summary"
+        android:title="@string/settings_data_list_summary"
+        android:entries="@array/data_display_user_list_summary_options"
+        android:entryValues="@array/data_display_user_list_summary_values"
+        android:defaultValue="email"
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false"/>
+
+</PreferenceScreen>

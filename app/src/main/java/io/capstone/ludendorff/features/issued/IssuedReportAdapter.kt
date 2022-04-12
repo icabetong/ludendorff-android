@@ -3,7 +3,10 @@ package io.capstone.ludendorff.features.issued
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.capstone.ludendorff.components.extensions.toLocalDate
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
+import io.capstone.ludendorff.components.persistence.UserPreferences
+import io.capstone.ludendorff.components.utils.DateTimeFormatter
 import io.capstone.ludendorff.databinding.LayoutItemIssuedReportBinding
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagingAdapter
@@ -26,12 +29,35 @@ class IssuedReportAdapter(
 
     inner class IssuedReportViewHolder(itemView: View): BaseViewHolder<IssuedReport>(itemView) {
         private val binding = LayoutItemIssuedReportBinding.bind(itemView)
+        private val userPreferences = UserPreferences(itemView.context)
+        private val formatter = DateTimeFormatter.getDateFormatter(isShort = false, withYear = true)
 
         override fun onBind(data: IssuedReport?) {
             binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.issuedReportId
-            binding.overlineTextView.text = data?.serialNumber
-            binding.headerTextView.text = data?.fundCluster
-            binding.informationTextView.text = data?.entityName
+            binding.overlineTextView.text = when(userPreferences.dataIssuedOverline) {
+                IssuedReport.FIELD_SERIAL_NUMBER -> data?.serialNumber
+                IssuedReport.FIELD_FUND_CLUSTER -> data?.fundCluster
+                IssuedReport.FIELD_ENTITY_NAME -> data?.entityName
+                IssuedReport.FIELD_DATE ->
+                    formatter.format(data?.date?.toLocalDate())
+                else -> data?.serialNumber
+            }
+            binding.headerTextView.text = when(userPreferences.dataIssuedHeader) {
+                IssuedReport.FIELD_SERIAL_NUMBER -> data?.serialNumber
+                IssuedReport.FIELD_FUND_CLUSTER -> data?.fundCluster
+                IssuedReport.FIELD_ENTITY_NAME -> data?.entityName
+                IssuedReport.FIELD_DATE ->
+                    formatter.format(data?.date?.toLocalDate())
+                else -> data?.fundCluster
+            }
+            binding.informationTextView.text = when(userPreferences.dataIssuedSummary) {
+                IssuedReport.FIELD_SERIAL_NUMBER -> data?.serialNumber
+                IssuedReport.FIELD_FUND_CLUSTER -> data?.fundCluster
+                IssuedReport.FIELD_ENTITY_NAME -> data?.entityName
+                IssuedReport.FIELD_DATE ->
+                    formatter.format(data?.date?.toLocalDate())
+                else -> data?.entityName
+            }
 
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,

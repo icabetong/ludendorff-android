@@ -6,7 +6,14 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.google.firebase.firestore.Query
+import io.capstone.ludendorff.features.asset.Asset
+import io.capstone.ludendorff.features.inventory.InventoryReport
+import io.capstone.ludendorff.features.issued.IssuedReport
 import io.capstone.ludendorff.features.settings.core.CorePreferences
+import io.capstone.ludendorff.features.settings.data.child.*
+import io.capstone.ludendorff.features.stockcard.StockCard
+import io.capstone.ludendorff.features.user.User
+import io.ktor.utils.io.concurrent.*
 import java.util.*
 
 class UserPreferences(private val context: Context?) {
@@ -28,14 +35,6 @@ class UserPreferences(private val context: Context?) {
             }
         }
     }
-
-    var isFirstTime: Boolean
-        get() = sharedPreference.getBoolean(PREFERENCE_FIRST_TIME, true)
-        set(value) {
-            sharedPreference.edit {
-                putBoolean(PREFERENCE_FIRST_TIME, value)
-            }
-        }
 
     var deviceToken: String?
         get() = sharedPreference.getString(PREFERENCE_DEVICE_TOKEN, null)
@@ -70,8 +69,51 @@ class UserPreferences(private val context: Context?) {
             }
         }
 
+    val dataAssetsHeader: String
+        get() = sharedPreference.getString(AssetDataDisplayFragment.PREFERENCE_KEY_ASSET_HEADER,
+            Asset.FIELD_DESCRIPTION) ?: Asset.FIELD_DESCRIPTION
+    val dataAssetSummary: String
+        get() = sharedPreference.getString(AssetDataDisplayFragment.PREFERENCE_KEY_ASSET_SUMMARY,
+            Asset.FIELD_CLASSIFICATION) ?: Asset.FIELD_CLASSIFICATION
+
+    val dataInventoryOverline: String
+        get() = sharedPreference.getString(InventoryDataDisplayFragment.PREFERENCE_KEY_INVENTORY_OVERLINE,
+            InventoryReport.FIELD_YEAR_MONTH) ?: InventoryReport.FIELD_YEAR_MONTH
+    val dataInventoryHeader: String
+        get() = sharedPreference.getString(InventoryDataDisplayFragment.PREFERENCE_KEY_INVENTORY_HEADER,
+            InventoryReport.FIELD_FUND_CLUSTER) ?: InventoryReport.FIELD_FUND_CLUSTER
+    val dataInventorySummary: String
+        get() = sharedPreference.getString(InventoryDataDisplayFragment.PREFERENCE_KEY_INVENTORY_SUMMARY,
+            InventoryReport.FIELD_ENTITY_NAME) ?: InventoryReport.FIELD_ENTITY_NAME
+
+    val dataIssuedOverline: String
+        get() = sharedPreference.getString(IssuedDataDisplayFragment.PREFERENCE_KEY_ISSUED_OVERLINE,
+            IssuedReport.FIELD_SERIAL_NUMBER) ?: IssuedReport.FIELD_SERIAL_NUMBER
+    val dataIssuedHeader: String
+        get() = sharedPreference.getString(IssuedDataDisplayFragment.PREFERENCE_KEY_ISSUED_HEADER,
+            IssuedReport.FIELD_FUND_CLUSTER) ?: IssuedReport.FIELD_FUND_CLUSTER
+    val dataIssuedSummary: String
+        get() = sharedPreference.getString(IssuedDataDisplayFragment.PREFERENCE_KEY_ISSUED_SUMMARY,
+            IssuedReport.FIELD_ENTITY_NAME) ?: IssuedReport.FIELD_ENTITY_NAME
+
+    val dataStockCardOverline: String
+        get() = sharedPreference.getString(StockCardDataDisplayFragment.PREFERENCE_KEY_STOCK_CARD_OVERLINE,
+            StockCard.FIELD_STOCK_NUMBER) ?: StockCard.FIELD_STOCK_NUMBER
+    val dataStockCardHeader: String
+        get() = sharedPreference.getString(StockCardDataDisplayFragment.PREFERENCE_KEY_STOCK_CARD_HEADER,
+            StockCard.FIELD_DESCRIPTION) ?: StockCard.FIELD_DESCRIPTION
+    val dataStockCardSummary: String
+        get() = sharedPreference.getString(StockCardDataDisplayFragment.PREFERENCE_KEY_STOCK_CARD_SUMMARY,
+            StockCard.FIELD_ENTITY_NAME) ?: StockCard.FIELD_ENTITY_NAME
+
+    val dataUserOverline: String
+        get() = sharedPreference.getString(UserDataDisplayFragment.PREFERENCE_KEY_USER_OVERLINE,
+            User.FIELD_POSITION) ?: User.FIELD_POSITION
+    val dataUserSummary: String
+        get() = sharedPreference.getString(UserDataDisplayFragment.PREFERENCE_KEY_USER_SUMMARY,
+            User.FIELD_EMAIL) ?: User.FIELD_EMAIL
+
     companion object {
-        const val PREFERENCE_FIRST_TIME = "preference:first_time"
         const val PREFERENCE_DEVICE_TOKEN = "preference:device_token"
 
         fun notifyThemeChanged(theme: Theme) {

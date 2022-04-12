@@ -13,6 +13,7 @@ import io.capstone.ludendorff.features.auth.AuthRepository
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.BaseViewModel
 import io.capstone.ludendorff.features.user.User
+import io.capstone.ludendorff.features.user.UserRepository
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -24,6 +25,7 @@ import javax.inject.Inject
 class CoreViewModel @Inject constructor(
     private val userProperties: UserProperties,
     private val repository: AuthRepository,
+    private val userRepository: UserRepository,
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore
 ): BaseViewModel() {
@@ -35,6 +37,9 @@ class CoreViewModel @Inject constructor(
 
     private val _userData: MutableLiveData<User> = MutableLiveData()
     val userData: LiveData<User> = _userData
+
+    private val _finishSetup = Channel<Response<Response.Action>>(Channel.BUFFERED)
+    val finishSetup = _finishSetup.receiveAsFlow()
 
     private val _authStatus = Channel<Response<Unit>>(Channel.BUFFERED)
     val authStatus = _authStatus.receiveAsFlow()
@@ -79,8 +84,26 @@ class CoreViewModel @Inject constructor(
         }
     }
 
-    fun authenticateAsGuest() = viewModelScope.launch(IO) {
-        _authStatus.send(repository.authenticateAsGuest())
+    fun changePassword(currentPassword: String, password: String) = viewModelScope.launch(IO) {
+        try {
+            val email = firebaseAuth.currentUser?.email ?: ""
+            if (password.isBlank() || email.isBlank()) {
+                _finishSetup.send(Response.Error(Exception()))
+                return@launch
+            }
+
+            val response = repository.authenticate(email, currentPassword)
+            if (response is Response.Success) {
+                val id = firebaseAuth.currentUser?.uid
+                    ?: throw Exception("Cannot change password while not being signed in")
+                firebaseAuth.currentUser?.updatePassword(password)?.await()
+
+                val task = userRepository.update(id, mapOf(User.FIELD_SETUP_COMPLETED to true))
+                _finishSetup.send(task)
+            }
+        } catch (exception: Exception) {
+            _finishSetup.send(Response.Error(exception))
+        }
     }
 
     fun checkCurrentUser(): FirebaseUser? = repository.checkCurrentUser()

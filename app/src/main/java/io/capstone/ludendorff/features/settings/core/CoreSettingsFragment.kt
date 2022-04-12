@@ -46,7 +46,7 @@ class CoreSettingsFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setInsets(binding.root, binding.appBar.toolbar,
-            arrayOf(view.findViewById(R.id.corePreferenceFragment), binding.snackbarAnchor))
+            arrayOf(view.findViewById(R.id.corePreferencesFragment), binding.snackbarAnchor))
 
         controller = findNavController()
         binding.appBar.toolbar.setup(

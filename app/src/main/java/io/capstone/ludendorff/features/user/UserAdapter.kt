@@ -9,6 +9,7 @@ import coil.transform.CircleCropTransformation
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
+import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.databinding.LayoutItemUserBinding
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagingAdapter
@@ -30,14 +31,24 @@ class UserAdapter(
 
     inner class UserViewHolder(itemView: View): BaseViewHolder<User>(itemView) {
         private val binding = LayoutItemUserBinding.bind(itemView)
+        private val userPreferences = UserPreferences(itemView.context)
 
         override fun onBind(data: User?) {
-
             data?.let {
                 binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + it.userId
-                binding.overlineTextView.text = it.position
+                binding.overlineTextView.text = when(userPreferences.dataUserOverline) {
+                    User.FIELD_POSITION -> it.position
+                    User.FIELD_EMAIL -> it.email
+                    User.FIELD_DEPARTMENT -> it.department?.name
+                    else -> it.position
+                }
                 binding.headerTextView.text = it.getDisplayName()
-                binding.informationTextView.text = it.email
+                binding.informationTextView.text = when(userPreferences.dataUserSummary) {
+                    User.FIELD_POSITION -> it.position
+                    User.FIELD_EMAIL -> it.email
+                    User.FIELD_DEPARTMENT -> it.department?.name
+                    else -> it.email
+                }
                 if (it.imageUrl != null)
                     binding.imageView.load(it.imageUrl) {
                         error(R.drawable.ic_flaticon_user)

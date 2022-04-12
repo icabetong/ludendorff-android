@@ -3,7 +3,10 @@ package io.capstone.ludendorff.features.inventory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.capstone.ludendorff.components.extensions.toLocalDate
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
+import io.capstone.ludendorff.components.persistence.UserPreferences
+import io.capstone.ludendorff.components.utils.DateTimeFormatter
 import io.capstone.ludendorff.databinding.LayoutItemInventoryReportBinding
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagingAdapter
@@ -27,13 +30,34 @@ class InventoryReportAdapter(
     inner class InventoryReportViewHolder(itemView: View)
         : BaseViewHolder<InventoryReport>(itemView) {
         private val binding = LayoutItemInventoryReportBinding.bind(itemView)
+        private val userPreferences = UserPreferences(itemView.context)
+        private val formatter = DateTimeFormatter.getDateFormatter(isShort = false, withYear = true)
 
         override fun onBind(data: InventoryReport?) {
             binding.root.transitionName =
                 BaseFragment.TRANSITION_NAME_ROOT + data?.inventoryReportId
-            binding.overlineTextView.text = data?.yearMonth
-            binding.headerTextView.text = data?.fundCluster
-            binding.informationTextView.text = data?.entityName
+            binding.overlineTextView.text = when(userPreferences.dataInventoryOverline) {
+                InventoryReport.FIELD_YEAR_MONTH -> data?.yearMonth
+                InventoryReport.FIELD_ACCOUNTABILITY_DATE ->
+                    formatter.format(data?.accountabilityDate?.toLocalDate())
+                InventoryReport.FIELD_FUND_CLUSTER -> data?.fundCluster
+                else -> data?.yearMonth
+            }
+            binding.headerTextView.text = when(userPreferences.dataInventoryHeader) {
+                InventoryReport.FIELD_FUND_CLUSTER -> data?.fundCluster
+                InventoryReport.FIELD_ENTITY_NAME -> data?.entityName
+                InventoryReport.FIELD_ACCOUNTABILITY_DATE ->
+                    formatter.format(data?.accountabilityDate?.toLocalDate())
+                else -> data?.fundCluster
+            }
+            binding.informationTextView.text = when(userPreferences.dataInventorySummary) {
+                InventoryReport.FIELD_ENTITY_NAME -> data?.entityName
+                InventoryReport.FIELD_FUND_CLUSTER -> data?.fundCluster
+                InventoryReport.FIELD_ACCOUNTABILITY_DATE ->
+                    formatter.format(data?.accountabilityDate?.toLocalDate())
+                InventoryReport.FIELD_ENTITY_POSITION -> data?.entityPosition
+                else -> data?.entityName
+            }
 
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,

@@ -36,7 +36,8 @@
     <color name="brand_toolbar_color">@color/brand_surface</color>
     <color name="brand_menu">?attr/colorSurface</color>
 
-    <color name="keeper_shimmer">#e0e0e0</color>
+    <color name="brand_surface_alpha">#00FFFFFF</color>
+    <color name="brand_shimmer">#e0e0e0</color>
 
     <color name="ucrop_color_statusbar">@color/brand_status_bar_color</color>
     <color name="ucrop_color_toolbar">@color/brand_toolbar_color</color>

@@ -10,6 +10,9 @@
     <fragment
         android:id="@+id/navigation_root"
         android:name="io.capstone.ludendorff.features.core.fragments.RootFragment"/>
+    <fragment
+        android:id="@+id/navigation_finish_setup"
+        android:name="io.capstone.ludendorff.features.auth.FinishSetupFragment"/>
 
     <action
         android:id="@+id/to_navigation_auth"
@@ -20,6 +23,12 @@
     <action
         android:id="@+id/to_navigation_root"
         app:destination="@id/navigation_root"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/navigation_main"
+        app:popUpToInclusive="true"/>
+    <action
+        android:id="@+id/to_navigation_finish_setup"
+        app:destination="@id/navigation_finish_setup"
         app:launchSingleTop="true"
         app:popUpTo="@+id/navigation_main"
         app:popUpToInclusive="true"/>
@@ -61,6 +70,24 @@
     <fragment
         android:id="@+id/navigation_core_settings"
         android:name="io.capstone.ludendorff.features.settings.core.CoreSettingsFragment"/>
+    <fragment
+        android:id="@+id/navigation_data_display_settings"
+        android:name="io.capstone.ludendorff.features.settings.data.DataDisplayPreferenceFragment"/>
+    <fragment
+        android:id="@+id/navigation_asset_data_display_settings"
+        android:name="io.capstone.ludendorff.features.settings.data.child.AssetDataDisplayFragment"/>
+    <fragment
+        android:id="@+id/navigation_inventory_data_display_settings"
+        android:name="io.capstone.ludendorff.features.settings.data.child.InventoryDataDisplayFragment"/>
+    <fragment
+        android:id="@+id/navigation_issued_data_display_settings"
+        android:name="io.capstone.ludendorff.features.settings.data.child.IssuedDataDisplayFragment"/>
+    <fragment
+        android:id="@+id/navigation_stock_card_data_display_settings"
+        android:name="io.capstone.ludendorff.features.settings.data.child.StockCardDataDisplayFragment"/>
+    <fragment
+        android:id="@+id/navigation_user_display_settings"
+        android:name="io.capstone.ludendorff.features.settings.data.child.UserDataDisplayFragment"/>
     <fragment
         android:id="@+id/navigation_notices_settings"
         android:name="io.capstone.ludendorff.features.settings.notices.NoticeSettingsFragment"/>

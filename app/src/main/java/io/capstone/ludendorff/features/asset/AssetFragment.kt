@@ -30,6 +30,8 @@ import io.capstone.ludendorff.components.extensions.setColorRes
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
+import io.capstone.ludendorff.components.persistence.UserPreferences
+import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.databinding.FragmentAssetsBinding
 import io.capstone.ludendorff.features.asset.editor.AssetEditorFragment
 import io.capstone.ludendorff.features.core.backend.Response
@@ -42,6 +44,7 @@ import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.CascadeMenuDelegate,

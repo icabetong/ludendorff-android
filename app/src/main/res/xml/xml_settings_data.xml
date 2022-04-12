@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/settings_group_lists">
+        <Preference
+            android:key="preference:data:asset"
+            android:title="@string/settings_data_list_asset"
+            android:icon="@drawable/ic_round_desktop_windows_24"/>
+        <Preference
+            android:key="preference:data:inventory"
+            android:title="@string/settings_data_list_inventory"
+            android:icon="@drawable/ic_outline_inventory_2_24"/>
+        <Preference
+            android:key="preference:data:issued"
+            android:title="@string/settings_data_list_issued"
+            android:icon="@drawable/ic_outline_upload_file_24"/>
+        <Preference
+            android:key="preference:data:stock"
+            android:title="@string/settings_data_list_stock_card"
+            android:icon="@drawable/ic_round_local_atm_24"/>
+        <Preference
+            android:key="preference:data:user"
+            android:title="@string/settings_data_list_user"
+            android:icon="@drawable/ic_round_people_outline_24"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>
