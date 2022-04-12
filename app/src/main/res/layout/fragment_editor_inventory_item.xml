@@ -49,6 +49,7 @@
                 android:id="@+id/supplierTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/activity_margin"
                 android:hint="@string/hint_supplier"
@@ -59,7 +60,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:inputType="text">
+
+                    <requestFocus/>
+
+                </com.google.android.material.textfield.TextInputEditText>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,7 +72,6 @@
                 android:id="@+id/balancePerCardTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/activity_margin"
                 android:hint="@string/hint_balance_per_card"
@@ -78,11 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="numberDecimal">
-
-                    <requestFocus/>
-
-                </com.google.android.material.textfield.TextInputEditText>
+                    android:inputType="numberDecimal"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

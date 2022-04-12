@@ -49,8 +49,10 @@
     <style name="Component.Keeper.BottomSheet.Bridge" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
         <item name="colorPrimary">@color/brand_primary</item>
         <item name="colorPrimaryVariant">@color/brand_primary_variant</item>
+        <item name="colorOnPrimary">@color/brand_on_primary</item>
         <item name="colorSecondary">@color/brand_primary</item>
         <item name="colorSecondaryVariant">@color/brand_primary_variant</item>
+        <item name="colorOnSecondary">@color/brand_on_primary</item>
         <item name="colorSurface">@color/brand_surface</item>
         <item name="colorOnSurface">@color/brand_on_surface</item>
         <item name="bottomSheetStyle">@style/Component.Keeper.BottomSheet.Base</item>

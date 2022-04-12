@@ -148,6 +148,7 @@
                 android:layout_marginBottom="@dimen/activity_margin"
                 android:hint="@string/hint_unit_value"
                 app:placeholderText="@string/placeholder_item_unit_value"
+                app:prefixText="₱"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText

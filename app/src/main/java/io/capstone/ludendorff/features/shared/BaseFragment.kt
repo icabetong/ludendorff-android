@@ -49,7 +49,7 @@ abstract class BaseFragment: Fragment() {
                 topMargin = windowInsets.top
             }
             bottomView?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = windowInsets.bottom + view.context.getDimension(R.dimen.activity_margin)
+                bottomMargin = windowInsets.bottom + view.context.getDimension(R.dimen.activity_margin_medium)
             }
             contentViews.forEach { contentView ->
                 contentView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
