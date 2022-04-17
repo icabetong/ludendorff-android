@@ -171,8 +171,8 @@
     <string name="menu_change_password">Change Password</string>
     <string name="menu_request_password_reset">Request Password Reset</string>
 
-    <string name="authentication_hello">Hello.</string>
-    <string name="authentication_welcome_back">Welcome Back</string>
+    <string name="authentication_title">Log in to Ludendorff</string>
+    <string name="authentication_summary">Enter your email and password</string>
     <string name="authentication_confirm">Authentication is Required</string>
     <string name="authentication_confirm_summary">Provide your credentials to continue.</string>
     <string name="authentication_anonymous_user">Anonymous User</string>

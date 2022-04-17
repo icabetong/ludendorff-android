@@ -23,18 +23,27 @@
         android:orientation="vertical"
         android:animateLayoutChanges="true">
 
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/activity_margin_medium"
+            android:src="@drawable/ic_icon_pickelhaube"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_margin_tiny"
-            android:text="@string/authentication_hello"
+            android:text="@string/authentication_title"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Keeper.Header" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_margin_huge"
-            android:text="@string/authentication_welcome_back"
-            android:textAppearance="@style/TextAppearance.Keeper.Header" />
+            android:text="@string/authentication_summary"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Keeper.Body" />
 
         <TextView
             android:id="@+id/errorTextView"
