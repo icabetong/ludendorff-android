@@ -74,6 +74,8 @@ class CoreViewModel @Inject constructor(
             firebaseAuth.currentUser?.delete()?.addOnSuccessListener {
                 onComplete()
             }
+        } else {
+            onComplete()
         }
     }
 

@@ -3,6 +3,7 @@ package io.capstone.ludendorff.features.asset
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
@@ -10,6 +11,7 @@ import io.capstone.ludendorff.features.type.Type
 import io.capstone.ludendorff.features.type.TypeCore
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 data class Asset @JvmOverloads constructor(
     var stockNumber: String = "",

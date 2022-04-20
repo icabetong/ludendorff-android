@@ -1,11 +1,13 @@
 package io.capstone.ludendorff.features.inventory.item
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.type.TypeCore
 import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
 
+@Keep
 @Parcelize
 class InventoryItem @JvmOverloads constructor(
     var stockNumber: String = "",

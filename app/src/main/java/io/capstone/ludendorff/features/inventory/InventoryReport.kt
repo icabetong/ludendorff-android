@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.features.inventory
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Exclude
@@ -11,6 +12,7 @@ import kotlinx.parcelize.Parcelize
 /**
  *  Report on Physical Count of Inventories
  */
+@Keep
 @Parcelize
 data class InventoryReport @JvmOverloads constructor(
     var inventoryReportId: String = IDGenerator.generateRandom(),

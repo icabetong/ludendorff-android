@@ -1,10 +1,12 @@
 package io.capstone.ludendorff.features.issued.item
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import io.capstone.ludendorff.features.asset.Asset
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 data class IssuedItem @JvmOverloads constructor(
     var stockNumber: String = "",

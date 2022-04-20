@@ -21,9 +21,11 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
+import io.capstone.ludendorff.components.exceptions.DocumentExistsException
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.setColorRes
@@ -211,14 +213,18 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                 when(it) {
                     is Response.Error -> {
                         if (it.throwable is FirebaseFirestoreException &&
-                            it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
-
+                                it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
                             MaterialDialog(requireContext()).show {
                                 lifecycleOwner(viewLifecycleOwner)
                                 title(R.string.error_no_permission)
                                 message(R.string.error_no_permission_summary_write)
                                 positiveButton()
                             }
+                        } else if (it.throwable is DocumentExistsException &&
+                                it.action == Response.Action.CREATE) {
+                            createSnackbar(R.string.feedback_stock_number_already_exists,
+                                binding.actionButton)
+
                         } else {
                             when(it.action) {
                                 Response.Action.CREATE ->

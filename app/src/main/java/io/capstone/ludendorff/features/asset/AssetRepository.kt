@@ -3,6 +3,7 @@ package io.capstone.ludendorff.features.asset
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
+import io.capstone.ludendorff.components.exceptions.DocumentExistsException
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.type.Type
 import io.capstone.ludendorff.features.type.TypeCore
@@ -32,6 +33,12 @@ class AssetRepository @Inject constructor(
 
     suspend fun create(asset: Asset): Response<Response.Action> {
         return try {
+            val snapshot = firestore.collection(Asset.COLLECTION)
+                .document(asset.stockNumber).get().await();
+            if (snapshot.exists()) {
+                throw DocumentExistsException()
+            }
+
             firestore.runBatch { writeBatch ->
                 writeBatch.set(firestore.collection(Asset.COLLECTION).document(asset.stockNumber),
                     asset)

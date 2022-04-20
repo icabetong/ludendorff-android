@@ -251,6 +251,7 @@
     <string name="feedback_token_update_success">Default device registered</string>
     <string name="feedback_token_update_error">Error registering as default device</string>
     <string name="feedback_network_limited_or_unavailable">Network is limited or unavailable</string>
+    <string name="feedback_stock_number_already_exists">Stock Number already exists</string>
 
     <string name="empty_no_assets_header">No Assets Added</string>
     <string name="empty_no_assets_summary">There are no assets available.</string>
