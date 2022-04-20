@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.android
+package io.capstone.ludendorff
 
 import org.junit.Test
 
