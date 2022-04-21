@@ -88,6 +88,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
             binding.stockNumberWarningCard.isVisible = false
 
+            binding.stockNumberTextInput.isEnabled = false
             binding.stockNumberTextInput.setText(it.stockNumber)
             binding.descriptionTextInput.setText(it.description)
             binding.classificationTextInput.setText(it.classification)

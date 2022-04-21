@@ -1,5 +1,6 @@
 package io.capstone.ludendorff.features.scan
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +14,18 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.databinding.FragmentViewResultsBinding
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
+import java.text.NumberFormat
+import java.util.*
 
 class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
+
     private var _binding: FragmentViewResultsBinding? = null
 
     private val binding get() = _binding!!
     private val viewModel: ScanViewModel by activityViewModels()
+    private val formatter = NumberFormat.getCurrencyInstance().apply {
+        currency = Currency.getInstance("PHP")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,20 +55,20 @@ class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
                     binding.decodeErrorView.root.show()
                     binding.detailsLayout.hide()
                     binding.progressIndicator.hide()
-
                 }
                 is Response.Success -> {
                     binding.decodeErrorView.root.hide()
                     binding.progressIndicator.hide()
                     binding.detailsLayout.show()
 
-                    binding.profileImageView.setImageResource(R.drawable.ic_round_healing_24)
-                    binding.userNameTextView.setText(R.string.error_assignment_not_exist_header)
-                    binding.emailTextView.setText(R.string.error_assignment_not_exist_summary)
-
                     response.data.let {
+                        binding.stockNumberTextView.text = it.stockNumber
                         binding.assetNameTextView.text = it.description
-                        binding.categoryTextView.text = it.classification
+                        binding.typeTextView.text = if (it.type != null) it.type?.typeName
+                            else getString(R.string.error_unknown)
+                        binding.classificationTextView.text = it.classification
+                        binding.unitOfMeasureTextView.text = it.unitOfMeasure
+                        binding.unitValueTextView.text = formatter.format(it.unitValue)
                     }
                 }
             }
@@ -69,6 +76,7 @@ class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
 
         viewModel.assetId.observe(viewLifecycleOwner) {
             binding.progressIndicator.isVisible = it != null
+            binding.detailsLayout.isVisible = it != null
             binding.emptyView.root.isVisible = it == null
         }
     }

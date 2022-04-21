@@ -114,8 +114,11 @@ class ScanFragment: BaseFragment(), FragmentResultListener {
         codeScanner.decodeCallback = DecodeCallback {
             activity?.runOnUiThread {
                 viewModel.setDecodedResult(it.text)
-                ScanResultBottomSheet(childFragmentManager)
-                    .show()
+                ScanResultBottomSheet(childFragmentManager).show {
+                    onDismissCallback = {
+                        codeScanner.startPreview()
+                    }
+                }
             }
         }
 

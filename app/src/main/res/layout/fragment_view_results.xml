@@ -30,54 +30,32 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/profileImageView"
-                    android:layout_width="@dimen/icon_size_medium"
-                    android:layout_height="@dimen/icon_size_medium"
-                    android:layout_marginTop="@dimen/activity_margin"
-                    android:layout_marginBottom="@dimen/activity_margin"
-                    android:layout_marginStart="@dimen/activity_margin"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <TextView
-                    android:id="@+id/userNameTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_margin"
-                    android:layout_marginBottom="@dimen/activity_margin_tiny"
-                    android:layout_marginHorizontal="@dimen/activity_margin"
-                    android:textAppearance="@style/TextAppearance.Keeper.Title.Emphasized"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/emailTextView"
-                    app:layout_constraintStart_toEndOf="@id/profileImageView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:text="Fedor von Bock"/>
-
-                <TextView
-                    android:id="@+id/emailTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_margin"
-                    android:layout_marginHorizontal="@dimen/activity_margin"
-                    android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
-                    app:layout_constraintTop_toBottomOf="@id/userNameTextView"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/profileImageView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:text="vonbock.fedor@clsu2.edu.ph"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin_tiny"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:gravity="center_vertical"
+                android:text="@string/hint_stock_number"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                android:drawableStart="@drawable/ic_round_numbers_24"
+                android:drawablePadding="@dimen/activity_margin_small"
+                android:drawableTint="@color/brand_primary"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/stockNumberTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/activity_margin_large"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                tools:text="MacBook Air M1"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin_tiny"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:gravity="center_vertical"
@@ -103,14 +81,14 @@
                 android:layout_marginBottom="@dimen/activity_margin_tiny"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:gravity="center_vertical"
-                android:text="@string/hint_status"
+                android:text="@string/hint_type"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
-                android:drawableStart="@drawable/ic_round_verified_24"
+                android:drawableStart="@drawable/ic_outline_devices_other_24"
                 android:drawablePadding="@dimen/activity_margin_small"
                 android:drawableTint="@color/brand_primary"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/assetStatusTextView"
+                android:id="@+id/typeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin"
@@ -132,7 +110,7 @@
                 android:drawableTint="@color/brand_primary"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/categoryTextView"
+                android:id="@+id/classificationTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin"
@@ -140,6 +118,50 @@
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:textAppearance="@style/TextAppearance.Keeper.List.Title"
                 tools:text="Laptops"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_tiny"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:gravity="center_vertical"
+                android:text="@string/hint_unit_of_measure"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                android:drawableStart="@drawable/ic_round_square_foot_24"
+                android:drawablePadding="@dimen/activity_margin_small"
+                android:drawableTint="@color/brand_primary"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/unitOfMeasureTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/activity_margin_large"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                tools:text="Ream"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_tiny"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:gravity="center_vertical"
+                android:text="@string/hint_unit_value"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
+                android:drawableStart="@drawable/ic_round_attach_money_24"
+                android:drawablePadding="@dimen/activity_margin_small"
+                android:drawableTint="@color/brand_primary"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/unitValueTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/activity_margin_large"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                tools:text="$ 79.99"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

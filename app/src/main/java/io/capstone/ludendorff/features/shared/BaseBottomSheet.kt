@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.features.shared
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -15,6 +16,7 @@ import io.capstone.ludendorff.R
 
 abstract class BaseBottomSheet(private val manager: FragmentManager)
     : BottomSheetDialogFragment() {
+    var onDismissCallback: (() -> Unit)? = null
 
     protected fun createToast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT): Toast {
         return Toast.makeText(requireContext(), id, duration).apply { show() }
@@ -46,7 +48,8 @@ abstract class BaseBottomSheet(private val manager: FragmentManager)
         this.show()
     }
 
-    protected fun hideViews(vararg views: View) {
-        views.forEach { it.isVisible = false }  
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDismissCallback?.let { it() }
     }
 }

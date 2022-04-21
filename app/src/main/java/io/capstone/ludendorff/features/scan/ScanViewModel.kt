@@ -33,18 +33,13 @@ class ScanViewModel @Inject constructor(
     }
 
     private fun fetch(id: String) = viewModelScope.launch(IO) {
-
-
         /**
          *  Check if the response is successful, then
          *  try checking if an assignment with the asset id exists
          *  if it does not exist, fallback the asset document
          *  instead
          */
-//        if (response is Response.Success) {
-//            if (response.data == null) {
-//                _asset.postValue(assetRepository.fetch(id))
-//            } else _assignment.postValue(response)
-//        } else _assignment.postValue(response)
+
+        _asset.postValue(assetRepository.fetch(id))
     }
 }
