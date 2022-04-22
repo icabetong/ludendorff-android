@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.type
+package io.capstone.ludendorff.features.category
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -17,38 +17,38 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TypeViewModel @Inject constructor(
+class CategoryViewModel @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val repository: TypeRepository,
+    private val repository: CategoryRepository,
     userPreferences: UserPreferences
 ): BaseViewModel() {
 
-    private val categoryQuery: Query = firestore.collection(Type.COLLECTION)
-        .orderBy(Type.FIELD_NAME, userPreferences.sortDirection)
+    private val categoryQuery: Query = firestore.collection(Category.COLLECTION)
+        .orderBy(Category.FIELD_NAME, userPreferences.sortDirection)
         .limit(Response.QUERY_LIMIT.toLong())
     private var currentQuery = categoryQuery
 
     var pager = Pager(PagingConfig(pageSize = Response.QUERY_LIMIT)) {
-        TypePagingSource(currentQuery)
+        CategoryPagingSource(currentQuery)
     }.flow.cachedIn(viewModelScope)
     val categories = pager
 
     fun changeSortDirection(direction: Query.Direction) {
-        currentQuery = firestore.collection(Type.COLLECTION)
-            .orderBy(Type.FIELD_NAME, direction)
+        currentQuery = firestore.collection(Category.COLLECTION)
+            .orderBy(Category.FIELD_NAME, direction)
             .limit(Response.QUERY_LIMIT.toLong())
     }
 
     private val _action = Channel<Response<Response.Action>>(Channel.BUFFERED)
     val action = _action.receiveAsFlow()
 
-    fun create(type: Type) = viewModelScope.launch(IO) {
-        _action.send(repository.create(type))
+    fun create(category: Category) = viewModelScope.launch(IO) {
+        _action.send(repository.create(category))
     }
-    fun update(type: Type) = viewModelScope.launch(IO) {
-        _action.send(repository.update(type))
+    fun update(category: Category) = viewModelScope.launch(IO) {
+        _action.send(repository.update(category))
     }
-    fun remove(type: Type) = viewModelScope.launch(IO) {
-        _action.send(repository.remove(type))
+    fun remove(category: Category) = viewModelScope.launch(IO) {
+        _action.send(repository.remove(category))
     }
 }

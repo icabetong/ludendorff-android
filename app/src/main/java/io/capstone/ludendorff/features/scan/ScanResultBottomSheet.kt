@@ -1,6 +1,5 @@
 package io.capstone.ludendorff.features.scan
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -64,9 +63,9 @@ class ScanResultBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
                     response.data.let {
                         binding.stockNumberTextView.text = it.stockNumber
                         binding.assetNameTextView.text = it.description
-                        binding.typeTextView.text = if (it.type != null) it.type?.typeName
+                        binding.typeTextView.text = if (it.category != null) it.category?.categoryName
                             else getString(R.string.error_unknown)
-                        binding.classificationTextView.text = it.classification
+                        binding.classificationTextView.text = it.subcategory
                         binding.unitOfMeasureTextView.text = it.unitOfMeasure
                         binding.unitValueTextView.text = formatter.format(it.unitValue)
                     }

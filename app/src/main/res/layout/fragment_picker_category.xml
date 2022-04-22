@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/activity_margin"
-        android:text="@string/title_type_select"
+        android:text="@string/title_category_select"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
 
@@ -46,7 +46,7 @@
 
         <include
             android:id="@+id/emptyView"
-            layout="@layout/layout_empty_type"/>
+            layout="@layout/layout_empty_category"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -37,12 +37,12 @@ class AssetAdapter(
                 else -> data?.description
             }
             binding.informationTextView.text = when(userPreferences.dataAssetSummary) {
-                Asset.FIELD_CLASSIFICATION -> data?.classification
-                Asset.FIELD_TYPE -> data?.type?.typeName
+                Asset.FIELD_SUBCATEGORY -> data?.subcategory
+                Asset.FIELD_CATEGORY -> data?.category?.categoryName
                 Asset.FIELD_UNIT_OF_MEASURE -> data?.unitOfMeasure
                 Asset.FIELD_UNIT_VALUE -> data?.unitValue.toString()
                 Asset.FIELD_REMARKS -> data?.remarks
-                else -> data?.classification
+                else -> data?.subcategory
             }
 
             binding.root.setOnClickListener {

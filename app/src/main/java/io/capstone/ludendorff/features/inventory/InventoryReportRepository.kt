@@ -3,10 +3,12 @@ package io.capstone.ludendorff.features.inventory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.ktx.toObject
 import io.capstone.ludendorff.api.Deshi
 import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.api.DeshiRequest
 import io.capstone.ludendorff.components.extensions.toJSONArray
+import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.inventory.item.InventoryItem
 import kotlinx.coroutines.tasks.await
@@ -19,6 +21,17 @@ class InventoryReportRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val deshi: Deshi
 ){
+
+    suspend fun fetchAssetUsages(assetId: String): Response<List<InventoryItem?>> {
+        return try {
+            val task = firestore.collectionGroup(InventoryReport.FIELD_ITEMS)
+                .whereEqualTo(Asset.FIELD_STOCK_NUMBER, assetId).get().await();
+            val items = task.documents.map { it.toObject(InventoryItem::class.java) }
+            return Response.Success(items)
+        } catch (e: Exception) {
+            Response.Error(e)
+        }
+    }
 
     suspend fun fetch(inventoryReportId: String): Response<List<InventoryItem>> {
         return try {

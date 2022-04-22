@@ -6,8 +6,8 @@ import com.algolia.instantsearch.core.highlighting.HighlightedString
 import com.algolia.instantsearch.helper.highlighting.Highlightable
 import com.algolia.search.model.Attribute
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.type.Type
-import io.capstone.ludendorff.features.type.TypeCore
+import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.CategoryCore
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
@@ -17,7 +17,7 @@ data class AssetSearch @JvmOverloads constructor(
     var stockNumber: String = "",
     var description: String? = null,
     var classification: String? = null,
-    var type: TypeCore? = null,
+    var category: CategoryCore? = null,
     var unitOfMeasure: String? = null,
     var unitValue: Double = 0.0,
     var remarks: String? = null,
@@ -27,14 +27,14 @@ data class AssetSearch @JvmOverloads constructor(
     val highlightedName: HighlightedString?
         get() = getHighlight(Attribute(Asset.FIELD_DESCRIPTION))
     val highlightedCategory: HighlightedString?
-        get() = getHighlight(Attribute(Type.FIELD_NAME))
+        get() = getHighlight(Attribute(Category.FIELD_NAME))
 
     fun toAsset(): Asset {
         return Asset(
             stockNumber = this.stockNumber,
             description = this.description,
-            classification = this.classification,
-            type = this.type,
+            subcategory = this.classification,
+            category = this.category,
             unitOfMeasure = this.unitOfMeasure,
             unitValue = this.unitValue,
             remarks = this.remarks,

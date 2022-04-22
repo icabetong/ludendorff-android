@@ -3,7 +3,7 @@ package io.capstone.ludendorff.features.inventory.item
 import android.os.Parcelable
 import androidx.annotation.Keep
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.type.TypeCore
+import io.capstone.ludendorff.features.category.CategoryCore
 import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
 
@@ -13,7 +13,7 @@ class InventoryItem @JvmOverloads constructor(
     var stockNumber: String = "",
     var article: String? = null,
     var description: String? = null,
-    var type: TypeCore? = null,
+    var category: CategoryCore? = null,
     var unitOfMeasure: String? = null,
     var unitValue: Double = 0.0,
     var balancePerCard: Int = 0,
@@ -27,7 +27,7 @@ class InventoryItem @JvmOverloads constructor(
             it.put(FIELD_STOCK_NUMBER, stockNumber)
             it.put(FIELD_ARTICLE, article)
             it.put(FIELD_DESCRIPTION, description)
-            it.put(FIELD_TYPE, type)
+            it.put(FIELD_TYPE, category)
             it.put(FIELD_UNIT_OF_MEASURE, unitOfMeasure)
             it.put(FIELD_UNIT_VALUE, unitValue)
             it.put(FIELD_BALANCE_PER_CARD, balancePerCard)
@@ -52,9 +52,9 @@ class InventoryItem @JvmOverloads constructor(
         fun fromAsset(asset: Asset): InventoryItem {
             return InventoryItem(
                 stockNumber = asset.stockNumber,
-                article = asset.classification,
+                article = asset.subcategory,
                 description = asset.description,
-                type = asset.type,
+                category = asset.category,
                 unitOfMeasure = asset.unitOfMeasure,
                 unitValue = asset.unitValue,
                 remarks = asset.remarks,

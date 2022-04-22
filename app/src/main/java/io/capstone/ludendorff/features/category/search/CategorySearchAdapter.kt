@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.type.search
+package io.capstone.ludendorff.features.category.search
 
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
@@ -11,11 +11,11 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemSearchBinding
 import io.capstone.ludendorff.features.shared.BasePagedListAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
-import io.capstone.ludendorff.features.type.Type
+import io.capstone.ludendorff.features.category.Category
 
-class TypeSearchAdapter(
-    private val onItemActionListener: OnItemActionListener<Type>
-): BasePagedListAdapter<Type, TypeSearchAdapter.TypeSearchViewHolder>(Type.DIFF_CALLBACK)  {
+class CategorySearchAdapter(
+    private val onItemActionListener: OnItemActionListener<Category>
+): BasePagedListAdapter<Category, CategorySearchAdapter.TypeSearchViewHolder>(Category.DIFF_CALLBACK)  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TypeSearchViewHolder {
         val binding = LayoutItemSearchBinding.inflate(LayoutInflater.from(parent.context),
@@ -27,16 +27,16 @@ class TypeSearchAdapter(
         holder.onBind(getItem(position))
     }
 
-    inner class TypeSearchViewHolder(itemView: View): BaseViewHolder<Type>(itemView) {
+    inner class TypeSearchViewHolder(itemView: View): BaseViewHolder<Category>(itemView) {
         private val binding = LayoutItemSearchBinding.bind(itemView)
 
-        override fun onBind(data: Type?) {
+        override fun onBind(data: Category?) {
             with(binding) {
                 val style = ForegroundColorSpan(
                     ContextCompat.getColor(root.context,
                     R.color.brand_primary))
 
-                nameTextView.text = data?.highlightedName?.toSpannedString(style) ?: data?.typeName
+                nameTextView.text = data?.highlightedName?.toSpannedString(style) ?: data?.categoryName
 
                 root.setOnClickListener {
                     onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,

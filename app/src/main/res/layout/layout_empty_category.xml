@@ -16,20 +16,20 @@
         android:layout_width="@dimen/icon_size_large"
         android:layout_height="@dimen/icon_size_large"
         android:layout_marginBottom="@dimen/activity_margin"
-        app:srcCompat="@drawable/ic_round_local_offer_24"
+        app:srcCompat="@drawable/ic_outline_category_24"
         app:tint="@color/brand_text_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/empty_no_types_header"
+        android:text="@string/empty_no_categories_header"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/empty_no_types_summary"
+        android:text="@string/empty_no_categories_summary"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Body"/>
 

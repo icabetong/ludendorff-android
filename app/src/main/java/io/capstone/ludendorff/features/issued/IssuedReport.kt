@@ -31,7 +31,7 @@ data class IssuedReport @JvmOverloads constructor(
         const val FIELD_FUND_CLUSTER = "fundCluster"
         const val FIELD_SERIAL_NUMBER = "serialNumber"
         const val FIELD_DATE = "date"
-        const val FIELD_ITEMS = "items"
+        const val FIELD_ITEMS = "issuedItems"
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<IssuedReport>() {
             override fun areItemsTheSame(oldItem: IssuedReport, newItem: IssuedReport): Boolean {

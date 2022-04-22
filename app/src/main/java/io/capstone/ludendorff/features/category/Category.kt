@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.type
+package io.capstone.ludendorff.features.category
 
 import android.os.Parcelable
 import androidx.annotation.Keep
@@ -15,9 +15,10 @@ import kotlinx.serialization.json.JsonObject
 @Keep
 @Serializable
 @Parcelize
-data class Type @JvmOverloads constructor(
-    var typeId: String = IDGenerator.generateRandom(),
-    var typeName: String? = null,
+data class Category @JvmOverloads constructor(
+    var categoryId: String = IDGenerator.generateRandom(),
+    var categoryName: String? = null,
+    var subcategories: List<String> = emptyList(),
     var count: Int = 0,
     override val _highlightResult: @RawValue JsonObject? = null
 ): Parcelable, Highlightable {
@@ -25,22 +26,23 @@ data class Type @JvmOverloads constructor(
     val highlightedName: HighlightedString?
         get() = getHighlight(Attribute(FIELD_NAME))
 
-    fun minimize(): TypeCore {
-        return TypeCore.from(this)
+    fun minimize(): CategoryCore {
+        return CategoryCore.from(this)
     }
 
     companion object {
-        const val COLLECTION = "types"
-        const val FIELD_ID = "typeId"
-        const val FIELD_NAME = "typeName"
+        const val COLLECTION = "categories"
+        const val FIELD_ID = "categoryId"
+        const val FIELD_NAME = "categoryName"
+        const val FIELD_SUBCATEGORIES = "subcategories"
         const val FIELD_COUNT = "count"
 
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Type>() {
-            override fun areItemsTheSame(oldItem: Type, newItem: Type): Boolean {
-                return oldItem.typeId == newItem.typeId
+        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Category>() {
+            override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+                return oldItem.categoryId == newItem.categoryId
             }
 
-            override fun areContentsTheSame(oldItem: Type, newItem: Type): Boolean {
+            override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
                 return oldItem == newItem
             }
         }

@@ -21,7 +21,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
@@ -32,21 +31,18 @@ import io.capstone.ludendorff.components.extensions.setColorRes
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.components.persistence.UserPreferences
-import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.databinding.FragmentAssetsBinding
 import io.capstone.ludendorff.features.asset.editor.AssetEditorFragment
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
-import io.capstone.ludendorff.features.type.Type
-import io.capstone.ludendorff.features.type.picker.TypePickerBottomSheet
+import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.CascadeMenuDelegate,
@@ -116,7 +112,7 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         registerForFragmentResult(arrayOf(
-            TypePickerBottomSheet.REQUEST_KEY_PICK
+            CategoryPickerBottomSheet.REQUEST_KEY_PICK
         ), this)
     }
 
@@ -347,20 +343,20 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
                 assetAdapter.refresh()
             }
             R.id.action_sort_type_ascending -> {
-                viewModel.sortMethod = Asset.FIELD_TYPE_NAME
+                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
                 viewModel.sortDirection = Query.Direction.ASCENDING
                 viewModel.rebuildQuery()
                 assetAdapter.refresh()
             }
             R.id.action_sort_type_descending -> {
-                viewModel.sortMethod = Asset.FIELD_TYPE_NAME
+                viewModel.sortMethod = Asset.FIELD_CATEGORY_NAME
                 viewModel.sortDirection = Query.Direction.DESCENDING
                 viewModel.rebuildQuery()
                 assetAdapter.refresh()
             }
             R.id.action_filter_type -> {
-                viewModel.filterConstraint = Asset.FIELD_TYPE_ID
-                TypePickerBottomSheet(childFragmentManager)
+                viewModel.filterConstraint = Asset.FIELD_CATEGORY_ID
+                CategoryPickerBottomSheet(childFragmentManager)
                     .show()
             }
         }
@@ -368,16 +364,16 @@ class AssetFragment: BaseFragment(), OnItemActionListener<Asset>, BaseFragment.C
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when(requestKey) {
-            TypePickerBottomSheet.REQUEST_KEY_PICK -> {
-                result.getParcelable<Type>(TypePickerBottomSheet.EXTRA_CATEGORY)?.let {
-                    viewModel.filterValue = it.typeId
+            CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
+                result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
+                    viewModel.filterValue = it.categoryId
                     viewModel.rebuildQuery()
                     assetAdapter.refresh()
 
                     binding.informationCard.isVisible = true
                     binding.informationCardText.text =
                         String.format(getString(R.string.info_dataset_filtered),
-                            it.typeName, getString(R.string.hint_type))
+                            it.categoryName, getString(R.string.hint_category))
                 }
             }
         }

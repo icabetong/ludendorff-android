@@ -22,7 +22,7 @@
 
             <include
                 android:id="@+id/rowLayout"
-                layout="@layout/layout_skeleton_type"/>
+                layout="@layout/layout_skeleton_category"/>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -51,7 +51,7 @@
 
     <include
         android:id="@+id/emptyView"
-        layout="@layout/layout_empty_type"/>
+        layout="@layout/layout_empty_category"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/actionButton"

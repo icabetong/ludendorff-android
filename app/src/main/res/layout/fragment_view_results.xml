@@ -81,7 +81,7 @@
                 android:layout_marginBottom="@dimen/activity_margin_tiny"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:gravity="center_vertical"
-                android:text="@string/hint_type"
+                android:text="@string/hint_category"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
                 android:drawableStart="@drawable/ic_outline_devices_other_24"
                 android:drawablePadding="@dimen/activity_margin_small"
@@ -103,9 +103,9 @@
                 android:layout_marginBottom="@dimen/activity_margin_tiny"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:gravity="center_vertical"
-                android:text="@string/hint_classification"
+                android:text="@string/hint_subcategory"
                 android:textAppearance="@style/TextAppearance.Keeper.Overline.Primary"
-                android:drawableStart="@drawable/ic_round_local_offer_24"
+                android:drawableStart="@drawable/ic_outline_category_24"
                 android:drawablePadding="@dimen/activity_margin_small"
                 android:drawableTint="@color/brand_primary"/>
 
@@ -162,6 +162,15 @@
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:textAppearance="@style/TextAppearance.Keeper.List.Title"
                 tools:text="$ 79.99"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/findUsagesButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:text="@string/button_find_usages"
+                app:icon="@drawable/ic_round_chevron_right_24"
+                app:iconGravity="end"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.type.picker
+package io.capstone.ludendorff.features.category.picker
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,30 +16,30 @@ import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.databinding.FragmentPickerTypeBinding
+import io.capstone.ludendorff.databinding.FragmentPickerCategoryBinding
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
-import io.capstone.ludendorff.features.type.Type
-import io.capstone.ludendorff.features.type.TypeAdapter
-import io.capstone.ludendorff.features.type.TypeViewModel
+import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.CategoryAdapter
+import io.capstone.ludendorff.features.category.CategoryViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TypePickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
-    OnItemActionListener<Type> {
+class CategoryPickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
+    OnItemActionListener<Category> {
 
-    private var _binding: FragmentPickerTypeBinding? = null
+    private var _binding: FragmentPickerCategoryBinding? = null
 
     private val binding get() = _binding!!
-    private val viewModel: TypeViewModel by viewModels()
-    private val categoryAdapter = TypeAdapter(this)
+    private val viewModel: CategoryViewModel by viewModels()
+    private val categoryAdapter = CategoryAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPickerTypeBinding.inflate(inflater, container, false)
+        _binding = FragmentPickerCategoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -110,7 +110,7 @@ class TypePickerBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
     }
 
     override fun onActionPerformed(
-        data: Type?,
+        data: Category?,
         action: OnItemActionListener.Action,
         container: View?
     ) {

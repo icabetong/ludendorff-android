@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -24,8 +25,8 @@ import io.capstone.ludendorff.features.asset.AssetViewModel
 import io.capstone.ludendorff.features.asset.qrcode.QRCodeViewBottomSheet
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
-import io.capstone.ludendorff.features.type.Type
-import io.capstone.ludendorff.features.type.picker.TypePickerBottomSheet
+import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
 
 @AndroidEntryPoint
 class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
@@ -91,18 +92,21 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.stockNumberTextInput.isEnabled = false
             binding.stockNumberTextInput.setText(it.stockNumber)
             binding.descriptionTextInput.setText(it.description)
-            binding.classificationTextInput.setText(it.classification)
-            binding.typeTextInput.setText(it.type?.typeName)
+            binding.subcategoryTextInput.setText(it.subcategory)
+            binding.categoryTextInput.setText(it.category?.categoryName)
             binding.unitOfMeasureTextInput.setText(it.unitOfMeasure)
             binding.unitValueTextInput.setText(it.unitValue.toString())
             binding.remarksTextInput.setText(it.remarks)
 
-            if (it.type != null)
-                binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
+            if (it.category != null) {
+                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
+                binding.subcategoryTextInputLayout.isVisible = true
+                editorViewModel.fetchSubcategories(it.category!!.categoryId)
+            }
         }
 
         registerForFragmentResult(
-            arrayOf(TypePickerBottomSheet.REQUEST_KEY_PICK), this)
+            arrayOf(CategoryPickerBottomSheet.REQUEST_KEY_PICK), this)
     }
 
     override fun onStart() {
@@ -113,21 +117,26 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
     override fun onResume() {
         super.onResume()
 
-        binding.typeTextInputLayout.setEndIconOnClickListener {
-            if (editorViewModel.asset.type != null) {
-                editorViewModel.asset.type = null
-                binding.typeTextInput.setText(R.string.hint_not_set)
-                binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
+        editorViewModel.subcategories.observe(viewLifecycleOwner) {
+            binding.subcategoryTextInput.setAdapter(ArrayAdapter(requireContext(),
+                R.layout.support_simple_spinner_dropdown_item, it))
+        }
+
+        binding.categoryTextInputLayout.setEndIconOnClickListener {
+            if (editorViewModel.asset.category != null) {
+                editorViewModel.asset.category = null
+                binding.categoryTextInput.setText(R.string.hint_not_set)
+                binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
             } else {
                 hideKeyboardFromCurrentFocus(binding.root)
-                TypePickerBottomSheet(childFragmentManager)
+                CategoryPickerBottomSheet(childFragmentManager)
                     .show()
             }
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
             editorViewModel.asset.stockNumber = binding.stockNumberTextInput.text.toString()
             editorViewModel.asset.description = binding.descriptionTextInput.text.toString()
-            editorViewModel.asset.classification = binding.classificationTextInput.text.toString()
+            editorViewModel.asset.subcategory = binding.subcategoryTextInput.text.toString()
             editorViewModel.asset.unitOfMeasure = binding.unitOfMeasureTextInput.text.toString()
             editorViewModel.asset.unitValue = binding.unitValueTextInput.text.toString().toDoubleOrNull() ?: 0.0
             editorViewModel.asset.remarks = binding.remarksTextInput.text.toString()
@@ -136,7 +145,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 createSnackbar(R.string.feedback_empty_asset_description, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
-            if (editorViewModel.asset.classification.isNullOrBlank()) {
+            if (editorViewModel.asset.subcategory.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_asset_classification, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
@@ -148,19 +157,19 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 createSnackbar(R.string.feedback_empty_unit_value, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
-            if (editorViewModel.asset.type == null) {
-                if (editorViewModel.previousType == null) {
+            if (editorViewModel.asset.category == null) {
+                if (editorViewModel.previousCategory == null) {
                     MaterialDialog(requireContext()).show {
                         lifecycleOwner(viewLifecycleOwner)
-                        title(R.string.dialog_no_type_title)
-                        message(R.string.dialog_no_type_message)
+                        title(R.string.dialog_no_category_title)
+                        message(R.string.dialog_no_category_message)
                         positiveButton(android.R.string.ok)
                     }
                 } else {
                     MaterialDialog(requireContext()).show {
                         lifecycleOwner(viewLifecycleOwner)
-                        title(R.string.dialog_no_type_title)
-                        message(R.string.dialog_no_type_message_has_previous)
+                        title(R.string.dialog_no_category_title)
+                        message(R.string.dialog_no_category_message_has_previous)
                         positiveButton(R.string.button_continue) {
                             onSaveAsset()
                         }
@@ -176,7 +185,7 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
     private fun onSaveAsset() {
         if (requestKey == REQUEST_KEY_CREATE)
             viewModel.create(editorViewModel.asset)
-        else viewModel.update(editorViewModel.asset, editorViewModel.previousType)
+        else viewModel.update(editorViewModel.asset, editorViewModel.previousCategory)
         controller?.navigateUp()
     }
 
@@ -187,12 +196,13 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when (requestKey) {
-            TypePickerBottomSheet.REQUEST_KEY_PICK -> {
-                result.getParcelable<Type>(TypePickerBottomSheet.EXTRA_CATEGORY)?.let {
-                    binding.typeTextInput.setText(it.typeName)
-                    binding.typeTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
+            CategoryPickerBottomSheet.REQUEST_KEY_PICK -> {
+                result.getParcelable<Category>(CategoryPickerBottomSheet.EXTRA_CATEGORY)?.let {
+                    binding.categoryTextInput.setText(it.categoryName)
+                    binding.categoryTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
+                    binding.subcategoryTextInputLayout.isVisible = true
 
-                    if (editorViewModel.previousType?.typeId != it.typeId)
+                    if (editorViewModel.previousCategory?.categoryId != it.categoryId)
                         editorViewModel.triggerCategoryChanged(it)
                 }
             }
@@ -208,6 +218,9 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                         QRCodeViewBottomSheet.EXTRA_ASSET_ID to editorViewModel.asset.stockNumber
                     )
                 }
+            }
+            R.id.action_find_usages -> {
+                controller?.navigate(R.id.navigation_find_asset_usages)
             }
             R.id.action_remove -> {
                 if (requestKey == REQUEST_KEY_UPDATE) {

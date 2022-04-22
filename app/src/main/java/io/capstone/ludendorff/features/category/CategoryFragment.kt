@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.type
+package io.capstone.ludendorff.features.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,28 +30,28 @@ import io.capstone.ludendorff.components.extensions.setColorRes
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.databinding.FragmentTypeBinding
+import io.capstone.ludendorff.databinding.FragmentCategoryBinding
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
-import io.capstone.ludendorff.features.type.editor.TypeEditorBottomSheet
+import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TypeFragment: BaseFragment(), FragmentResultListener, OnItemActionListener<Type>,
+class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionListener<Category>,
     BaseFragment.CascadeMenuDelegate {
-    private var _binding: FragmentTypeBinding? = null
+    private var _binding: FragmentCategoryBinding? = null
     private var controller: NavController? = null
     private var mainController: NavController? = null
 
     private val binding get() = _binding!!
-    private val viewModel: TypeViewModel by activityViewModels()
+    private val viewModel: CategoryViewModel by activityViewModels()
     private val authViewModel: CoreViewModel by activityViewModels()
-    private val categoryAdapter = TypeAdapter(this)
+    private val categoryAdapter = CategoryAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,7 @@ class TypeFragment: BaseFragment(), FragmentResultListener, OnItemActionListener
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTypeBinding.inflate(inflater, container, false)
+        _binding = FragmentCategoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -88,7 +88,7 @@ class TypeFragment: BaseFragment(), FragmentResultListener, OnItemActionListener
         binding.swipeRefreshLayout.setColorRes(R.color.brand_primary, R.color.brand_surface)
         binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
         binding.appBar.toolbar.setup (
-            titleRes = R.string.activity_types,
+            titleRes = R.string.activity_categories,
             onNavigationClicked = { controller?.navigateUp() },
             menuRes = R.menu.menu_core_types,
             onMenuOptionClicked = ::onMenuItemClicked
@@ -96,8 +96,8 @@ class TypeFragment: BaseFragment(), FragmentResultListener, OnItemActionListener
 
         registerForFragmentResult(
             arrayOf(
-                TypeEditorBottomSheet.REQUEST_KEY_CREATE,
-                TypeEditorBottomSheet.REQUEST_KEY_UPDATE
+                CategoryEditorBottomSheet.REQUEST_KEY_CREATE,
+                CategoryEditorBottomSheet.REQUEST_KEY_UPDATE
             ), this
         )
 
@@ -214,13 +214,13 @@ class TypeFragment: BaseFragment(), FragmentResultListener, OnItemActionListener
                         } else {
                             when(it.action) {
                                 Response.Action.CREATE ->
-                                    createSnackbar(R.string.feedback_type_create_error,
+                                    createSnackbar(R.string.feedback_category_create_error,
                                         binding.actionButton)
                                 Response.Action.UPDATE ->
-                                    createSnackbar(R.string.feedback_type_update_error,
+                                    createSnackbar(R.string.feedback_category_update_error,
                                         binding.actionButton)
                                 Response.Action.REMOVE ->
-                                    createSnackbar(R.string.feedback_type_remove_error,
+                                    createSnackbar(R.string.feedback_category_remove_error,
                                         binding.actionButton)
                             }
                         }
@@ -228,13 +228,13 @@ class TypeFragment: BaseFragment(), FragmentResultListener, OnItemActionListener
                     is Response.Success -> {
                         when(it.data) {
                             Response.Action.CREATE ->
-                                createSnackbar(R.string.feedback_type_created,
+                                createSnackbar(R.string.feedback_category_created,
                                     binding.actionButton)
                             Response.Action.UPDATE ->
-                                createSnackbar(R.string.feedback_type_updated,
+                                createSnackbar(R.string.feedback_category_updated,
                                     binding.actionButton)
                             Response.Action.REMOVE ->
-                                createSnackbar(R.string.feedback_type_removed,
+                                createSnackbar(R.string.feedback_category_removed,
                                     binding.actionButton)
                         }
                     }
@@ -253,7 +253,7 @@ class TypeFragment: BaseFragment(), FragmentResultListener, OnItemActionListener
         super.onResume()
 
         binding.actionButton.setOnClickListener {
-            TypeEditorBottomSheet(childFragmentManager).show()
+            CategoryEditorBottomSheet(childFragmentManager).show()
         }
         binding.appBar.searchPlaceholderView.setOnClickListener {
             mainController?.navigate(R.id.navigation_search_type, null, null,
@@ -267,14 +267,14 @@ class TypeFragment: BaseFragment(), FragmentResultListener, OnItemActionListener
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when (requestKey) {
-            TypeEditorBottomSheet.REQUEST_KEY_CREATE -> {
-                result.getParcelable<Type>(TypeEditorBottomSheet.EXTRA_CATEGORY)?.let {
+            CategoryEditorBottomSheet.REQUEST_KEY_CREATE -> {
+                result.getParcelable<Category>(CategoryEditorBottomSheet.EXTRA_CATEGORY)?.let {
                     viewModel.create(it)
                     categoryAdapter.refresh()
                 }
             }
-            TypeEditorBottomSheet.REQUEST_KEY_UPDATE -> {
-                result.getParcelable<Type>(TypeEditorBottomSheet.EXTRA_CATEGORY)?.let {
+            CategoryEditorBottomSheet.REQUEST_KEY_UPDATE -> {
+                result.getParcelable<Category>(CategoryEditorBottomSheet.EXTRA_CATEGORY)?.let {
                     viewModel.update(it)
                     categoryAdapter.refresh()
                 }
@@ -283,14 +283,14 @@ class TypeFragment: BaseFragment(), FragmentResultListener, OnItemActionListener
     }
 
     override fun onActionPerformed(
-        data: Type?,
+        data: Category?,
         action: OnItemActionListener.Action,
         container: View?
     ) {
         when(action) {
             OnItemActionListener.Action.SELECT -> {
-                TypeEditorBottomSheet(childFragmentManager).show {
-                    arguments = bundleOf(TypeEditorBottomSheet.EXTRA_CATEGORY to data)
+                CategoryEditorBottomSheet(childFragmentManager).show {
+                    arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)
                 }
             }
             OnItemActionListener.Action.DELETE -> {

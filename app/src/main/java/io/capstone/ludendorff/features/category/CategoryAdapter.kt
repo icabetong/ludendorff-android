@@ -1,20 +1,20 @@
-package io.capstone.ludendorff.features.type
+package io.capstone.ludendorff.features.category
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.components.interfaces.SwipeableAdapter
-import io.capstone.ludendorff.databinding.LayoutItemTypeBinding
+import io.capstone.ludendorff.databinding.LayoutItemCategoryBinding
 import io.capstone.ludendorff.features.shared.BasePagingAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 
-class TypeAdapter(
-    private val onItemActionListener: OnItemActionListener<Type>
-): BasePagingAdapter<Type, TypeAdapter.CategoryViewHolder>(Type.DIFF_CALLBACK), SwipeableAdapter {
+class CategoryAdapter(
+    private val onItemActionListener: OnItemActionListener<Category>
+): BasePagingAdapter<Category, CategoryAdapter.CategoryViewHolder>(Category.DIFF_CALLBACK), SwipeableAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val binding = LayoutItemTypeBinding.inflate(LayoutInflater.from(parent.context),
+        val binding = LayoutItemCategoryBinding.inflate(LayoutInflater.from(parent.context),
             parent, false)
         return CategoryViewHolder(binding.root)
     }
@@ -29,11 +29,11 @@ class TypeAdapter(
         )
     }
 
-    inner class CategoryViewHolder(itemView: View): BaseViewHolder<Type>(itemView) {
-        private val binding = LayoutItemTypeBinding.bind(itemView)
+    inner class CategoryViewHolder(itemView: View): BaseViewHolder<Category>(itemView) {
+        private val binding = LayoutItemCategoryBinding.bind(itemView)
 
-        override fun onBind(data: Type?) {
-            binding.nameTextView.text = data?.typeName
+        override fun onBind(data: Category?) {
+            binding.nameTextView.text = data?.categoryName
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
                     null)

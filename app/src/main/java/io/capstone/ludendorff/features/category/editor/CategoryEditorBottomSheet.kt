@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.type.editor
+package io.capstone.ludendorff.features.category.editor
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,14 +12,14 @@ import androidx.fragment.app.viewModels
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.databinding.FragmentEditorTypeBinding
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
-import io.capstone.ludendorff.features.type.Type
+import io.capstone.ludendorff.features.category.Category
 
-class TypeEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
+class CategoryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentEditorTypeBinding? = null
     private var requestKey: String = REQUEST_KEY_CREATE
 
     private val binding get() = _binding!!
-    private val viewModel: TypeEditorViewModel by viewModels()
+    private val viewModel: CategoryEditorViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,17 +38,17 @@ class TypeEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.getParcelable<Type>(EXTRA_CATEGORY)?.let {
+        arguments?.getParcelable<Category>(EXTRA_CATEGORY)?.let {
             requestKey = REQUEST_KEY_UPDATE
-            viewModel.type = it
+            viewModel.category = it
 
-            binding.componentHeaderTextView.setText(R.string.title_type_update)
-            binding.nameTextInput.setText(it.typeName)
+            binding.componentHeaderTextView.setText(R.string.title_category_update)
+            binding.nameTextInput.setText(it.categoryName)
         }
 
         binding.actionButton.setOnClickListener {
             setFragmentResult(requestKey,
-                bundleOf(EXTRA_CATEGORY to viewModel.type))
+                bundleOf(EXTRA_CATEGORY to viewModel.category))
 
             this.dismiss()
         }

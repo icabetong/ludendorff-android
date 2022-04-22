@@ -9,8 +9,8 @@
         <item>stockNumber</item>
     </string-array>
     <string-array name="data_display_asset_list_summary_options">
-        <item>@string/hint_classification</item>
-        <item>@string/hint_type</item>
+        <item>@string/hint_subcategory</item>
+        <item>@string/hint_category</item>
         <item>@string/hint_unit_of_measure</item>
         <item>@string/hint_unit_value</item>
         <item>@string/hint_remarks</item>

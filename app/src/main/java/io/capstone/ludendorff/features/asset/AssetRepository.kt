@@ -5,8 +5,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import io.capstone.ludendorff.components.exceptions.DocumentExistsException
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.type.Type
-import io.capstone.ludendorff.features.type.TypeCore
+import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.CategoryCore
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -43,9 +43,9 @@ class AssetRepository @Inject constructor(
                 writeBatch.set(firestore.collection(Asset.COLLECTION).document(asset.stockNumber),
                     asset)
 
-                asset.type?.typeId?.let {
-                    writeBatch.update(firestore.collection(Type.COLLECTION).document(it),
-                        mapOf(Type.FIELD_COUNT to FieldValue.increment(1)))
+                asset.category?.categoryId?.let {
+                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
+                        mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
                 }
             }.await()
 
@@ -57,7 +57,7 @@ class AssetRepository @Inject constructor(
         }
     }
 
-    suspend fun update(asset: Asset, type: TypeCore? = null): Response<Response.Action> {
+    suspend fun update(asset: Asset, category: CategoryCore? = null): Response<Response.Action> {
         return try {
             val batchWrite = firestore.batch()
             batchWrite.set(firestore.collection(Asset.COLLECTION)
@@ -67,18 +67,18 @@ class AssetRepository @Inject constructor(
              *  Increment the count of the
              *  new category.
              */
-            type?.let {
-                batchWrite.update(firestore.collection(Type.COLLECTION).document(it.typeId),
-                    mapOf(Type.FIELD_COUNT to FieldValue.increment(-1)))
+            category?.let {
+                batchWrite.update(firestore.collection(Category.COLLECTION).document(it.categoryId),
+                    mapOf(Category.FIELD_COUNT to FieldValue.increment(-1)))
             }
 
             /**
              *  At the same time, decrement the
              *  count of the old category
              */
-            asset.type?.typeId?.let {
-                batchWrite.update(firestore.collection(Type.COLLECTION).document(it),
-                    mapOf(Type.FIELD_COUNT to FieldValue.increment(1)))
+            asset.category?.categoryId?.let {
+                batchWrite.update(firestore.collection(Category.COLLECTION).document(it),
+                    mapOf(Category.FIELD_COUNT to FieldValue.increment(1)))
             }
 
             batchWrite.commit().await()
@@ -97,9 +97,9 @@ class AssetRepository @Inject constructor(
                 writeBatch.delete(firestore.collection(Asset.COLLECTION)
                     .document(asset.stockNumber))
 
-                asset.type?.typeId?.let {
-                    writeBatch.update(firestore.collection(Type.COLLECTION).document(it),
-                        mapOf(Type.FIELD_COUNT to FieldValue.increment(-1)))
+                asset.category?.categoryId?.let {
+                    writeBatch.update(firestore.collection(Category.COLLECTION).document(it),
+                        mapOf(Category.FIELD_COUNT to FieldValue.increment(-1)))
                 }
             }.await()
 

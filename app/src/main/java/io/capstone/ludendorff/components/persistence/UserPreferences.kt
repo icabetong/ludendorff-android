@@ -13,7 +13,6 @@ import io.capstone.ludendorff.features.settings.core.CorePreferences
 import io.capstone.ludendorff.features.settings.data.child.*
 import io.capstone.ludendorff.features.stockcard.StockCard
 import io.capstone.ludendorff.features.user.User
-import io.ktor.utils.io.concurrent.*
 import java.util.*
 
 class UserPreferences(private val context: Context?) {
@@ -74,7 +73,7 @@ class UserPreferences(private val context: Context?) {
             Asset.FIELD_DESCRIPTION) ?: Asset.FIELD_DESCRIPTION
     val dataAssetSummary: String
         get() = sharedPreference.getString(AssetDataDisplayFragment.PREFERENCE_KEY_ASSET_SUMMARY,
-            Asset.FIELD_CLASSIFICATION) ?: Asset.FIELD_CLASSIFICATION
+            Asset.FIELD_SUBCATEGORY) ?: Asset.FIELD_SUBCATEGORY
 
     val dataInventoryOverline: String
         get() = sharedPreference.getString(InventoryDataDisplayFragment.PREFERENCE_KEY_INVENTORY_OVERLINE,

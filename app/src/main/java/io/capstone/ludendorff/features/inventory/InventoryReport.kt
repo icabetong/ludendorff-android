@@ -33,7 +33,7 @@ data class InventoryReport @JvmOverloads constructor(
         const val FIELD_ENTITY_POSITION = "entityPosition"
         const val FIELD_YEAR_MONTH = "yearMonth"
         const val FIELD_ACCOUNTABILITY_DATE = "accountabilityDate"
-        const val FIELD_ITEMS = "items"
+        const val FIELD_ITEMS = "inventoryItems"
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<InventoryReport>() {
             override fun areItemsTheSame(

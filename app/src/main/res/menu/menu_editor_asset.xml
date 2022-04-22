@@ -10,6 +10,12 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/action_find_usages"
+        android:title="@string/button_find_usages"
+        android:icon="@drawable/ic_round_manage_search_24"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/action_remove"
         android:title="@string/menu_remove"
         android:icon="@drawable/ic_round_delete_24"

@@ -85,18 +85,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/typeTextInputLayout"
+                android:id="@+id/categoryTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin"
-                android:hint="@string/hint_type"
+                android:hint="@string/hint_category"
                 app:endIconDrawable="@drawable/ic_round_arrow_drop_down_24"
                 app:endIconMode="custom"
                 app:endIconTint="@color/brand_text_primary"
                 style="@style/Widget.Keeper.TextInput.Layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/typeTextInput"
+                    android:id="@+id/categoryTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
@@ -106,20 +106,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/classificationTextInputLayout"
+                android:id="@+id/subcategoryTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin"
-                android:hint="@string/hint_classification"
+                android:hint="@string/hint_subcategory"
+                android:visibility="gone"
                 app:placeholderText="@string/placeholder_item_classification"
-                style="@style/Widget.Keeper.TextInput.Layout">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/classificationTextInput"
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/subcategoryTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="text"/>
+                    android:inputType="none"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

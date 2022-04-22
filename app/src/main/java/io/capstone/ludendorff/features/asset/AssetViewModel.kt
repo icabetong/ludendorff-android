@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.shared.BaseViewModel
-import io.capstone.ludendorff.features.type.TypeCore
+import io.capstone.ludendorff.features.category.CategoryCore
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -55,8 +55,8 @@ class AssetViewModel @Inject constructor(
     fun create(asset: Asset) = viewModelScope.launch(IO) {
         _action.send(repository.create(asset))
     }
-    fun update(asset: Asset, previousType: TypeCore? = null) = viewModelScope.launch(IO) {
-        _action.send(repository.update(asset, previousType))
+    fun update(asset: Asset, previousCategory: CategoryCore? = null) = viewModelScope.launch(IO) {
+        _action.send(repository.update(asset, previousCategory))
     }
     fun remove(asset: Asset) = viewModelScope.launch(IO) {
         _action.send(repository.remove(asset))

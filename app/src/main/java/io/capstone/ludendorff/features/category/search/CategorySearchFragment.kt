@@ -1,4 +1,4 @@
-package io.capstone.ludendorff.features.type.search
+package io.capstone.ludendorff.features.category.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,16 +21,16 @@ import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchCategoryBinding
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
-import io.capstone.ludendorff.features.type.Type
-import io.capstone.ludendorff.features.type.editor.TypeEditorBottomSheet
+import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
 
-class TypeSearchFragment: BaseSearchFragment(), OnItemActionListener<Type> {
+class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Category> {
     private var _binding: FragmentSearchCategoryBinding? = null
     private var controller: NavController? = null
 
     private val binding get() = _binding!!
-    private val searchAdapter = TypeSearchAdapter(this)
-    private val viewModel: TypeSearchViewModel by viewModels()
+    private val searchAdapter = CategorySearchAdapter(this)
+    private val viewModel: CategorySearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,13 +111,13 @@ class TypeSearchFragment: BaseSearchFragment(), OnItemActionListener<Type> {
     }
 
     override fun onActionPerformed(
-        data: Type?,
+        data: Category?,
         action: OnItemActionListener.Action,
         container: View?
     ) {
         if (action == OnItemActionListener.Action.SELECT) {
-            TypeEditorBottomSheet(childFragmentManager).show {
-                arguments = bundleOf(TypeEditorBottomSheet.EXTRA_CATEGORY to data)
+            CategoryEditorBottomSheet(childFragmentManager).show {
+                arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)
             }
         }
     }
