@@ -131,22 +131,18 @@
     <string-array name="data_display_user_list_overline_options">
         <item>@string/hint_email</item>
         <item>@string/hint_position</item>
-        <item>@string/hint_department</item>
     </string-array>
     <string-array name="data_display_user_list_overline_values">
         <item>email</item>
         <item>position</item>
-        <item>department</item>
     </string-array>
     <string-array name="data_display_user_list_summary_options">
         <item>@string/hint_email</item>
         <item>@string/hint_position</item>
-        <item>@string/hint_department</item>
     </string-array>
     <string-array name="data_display_user_list_summary_values">
         <item>email</item>
         <item>position</item>
-        <item>department</item>
     </string-array>
 
     <string-array name="profile_avatar_actions">

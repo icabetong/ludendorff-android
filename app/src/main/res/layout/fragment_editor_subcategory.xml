@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/activity_margin"
-        android:text="@string/title_category_create"
+        android:text="@string/title_subcategory_create"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin"
-        android:hint="@string/hint_name"
+        android:hint="@string/hint_subcategory_name"
         style="@style/Widget.Keeper.TextInput.Layout">
 
         <com.google.android.material.textfield.TextInputEditText

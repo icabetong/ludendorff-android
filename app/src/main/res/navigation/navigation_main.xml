@@ -97,6 +97,9 @@
         android:id="@+id/navigation_editor_asset"
         android:name="io.capstone.ludendorff.features.asset.editor.AssetEditorFragment"/>
     <fragment
+        android:id="@+id/navigation_editor_category"
+        android:name="io.capstone.ludendorff.features.category.editor.CategoryEditorFragment"/>
+    <fragment
         android:id="@+id/navigation_editor_user"
         android:name="io.capstone.ludendorff.features.user.editor.UserEditorFragment"/>
     <fragment

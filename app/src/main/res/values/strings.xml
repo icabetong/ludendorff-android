@@ -37,6 +37,8 @@
     <string name="title_category_create">Create Category</string>
     <string name="title_category_update">Edit Category</string>
     <string name="title_category_select">Select Category</string>
+    <string name="title_subcategory_create">Create Subcategory</string>
+    <string name="title_subcategory_update">Update Subcategory</string>
     <string name="title_user_create">Create User</string>
     <string name="title_user_update">Edit User</string>
     <string name="title_user_select">Select User</string>
@@ -71,11 +73,9 @@
     <string name="hint_specifications">Specifications</string>
     <string name="hint_name">Name</string>
     <string name="hint_value">Value</string>
-    <string name="hint_manager">Manager</string>
     <string name="hint_not_set">Not Set</string>
     <string name="hint_vacant">Vacant</string>
     <string name="hint_none">None</string>
-    <string name="hint_department">Department</string>
     <string name="hint_user">User</string>
     <string name="hint_position">Position</string>
     <string name="hint_credentials">Credentials</string>
@@ -124,6 +124,8 @@
     <string name="hint_unit_price">Unit Price</string>
     <string name="hint_total_value">Total Value</string>
     <string name="hint_amount">Amount</string>
+    <string name="hint_subcategories">Subcategories</string>
+    <string name="hint_subcategory_name">Subcategory Name</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>
@@ -210,6 +212,7 @@
     <string name="feedback_empty_serial_number">You forgot to enter the serial number</string>
     <string name="feedback_empty_asset_items">You forgot to enter some asset items</string>
     <string name="feedback_empty_entries">You forgot to add some entries</string>
+    <string name="feedback_empty_subcategories">You forgot to add some subcategories</string>
     <string name="feedback_upload_error">Error uploading profile image</string>
     <string name="feedback_updated_password">Successfully changed password</string>
     <string name="feedback_reset_link_sent">Password reset link sent</string>

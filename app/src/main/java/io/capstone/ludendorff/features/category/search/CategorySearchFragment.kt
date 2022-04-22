@@ -22,7 +22,7 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchCategoryBinding
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.category.Category
-import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
+import io.capstone.ludendorff.features.category.subcategory.SubcategoryEditorBottomSheet
 
 class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Category> {
     private var _binding: FragmentSearchCategoryBinding? = null
@@ -116,8 +116,8 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
         container: View?
     ) {
         if (action == OnItemActionListener.Action.SELECT) {
-            CategoryEditorBottomSheet(childFragmentManager).show {
-                arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)
+            SubcategoryEditorBottomSheet(childFragmentManager).show {
+                arguments = bundleOf(SubcategoryEditorBottomSheet.EXTRA_SUBCATEGORY to data)
             }
         }
     }

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.components.interfaces.SwipeableAdapter
 import io.capstone.ludendorff.databinding.LayoutItemCategoryBinding
+import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagingAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 
@@ -33,10 +34,11 @@ class CategoryAdapter(
         private val binding = LayoutItemCategoryBinding.bind(itemView)
 
         override fun onBind(data: Category?) {
+            binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.categoryId
             binding.nameTextView.text = data?.categoryName
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
-                    null)
+                    it)
             }
         }
     }

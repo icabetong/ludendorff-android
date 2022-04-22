@@ -13,7 +13,6 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/activity_margin"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -21,7 +20,9 @@
             android:id="@+id/nameTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginBottom="@dimen/activity_margin"
+            android:layout_marginHorizontal="@dimen/activity_margin"
             android:hint="@string/hint_name"
             style="@style/Widget.Keeper.TextInput.Layout">
 
@@ -38,28 +39,22 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/managerTextInputLayout"
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_small"
-            android:layout_marginBottom="@dimen/activity_margin"
-            android:hint="@string/hint_manager"
-            app:endIconDrawable="@drawable/ic_round_arrow_drop_down_24"
-            app:endIconMode="custom"
-            app:endIconTint="@color/brand_text_primary"
-            style="@style/Widget.Keeper.TextInput.Layout">
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:layout_marginHorizontal="@dimen/activity_margin"
+            android:text="@string/hint_subcategories"
+            android:textColor="@color/brand_primary"
+            android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/managerTextInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="none"
-                android:focusable="false"
-                android:text="@string/hint_vacant"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+        <include android:id="@+id/addActionButton"
+            layout="@layout/layout_item_add"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

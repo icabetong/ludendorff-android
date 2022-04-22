@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
@@ -31,11 +32,12 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentCategoryBinding
+import io.capstone.ludendorff.features.category.editor.CategoryEditorFragment
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
-import io.capstone.ludendorff.features.category.editor.CategoryEditorBottomSheet
+import io.capstone.ludendorff.features.category.subcategory.SubcategoryEditorBottomSheet
 import io.capstone.ludendorff.features.user.User
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -85,6 +87,7 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             binding.actionButton
         )
 
+        binding.actionButton.transitionName = TRANSITION_NAME_ROOT
         binding.swipeRefreshLayout.setColorRes(R.color.brand_primary, R.color.brand_surface)
         binding.appBar.searchPlaceholderView.transitionName = BaseSearchFragment.TRANSITION_SEARCH
         binding.appBar.toolbar.setup (
@@ -96,8 +99,8 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
         registerForFragmentResult(
             arrayOf(
-                CategoryEditorBottomSheet.REQUEST_KEY_CREATE,
-                CategoryEditorBottomSheet.REQUEST_KEY_UPDATE
+                SubcategoryEditorBottomSheet.REQUEST_KEY_CREATE,
+                SubcategoryEditorBottomSheet.REQUEST_KEY_UPDATE
             ), this
         )
 
@@ -107,7 +110,10 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
             ItemTouchHelper(SwipeItemCallback(context, categoryAdapter))
                 .attachToRecyclerView(this)
+
         }
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onStart() {
@@ -253,7 +259,8 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
         super.onResume()
 
         binding.actionButton.setOnClickListener {
-            CategoryEditorBottomSheet(childFragmentManager).show()
+            mainController?.navigate(R.id.navigation_editor_category, null, null,
+                FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT))
         }
         binding.appBar.searchPlaceholderView.setOnClickListener {
             mainController?.navigate(R.id.navigation_search_type, null, null,
@@ -267,14 +274,14 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when (requestKey) {
-            CategoryEditorBottomSheet.REQUEST_KEY_CREATE -> {
-                result.getParcelable<Category>(CategoryEditorBottomSheet.EXTRA_CATEGORY)?.let {
+            SubcategoryEditorBottomSheet.REQUEST_KEY_CREATE -> {
+                result.getParcelable<Category>(SubcategoryEditorBottomSheet.EXTRA_SUBCATEGORY)?.let {
                     viewModel.create(it)
                     categoryAdapter.refresh()
                 }
             }
-            CategoryEditorBottomSheet.REQUEST_KEY_UPDATE -> {
-                result.getParcelable<Category>(CategoryEditorBottomSheet.EXTRA_CATEGORY)?.let {
+            SubcategoryEditorBottomSheet.REQUEST_KEY_UPDATE -> {
+                result.getParcelable<Category>(SubcategoryEditorBottomSheet.EXTRA_SUBCATEGORY)?.let {
                     viewModel.update(it)
                     categoryAdapter.refresh()
                 }
@@ -289,8 +296,10 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
     ) {
         when(action) {
             OnItemActionListener.Action.SELECT -> {
-                CategoryEditorBottomSheet(childFragmentManager).show {
-                    arguments = bundleOf(CategoryEditorBottomSheet.EXTRA_CATEGORY to data)
+                container?.let {
+                    mainController?.navigate(R.id.navigation_editor_category,
+                        bundleOf(CategoryEditorFragment.EXTRA_CATEGORY to data), null,
+                        FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT + data?.categoryId))
                 }
             }
             OnItemActionListener.Action.DELETE -> {
