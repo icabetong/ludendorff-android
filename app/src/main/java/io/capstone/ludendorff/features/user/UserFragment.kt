@@ -34,8 +34,6 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentUsersBinding
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
-import io.capstone.ludendorff.features.department.Department
-import io.capstone.ludendorff.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.user.editor.UserEditorFragment
@@ -45,8 +43,7 @@ import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 
 @AndroidEntryPoint
-class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.CascadeMenuDelegate,
-    FragmentResultListener {
+class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentUsersBinding? = null
     private var controller: NavController? = null
     private var mainController: NavController? = null
@@ -109,8 +106,6 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
-
-        registerForFragmentResult(arrayOf(DepartmentPickerBottomSheet.REQUEST_KEY_PICK), this)
     }
 
     override fun onStart() {
@@ -305,8 +300,6 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
 
     override fun onMenuItemClicked(id: Int) {
         when(id) {
-            R.id.action_departments ->
-                mainController?.navigate(R.id.navigation_department)
             R.id.action_sort_last_name_ascending -> {
                 viewModel.sortMethod = User.FIELD_LAST_NAME
                 viewModel.sortDirection = Query.Direction.ASCENDING
@@ -355,31 +348,8 @@ class UserFragment: BaseFragment(), OnItemActionListener<User>, BaseFragment.Cas
                 viewModel.rebuildQuery()
                 userAdapter.refresh()
             }
-            R.id.action_filter_department -> {
-                viewModel.filterConstraint = User.FIELD_DEPARTMENT_ID
-                DepartmentPickerBottomSheet(childFragmentManager)
-                    .show()
-            }
         }
     }
-
-    override fun onFragmentResult(requestKey: String, result: Bundle) {
-        when(requestKey) {
-            DepartmentPickerBottomSheet.REQUEST_KEY_PICK -> {
-                result.getParcelable<Department>(DepartmentPickerBottomSheet.EXTRA_DEPARTMENT)?.let {
-                    viewModel.filterValue = it.departmentId
-                    viewModel.rebuildQuery()
-                    userAdapter.refresh()
-
-                    binding.informationCard.isVisible = true
-                    binding.informationCardText.text =
-                        String.format(getString(R.string.info_dataset_filtered),
-                            it.name, getString(R.string.hint_department))
-                }
-            }
-        }
-    }
-
     private fun showGenericError(throwable: Throwable?, action: Response.Action?) {
         if (throwable is SocketTimeoutException)
             return

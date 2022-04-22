@@ -11,7 +11,6 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,8 +30,6 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.databinding.FragmentEditorUserBinding
 import io.capstone.ludendorff.features.core.backend.Response
-import io.capstone.ludendorff.features.department.Department
-import io.capstone.ludendorff.features.department.picker.DepartmentPickerBottomSheet
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.user.User
@@ -43,8 +40,7 @@ import java.util.concurrent.Executor
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
-    BaseFragment.CascadeMenuDelegate {
+class UserEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDelegate {
     private var _binding: FragmentEditorUserBinding? = null
     private var controller: NavController? = null
     private var requestKey = REQUEST_KEY_CREATE
@@ -91,8 +87,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setInsets(view, binding.appBar.toolbar, arrayOf(binding.departmentTextInputLayout,
-            binding.snackbarAnchor))
+        setInsets(view, binding.appBar.toolbar, arrayOf(binding.snackbarAnchor))
 
         binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
@@ -122,10 +117,6 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.emailTextInput.setText(it.email)
             binding.positionTextInput.setText(it.position)
 
-            it.department?.name?.let { departmentName ->
-                binding.departmentTextInput.setText(departmentName)
-            }
-
             binding.readChip.isChecked = it.hasPermission(User.PERMISSION_READ)
             binding.writeChip.isChecked = it.hasPermission(User.PERMISSION_WRITE)
             binding.deleteChip.isChecked = it.hasPermission(User.PERMISSION_DELETE)
@@ -134,14 +125,7 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
             if (it.hasPermission(User.PERMISSION_ADMINISTRATIVE))
                 binding.permissionWarningCard.show()
-
-            if (it.department != null)
-                binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
         }
-
-        registerForFragmentResult(
-            arrayOf(DepartmentPickerBottomSheet.REQUEST_KEY_PICK),
-            this)
     }
 
     override fun onStart() {
@@ -183,15 +167,6 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.administrativeChip.setOnCheckedChangeListener { _, isChecked ->
             binding.permissionWarningCard.isVisible = isChecked
         }
-        binding.departmentTextInputLayout.setEndIconOnClickListener {
-            if (editorViewModel.user.department != null) {
-                editorViewModel.user.department = null
-                binding.departmentTextInput.setText(R.string.hint_not_set)
-                binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_round_keyboard_arrow_down_24)
-            } else
-                DepartmentPickerBottomSheet(childFragmentManager)
-                    .show()
-        }
 
         binding.appBar.toolbarActionButton.setOnClickListener {
 
@@ -230,10 +205,6 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 createSnackbar(R.string.feedback_empty_email)
                 return@setOnClickListener
             }
-            if (editorViewModel.user.department == null) {
-                createSnackbar(R.string.feedback_empty_department)
-                return@setOnClickListener
-            }
 
             promptInfo = BiometricPrompt.PromptInfo.Builder()
                 .setTitle(getString(R.string.authentication_confirm))
@@ -245,19 +216,6 @@ class UserEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
             biometricPrompt.authenticate(promptInfo)
             return@setOnClickListener
-        }
-    }
-
-    override fun onFragmentResult(requestKey: String, result: Bundle) {
-        when(requestKey) {
-            DepartmentPickerBottomSheet.REQUEST_KEY_PICK -> {
-                result.getParcelable<Department>(DepartmentPickerBottomSheet.EXTRA_DEPARTMENT)?.let {
-                    editorViewModel.user.department = it.minimize()
-
-                    binding.departmentTextInput.setText(it.name)
-                    binding.departmentTextInputLayout.setEndIconDrawable(R.drawable.ic_round_close_24)
-                }
-            }
         }
     }
 

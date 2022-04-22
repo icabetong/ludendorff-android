@@ -39,14 +39,12 @@ class UserAdapter(
                 binding.overlineTextView.text = when(userPreferences.dataUserOverline) {
                     User.FIELD_POSITION -> it.position
                     User.FIELD_EMAIL -> it.email
-                    User.FIELD_DEPARTMENT -> it.department?.name
                     else -> it.position
                 }
                 binding.headerTextView.text = it.getDisplayName()
                 binding.informationTextView.text = when(userPreferences.dataUserSummary) {
                     User.FIELD_POSITION -> it.position
                     User.FIELD_EMAIL -> it.email
-                    User.FIELD_DEPARTMENT -> it.department?.name
                     else -> it.email
                 }
                 if (it.imageUrl != null)

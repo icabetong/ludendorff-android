@@ -17,8 +17,6 @@ class UserProperties(private val context: Context) {
             putString(USER_LAST_NAME, user.lastName)
             putString(USER_EMAIL, user.email)
             putString(USER_POSITION, user.position)
-            putString(USER_DEPARTMENT_ID, user.department?.departmentId)
-            putString(USER_DEPARTMENT, user.department?.name)
             putString(USER_DEVICE_TOKEN, user.deviceToken)
             putString(USER_IMAGE_URL, user.imageUrl)
         }
@@ -43,8 +41,6 @@ class UserProperties(private val context: Context) {
             remove(USER_LAST_NAME)
             remove(USER_EMAIL)
             remove(USER_POSITION)
-            remove(USER_DEPARTMENT)
-            remove(USER_DEPARTMENT_ID)
             remove(USER_DEVICE_TOKEN)
         }
     }
@@ -103,22 +99,6 @@ class UserProperties(private val context: Context) {
             }
         }
 
-    var departmentId: String?
-        get() = sharedPreferences.getString(USER_DEPARTMENT_ID, null)
-        set(value) {
-            sharedPreferences.edit {
-                putString(USER_DEPARTMENT_ID, value)
-            }
-        }
-
-    var department: String?
-        get() = sharedPreferences.getString(USER_DEPARTMENT, null)
-        set(value) {
-            sharedPreferences.edit {
-                putString(USER_DEPARTMENT, value)
-            }
-        }
-
     var deviceToken: String?
         get() = sharedPreferences.getString(USER_DEVICE_TOKEN, null)
         set(value) {
@@ -135,8 +115,6 @@ class UserProperties(private val context: Context) {
         const val USER_EMAIL = User.FIELD_EMAIL
         const val USER_IMAGE_URL = User.FIELD_IMAGE_URL
         const val USER_POSITION = User.FIELD_POSITION
-        const val USER_DEPARTMENT_ID = User.FIELD_DEPARTMENT_ID
-        const val USER_DEPARTMENT = User.FIELD_DEPARTMENT_NAME
         const val USER_DEVICE_TOKEN = User.FIELD_DEVICE_TOKEN
     }
 }

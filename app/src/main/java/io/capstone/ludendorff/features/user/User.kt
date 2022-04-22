@@ -10,8 +10,6 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
 import io.capstone.ludendorff.components.interfaces.Serializable
 import io.capstone.ludendorff.components.utils.IDGenerator
-import io.capstone.ludendorff.features.department.Department
-import io.capstone.ludendorff.features.department.DepartmentCore
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import kotlinx.serialization.json.JsonObject
@@ -29,7 +27,6 @@ data class User @JvmOverloads constructor(
     var imageUrl: String? = null,
     var permissions: List<Int> = emptyList(),
     var position: String? = null,
-    var department: DepartmentCore? = null,
     var deviceToken: String? = null,
     var disabled: Boolean = false,
     var setupCompleted: Boolean = false,
@@ -54,10 +51,6 @@ data class User @JvmOverloads constructor(
             put(FIELD_LAST_NAME, lastName)
             put(FIELD_POSITION, position)
             put(FIELD_PERMISSIONS, JSONArray(permissions.toIntArray()))
-            put(FIELD_DEPARTMENT, JSONObject().apply {
-                put(FIELD_DEPARTMENT_ID, department?.departmentId)
-                put(FIELD_DEPARTMENT_NAME, department?.name)
-            })
         }
     }
 
@@ -84,9 +77,6 @@ data class User @JvmOverloads constructor(
         const val FIELD_IMAGE_URL = "imageUrl"
         const val FIELD_PERMISSIONS = "permissions"
         const val FIELD_POSITION = "position"
-        const val FIELD_DEPARTMENT = "department"
-        const val FIELD_DEPARTMENT_ID = "${FIELD_DEPARTMENT}.${Department.FIELD_ID}"
-        const val FIELD_DEPARTMENT_NAME = "${FIELD_DEPARTMENT}.${Department.FIELD_NAME}"
         const val FIELD_DEVICE_TOKEN = "deviceToken"
         const val FIELD_DISABLED = "disabled"
         const val FIELD_SETUP_COMPLETED = "setupCompleted"

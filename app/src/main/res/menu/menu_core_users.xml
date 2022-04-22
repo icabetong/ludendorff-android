@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_departments"
-        android:icon="@drawable/ic_round_domain_24"
-        android:title="@string/menu_departments"/>
-
-    <item
         android:title="@string/menu_sort"
         android:icon="@drawable/ic_hero_sort_ascending">
         <menu>
@@ -66,17 +61,6 @@
                         android:icon="@drawable/ic_hero_sort_descending"/>
                 </menu>
             </item>
-        </menu>
-    </item>
-
-    <item
-        android:title="@string/menu_filter"
-        android:icon="@drawable/ic_round_filter_alt_24">
-        <menu>
-            <item
-                android:id="@+id/action_filter_department"
-                android:title="@string/hint_department"
-                android:icon="@drawable/ic_round_domain_24"/>
         </menu>
     </item>
 
