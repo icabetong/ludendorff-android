@@ -49,6 +49,7 @@ class IssuedItemEditorBottomSheet(fragmentManager: FragmentManager): BaseBottomS
             viewModel.asset = it
 
             binding.descriptionTextView.text = it.description
+            binding.unitCostTextInput.setText(it.unitValue.toString())
         }
 
         arguments?.getParcelable<IssuedItem>(EXTRA_ISSUED_ITEM)?.let {
@@ -57,6 +58,7 @@ class IssuedItemEditorBottomSheet(fragmentManager: FragmentManager): BaseBottomS
             viewModel.recompute()
 
             binding.descriptionTextView.text = it.description
+            binding.unitCostTextInput.setText(it.unitCost.toString())
             binding.quantityIssuedTextInput.setText(it.quantityIssued.toString())
             binding.responsibilityCenterTextInput.setText(it.responsibilityCenter)
         }
@@ -68,7 +70,11 @@ class IssuedItemEditorBottomSheet(fragmentManager: FragmentManager): BaseBottomS
             this.dismiss()
         }
 
+        binding.unitCostTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.quantityIssuedTextInput.filters = arrayOf(IntegerInputFilter.instance)
+        binding.unitCostTextInput.doAfterTextChanged {
+            viewModel.triggerUnitCostChanged(it.toString())
+        }
         binding.quantityIssuedTextInput.doAfterTextChanged {
             viewModel.triggerQuantityIssuedChanged(it.toString())
         }

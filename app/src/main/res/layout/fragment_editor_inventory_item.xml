@@ -46,10 +46,32 @@
                 android:textAppearance="@style/TextAppearance.Keeper.List.Title"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/supplierTextInputLayout"
+                android:id="@+id/unitValueTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_margin"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_unit_cost"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/unitValueTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text">
+
+                    <requestFocus/>
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/supplierTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/activity_margin"
                 android:hint="@string/hint_supplier"
@@ -60,11 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="text">
-
-                    <requestFocus/>
-
-                </com.google.android.material.textfield.TextInputEditText>
+                    android:inputType="text"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

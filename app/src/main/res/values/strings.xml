@@ -92,6 +92,7 @@
     <string name="hint_category">Category</string>
     <string name="hint_unit_of_measure">Unit of Measure</string>
     <string name="hint_unit_value">Unit Value</string>
+    <string name="hint_unit_cost">Unit Cost</string>
     <string name="hint_fund_cluster">Fund Cluster</string>
     <string name="hint_entity_name">Entity Name</string>
     <string name="hint_entity_position">Entity Position</string>

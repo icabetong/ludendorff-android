@@ -21,6 +21,15 @@ class InventoryItemEditorViewModel: BaseViewModel() {
         _totalValue.value = inventoryItem.balancePerCard * inventoryItem.unitValue
     }
 
+    fun triggerUnitValue(unitValue: String) {
+        if (unitValue.isNotBlank()) {
+            inventoryItem.unitValue = unitValue.toDouble()
+        } else {
+            inventoryItem.unitValue = 0.0
+        }
+        recompute()
+    }
+
     fun triggerBalancePerCardChanged(balancePerCard: String) {
         if (balancePerCard.isNotBlank()) {
             inventoryItem.balancePerCard = balancePerCard.toInt()

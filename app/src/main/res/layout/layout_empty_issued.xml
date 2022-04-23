@@ -16,7 +16,7 @@
         android:layout_width="@dimen/icon_size_large"
         android:layout_height="@dimen/icon_size_large"
         android:layout_marginBottom="@dimen/activity_margin"
-        app:srcCompat="@drawable/ic_outline_real_estate_agent_24"
+        app:srcCompat="@drawable/ic_outline_upload_file_24"
         app:tint="@color/brand_text_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView

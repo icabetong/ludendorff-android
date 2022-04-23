@@ -49,6 +49,7 @@ class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(
             viewModel.asset = it
 
             binding.descriptionTextView.text = it.description
+            binding.unitValueTextInput.setText(it.unitValue.toString())
         }
         arguments?.getParcelable<InventoryItem>(EXTRA_INVENTORY_ITEM)?.let {
             requestKey = REQUEST_KEY_UPDATE
@@ -56,6 +57,7 @@ class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(
             viewModel.recompute()
 
             binding.descriptionTextView.text = it.description
+            binding.unitValueTextInput.setText(it.unitValue.toString())
             binding.balancePerCardTextInput.setText(it.balancePerCard.toString())
             binding.onHandCountTextInput.setText(it.onHandCount.toString())
             binding.supplierTextInput.setText(it.supplier)
@@ -70,6 +72,9 @@ class InventoryItemEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(
 
         binding.balancePerCardTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.onHandCountTextInput.filters = arrayOf(IntegerInputFilter.instance)
+        binding.unitValueTextInput.doAfterTextChanged {
+            viewModel.triggerUnitValue(it.toString())
+        }
         binding.balancePerCardTextInput.doAfterTextChanged {
             viewModel.triggerBalancePerCardChanged(it.toString())
         }

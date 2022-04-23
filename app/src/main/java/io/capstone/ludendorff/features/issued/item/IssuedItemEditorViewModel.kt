@@ -21,6 +21,15 @@ class IssuedItemEditorViewModel: BaseViewModel() {
         _amount.value = issuedItem.quantityIssued * issuedItem.unitCost
     }
 
+    fun triggerUnitCostChanged(unitCost: String) {
+        if (unitCost.isNotBlank()) {
+            issuedItem.unitCost = unitCost.toDouble()
+        } else {
+            issuedItem.unitCost = 0.0
+        }
+        recompute()
+    }
+
     fun triggerQuantityIssuedChanged(quantity: String) {
         if (quantity.isNotBlank()) {
             issuedItem.quantityIssued = quantity.toInt()

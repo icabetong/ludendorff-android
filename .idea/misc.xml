@@ -216,6 +216,7 @@
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_appbar_search.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_appbar_search_core.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_empty_category.xml" value="0.1328125" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_empty_issued.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_empty_scan.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_error_decode.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_item_asset.xml" value="0.35025641025641024" />
@@ -233,6 +234,7 @@
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_preference_placeholder_overline.xml" value="0.35025641025641024" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_core_assets.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_core_departments.xml" value="0.2637065637065637" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_core_issued.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_core_users.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_editor_asset.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_navigation.xml" value="0.2637065637065637" />
