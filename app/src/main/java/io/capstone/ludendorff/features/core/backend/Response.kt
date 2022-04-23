@@ -14,6 +14,7 @@ sealed class Response<out T> {
     enum class Action { CREATE, UPDATE, REMOVE }
 
     companion object {
+        const val CORE_COLLECTION = "core"
         const val QUERY_LIMIT = 15
     }
 

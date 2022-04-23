@@ -17,8 +17,6 @@ import kotlinx.parcelize.Parcelize
 data class InventoryReport @JvmOverloads constructor(
     var inventoryReportId: String = IDGenerator.generateRandom(),
     var fundCluster: String? = null,
-    var entityName: String? = null,
-    var entityPosition: String? = null,
     var yearMonth: String? = null,
     var accountabilityDate: Timestamp = Timestamp.now(),
     @get:Exclude

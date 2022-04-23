@@ -29,7 +29,6 @@ data class IssuedReportSearch @JvmOverloads constructor(
     fun toIssuedReport(): IssuedReport {
         return IssuedReport(
             issuedReportId = this.issuedReportId,
-            entityName = this.entityName,
             fundCluster = this.fundCluster,
             serialNumber = this.serialNumber,
             date = this.date,

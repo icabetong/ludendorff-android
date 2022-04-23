@@ -100,8 +100,6 @@ class InventoryReportEditorFragment: BaseEditorFragment(), FragmentResultListene
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
 
             binding.fundClusterTextInput.setText(it.fundCluster)
-            binding.entityNameTextInput.setText(it.entityName)
-            binding.entityPositionTextInput.setText(it.entityPosition)
             binding.yearMonthTextInput.setText(it.yearMonth)
             binding.accountabilityDateTextInput.setText(
                 formatter.format(it.accountabilityDate.toLocalDate())
@@ -147,21 +145,11 @@ class InventoryReportEditorFragment: BaseEditorFragment(), FragmentResultListene
         binding.appBar.toolbarActionButton.setOnClickListener {
             with(editorViewModel.inventoryReport) {
                 fundCluster = binding.fundClusterTextInput.text.toString()
-                entityName = binding.entityNameTextInput.text.toString()
-                entityPosition = binding.entityPositionTextInput.text.toString()
                 items = editorViewModel.items
             }
 
             if (editorViewModel.inventoryReport.fundCluster.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_fund_cluster, view = binding.snackbarAnchor)
-                return@setOnClickListener
-            }
-            if (editorViewModel.inventoryReport.entityName.isNullOrBlank()) {
-                createSnackbar(R.string.feedback_empty_entity_name, view = binding.snackbarAnchor)
-                return@setOnClickListener
-            }
-            if (editorViewModel.inventoryReport.entityPosition.isNullOrBlank()) {
-                createSnackbar(R.string.feedback_empty_entity_position, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
             if (editorViewModel.inventoryReport.items.isEmpty()) {

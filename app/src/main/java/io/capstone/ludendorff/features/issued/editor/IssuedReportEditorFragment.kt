@@ -97,7 +97,6 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
 
             binding.fundClusterTextInput.setText(it.fundCluster)
-            binding.entityNameTextInput.setText(it.entityName)
             binding.serialNumberTextInput.setText(it.serialNumber)
             binding.dateTextInput.setText(formatter.format(it.date.toLocalDate()))
         }
@@ -141,16 +140,11 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
         binding.appBar.toolbarActionButton.setOnClickListener {
             with(editorViewModel.issuedReport) {
                 fundCluster = binding.fundClusterTextInput.text.toString()
-                entityName = binding.entityNameTextInput.text.toString()
                 serialNumber = binding.serialNumberTextInput.text.toString()
             }
 
             if (editorViewModel.issuedReport.fundCluster.isNullOrBlank()) {
                 createSnackbar(R.string.feedback_empty_fund_cluster, view = binding.snackbarAnchor)
-                return@setOnClickListener
-            }
-            if (editorViewModel.issuedReport.entityName.isNullOrBlank()) {
-                createSnackbar(R.string.feedback_empty_entity_name, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
             if (editorViewModel.issuedReport.serialNumber.isNullOrBlank()) {

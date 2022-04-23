@@ -35,12 +35,12 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/settings_group_notifications">
+        android:title="@string/settings_group_data">
 
         <Preference
-            android:key="preference:device_default"
-            android:title="@string/settings_default_notification_device_title"
-            android:summary="@string/settings_default_notification_device_summary"/>
+            android:key="preference:entity"
+            android:title="@string/settings_configure_entity"
+            android:icon="@drawable/ic_outline_manage_accounts_24"/>
 
     </PreferenceCategory>
 

@@ -16,7 +16,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class IssuedReport @JvmOverloads constructor(
     var issuedReportId: String = IDGenerator.generateRandom(),
-    var entityName: String? = null,
     var fundCluster: String? = null,
     var serialNumber: String? = null,
     var date: Timestamp = Timestamp.now(),

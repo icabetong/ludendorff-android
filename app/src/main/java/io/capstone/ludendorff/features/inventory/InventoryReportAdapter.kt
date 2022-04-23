@@ -45,18 +45,15 @@ class InventoryReportAdapter(
             }
             binding.headerTextView.text = when(userPreferences.dataInventoryHeader) {
                 InventoryReport.FIELD_FUND_CLUSTER -> data?.fundCluster
-                InventoryReport.FIELD_ENTITY_NAME -> data?.entityName
                 InventoryReport.FIELD_ACCOUNTABILITY_DATE ->
                     formatter.format(data?.accountabilityDate?.toLocalDate())
                 else -> data?.fundCluster
             }
             binding.informationTextView.text = when(userPreferences.dataInventorySummary) {
-                InventoryReport.FIELD_ENTITY_NAME -> data?.entityName
                 InventoryReport.FIELD_FUND_CLUSTER -> data?.fundCluster
                 InventoryReport.FIELD_ACCOUNTABILITY_DATE ->
                     formatter.format(data?.accountabilityDate?.toLocalDate())
-                InventoryReport.FIELD_ENTITY_POSITION -> data?.entityPosition
-                else -> data?.entityName
+                else -> formatter.format(data?.accountabilityDate?.toLocalDate())
             }
 
             binding.root.setOnClickListener {

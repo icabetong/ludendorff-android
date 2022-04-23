@@ -37,7 +37,6 @@ class IssuedReportAdapter(
             binding.overlineTextView.text = when(userPreferences.dataIssuedOverline) {
                 IssuedReport.FIELD_SERIAL_NUMBER -> data?.serialNumber
                 IssuedReport.FIELD_FUND_CLUSTER -> data?.fundCluster
-                IssuedReport.FIELD_ENTITY_NAME -> data?.entityName
                 IssuedReport.FIELD_DATE ->
                     formatter.format(data?.date?.toLocalDate())
                 else -> data?.serialNumber
@@ -45,7 +44,6 @@ class IssuedReportAdapter(
             binding.headerTextView.text = when(userPreferences.dataIssuedHeader) {
                 IssuedReport.FIELD_SERIAL_NUMBER -> data?.serialNumber
                 IssuedReport.FIELD_FUND_CLUSTER -> data?.fundCluster
-                IssuedReport.FIELD_ENTITY_NAME -> data?.entityName
                 IssuedReport.FIELD_DATE ->
                     formatter.format(data?.date?.toLocalDate())
                 else -> data?.fundCluster
@@ -53,10 +51,9 @@ class IssuedReportAdapter(
             binding.informationTextView.text = when(userPreferences.dataIssuedSummary) {
                 IssuedReport.FIELD_SERIAL_NUMBER -> data?.serialNumber
                 IssuedReport.FIELD_FUND_CLUSTER -> data?.fundCluster
-                IssuedReport.FIELD_ENTITY_NAME -> data?.entityName
                 IssuedReport.FIELD_DATE ->
                     formatter.format(data?.date?.toLocalDate())
-                else -> data?.entityName
+                else -> formatter.format(data?.date?.toLocalDate())
             }
 
             binding.root.setOnClickListener {

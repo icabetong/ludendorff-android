@@ -59,24 +59,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/entityNameTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            android:layout_marginBottom="@dimen/activity_margin"
-            android:hint="@string/hint_entity_name"
-            style="@style/Widget.Keeper.TextInput.Layout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/entityNameTextInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="text"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dateTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

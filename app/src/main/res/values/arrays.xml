@@ -34,58 +34,46 @@
     </string-array>
     <string-array name="data_display_inventory_list_header_options">
         <item>@string/hint_fund_cluster</item>
-        <item>@string/hint_entity_name</item>
         <item>@string/hint_accountability_date</item>
     </string-array>
     <string-array name="data_display_inventory_list_header_values">
         <item>fundCluster</item>
-        <item>entityName</item>
         <item>accountabilityDate</item>
     </string-array>
     <string-array name="data_display_inventory_list_summary_options">
         <item>@string/hint_year_month</item>
         <item>@string/hint_accountability_date</item>
-        <item>@string/hint_entity_name</item>
-        <item>@string/hint_entity_position</item>
     </string-array>
     <string-array name="data_display_inventory_list_summary_values">
         <item>yearMonth</item>
         <item>accountabilityDate</item>
-        <item>entityName</item>
-        <item>entityPosition</item>
     </string-array>
     <string-array name="data_display_issued_list_overline_options">
-        <item>@string/hint_entity_name</item>
         <item>@string/hint_fund_cluster</item>
         <item>@string/hint_serial_number</item>
         <item>@string/hint_date</item>
     </string-array>
     <string-array name="data_display_issued_list_overline_values">
-        <item>entityName</item>
         <item>fundCluster</item>
         <item>serialNumber</item>
         <item>date</item>
     </string-array>
     <string-array name="data_display_issued_list_header_options">
-        <item>@string/hint_entity_name</item>
         <item>@string/hint_fund_cluster</item>
         <item>@string/hint_serial_number</item>
         <item>@string/hint_date</item>
     </string-array>
     <string-array name="data_display_issued_list_header_values">
-        <item>entityName</item>
         <item>fundCluster</item>
         <item>serialNumber</item>
         <item>date</item>
     </string-array>
     <string-array name="data_display_issued_list_summary_options">
-        <item>@string/hint_entity_name</item>
         <item>@string/hint_fund_cluster</item>
         <item>@string/hint_serial_number</item>
         <item>@string/hint_date</item>
     </string-array>
     <string-array name="data_display_issued_list_summary_values">
-        <item>entityName</item>
         <item>fundCluster</item>
         <item>serialNumber</item>
         <item>date</item>

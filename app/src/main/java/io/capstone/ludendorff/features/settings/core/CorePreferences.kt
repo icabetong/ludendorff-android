@@ -2,6 +2,7 @@ package io.capstone.ludendorff.features.settings.core
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.BuildConfig
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.persistence.UserPreferences
+import io.capstone.ludendorff.features.core.entity.EntityEditorBottomSheet
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.core.worker.TokenUpdateWorker
 import io.capstone.ludendorff.features.shared.BasePreference
@@ -59,32 +61,6 @@ class CorePreferences: BasePreference() {
                 true
             }
 
-        findPreference<Preference>(PREFERENCE_KEY_DEVICE_DEFAULT)
-            ?.setOnPreferenceClickListener {
-                isTriggered = true
-                firebaseMessaging.token.addOnCompleteListener {
-                    if (!it.isSuccessful) {
-                        createSnackbar(R.string.feedback_token_update_error)
-                        return@addOnCompleteListener
-                    }
-
-                    userPreferences.deviceToken = it.result
-                    val deviceTokenRequest = OneTimeWorkRequestBuilder<TokenUpdateWorker>()
-                        .addTag(TokenUpdateWorker.WORKER_TAG)
-                        .setInputData(
-                            workDataOf(
-                                TokenUpdateWorker.EXTRA_TOKEN_ID to userPreferences.deviceToken
-                            )
-                        )
-                        .build()
-                    workManager.enqueueUniqueWork(
-                        TokenUpdateWorker.WORKER_TAG,
-                        ExistingWorkPolicy.REPLACE, deviceTokenRequest)
-                    createSnackbar(R.string.feedback_token_update_success)
-                }
-                true
-            }
-
         findPreference<Preference>(PREFERENCE_KEY_BUILD)
             ?.summary = BuildConfig.VERSION_NAME
 
@@ -97,6 +73,12 @@ class CorePreferences: BasePreference() {
         findPreference<Preference>(PREFERENCE_KEY_DISPLAY)
             ?.setOnPreferenceClickListener {
                 controller?.navigate(R.id.navigation_data_display_settings)
+                true
+            }
+
+        findPreference<Preference>(PREFERENCE_KEY_ENTITY)
+            ?.setOnPreferenceClickListener {
+                EntityEditorBottomSheet(childFragmentManager).show()
                 true
             }
     }
@@ -117,7 +99,7 @@ class CorePreferences: BasePreference() {
         const val PREFERENCE_KEY_USER = "preference:user"
         const val PREFERENCE_KEY_THEME = "preference:theme"
         const val PREFERENCE_KEY_SORT = "preference:sort"
-        const val PREFERENCE_KEY_DEVICE_DEFAULT = "preference:device_default"
+        const val PREFERENCE_KEY_ENTITY = "preference:entity"
         const val PREFERENCE_KEY_BUILD = "preference:build"
         const val PREFERENCE_KEY_NOTICE = "preference:notices"
 

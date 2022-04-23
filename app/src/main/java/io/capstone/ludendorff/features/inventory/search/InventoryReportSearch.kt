@@ -18,8 +18,6 @@ import kotlinx.serialization.json.JsonObject
 data class InventoryReportSearch @JvmOverloads constructor(
     var inventoryReportId: String = IDGenerator.generateRandom(),
     var fundCluster: String? = null,
-    var entityName: String? = null,
-    var entityPosition: String? = null,
     var yearMonth: String? = null,
     @Serializable(TimestampSerializer::class)
     var accountabilityDate: Timestamp = Timestamp.now(),
@@ -30,8 +28,6 @@ data class InventoryReportSearch @JvmOverloads constructor(
         return InventoryReport(
             inventoryReportId = this.inventoryReportId,
             fundCluster = this.fundCluster,
-            entityName = this.entityName,
-            entityPosition = this.entityPosition,
             yearMonth = this.yearMonth,
             accountabilityDate = this.accountabilityDate,
         )

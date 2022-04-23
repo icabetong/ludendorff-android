@@ -28,6 +28,7 @@
     <string name="navigation_notifications">@string/activity_notifications</string>
     <string name="navigation_settings">@string/activity_settings</string>
 
+    <string name="title_configure_entity">Configure Entity</string>
     <string name="title_asset_create">Create Asset</string>
     <string name="title_asset_update">Edit Asset</string>
     <string name="title_asset_select">Select Asset</string>
@@ -342,6 +343,7 @@
     <string name="settings_group_interface">Interface</string>
     <string name="settings_group_lists">Lists</string>
     <string name="settings_group_notifications">Notifications</string>
+    <string name="settings_group_data">Data</string>
     <string name="settings_group_about">About</string>
 
     <string name="settings_theme_title">Theme</string>
@@ -362,6 +364,8 @@
     <string name="settings_data_list_issued">Issued Report Lists</string>
     <string name="settings_data_list_stock_card">Stock Card Lists</string>
     <string name="settings_data_list_user">User Lists</string>
+
+    <string name="settings_configure_entity">Configure Entity</string>
 
     <string name="settings_default_notification_device_title">Use this device for notifications</string>
     <string name="settings_default_notification_device_summary">Make this device the default receiver for notifications.</string>
