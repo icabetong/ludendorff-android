@@ -18,6 +18,7 @@ import io.capstone.ludendorff.components.extensions.toTimestamp
 import io.capstone.ludendorff.components.utils.DateTimeFormatter
 import io.capstone.ludendorff.components.utils.IntegerInputFilter
 import io.capstone.ludendorff.databinding.FragmentEditorStockCardEntryBinding
+import io.capstone.ludendorff.features.inventory.picker.InventoryReportPickerFragment
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
 
 @AndroidEntryPoint
@@ -51,13 +52,10 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
             viewModel.stockCardEntry = it
 
             binding.dateTextInput.setText(formatter.format(it.date.toLocalDate()))
-            binding.referenceTextInput.setText(it.reference)
-            binding.receiptQuantityTextInput.setText(it.receiptQuantity.toString())
+            binding.receivedQuantityTextInput.setText(it.receivedQuantity.toString())
             binding.requestedQuantityTextInput.setText(it.requestedQuantity.toString())
             binding.issueQuantityTextInput.setText(it.issueQuantity.toString())
             binding.issueOfficeTextInput.setText(it.issueOffice.toString())
-            binding.balanceQuantityTextInput.setText(it.balanceQuantity.toString())
-            binding.balanceTotalPriceTextInput.setText(it.balanceTotalPrice.toString())
         }
 
         binding.actionButton.setOnClickListener {
@@ -69,16 +67,13 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
         binding.dateTextInputLayout.setEndIconOnClickListener(::onInvokeDatePicker)
         binding.dateTextInput.setOnClickListener(::onInvokeDatePicker)
 
-        binding.receiptQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
+        binding.receivedQuantityTextInputLayout.setEndIconOnClickListener(::onInvokeSourcePicker)
+        binding.receivedQuantityTextInput.setOnClickListener(::onInvokeSourcePicker)
+
+        binding.receivedQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.requestedQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.issueQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.balanceQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
-        binding.referenceTextInput.doAfterTextChanged {
-            viewModel.triggerReferenceChanged(it.toString())
-        }
-        binding.receiptQuantityTextInput.doAfterTextChanged {
-            viewModel.triggerReceiptQuantityChanged(it.toString())
-        }
         binding.requestedQuantityTextInput.doAfterTextChanged {
             viewModel.triggerRequestedQuantityChanged(it.toString())
         }
@@ -87,12 +82,6 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
         }
         binding.issueOfficeTextInput.doAfterTextChanged {
             viewModel.triggerIssueOffice(it.toString())
-        }
-        binding.balanceQuantityTextInput.doAfterTextChanged {
-            viewModel.triggerBalanceQuantity(it.toString())
-        }
-        binding.balanceTotalPriceTextInput.doAfterTextChanged {
-            viewModel.triggerBalanceTotalPrice(it.toString())
         }
     }
 
@@ -104,6 +93,11 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
                 binding.dateTextInput.setText(formatter.format(datetime.toLocalDate()))
             }
         }
+    }
+
+    private fun onInvokeSourcePicker(view: View) {
+        InventoryReportPickerFragment(childFragmentManager)
+            .show()
     }
 
     companion object {

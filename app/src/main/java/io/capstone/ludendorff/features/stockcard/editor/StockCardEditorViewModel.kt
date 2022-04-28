@@ -34,6 +34,10 @@ class StockCardEditorViewModel @Inject constructor(
         return _entries.value ?: mutableListOf()
     }
 
+    fun setEntries(items: List<StockCardEntry>) {
+        _entries.value = items
+    }
+
     private fun fetchEntries() = viewModelScope.launch(IO) {
         _isLoading.postValue(true)
         val response = repository.fetch(stockCard.stockCardId)

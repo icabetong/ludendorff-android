@@ -9,12 +9,13 @@ import com.algolia.instantsearch.helper.android.highlighting.toSpannedString
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemIssuedReportBinding
+import io.capstone.ludendorff.features.issued.IssuedReport
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagedListAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class IssuedReportSearchAdapter(
-    private val onItemActionListener: OnItemActionListener<IssuedReportSearch>
+    private val onItemActionListener: OnItemActionListener<IssuedReport>
 ): BasePagedListAdapter<IssuedReportSearch, IssuedReportSearchAdapter.IssuedReportSearchViewHolder>
     (IssuedReportSearch.DIFF_CALLBACK) {
 

@@ -9,12 +9,13 @@ import com.algolia.instantsearch.helper.android.highlighting.toSpannedString
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemInventoryReportBinding
+import io.capstone.ludendorff.features.inventory.InventoryReport
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.shared.BasePagedListAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class InventoryReportSearchAdapter(
-    private val onItemActionListener: OnItemActionListener<InventoryReportSearch>
+    private val onItemActionListener: OnItemActionListener<InventoryReport>
 ): BasePagedListAdapter<InventoryReportSearch, InventoryReportSearchAdapter.InventoryReportSearchViewHolder>
     (InventoryReportSearch.DIFF_CALLBACK) {
 
@@ -47,7 +48,7 @@ class InventoryReportSearchAdapter(
             binding.informationTextView.text = data?.highlightedEntityName?.toSpannedString(style)
 
             binding.root.setOnClickListener {
-                onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
+                onItemActionListener.onActionPerformed(data?.toInventoryReport(), OnItemActionListener.Action.SELECT,
                     it)
             }
         }

@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import io.capstone.ludendorff.features.asset.Asset
+import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import kotlinx.parcelize.Parcelize
 
 @Keep
@@ -17,6 +18,11 @@ data class IssuedItem @JvmOverloads constructor(
     var unitCost: Double = 0.0,
     var responsibilityCenter: String? = null,
 ): Parcelable {
+
+    fun toStockCard(ref: String?): StockCardEntry {
+        return StockCardEntry(reference = ref, issueQuantity = this.quantityIssued,
+            issueOffice = this.responsibilityCenter)
+    }
 
     companion object {
         const val FIELD_STOCK_NUMBER = "stockNumber"

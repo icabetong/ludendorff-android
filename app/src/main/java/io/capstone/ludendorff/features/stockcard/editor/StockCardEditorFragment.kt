@@ -22,6 +22,8 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentEditorStockCardBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.picker.AssetPickerFragment
+import io.capstone.ludendorff.features.issued.item.picker.GroupedIssuedItem
+import io.capstone.ludendorff.features.issued.item.picker.IssuedItemPickerFragment
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.stockcard.StockCard
@@ -101,6 +103,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
         }
 
         registerForFragmentResult(arrayOf(AssetPickerFragment.REQUEST_KEY_PICK,
+            IssuedItemPickerFragment.REQUEST_KEY_PICK,
             StockCardEntryEditorBottomSheet.REQUEST_KEY_CREATE,
             StockCardEntryEditorBottomSheet.REQUEST_KEY_UPDATE), this)
     }
@@ -123,7 +126,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
 
         binding.assetTextInputLayout.setEndIconOnClickListener {
             hideKeyboardFromCurrentFocus(binding.root)
-            AssetPickerFragment(childFragmentManager)
+            IssuedItemPickerFragment(childFragmentManager)
                 .show()
         }
         binding.addActionButton.addActionButton.setOnClickListener {
@@ -207,6 +210,11 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
                         unitPrice = it.unitValue
                         unitOfMeasure = it.unitOfMeasure
                     }
+                }
+            }
+            IssuedItemPickerFragment.REQUEST_KEY_PICK -> {
+                result.getParcelable<GroupedIssuedItem>(IssuedItemPickerFragment.EXTRA_ISSUED_ITEM)?.let {
+                    editorViewModel.setEntries(it.items.map { item -> item.toStockCard(it.reference) })
                 }
             }
             StockCardEntryEditorBottomSheet.REQUEST_KEY_CREATE -> {

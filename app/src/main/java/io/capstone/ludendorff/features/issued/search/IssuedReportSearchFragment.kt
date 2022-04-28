@@ -20,10 +20,11 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchIssueBinding
+import io.capstone.ludendorff.features.issued.IssuedReport
 import io.capstone.ludendorff.features.issued.editor.IssuedReportEditorFragment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
-class IssuedReportSearchFragment: BaseSearchFragment(), OnItemActionListener<IssuedReportSearch> {
+class IssuedReportSearchFragment: BaseSearchFragment(), OnItemActionListener<IssuedReport> {
     private var _binding: FragmentSearchIssueBinding? = null
     private var controller: NavController? = null
 
@@ -108,7 +109,7 @@ class IssuedReportSearchFragment: BaseSearchFragment(), OnItemActionListener<Iss
     }
 
     override fun onActionPerformed(
-        data: IssuedReportSearch?,
+        data: IssuedReport?,
         action: OnItemActionListener.Action,
         container: View?
     ) {
@@ -116,7 +117,7 @@ class IssuedReportSearchFragment: BaseSearchFragment(), OnItemActionListener<Iss
             container?.let {
                 controller?.navigate(R.id.navigation_editor_issued,
                     bundleOf(IssuedReportEditorFragment.EXTRA_ISSUED_REPORT
-                            to data?.toIssuedReport()))
+                            to data))
             }
         }
     }

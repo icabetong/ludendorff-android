@@ -20,11 +20,12 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchInventoryBinding
+import io.capstone.ludendorff.features.inventory.InventoryReport
 import io.capstone.ludendorff.features.inventory.editor.InventoryReportEditorFragment
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
 class InventoryReportSearchFragment: BaseSearchFragment(),
-    OnItemActionListener<InventoryReportSearch> {
+    OnItemActionListener<InventoryReport> {
     private var _binding: FragmentSearchInventoryBinding? = null
     private var controller: NavController? = null
 
@@ -110,7 +111,7 @@ class InventoryReportSearchFragment: BaseSearchFragment(),
     }
 
     override fun onActionPerformed(
-        data: InventoryReportSearch?,
+        data: InventoryReport?,
         action: OnItemActionListener.Action,
         container: View?
     ) {
@@ -119,7 +120,7 @@ class InventoryReportSearchFragment: BaseSearchFragment(),
                 controller?.navigate(R.id.navigation_editor_inventory,
                     bundleOf(
                         InventoryReportEditorFragment.EXTRA_INVENTORY_REPORT
-                                to data?.toInventoryReport()
+                                to data
                     )
                 )
             }

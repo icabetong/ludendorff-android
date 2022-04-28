@@ -45,6 +45,7 @@
     <string name="title_user_select">Select User</string>
     <string name="title_inventory_create">Create Report</string>
     <string name="title_inventory_update">Update Report</string>
+    <string name="title_inventory_select">Select Report</string>
     <string name="title_issued_create">Create Report</string>
     <string name="title_issued_update">Update Report</string>
     <string name="title_stock_card_create">Create Stock Card</string>
@@ -115,7 +116,7 @@
     <string name="hint_unit_of_measurement">Unit of Measurement</string>
     <string name="hint_reference">Reference</string>
     <string name="hint_entries">Entries</string>
-    <string name="hint_receipt_quantity">Receipt Quantity</string>
+    <string name="hint_received_quantity">Received Quantity</string>
     <string name="hint_requested_quantity">Requested Quantity</string>
     <string name="hint_issue_quantity">Issue Quantity</string>
     <string name="hint_issue_office">Issue Office</string>

@@ -175,8 +175,12 @@
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/ic_round_bar_chart_24.xml" value="0.1" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/ic_round_calendar_month_24.xml" value="0.1" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/ic_round_chevron_right_24.xml" value="0.232" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/ic_round_delete_24.xml" value="0.2295" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/ic_round_delete_outline_24.xml" value="0.2295" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/ic_round_manage_search_24.xml" value="0.232" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/ic_round_menu_24.xml" value="0.232" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/ic_round_qr_code_scanner_24.xml" value="0.2325" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/ic_round_query_stats_24.xml" value="0.2325" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/list_header_threeline.xml" value="0.232" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/list_threeline_header.xml" value="0.232" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/drawable/shape_item_skeleton.xml" value="0.232" />
@@ -200,6 +204,10 @@
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_finish_setup.xml" value="0.5" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_inventory.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_picker_asset.xml" value="0.2637065637065637" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_picker_inventory.xml" value="0.2637065637065637" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_picker_issued_item.xml" value="0.2637065637065637" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_picker_issued_item_main.xml" value="0.2637065637065637" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_picker_issued_item_nested.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_root.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_settings_asset_data.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/fragment_settings_core.xml" value="0.2637065637065637" />
@@ -216,6 +224,7 @@
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_appbar_search.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_appbar_search_core.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_empty_category.xml" value="0.1328125" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_empty_department.xml" value="0.1328125" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_empty_issued.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_empty_scan.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/layout/layout_error_decode.xml" value="0.2637065637065637" />
@@ -236,7 +245,10 @@
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_core_departments.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_core_issued.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_core_users.xml" value="0.2637065637065637" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_editor.xml" value="0.130859375" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_editor_asset.xml" value="0.2637065637065637" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_editor_assignment.xml" value="0.130859375" />
+        <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_editor_user.xml" value="0.130859375" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/menu/menu_navigation.xml" value="0.2637065637065637" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/xml/xml_data_asset.xml" value="0.25" />
         <entry key="..\:/Users/isaiah/Documents/Development/ludendorff-android/app/src/main/res/xml/xml_data_inventory.xml" value="0.2637065637065637" />
