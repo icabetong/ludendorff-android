@@ -11,6 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
+import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.toLocalDate
 import io.capstone.ludendorff.components.extensions.toTimestamp
 import io.capstone.ludendorff.components.utils.DateTimeFormatter
@@ -74,19 +75,9 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
 
         binding.dateTextInputLayout.setEndIconOnClickListener(::onInvokeDatePicker)
         binding.dateTextInput.setOnClickListener(::onInvokeDatePicker)
-
-        binding.receivedQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.requestedQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
-        binding.issueQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
-        binding.balanceQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.requestedQuantityTextInput.doAfterTextChanged {
             viewModel.triggerRequestedQuantityChanged(it.toString())
-        }
-        binding.issueQuantityTextInput.doAfterTextChanged {
-            viewModel.triggerIssueQuantityChanged(it.toString())
-        }
-        binding.issueOfficeTextInput.doAfterTextChanged {
-            viewModel.triggerIssueOffice(it.toString())
         }
     }
 

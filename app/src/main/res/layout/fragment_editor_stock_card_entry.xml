@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
-                        android:enabled="true"/>
+                        android:enabled="false"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:enabled="true"/>
+                    android:enabled="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:enabled="true"/>
+                    android:enabled="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,7 +158,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/activity_margin_small"
                     android:hint="@string/hint_balance_quantity"
-                    android:enabled="true"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +168,8 @@
                         android:id="@+id/balanceQuantityTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionNext"
+                        android:enabled="false"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -179,7 +179,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_margin_small"
                     android:hint="@string/hint_balance_total_price"
-                    android:enabled="true"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/balanceQuantityTextInputLayout"
@@ -190,7 +189,8 @@
                         android:id="@+id/balanceTotalPriceTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionNext"
+                        android:enabled="false"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
