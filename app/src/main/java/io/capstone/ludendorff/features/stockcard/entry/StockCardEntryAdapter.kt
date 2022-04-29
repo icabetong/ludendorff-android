@@ -52,7 +52,10 @@ class StockCardEntryAdapter(
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
                     null)
             }
-
+            binding.setSourceButton.setOnClickListener {
+                onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.DELETE,
+                    null)
+            }
         }
     }
 }

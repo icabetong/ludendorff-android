@@ -153,6 +153,7 @@
     <string name="button_end_assignment">End Assignment</string>
     <string name="button_reconnect">Reconnect</string>
     <string name="button_find_usages">Find Usages</string>
+    <string name="button_set_source_quantity">Set Source Quantity</string>
 
     <string name="menu_filter">Filter</string>
     <string name="menu_sort">Sort</string>
@@ -214,7 +215,7 @@
     <string name="feedback_empty_entity_position">You forgot to enter the entity position</string>
     <string name="feedback_empty_serial_number">You forgot to enter the serial number</string>
     <string name="feedback_empty_asset_items">You forgot to enter some asset items</string>
-    <string name="feedback_empty_entries">You forgot to add some entries</string>
+    <string name="feedback_empty_entries">You forgot to configure some entries</string>
     <string name="feedback_empty_subcategories">You forgot to add some subcategories</string>
     <string name="feedback_upload_error">Error uploading profile image</string>
     <string name="feedback_updated_password">Successfully changed password</string>
@@ -386,6 +387,7 @@
     <string name="concat_user_name">%1$s %2$s</string>
     <string name="concat_today_at">Today at %1$s</string>
     <string name="concat_issued_data">%1$s (%2$d issued)</string>
+    <string name="concat_entity">%1$s (%2$s)</string>
 
     <string name="month_jan">January</string>
     <string name="month_feb">February</string>

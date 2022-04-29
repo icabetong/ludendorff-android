@@ -19,6 +19,7 @@ data class IssuedReport @JvmOverloads constructor(
     var fundCluster: String? = null,
     var serialNumber: String? = null,
     var date: Timestamp = Timestamp.now(),
+    var entityName: String? = null,
     @get:Exclude
     var items: List<IssuedItem> = emptyList(),
 ): Parcelable {

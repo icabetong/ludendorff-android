@@ -7,4 +7,9 @@ import kotlinx.parcelize.Parcelize
 data class BalanceEntry @JvmOverloads constructor(
     var remaining: Int = 0,
     var entries: Map<String, Int> = emptyMap()
-): Parcelable
+): Parcelable {
+
+    fun containsEntryId(entryId: String?): Boolean {
+        return entries.keys.contains(entryId);
+    }
+}

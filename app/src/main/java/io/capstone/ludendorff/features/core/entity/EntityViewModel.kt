@@ -1,7 +1,5 @@
 package io.capstone.ludendorff.features.core.entity
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.capstone.ludendorff.features.core.backend.Response
@@ -15,7 +13,6 @@ import javax.inject.Inject
 class EntityViewModel @Inject constructor(
     private val entityRepository: EntityRepository
 ): BaseViewModel() {
-
 
     private val _entity: Channel<Entity?> = Channel(Channel.BUFFERED)
     val entity = _entity.receiveAsFlow()

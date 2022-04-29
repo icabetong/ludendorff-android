@@ -44,11 +44,6 @@ abstract class BasePickerFragment(private val manager: FragmentManager): DialogF
         }
     }
 
-    inline fun show(sheet: BasePickerFragment.() -> Unit) {
-        this.sheet()
-        this.show()
-    }
-
     override fun getTheme(): Int {
         return R.style.Component_Keeper_Picker_Core
     }

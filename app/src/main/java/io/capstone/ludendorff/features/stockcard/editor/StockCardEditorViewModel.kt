@@ -33,10 +33,10 @@ class StockCardEditorViewModel @Inject constructor(
 
     private val _balanceEntries = MutableLiveData<MutableMap<String, BalanceEntry>>(mutableMapOf())
     var balanceEntries: LiveData<MutableMap<String, BalanceEntry>> = _balanceEntries
-    private val balances: MutableMap<String, BalanceEntry>
+    val balances: MutableMap<String, BalanceEntry>
         get() = _balanceEntries.value ?: mutableMapOf()
 
-    suspend fun modifyBalances(entry: StockCardEntry): StockCardEntry? {
+    fun modifyBalances(entry: StockCardEntry) = viewModelScope.launch(IO) {
         entry.inventoryReportSourceId?.let {
             val snapshot = firestore.collection(InventoryReport.COLLECTION)
                 .document(it).collection(InventoryReport.FIELD_ITEMS)
@@ -68,19 +68,23 @@ class StockCardEditorViewModel @Inject constructor(
                         _entries.postValue(currentItems)
                     }
                     _balanceEntries.postValue(current)
-                    return entry
                 } else {
                     val currentEntry = BalanceEntry(remaining = target.onHandCount - entry.issueQuantity,
                         mapOf(entry.stockCardEntryId to target.onHandCount - entry.issueQuantity))
                     entry.receivedQuantity = currentEntry.remaining
                     current[it] = currentEntry
                     _balanceEntries.postValue(current)
-                    return entry
+                    val index = items.indexOfFirst { e -> e.stockCardEntryId == entry.stockCardEntryId }
+                    if (index >= 0) {
+                        entry.receivedQuantity = target.onHandCount
+                        val currentItems = items.toMutableList()
+                        currentItems[index] = entry
+                        _entries.postValue(currentItems)
+                    }
                 }
 
             }
         }
-        return null
     }
 
     private val _entries = MutableLiveData<List<StockCardEntry>>(mutableListOf())

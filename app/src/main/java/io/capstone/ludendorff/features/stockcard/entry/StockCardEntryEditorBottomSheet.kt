@@ -26,8 +26,7 @@ import java.text.NumberFormat
 import java.util.*
 
 @AndroidEntryPoint
-class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
-    FragmentResultListener {
+class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
     private var _binding: FragmentEditorStockCardEntryBinding? = null
     private var requestKey: String = REQUEST_KEY_CREATE
 
@@ -76,9 +75,6 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
         binding.dateTextInputLayout.setEndIconOnClickListener(::onInvokeDatePicker)
         binding.dateTextInput.setOnClickListener(::onInvokeDatePicker)
 
-        binding.receivedQuantityTextInputLayout.setEndIconOnClickListener(::onInvokeSourcePicker)
-        binding.receivedQuantityTextInput.setOnClickListener(::onInvokeSourcePicker)
-
         binding.receivedQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.requestedQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
         binding.issueQuantityTextInput.filters = arrayOf(IntegerInputFilter.instance)
@@ -92,9 +88,6 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
         binding.issueOfficeTextInput.doAfterTextChanged {
             viewModel.triggerIssueOffice(it.toString())
         }
-
-        registerForFragmentResult(arrayOf(InventoryReportPickerFragment.REQUEST_KEY_PICK),
-            this)
     }
 
     override fun onStart() {
@@ -120,28 +113,6 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
             datePicker { _, datetime ->
                 viewModel.stockCardEntry.date = datetime.toTimestamp()
                 binding.dateTextInput.setText(formatter.format(datetime.toLocalDate()))
-            }
-        }
-    }
-
-    private fun onInvokeSourcePicker(view: View) {
-        InventoryReportPickerFragment(childFragmentManager)
-            .show()
-    }
-
-    override fun onFragmentResult(requestKey: String, result: Bundle) {
-        when(requestKey) {
-            InventoryReportPickerFragment.REQUEST_KEY_PICK -> {
-                result.getParcelable<InventoryReport>(InventoryReportPickerFragment.EXTRA_INVENTORY)
-                    ?.let {
-                    val entry = viewModel.stockCardEntry
-                    entry.inventoryReportSourceId = it.inventoryReportId
-                    runBlocking {
-                        editorViewModel.modifyBalances(entry)?.let { e ->
-                            viewModel.stockCardEntry = e
-                        }
-                    }
-                }
             }
         }
     }

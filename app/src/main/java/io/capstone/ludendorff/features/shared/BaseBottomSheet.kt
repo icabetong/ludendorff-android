@@ -54,9 +54,4 @@ abstract class BaseBottomSheet(private val manager: FragmentManager)
         onDismissCallback?.let { it() }
     }
 
-    protected fun registerForFragmentResult(keys: Array<String>, listener: FragmentResultListener) {
-        keys.forEach {
-            childFragmentManager.setFragmentResultListener(it, viewLifecycleOwner, listener)
-        }
-    }
 }

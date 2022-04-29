@@ -37,6 +37,8 @@ class InventoryReportPickerFragment(manager: FragmentManager): BasePickerFragmen
     private val inventoryAdapter = InventoryReportAdapter(this)
     private val inventorySearchAdapter = InventoryReportSearchAdapter(this)
 
+    lateinit var listener: (report: InventoryReport?) -> Unit
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -158,9 +160,14 @@ class InventoryReportPickerFragment(manager: FragmentManager): BasePickerFragmen
         container: View?
     ) {
         if (action == OnItemActionListener.Action.SELECT) {
-            setFragmentResult(REQUEST_KEY_PICK, bundleOf(EXTRA_INVENTORY to data))
+            listener.invoke(data)
             this.dismiss()
         }
+    }
+
+    fun show(listener: (report: InventoryReport?) -> Unit) {
+        this.listener = listener
+        this.show()
     }
 
     companion object {

@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +29,7 @@ import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getMo
 import io.capstone.ludendorff.databinding.FragmentEditorInventoryReportBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.picker.AssetPickerFragment
+import io.capstone.ludendorff.features.core.entity.EntityViewModel
 import io.capstone.ludendorff.features.inventory.InventoryReport
 import io.capstone.ludendorff.features.inventory.InventoryReportViewModel
 import io.capstone.ludendorff.features.inventory.item.InventoryItem
@@ -35,6 +37,8 @@ import io.capstone.ludendorff.features.inventory.item.InventoryItemAdapter
 import io.capstone.ludendorff.features.inventory.item.InventoryItemEditorBottomSheet
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
@@ -47,6 +51,7 @@ class InventoryReportEditorFragment: BaseEditorFragment(), FragmentResultListene
     private val binding get() = _binding!!
     private val inventoryAdapter = InventoryItemAdapter(this)
     private val editorViewModel: InventoryReportEditorViewModel by viewModels()
+    private val entityViewModel: EntityViewModel by activityViewModels()
     private val viewModel: InventoryReportViewModel by activityViewModels()
     private val formatter = getDateFormatter(isShort = true, withYear = true)
 
@@ -163,6 +168,13 @@ class InventoryReportEditorFragment: BaseEditorFragment(), FragmentResultListene
         binding.yearMonthTextInput.setOnClickListener(::invokeYearMonthPicker)
         binding.accountabilityDateTextInputLayout.setEndIconOnClickListener(::invokeDateTimePicker)
         binding.accountabilityDateTextInput.setOnClickListener(::invokeDateTimePicker)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            entityViewModel.entity.collect {
+                editorViewModel.inventoryReport.entityName = it?.entityName
+                editorViewModel.inventoryReport.entityPosition = it?.entityPosition
+            }
+        }
     }
 
     private fun onSaveInventoryReport() {

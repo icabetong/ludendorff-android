@@ -16,7 +16,7 @@
         android:layout_width="@dimen/icon_size_large"
         android:layout_height="@dimen/icon_size_large"
         android:layout_marginBottom="@dimen/activity_margin"
-        app:srcCompat="@drawable/ic_outline_request_quote_24"
+        app:srcCompat="@drawable/ic_round_local_atm_24"
         app:tint="@color/brand_text_primary"/>
 
     <androidx.appcompat.widget.AppCompatTextView

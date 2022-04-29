@@ -355,11 +355,11 @@ class StockCardFragment: BaseFragment(), OnItemActionListener<StockCard>,
                 stockCardAdapter.refresh()
             }
             R.id.action_filter_measure -> {
-                viewModel.filterConstraint = StockCard.FIELD_UNIT_OF_MEASURE
                 MaterialDialog(requireContext()).show {
                     lifecycleOwner(viewLifecycleOwner)
                     title(R.string.dialog_unit_of_measure)
                     input(inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS) { _, text ->
+                        viewModel.filterConstraint = StockCard.FIELD_UNIT_OF_MEASURE
                         viewModel.filterValue = text.toString()
                         viewModel.rebuildQuery()
                         stockCardAdapter.refresh()

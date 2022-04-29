@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,8 +20,9 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentEditorStockCardBinding
-import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.asset.picker.AssetPickerFragment
+import io.capstone.ludendorff.features.core.entity.Entity
+import io.capstone.ludendorff.features.core.entity.EntityViewModel
+import io.capstone.ludendorff.features.inventory.picker.InventoryReportPickerFragment
 import io.capstone.ludendorff.features.issued.item.picker.GroupedIssuedItem
 import io.capstone.ludendorff.features.issued.item.picker.IssuedItemPickerFragment
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
@@ -30,6 +32,8 @@ import io.capstone.ludendorff.features.stockcard.StockCardViewModel
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntryAdapter
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntryEditorBottomSheet
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDelegate,
@@ -41,6 +45,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
     private val binding get() = _binding!!
     private val entryAdapter = StockCardEntryAdapter(this)
     private val editorViewModel: StockCardEditorViewModel by activityViewModels()
+    private val entityViewModel: EntityViewModel by activityViewModels()
     private val viewModel: StockCardViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +101,6 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
             binding.appBar.toolbarTitleTextView.setText(R.string.title_stock_card_update)
             binding.appBar.toolbar.menu.findItem(R.id.action_remove).isVisible = true
 
-            binding.entityNameTextInput.setText(it.entityName)
             binding.assetTextInput.setText(it.description)
         }
 
@@ -132,23 +136,29 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
                 .show()
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
-            editorViewModel.stockCard.entityName = binding.entityNameTextInput.text.toString()
+
             editorViewModel.stockCard.entries = editorViewModel.items
 
-            if (editorViewModel.stockCard.entityName.isNullOrBlank()) {
-                createSnackbar(R.string.feedback_empty_entity_name, view = binding.snackbarAnchor)
-                return@setOnClickListener
+            val hasConfiguredEntries = editorViewModel.stockCard.entries.all { e ->
+                editorViewModel.balances.values.any { it.containsEntryId(e.stockCardEntryId) }
             }
+
             if (editorViewModel.stockCard.stockNumber.isBlank()) {
                 createSnackbar(R.string.feedback_empty_asset, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
-            if (editorViewModel.stockCard.entries.isEmpty()) {
+            if (!hasConfiguredEntries) {
                 createSnackbar(R.string.feedback_empty_entries, view = binding.snackbarAnchor)
                 return@setOnClickListener
             }
 
             onSaveAsset()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            entityViewModel.entity.collectLatest {
+                editorViewModel.stockCard.entityName = it?.entityName
+            }
         }
     }
 
@@ -188,10 +198,20 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        if (action == OnItemActionListener.Action.SELECT) {
-            StockCardEntryEditorBottomSheet(childFragmentManager).show {
-                arguments =
-                    bundleOf(StockCardEntryEditorBottomSheet.EXTRA_STOCK_CARD_ENTRY to data)
+        when(action) {
+            OnItemActionListener.Action.SELECT -> {
+                StockCardEntryEditorBottomSheet(childFragmentManager).show {
+                    arguments = bundleOf(StockCardEntryEditorBottomSheet.EXTRA_STOCK_CARD_ENTRY
+                            to data)
+                }
+            }
+            OnItemActionListener.Action.DELETE -> {
+                InventoryReportPickerFragment(childFragmentManager).show {
+                    data?.inventoryReportSourceId = it?.inventoryReportId
+                    if (data != null) {
+                        editorViewModel.modifyBalances(data)
+                    }
+                }
             }
         }
     }
@@ -202,6 +222,12 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
                 result.getParcelable<GroupedIssuedItem>(IssuedItemPickerFragment.EXTRA_ISSUED_ITEM)?.let {
                     editorViewModel.stockCard.stockNumber = it.stockNumber
                     editorViewModel.setEntries(it.items.map { item -> item.toStockCardEntry(it.reference) })
+                    if (it.items.isNotEmpty()) {
+                        val sample = it.items[0]
+                        editorViewModel.stockCard.description = sample.description
+                        editorViewModel.stockCard.unitOfMeasure = sample.unitOfMeasure
+                        editorViewModel.stockCard.unitPrice = sample.unitCost
+                    }
                 }
             }
             StockCardEntryEditorBottomSheet.REQUEST_KEY_CREATE -> {

@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,7 @@ import io.capstone.ludendorff.components.utils.DateTimeFormatter.Companion.getDa
 import io.capstone.ludendorff.databinding.FragmentEditorIssuedReportBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.picker.AssetPickerFragment
+import io.capstone.ludendorff.features.core.entity.EntityViewModel
 import io.capstone.ludendorff.features.issued.IssuedReport
 import io.capstone.ludendorff.features.issued.IssuedReportViewModel
 import io.capstone.ludendorff.features.issued.item.IssuedItem
@@ -33,6 +35,8 @@ import io.capstone.ludendorff.features.issued.item.IssuedItemAdapter
 import io.capstone.ludendorff.features.issued.item.IssuedItemEditorBottomSheet
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
@@ -43,6 +47,7 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
 
     private val binding get() = _binding!!
     private val editorViewModel: IssuedReportEditorViewModel by viewModels()
+    private val entityViewModel: EntityViewModel by activityViewModels()
     private val viewModel: IssuedReportViewModel by activityViewModels()
     private val issuedItemAdapter = IssuedItemAdapter(this)
     private val formatter = getDateFormatter(withYear = true, isShort = true)
@@ -156,6 +161,12 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
         }
         binding.dateTextInput.setOnClickListener(::invokeDatePicker)
         binding.dateTextInputLayout.setEndIconOnClickListener(::invokeDatePicker)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            entityViewModel.entity.collectLatest {
+                editorViewModel.issuedReport.entityName = it?.entityName
+            }
+        }
     }
 
     private fun onSaveIssuedReport() {

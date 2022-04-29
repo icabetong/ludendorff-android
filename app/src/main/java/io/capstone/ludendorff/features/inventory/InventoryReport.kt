@@ -19,6 +19,8 @@ data class InventoryReport @JvmOverloads constructor(
     var fundCluster: String? = null,
     var yearMonth: String? = null,
     var accountabilityDate: Timestamp = Timestamp.now(),
+    var entityName: String? = null,
+    var entityPosition: String? = null,
     @get:Exclude
     var items: List<InventoryItem> = emptyList(),
 ): Parcelable {

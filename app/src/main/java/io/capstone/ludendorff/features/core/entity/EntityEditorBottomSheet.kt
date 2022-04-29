@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
@@ -19,7 +19,7 @@ class EntityEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager
     private var _binding: FragmentEditorEntityBinding? = null
 
     private val binding get() = _binding!!
-    private val viewModel: EntityViewModel by viewModels()
+    private val viewModel: EntityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
