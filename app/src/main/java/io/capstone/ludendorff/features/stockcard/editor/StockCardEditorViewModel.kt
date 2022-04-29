@@ -29,6 +29,7 @@ class StockCardEditorViewModel @Inject constructor(
         set(value) {
             field = value
             fetchEntries()
+            _balanceEntries.value = value.balances.toMutableMap()
         }
 
     private val _balanceEntries = MutableLiveData<MutableMap<String, BalanceEntry>>(mutableMapOf())

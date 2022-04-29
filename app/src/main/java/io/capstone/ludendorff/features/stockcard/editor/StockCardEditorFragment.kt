@@ -136,7 +136,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
                 .show()
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
-
+            editorViewModel.stockCard.balances = editorViewModel.balances
             editorViewModel.stockCard.entries = editorViewModel.items
 
             val hasConfiguredEntries = editorViewModel.stockCard.entries.all { e ->
@@ -227,6 +227,8 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
                         editorViewModel.stockCard.description = sample.description
                         editorViewModel.stockCard.unitOfMeasure = sample.unitOfMeasure
                         editorViewModel.stockCard.unitPrice = sample.unitCost
+
+                        binding.assetTextInput.setText(sample.description)
                     }
                 }
             }

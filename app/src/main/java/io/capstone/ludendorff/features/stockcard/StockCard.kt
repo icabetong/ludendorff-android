@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.firestore.Exclude
 import io.capstone.ludendorff.components.utils.IDGenerator
+import io.capstone.ludendorff.features.shared.data.BalanceEntry
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import kotlinx.parcelize.Parcelize
 
@@ -15,6 +16,7 @@ data class StockCard @JvmOverloads constructor(
     var description: String? = null,
     var unitPrice: Double = 0.0,
     var unitOfMeasure: String? = null,
+    var balances: Map<String, BalanceEntry> = emptyMap(),
     @get:Exclude
     var entries: List<StockCardEntry> = emptyList()
 ): Parcelable {
@@ -27,6 +29,7 @@ data class StockCard @JvmOverloads constructor(
         const val FIELD_DESCRIPTION = "description"
         const val FIELD_UNIT_PRICE = "unitPrice"
         const val FIELD_UNIT_OF_MEASURE = "unitOfMeasure"
+        const val FIELD_BALANCES = "balances"
         const val FIELD_ENTRIES = "entries"
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<StockCard>() {
