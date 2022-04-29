@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentResultListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -51,5 +52,11 @@ abstract class BaseBottomSheet(private val manager: FragmentManager)
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         onDismissCallback?.let { it() }
+    }
+
+    protected fun registerForFragmentResult(keys: Array<String>, listener: FragmentResultListener) {
+        keys.forEach {
+            childFragmentManager.setFragmentResultListener(it, viewLifecycleOwner, listener)
+        }
     }
 }

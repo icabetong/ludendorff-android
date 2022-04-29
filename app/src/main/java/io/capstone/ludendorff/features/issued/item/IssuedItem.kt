@@ -19,7 +19,7 @@ data class IssuedItem @JvmOverloads constructor(
     var responsibilityCenter: String? = null,
 ): Parcelable {
 
-    fun toStockCard(ref: String?): StockCardEntry {
+    fun toStockCardEntry(ref: String?): StockCardEntry {
         return StockCardEntry(reference = ref, issueQuantity = this.quantityIssued,
             issueOffice = this.responsibilityCenter)
     }

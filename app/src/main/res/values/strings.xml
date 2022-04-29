@@ -385,6 +385,7 @@
 
     <string name="concat_user_name">%1$s %2$s</string>
     <string name="concat_today_at">Today at %1$s</string>
+    <string name="concat_issued_data">%1$s (%2$d issued)</string>
 
     <string name="month_jan">January</string>
     <string name="month_feb">February</string>

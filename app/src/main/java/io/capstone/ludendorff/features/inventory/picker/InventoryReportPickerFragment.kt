@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -155,7 +157,10 @@ class InventoryReportPickerFragment(manager: FragmentManager): BasePickerFragmen
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        TODO("Not yet implemented")
+        if (action == OnItemActionListener.Action.SELECT) {
+            setFragmentResult(REQUEST_KEY_PICK, bundleOf(EXTRA_INVENTORY to data))
+            this.dismiss()
+        }
     }
 
     companion object {

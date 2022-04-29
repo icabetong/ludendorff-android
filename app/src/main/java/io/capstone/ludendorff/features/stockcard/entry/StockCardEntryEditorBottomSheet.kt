@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.*
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -18,17 +16,28 @@ import io.capstone.ludendorff.components.extensions.toTimestamp
 import io.capstone.ludendorff.components.utils.DateTimeFormatter
 import io.capstone.ludendorff.components.utils.IntegerInputFilter
 import io.capstone.ludendorff.databinding.FragmentEditorStockCardEntryBinding
+import io.capstone.ludendorff.features.inventory.InventoryReport
 import io.capstone.ludendorff.features.inventory.picker.InventoryReportPickerFragment
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
+import io.capstone.ludendorff.features.stockcard.editor.StockCardEditorViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import java.text.NumberFormat
+import java.util.*
 
 @AndroidEntryPoint
-class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager) {
+class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet(manager),
+    FragmentResultListener {
     private var _binding: FragmentEditorStockCardEntryBinding? = null
     private var requestKey: String = REQUEST_KEY_CREATE
 
     private val binding get() = _binding!!
     private val viewModel: StockCardEntryEditorViewModel by viewModels()
+    private val editorViewModel: StockCardEditorViewModel by activityViewModels()
     private val formatter = DateTimeFormatter.getDateFormatter(withYear = true, isShort = true)
+    private val currencyFormatter = NumberFormat.getCurrencyInstance().apply {
+        currency = Currency.getInstance("PHP")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,6 +92,26 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
         binding.issueOfficeTextInput.doAfterTextChanged {
             viewModel.triggerIssueOffice(it.toString())
         }
+
+        registerForFragmentResult(arrayOf(InventoryReportPickerFragment.REQUEST_KEY_PICK),
+            this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        editorViewModel.balanceEntries.observe(viewLifecycleOwner) {
+            val stockCardEntry = viewModel.stockCardEntry
+
+            binding.receivedQuantityTextInput.setText(stockCardEntry.receivedQuantity.toString())
+            it[stockCardEntry.inventoryReportSourceId]?.let { entry ->
+                val quantity = entry.entries[stockCardEntry.stockCardEntryId] ?: 0
+                val total = quantity * editorViewModel.stockCard.unitPrice
+
+                binding.balanceQuantityTextInput.setText(quantity.toString())
+                binding.balanceTotalPriceTextInput.setText(currencyFormatter.format(total))
+            }
+        }
     }
 
     private fun onInvokeDatePicker(view: View) {
@@ -98,6 +127,23 @@ class StockCardEntryEditorBottomSheet(manager: FragmentManager): BaseBottomSheet
     private fun onInvokeSourcePicker(view: View) {
         InventoryReportPickerFragment(childFragmentManager)
             .show()
+    }
+
+    override fun onFragmentResult(requestKey: String, result: Bundle) {
+        when(requestKey) {
+            InventoryReportPickerFragment.REQUEST_KEY_PICK -> {
+                result.getParcelable<InventoryReport>(InventoryReportPickerFragment.EXTRA_INVENTORY)
+                    ?.let {
+                    val entry = viewModel.stockCardEntry
+                    entry.inventoryReportSourceId = it.inventoryReportId
+                    runBlocking {
+                        editorViewModel.modifyBalances(entry)?.let { e ->
+                            viewModel.stockCardEntry = e
+                        }
+                    }
+                }
+            }
+        }
     }
 
     companion object {

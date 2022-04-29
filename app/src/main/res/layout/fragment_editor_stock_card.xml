@@ -11,85 +11,87 @@
         android:id="@+id/appBar"
         layout="@layout/layout_appbar_editor"/>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/entityNameTextInputLayout"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            android:layout_marginBottom="@dimen/activity_margin"
-            android:hint="@string/hint_entity_name"
-            style="@style/Widget.Keeper.TextInput.Layout">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/entityNameTextInput"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/entityNameTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="text">
+                android:layout_marginTop="@dimen/activity_margin"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_entity_name"
+                style="@style/Widget.Keeper.TextInput.Layout">
 
-                <requestFocus/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entityNameTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text">
 
-            </com.google.android.material.textfield.TextInputEditText>
+                    <requestFocus/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputEditText>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/assetTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_margin"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            android:hint="@string/hint_asset_item"
-            app:endIconDrawable="@drawable/ic_round_keyboard_arrow_down_24"
-            app:endIconMode="custom"
-            app:endIconTint="@color/brand_text_primary"
-            style="@style/Widget.Keeper.TextInput.Layout">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/assetTextInput"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/assetTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                android:text="@string/hint_not_set"
-                android:focusable="false"/>
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:hint="@string/hint_asset_item"
+                app:endIconDrawable="@drawable/ic_round_keyboard_arrow_down_24"
+                app:endIconMode="custom"
+                app:endIconTint="@color/brand_text_primary"
+                style="@style/Widget.Keeper.TextInput.Layout">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/assetTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="@string/hint_not_set"
+                    android:focusable="false"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/activity_margin"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:text="@string/hint_entries"
-            android:textColor="@color/brand_primary"
-            android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progressIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            tools:visibility="visible"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                android:text="@string/hint_entries"
+                android:textColor="@color/brand_primary"
+                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible"/>
 
-        <include
-            android:id="@+id/addActionButton"
-            layout="@layout/layout_item_add"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/snackbarAnchor"

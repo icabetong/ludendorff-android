@@ -9,7 +9,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,7 +40,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
 
     private val binding get() = _binding!!
     private val entryAdapter = StockCardEntryAdapter(this)
-    private val editorViewModel: StockCardEditorViewModel by viewModels()
+    private val editorViewModel: StockCardEditorViewModel by activityViewModels()
     private val viewModel: StockCardViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +51,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
         requireActivity().onBackPressedDispatcher.addCallback(this,
             object: OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
+                    editorViewModel.clear()
                     controller?.navigateUp()
                 }
             })
@@ -73,16 +73,19 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setInsets(view, binding.appBar.toolbar, arrayOf(binding.addActionButton.root))
+        setInsets(view, binding.appBar.toolbar, arrayOf(binding.recyclerView))
 
         binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(
             titleRes = R.string.title_stock_card_create,
             iconRes = R.drawable.ic_round_close_24,
             menuRes = R.menu.menu_editor,
+            customTitleView = binding.appBar.toolbarTitleTextView,
             onMenuOptionClicked = ::onMenuItemClicked,
-            onNavigationClicked = { controller?.navigateUp() },
-            customTitleView = binding.appBar.toolbarTitleTextView
+            onNavigationClicked = {
+                editorViewModel.clear()
+                controller?.navigateUp()
+            },
         )
 
         arguments?.getParcelable<StockCard>(EXTRA_STOCK_CARD)?.let {
@@ -102,7 +105,7 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
             adapter = entryAdapter
         }
 
-        registerForFragmentResult(arrayOf(AssetPickerFragment.REQUEST_KEY_PICK,
+        registerForFragmentResult(arrayOf(
             IssuedItemPickerFragment.REQUEST_KEY_PICK,
             StockCardEntryEditorBottomSheet.REQUEST_KEY_CREATE,
             StockCardEntryEditorBottomSheet.REQUEST_KEY_UPDATE), this)
@@ -114,7 +117,6 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
 
         editorViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.progressIndicator.isVisible = it
-            binding.addActionButton.addActionButton.isEnabled = !it
         }
         editorViewModel.entries.observe(viewLifecycleOwner) {
             entryAdapter.submit(it)
@@ -127,10 +129,6 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
         binding.assetTextInputLayout.setEndIconOnClickListener {
             hideKeyboardFromCurrentFocus(binding.root)
             IssuedItemPickerFragment(childFragmentManager)
-                .show()
-        }
-        binding.addActionButton.addActionButton.setOnClickListener {
-            StockCardEntryEditorBottomSheet(childFragmentManager)
                 .show()
         }
         binding.appBar.toolbarActionButton.setOnClickListener {
@@ -200,21 +198,10 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         when(requestKey) {
-            AssetPickerFragment.REQUEST_KEY_PICK -> {
-                result.getParcelable<Asset>(AssetPickerFragment.EXTRA_ASSET)?.let {
-                    binding.assetTextInput.setText(it.description)
-
-                    with(editorViewModel.stockCard) {
-                        stockNumber = it.stockNumber
-                        description = it.description
-                        unitPrice = it.unitValue
-                        unitOfMeasure = it.unitOfMeasure
-                    }
-                }
-            }
             IssuedItemPickerFragment.REQUEST_KEY_PICK -> {
                 result.getParcelable<GroupedIssuedItem>(IssuedItemPickerFragment.EXTRA_ISSUED_ITEM)?.let {
-                    editorViewModel.setEntries(it.items.map { item -> item.toStockCard(it.reference) })
+                    editorViewModel.stockCard.stockNumber = it.stockNumber
+                    editorViewModel.setEntries(it.items.map { item -> item.toStockCardEntry(it.reference) })
                 }
             }
             StockCardEntryEditorBottomSheet.REQUEST_KEY_CREATE -> {

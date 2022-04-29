@@ -15,6 +15,7 @@ data class StockCardEntry @JvmOverloads constructor(
     var requestedQuantity: Int = 0,
     var issueQuantity: Int = 0,
     var issueOffice: String? = null,
+    var inventoryReportSourceId: String? = null,
 ): Parcelable {
 
     companion object {

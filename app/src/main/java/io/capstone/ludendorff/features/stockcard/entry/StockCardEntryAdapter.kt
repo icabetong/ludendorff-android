@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.toLocalDate
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.components.utils.DateTimeFormatter
@@ -44,7 +45,8 @@ class StockCardEntryAdapter(
         override fun onBind(data: StockCardEntry?) {
             val formatter = DateTimeFormatter.getDateFormatter(isShort = true, withYear = true)
 
-            binding.titleTextView.text = data?.reference
+            binding.titleTextView.text = String.format(binding.root.context
+                .getString(R.string.concat_issued_data), data?.issueOffice, data?.issueQuantity)
             binding.bodyTextView.text = formatter.format(data?.date?.toLocalDate())
             binding.root.setOnClickListener {
                 onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
