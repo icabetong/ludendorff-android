@@ -27,7 +27,7 @@ data class AssetSearch @JvmOverloads constructor(
     val highlightedName: HighlightedString?
         get() = getHighlight(Attribute(Asset.FIELD_DESCRIPTION))
     val highlightedCategory: HighlightedString?
-        get() = getHighlight(Attribute(Category.FIELD_NAME))
+        get() = getHighlight(Attribute(Asset.FIELD_SUBCATEGORY))
 
     fun toAsset(): Asset {
         return Asset(

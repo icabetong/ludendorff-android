@@ -37,14 +37,14 @@ class StockCardAdapter(private val onItemActionListener: OnItemActionListener<St
                 StockCard.FIELD_UNIT_OF_MEASURE -> data?.unitOfMeasure
                 else -> data?.stockNumber
             }
-            binding.headerTextView.text = when(userPreferences.dataStockCardOverline) {
+            binding.headerTextView.text = when(userPreferences.dataStockCardHeader) {
                 StockCard.FIELD_STOCK_NUMBER -> data?.stockNumber
                 StockCard.FIELD_ENTITY_NAME -> data?.entityName
                 StockCard.FIELD_DESCRIPTION -> data?.description
                 StockCard.FIELD_UNIT_OF_MEASURE -> data?.unitOfMeasure
                 else -> data?.description
             }
-            binding.informationTextView.text = when(userPreferences.dataStockCardOverline) {
+            binding.informationTextView.text = when(userPreferences.dataStockCardSummary) {
                 StockCard.FIELD_STOCK_NUMBER -> data?.stockNumber
                 StockCard.FIELD_ENTITY_NAME -> data?.entityName
                 StockCard.FIELD_DESCRIPTION -> data?.description

@@ -1,6 +1,7 @@
 package io.capstone.ludendorff.features.stockcard
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.firestore.Exclude
 import io.capstone.ludendorff.components.utils.IDGenerator
@@ -8,6 +9,7 @@ import io.capstone.ludendorff.features.shared.data.BalanceEntry
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 data class StockCard @JvmOverloads constructor(
     var stockCardId: String = IDGenerator.generateRandom(),
