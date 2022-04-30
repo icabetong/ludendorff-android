@@ -2,16 +2,12 @@ package io.capstone.ludendorff.features.settings.core
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
-import androidx.work.ExistingWorkPolicy
-import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import androidx.work.workDataOf
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +16,6 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.features.core.entity.EntityEditorBottomSheet
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
-import io.capstone.ludendorff.features.core.worker.TokenUpdateWorker
 import io.capstone.ludendorff.features.shared.BasePreference
 import javax.inject.Inject
 

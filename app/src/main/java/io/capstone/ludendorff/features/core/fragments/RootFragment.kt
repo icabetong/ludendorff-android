@@ -28,7 +28,6 @@ import io.capstone.ludendorff.components.custom.CoilProgressDrawable
 import io.capstone.ludendorff.components.persistence.UserProperties
 import io.capstone.ludendorff.databinding.FragmentRootBinding
 import io.capstone.ludendorff.databinding.LayoutDrawerHeaderBinding
-import io.capstone.ludendorff.features.auth.FinishSetupFragmentDirections
 import io.capstone.ludendorff.features.core.viewmodel.CoreViewModel
 import io.capstone.ludendorff.features.profile.ProfileFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
@@ -120,7 +119,6 @@ class RootFragment: BaseFragment() {
                 findItem(R.id.navigation_scan).isChecked = true
                 findItem(R.id.navigation_assets).isVisible = false
                 findItem(R.id.navigation_users).isVisible = false
-                findItem(R.id.navigation_notification).isVisible = false
             }
 
             controller?.navigate(R.id.navigation_scan)

@@ -2,7 +2,6 @@
     <string name="app_name">Ludendorff</string>
 
     <string name="activity_authentication">Authentication</string>
-    <string name="activity_notifications">Notifications</string>
     <string name="activity_scan">Scan</string>
     <string name="activity_assets">Assets</string>
     <string name="activity_inventory">Inventory Reports</string>
@@ -16,7 +15,6 @@
     <string name="activity_result">Result</string>
     <string name="activity_profile">Profile</string>
 
-    <string name="navigation_notification">@string/activity_notifications</string>
     <string name="navigation_scan">@string/activity_scan</string>
     <string name="navigation_assets">@string/activity_assets</string>
     <string name="navigation_users">@string/activity_users</string>
@@ -25,7 +23,6 @@
     <string name="navigation_stock_card">@string/activity_stock_card</string>
     <string name="navigation_categories">@string/activity_categories</string>
     <string name="navigation_departments">@string/activity_departments</string>
-    <string name="navigation_notifications">@string/activity_notifications</string>
     <string name="navigation_settings">@string/activity_settings</string>
 
     <string name="title_configure_entity">Configure Entity</string>
@@ -252,7 +249,6 @@
     <string name="feedback_department_remove_error">Error removing department</string>
     <string name="feedback_department_update_error">Error updating department</string>
     <string name="feedback_account_setup_finished">Account setup finished!</string>
-    <string name="feedback_notification_removed">Notification successfully removed</string>
     <string name="feedback_token_update_success">Default device registered</string>
     <string name="feedback_token_update_error">Error registering as default device</string>
     <string name="feedback_network_limited_or_unavailable">Network is limited or unavailable</string>
@@ -275,8 +271,6 @@
     <string name="empty_no_stock_cards_summary">There are no Stock Cards that are available on the database.</string>
     <string name="empty_no_scanned_code_header">Scan a QR-Code</string>
     <string name="empty_no_scanned_code_summary">You\'ll need to scan a valid QR-Code first to view its embedded data.</string>
-    <string name="empty_no_notifications_header">No Notifications</string>
-    <string name="empty_no_notifications_summary">Once a notification pops up in your device, it will be shown here.</string>
     <string name="empty_no_search_results_header">No Results Found</string>
     <string name="empty_no_search_results_summary">There are no results matching in your query, try using other terms.</string>
 
@@ -346,7 +340,6 @@
 
     <string name="settings_group_interface">Interface</string>
     <string name="settings_group_lists">Lists</string>
-    <string name="settings_group_notifications">Notifications</string>
     <string name="settings_group_data">Data</string>
     <string name="settings_group_about">About</string>
 
@@ -371,19 +364,8 @@
 
     <string name="settings_configure_entity">Configure Entity</string>
 
-    <string name="settings_default_notification_device_title">Use this device for notifications</string>
-    <string name="settings_default_notification_device_summary">Make this device the default receiver for notifications.</string>
-
     <string name="settings_build_version">Build Version</string>
     <string name="settings_third_party_notices">Third Party Notices</string>
-
-    <string name="notification_assigned_title">%1$s Assigned</string>
-    <string name="notification_assigned_body">%1$s has assigned the %2$s asset to you. Check it out!</string>
-
-    <string name="channel_name_general">General</string>
-    <string name="channel_name_assignments">Assignment Prompts</string>
-    <string name="channel_id_general">notifications:general</string>
-    <string name="channel_id_assignments">notifications:assignments</string>
 
     <string name="concat_user_name">%1$s %2$s</string>
     <string name="concat_today_at">Today at %1$s</string>

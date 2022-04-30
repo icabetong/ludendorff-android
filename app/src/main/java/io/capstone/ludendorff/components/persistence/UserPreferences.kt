@@ -35,14 +35,6 @@ class UserPreferences(private val context: Context?) {
         }
     }
 
-    var deviceToken: String?
-        get() = sharedPreference.getString(PREFERENCE_DEVICE_TOKEN, null)
-        set(value) {
-            sharedPreference.edit {
-                putString(PREFERENCE_DEVICE_TOKEN, value)
-            }
-        }
-
     var theme: Theme
         get() = Theme.parse(sharedPreference.getString(
             CorePreferences.PREFERENCE_KEY_THEME,

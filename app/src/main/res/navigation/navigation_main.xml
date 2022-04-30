@@ -59,9 +59,6 @@
         android:id="@+id/navigation_search_stock_card"
         android:name="io.capstone.ludendorff.features.stockcard.search.StockCardSearchFragment"/>
     <fragment
-        android:id="@+id/navigation_notification"
-        android:name="io.capstone.ludendorff.features.notification.NotificationFragment"/>
-    <fragment
         android:id="@+id/navigation_core_settings"
         android:name="io.capstone.ludendorff.features.settings.core.CoreSettingsFragment"/>
     <fragment

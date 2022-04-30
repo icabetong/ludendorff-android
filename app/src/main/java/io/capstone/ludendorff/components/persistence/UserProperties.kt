@@ -17,7 +17,6 @@ class UserProperties(private val context: Context) {
             putString(USER_LAST_NAME, user.lastName)
             putString(USER_EMAIL, user.email)
             putString(USER_POSITION, user.position)
-            putString(USER_DEVICE_TOKEN, user.deviceToken)
             putString(USER_IMAGE_URL, user.imageUrl)
         }
     }
@@ -41,7 +40,6 @@ class UserProperties(private val context: Context) {
             remove(USER_LAST_NAME)
             remove(USER_EMAIL)
             remove(USER_POSITION)
-            remove(USER_DEVICE_TOKEN)
         }
     }
 
@@ -99,15 +97,6 @@ class UserProperties(private val context: Context) {
             }
         }
 
-    var deviceToken: String?
-        get() = sharedPreferences.getString(USER_DEVICE_TOKEN, null)
-        set(value) {
-            sharedPreferences.edit {
-                putString(USER_DEVICE_TOKEN, value)
-            }
-        }
-
-
     companion object {
         const val USER_ID = User.FIELD_ID
         const val USER_FIRST_NAME = User.FIELD_FIRST_NAME
@@ -115,6 +104,5 @@ class UserProperties(private val context: Context) {
         const val USER_EMAIL = User.FIELD_EMAIL
         const val USER_IMAGE_URL = User.FIELD_IMAGE_URL
         const val USER_POSITION = User.FIELD_POSITION
-        const val USER_DEVICE_TOKEN = User.FIELD_DEVICE_TOKEN
     }
 }

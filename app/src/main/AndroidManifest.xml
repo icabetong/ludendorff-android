@@ -32,31 +32,13 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
                     android:scheme="clsu"
-                    android:host="keeper"/>
+                    android:host="ludendorff"/>
             </intent-filter>
         </activity>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.Keeper.Core.Content"/>
-
-        <service
-            android:name=".features.core.services.NotificationServices"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_icon_pickelhaube" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/ic_launcher_background" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/channel_id_general" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

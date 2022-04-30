@@ -53,18 +53,8 @@ class Deshi {
         return start(request)
     }
 
-    suspend fun newNotificationPost(deshiRequest: DeshiRequest): Response {
-        val request = Request.Builder()
-            .url("${SERVER_URL}${REQUEST_NOTIFICATION}")
-            .post(parse(deshiRequest.toJSONObject()))
-            .build()
-
-        return start(request)
-    }
-
     companion object {
         const val SERVER_URL = "https://deshi-production.up.railway.app/"
-        const val REQUEST_NOTIFICATION = "send-notification"
         const val REQUEST_CREATE_USER = "create-user"
         const val REQUEST_REMOVE_USER = "remove-user"
         const val REQUEST_MODIFY_USER = "modify-user"
