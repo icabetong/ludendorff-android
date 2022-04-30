@@ -4,12 +4,20 @@ import android.content.Context
 import com.google.firebase.Timestamp
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.utils.DateTimeFormatter
+import org.json.JSONObject
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalDateTime.ofInstant
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
+
+fun Timestamp.toJSONObject(): JSONObject {
+    return JSONObject().also {
+        it.put("_nanoseconds", nanoseconds)
+        it.put("_seconds", seconds)
+    }
+}
 
 fun Timestamp.toZonedDateTime(): ZonedDateTime {
     return ZonedDateTime.ofInstant(this.toDate().toInstant(), ZoneId.systemDefault())

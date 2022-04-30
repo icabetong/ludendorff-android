@@ -29,6 +29,22 @@ class Deshi {
         return start(request)
     }
 
+    suspend fun requestIssuedItemsUpdate(deshiRequest: DeshiRequest): Response {
+        val request = Request.Builder()
+            .url("${SERVER_URL}${REQUEST_UPDATE_ISSUED}")
+            .patch(parse(deshiRequest.toJSONObject()))
+            .build()
+        return start(request)
+    }
+
+    suspend fun requestStockCardEntryUpdate(deshiRequest: DeshiRequest): Response {
+        val request = Request.Builder()
+            .url("${SERVER_URL}${REQUEST_UPDATE_STOCK_CARDS}")
+            .patch(parse(deshiRequest.toJSONObject()))
+            .build()
+        return start(request)
+    }
+
     suspend fun requestUserCreate(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_CREATE_USER}")

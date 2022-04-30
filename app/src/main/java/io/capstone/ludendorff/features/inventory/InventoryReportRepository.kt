@@ -77,7 +77,6 @@ class InventoryReportRepository @Inject constructor(
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code)
 
-            Response.Success(Response.Action.CREATE)
         } catch (exception: FirebaseFirestoreException) {
             Response.Error(exception, Response.Action.CREATE)
         } catch (exception: Exception) {
@@ -115,7 +114,6 @@ class InventoryReportRepository @Inject constructor(
                 Response.Success(Response.Action.CREATE)
             else throw DeshiException(response.code)
 
-            Response.Success(Response.Action.UPDATE)
         } catch (exception: FirebaseFirestoreException) {
             Response.Error(exception, Response.Action.CREATE)
         } catch (exception: Exception) {

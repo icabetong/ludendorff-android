@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import kotlinx.parcelize.Parcelize
+import org.json.JSONObject
 
 @Keep
 @Parcelize
@@ -18,6 +19,17 @@ data class IssuedItem @JvmOverloads constructor(
     var unitCost: Double = 0.0,
     var responsibilityCenter: String? = null,
 ): Parcelable {
+
+    fun toJSONObject(): JSONObject {
+        return JSONObject().also {
+            it.put(FIELD_STOCK_NUMBER, stockNumber)
+            it.put(FIELD_DESCRIPTION, description)
+            it.put(FIELD_UNIT_OF_MEASURE, unitOfMeasure)
+            it.put(FIELD_QUANTITY_ISSUED, quantityIssued)
+            it.put(FIELD_UNIT_COST, unitCost)
+            it.put(FIELD_RESPONSIBILITY_CENTER, responsibilityCenter)
+        }
+    }
 
     fun toStockCardEntry(ref: String?): StockCardEntry {
         return StockCardEntry(reference = ref, issueQuantity = this.quantityIssued,
