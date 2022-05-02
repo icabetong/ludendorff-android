@@ -170,7 +170,8 @@
                 android:layout_margin="@dimen/activity_margin"
                 android:text="@string/button_find_usages"
                 app:icon="@drawable/ic_round_chevron_right_24"
-                app:iconGravity="end"/>
+                app:iconGravity="end"
+                style="@style/Widget.Keeper.Button.Outlined"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

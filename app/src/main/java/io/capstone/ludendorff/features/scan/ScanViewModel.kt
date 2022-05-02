@@ -24,6 +24,13 @@ class ScanViewModel @Inject constructor(
     private val _asset: MutableLiveData<Response<Asset>> = MutableLiveData(null)
     val asset: LiveData<Response<Asset>> = _asset
 
+    val stockNumber: String?
+        get() {
+            return if (asset.value is Response.Success)
+                return (asset.value as Response.Success<Asset>)?.data?.stockNumber
+            else null
+        }
+
     fun setDecodedResult(result: String) {
         val id = result.replace(Asset.ID_PREFIX, "")
         decodedAssetId = id

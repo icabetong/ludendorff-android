@@ -277,15 +277,12 @@ class IssuedReportFragment: BaseFragment(), OnItemActionListener<IssuedReport>,
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        when(action) {
-            OnItemActionListener.Action.SELECT -> {
-                container?.let {
-                    mainController?.navigate(R.id.navigation_editor_issued,
-                        bundleOf(IssuedReportEditorFragment.EXTRA_ISSUED_REPORT to data),
+        if (action == OnItemActionListener.Action.SELECT) {
+            container?.let {
+                mainController?.navigate(R.id.navigation_editor_issued,
+                    bundleOf(IssuedReportEditorFragment.EXTRA_ISSUED_REPORT to data),
                     null, FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT + data?.issuedReportId))
-                }
             }
-            OnItemActionListener.Action.DELETE -> TODO()
         }
     }
 }

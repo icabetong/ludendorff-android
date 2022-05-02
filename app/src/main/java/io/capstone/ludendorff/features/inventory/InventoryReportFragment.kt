@@ -273,19 +273,16 @@ class InventoryReportFragment: BaseFragment(),
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        when(action) {
-            OnItemActionListener.Action.SELECT -> {
-                container?.let {
-                    mainController?.navigate(R.id.navigation_editor_inventory,
-                        bundleOf(InventoryReportEditorFragment.EXTRA_INVENTORY_REPORT to data)
-                        , null,
-                        FragmentNavigatorExtras(
-                            it to TRANSITION_NAME_ROOT + data?.inventoryReportId
-                        )
+        if (action == OnItemActionListener.Action.SELECT) {
+            container?.let {
+                mainController?.navigate(R.id.navigation_editor_inventory,
+                    bundleOf(InventoryReportEditorFragment.EXTRA_INVENTORY_REPORT to data)
+                    , null,
+                    FragmentNavigatorExtras(
+                        it to TRANSITION_NAME_ROOT + data?.inventoryReportId
                     )
-                }
+                )
             }
-            OnItemActionListener.Action.DELETE -> TODO()
         }
     }
 }

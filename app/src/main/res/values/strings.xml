@@ -269,6 +269,8 @@
     <string name="empty_no_issued_items_reports_summary">There are no Supplies and Materials Issued Reports that are available on the database.</string>
     <string name="empty_no_stock_cards_header">No Stock Cards Added</string>
     <string name="empty_no_stock_cards_summary">There are no Stock Cards that are available on the database.</string>
+    <string name="empty_no_stock_cards_found_header">No Stock Card Usage</string>
+    <string name="empty_no_stock_cards_found_summary">There are no stock cards that are referencing this asset data</string>
     <string name="empty_no_scanned_code_header">Scan a QR-Code</string>
     <string name="empty_no_scanned_code_summary">You\'ll need to scan a valid QR-Code first to view its embedded data.</string>
     <string name="empty_no_search_results_header">No Results Found</string>

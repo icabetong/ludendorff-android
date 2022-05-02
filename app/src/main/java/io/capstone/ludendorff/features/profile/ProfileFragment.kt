@@ -293,9 +293,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
             MaterialDialog(requireContext()).show {
                 lifecycleOwner(viewLifecycleOwner)
                 listItems(R.array.profile_avatar_actions) { _, index, _ ->
-                    when(index) {
-                        0 -> imageRequestLauncher.launch("image/*")
-                        1 -> TODO()
+                    if (index == 0) {
+                        imageRequestLauncher.launch("image/*")
                     }
                 }
             }
