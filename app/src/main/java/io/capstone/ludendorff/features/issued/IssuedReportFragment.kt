@@ -16,6 +16,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -23,10 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
-import io.capstone.ludendorff.components.extensions.hide
-import io.capstone.ludendorff.components.extensions.setColorRes
-import io.capstone.ludendorff.components.extensions.setup
-import io.capstone.ludendorff.components.extensions.show
+import io.capstone.ludendorff.components.extensions.*
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentIssuedBinding
 import io.capstone.ludendorff.features.core.backend.Response
@@ -94,8 +93,11 @@ class IssuedReportFragment: BaseFragment(), OnItemActionListener<IssuedReport>,
             onNavigationClicked = { triggerNavigationDrawer() },
         )
 
+        val isTablet = requireContext().isTablet()
         with(binding.recyclerView) {
-            addItemDecoration(GenericItemDecoration(context))
+            if (!isTablet) addItemDecoration(GenericItemDecoration(context))
+            layoutManager = if (isTablet) GridLayoutManager(context, 2)
+                else LinearLayoutManager(context)
             adapter = issuedReportAdapter
         }
 

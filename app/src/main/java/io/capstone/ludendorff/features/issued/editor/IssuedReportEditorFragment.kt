@@ -13,12 +13,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.isTablet
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.toLocalDate
 import io.capstone.ludendorff.components.extensions.toTimestamp
@@ -106,8 +108,10 @@ class IssuedReportEditorFragment: BaseEditorFragment(), FragmentResultListener,
             binding.dateTextInput.setText(formatter.format(it.date.toLocalDate()))
         }
 
+        val isTablet = requireContext().isTablet()
         with(binding.recyclerView) {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = if (isTablet) GridLayoutManager(context, 2)
+            else LinearLayoutManager(context)
             adapter = issuedItemAdapter
         }
 

@@ -16,7 +16,9 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -26,10 +28,7 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.custom.SwipeItemCallback
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
-import io.capstone.ludendorff.components.extensions.hide
-import io.capstone.ludendorff.components.extensions.setColorRes
-import io.capstone.ludendorff.components.extensions.setup
-import io.capstone.ludendorff.components.extensions.show
+import io.capstone.ludendorff.components.extensions.*
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentCategoryBinding
 import io.capstone.ludendorff.features.category.editor.CategoryEditorFragment
@@ -104,13 +103,15 @@ class CategoryFragment: BaseFragment(), FragmentResultListener, OnItemActionList
             ), this
         )
 
+        val isTablet = requireContext().isTablet()
         with(binding.recyclerView) {
-            addItemDecoration(GenericItemDecoration(context))
+            if (!isTablet) addItemDecoration(GenericItemDecoration(context))
+            layoutManager = if (isTablet) GridLayoutManager(context, 2)
+                else LinearLayoutManager(context)
             adapter = categoryAdapter
 
             ItemTouchHelper(SwipeItemCallback(context, categoryAdapter))
                 .attachToRecyclerView(this)
-
         }
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }

@@ -18,6 +18,10 @@ import io.capstone.ludendorff.R
 import me.saket.cascade.CascadePopupMenu
 import me.saket.cascade.overrideOverflowMenu
 
+fun Context.isTablet(): Boolean {
+    return resources.getBoolean(R.bool.is_tablet)
+}
+
 fun Context.getDimension(@DimenRes res: Int): Int {
     return (resources.getDimension(res) / resources.displayMetrics.density).toInt()
 }

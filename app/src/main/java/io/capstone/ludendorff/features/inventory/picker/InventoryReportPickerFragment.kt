@@ -10,6 +10,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.algolia.instantsearch.helper.android.searchbox.SearchBoxViewAppCompat
 import com.algolia.instantsearch.helper.android.searchbox.connectView
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +19,7 @@ import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
 import io.capstone.ludendorff.components.extensions.hide
+import io.capstone.ludendorff.components.extensions.isTablet
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentPickerInventoryBinding
@@ -72,8 +75,12 @@ class InventoryReportPickerFragment(manager: FragmentManager): BasePickerFragmen
         searchView?.let {
             connectionHandler += viewModelReport.searchBox.connectView(SearchBoxViewAppCompat(it))
         }
+
+        val isTablet = requireContext().isTablet()
         with(binding.recyclerView) {
-            addItemDecoration(GenericItemDecoration(context))
+            if (!isTablet) addItemDecoration(GenericItemDecoration(context))
+            layoutManager = if (isTablet) GridLayoutManager(context, 2)
+                else LinearLayoutManager(context)
             adapter = inventoryAdapter
         }
     }

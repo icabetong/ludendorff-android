@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_background_content">
+
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/layout_appbar_editor"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/activity_margin"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/stockNumberTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin_small"
+                android:hint="@string/hint_stock_number"
+                app:placeholderText="@string/placeholder_item_stock_number"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/stockNumberTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text">
+
+                    <requestFocus/>
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/stockNumberWarningCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                app:strokeColor="@color/brand_info"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_margin_small"
+                    android:text="@string/info_stock_number"
+                    android:textColor="@color/brand_info"
+                    android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
+                    android:drawableStart="@drawable/ic_round_info_24"
+                    android:drawablePadding="@dimen/activity_margin"
+                    android:drawableTint="@color/brand_info"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/descriptionTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_description"
+                app:placeholderText="@string/placeholder_item_description"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descriptionTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/categoryTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_category"
+                app:endIconDrawable="@drawable/ic_round_arrow_drop_down_24"
+                app:endIconMode="custom"
+                app:endIconTint="@color/brand_text_primary"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/categoryTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:focusable="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/subcategoryTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_subcategory"
+                android:visibility="gone"
+                app:placeholderText="@string/placeholder_item_classification"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/subcategoryTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/unitOfMeasureTextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin"
+                    android:layout_marginEnd="@dimen/activity_margin_small"
+                    android:hint="@string/hint_unit_of_measure"
+                    app:placeholderText="@string/placeholder_item_unit_of_measure"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/unitValueTextInputLayout"
+                    style="@style/Widget.Keeper.TextInput.Layout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/unitOfMeasureTextInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/unitValueTextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin"
+                    android:layout_marginStart="@dimen/activity_margin_small"
+                    android:hint="@string/hint_unit_value"
+                    app:placeholderText="@string/placeholder_item_unit_value"
+                    app:prefixText="₱"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/unitOfMeasureTextInputLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Widget.Keeper.TextInput.Layout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/unitValueTextInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/remarksTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:hint="@string/hint_remarks"
+                app:placeholderText="@string/placeholder_item_remarks"
+                style="@style/Widget.Keeper.TextInput.Layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/remarksTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/snackbarAnchor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
