@@ -24,6 +24,7 @@
         android:layout_marginBottom="@dimen/activity_margin_tiny"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
+        app:fontFamily="@font/font_inter_semibold"
         tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
 
     <TextView
@@ -31,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_margin_medium"
+        android:textColor="@color/brand_text_secondary"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
         tools:text="email@service.com"/>

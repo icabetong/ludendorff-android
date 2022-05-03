@@ -26,6 +26,7 @@
                android:ellipsize="end"
                android:maxLines="1"
                android:textAppearance="@style/TextAppearance.Keeper.Overline"
+               app:fontFamily="@font/font_inter_bold"
                tools:text="February 2020"/>
 
            <TextView
@@ -36,6 +37,7 @@
                android:ellipsize="end"
                android:maxLines="1"
                android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+               app:fontFamily="@font/font_inter_semibold"
                tools:text="Bidding"/>
 
            <TextView
@@ -44,6 +46,7 @@
                android:layout_height="wrap_content"
                android:ellipsize="end"
                android:maxLines="1"
+               android:textColor="@color/brand_text_secondary"
                tools:text="Jose Ariel G. Barza"/>
 
        </androidx.appcompat.widget.LinearLayoutCompat>

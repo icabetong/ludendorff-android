@@ -22,6 +22,7 @@
         <item name="android:colorBackgroundFloating">@color/brand_surface</item>
         <item name="android:windowBackground">@color/brand_background_main</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:textViewStyle">@style/Widget.Keeper.TextView</item>
         <!-- Components -->
         <item name="bottomSheetDialogTheme">@style/Component.Keeper.BottomSheet</item>
         <!-- AppCompat -->
@@ -42,6 +43,9 @@
         <item name="md_font_title">@font/inter_semibold</item>
         <item name="md_font_body">@font/inter_regular</item>
         <item name="md_font_button">@font/inter_medium</item>
+        <!-- Font -->
+        <item name="fontFamily">@font/font_inter_regular</item>
+        <item name="android:fontFamily">@font/font_inter_regular</item>
     </style>
 
     <!-- Components -->
@@ -72,6 +76,8 @@
 
     <!-- Widgets -->
     <style name="Widget.Keeper.TextView" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/font_inter_regular</item>
+        <item name="android:fontFamily">@font/font_inter_regular</item>
         <item name="android:textAppearance">@style/TextAppearance.Keeper</item>
     </style>
     <style name="Widget.Keeper.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>

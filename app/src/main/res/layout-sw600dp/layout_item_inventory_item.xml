@@ -25,6 +25,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                app:fontFamily="@font/font_inter_semibold"
                 tools:text="Frederich Wilhelm von Ludendorff-Hollweg"/>
 
             <TextView
@@ -33,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:textColor="@color/brand_text_secondary"
                 tools:text="vonlundendorff.wilhelm@gmail.com"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -25,6 +25,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                app:fontFamily="@font/font_inter_semibold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/bodyTextView"
                 app:layout_constraintStart_toStartOf="parent"

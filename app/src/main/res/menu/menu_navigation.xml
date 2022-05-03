@@ -8,7 +8,7 @@
         <item
             android:id="@+id/navigation_assets"
             android:title="@string/navigation_assets"
-            android:icon="@drawable/ic_round_desktop_windows_24"
+            android:icon="@drawable/ic_round_devices_other_24"
             android:checked="true"/>
 
         <item

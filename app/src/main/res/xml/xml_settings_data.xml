@@ -5,7 +5,7 @@
         <Preference
             android:key="preference:data:asset"
             android:title="@string/settings_data_list_asset"
-            android:icon="@drawable/ic_round_desktop_windows_24"/>
+            android:icon="@drawable/ic_round_devices_other_24"/>
         <Preference
             android:key="preference:data:inventory"
             android:title="@string/settings_data_list_inventory"
