@@ -440,8 +440,8 @@ class ProfileFragment: BaseFragment(), ProfileOptionsAdapter.ProfileOptionListen
         when(id) {
             R.id.action_sign_out -> {
                 MaterialDialog(requireContext()).show {
-                    title(R.string.dialog_sign_out_title)
-                    message(R.string.dialog_sign_out_message)
+                    title(R.string.dialog_log_out_title)
+                    message(R.string.dialog_log_out_message)
                     positiveButton(R.string.button_continue) {
                         authViewModel.unsubscribeToDocumentChanges {
                             controller?.navigate(R.id.to_navigation_auth)
