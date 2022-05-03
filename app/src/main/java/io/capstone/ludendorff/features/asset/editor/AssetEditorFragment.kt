@@ -23,6 +23,7 @@ import io.capstone.ludendorff.databinding.FragmentEditorAssetBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetViewModel
 import io.capstone.ludendorff.features.asset.qrcode.QRCodeViewBottomSheet
+import io.capstone.ludendorff.features.asset.usages.FindUsagesFragment
 import io.capstone.ludendorff.features.shared.BaseEditorFragment
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.category.Category
@@ -220,7 +221,9 @@ class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,
                 }
             }
             R.id.action_find_usages -> {
-                controller?.navigate(R.id.navigation_find_asset_usages)
+                controller?.navigate(R.id.navigation_find_asset_usages,
+                    bundleOf(FindUsagesFragment.EXTRA_STOCK_NUMBER to
+                            editorViewModel.asset.stockNumber))
             }
             R.id.action_remove -> {
                 if (requestKey == REQUEST_KEY_UPDATE) {

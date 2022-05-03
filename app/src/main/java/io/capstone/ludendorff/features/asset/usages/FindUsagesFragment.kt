@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +25,7 @@ import io.capstone.ludendorff.databinding.FragmentAssetUsagesBinding
 import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.stockcard.StockCard
 import io.capstone.ludendorff.features.stockcard.StockCardAdapter
+import io.capstone.ludendorff.features.stockcard.editor.StockCardEditorFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -51,16 +55,21 @@ class FindUsagesFragment: BaseFragment(), OnItemActionListener<StockCard> {
         super.onViewCreated(view, savedInstanceState)
         setInsets(view, binding.appBar.toolbar)
 
+        arguments?.getString(EXTRA_STOCK_NUMBER)?.let {
+            viewModel.assetStockNumber = it
+        }
+
         binding.appBar.toolbar.setup(
             titleRes = R.string.button_find_usages,
             onNavigationClicked = { controller?.navigateUp() }
         )
-
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
             adapter = stockCardAdapter
         }
-        viewModel.assetStockNumber = "OS-SIA-I1-001"
+
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onStart() {
@@ -163,7 +172,13 @@ class FindUsagesFragment: BaseFragment(), OnItemActionListener<StockCard> {
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        TODO("Not yet implemented")
+        if (action == OnItemActionListener.Action.SELECT) {
+            container?.let {
+                controller?.navigate(R.id.navigation_editor_stock_card,
+                    bundleOf(StockCardEditorFragment.EXTRA_STOCK_CARD to data), null,
+                    FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT + data?.stockCardId))
+            }
+        }
     }
 
     companion object {
