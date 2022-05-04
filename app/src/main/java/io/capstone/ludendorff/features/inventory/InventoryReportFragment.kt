@@ -16,6 +16,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -23,10 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.custom.GenericItemDecoration
 import io.capstone.ludendorff.components.exceptions.EmptySnapshotException
-import io.capstone.ludendorff.components.extensions.hide
-import io.capstone.ludendorff.components.extensions.setColorRes
-import io.capstone.ludendorff.components.extensions.setup
-import io.capstone.ludendorff.components.extensions.show
+import io.capstone.ludendorff.components.extensions.*
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentInventoryBinding
 import io.capstone.ludendorff.features.core.backend.Response
@@ -95,8 +94,11 @@ class InventoryReportFragment: BaseFragment(),
             menuRes = R.menu.menu_core_inventories,
         )
 
+        val isTablet = requireContext().isTablet()
         with(binding.recyclerView) {
-            addItemDecoration(GenericItemDecoration(context))
+            if (!isTablet) addItemDecoration(GenericItemDecoration(context))
+            layoutManager = if (isTablet) GridLayoutManager(context, 2)
+                else LinearLayoutManager(context)
             adapter = inventoryAdapter
         }
 
@@ -273,19 +275,16 @@ class InventoryReportFragment: BaseFragment(),
         action: OnItemActionListener.Action,
         container: View?
     ) {
-        when(action) {
-            OnItemActionListener.Action.SELECT -> {
-                container?.let {
-                    mainController?.navigate(R.id.navigation_editor_inventory,
-                        bundleOf(InventoryReportEditorFragment.EXTRA_INVENTORY_REPORT to data)
-                        , null,
-                        FragmentNavigatorExtras(
-                            it to TRANSITION_NAME_ROOT + data?.inventoryReportId
-                        )
+        if (action == OnItemActionListener.Action.SELECT) {
+            container?.let {
+                mainController?.navigate(R.id.navigation_editor_inventory,
+                    bundleOf(InventoryReportEditorFragment.EXTRA_INVENTORY_REPORT to data)
+                    , null,
+                    FragmentNavigatorExtras(
+                        it to TRANSITION_NAME_ROOT + data?.inventoryReportId
                     )
-                }
+                )
             }
-            OnItemActionListener.Action.DELETE -> TODO()
         }
     }
 }

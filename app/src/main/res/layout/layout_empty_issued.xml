@@ -24,7 +24,8 @@
         android:layout_height="wrap_content"
         android:text="@string/empty_no_issued_items_reports_header"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
+        app:fontFamily="@font/font_inter_semibold"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"

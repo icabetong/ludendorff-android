@@ -46,7 +46,7 @@
 
             <include
                 android:id="@+id/rowLayout"
-                layout="@layout/layout_skeleton_home"/>
+                layout="@layout/layout_skeleton_stock_card"/>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

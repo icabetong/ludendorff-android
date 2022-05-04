@@ -46,7 +46,7 @@
 
             <include
                 android:id="@+id/rowLayout"
-                layout="@layout/layout_skeleton_home"/>
+                layout="@layout/layout_skeleton_inventory_report"/>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

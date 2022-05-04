@@ -36,6 +36,7 @@
             android:layout_marginEnd="@dimen/activity_margin_tiny"
             android:textColor="@color/brand_text_primary"
             android:textAppearance="@style/TextAppearance.Keeper.List"
+            app:fontFamily="@font/font_inter_semibold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iconView"

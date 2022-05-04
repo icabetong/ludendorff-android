@@ -12,11 +12,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.R
+import io.capstone.ludendorff.components.extensions.isTablet
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentEditorStockCardBinding
@@ -104,8 +106,10 @@ class StockCardEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDel
             binding.assetTextInput.setText(it.description)
         }
 
+        val isTablet = requireContext().isTablet()
         with(binding.recyclerView) {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = if (isTablet) GridLayoutManager(context, 2)
+            else LinearLayoutManager(context)
             adapter = entryAdapter
         }
 

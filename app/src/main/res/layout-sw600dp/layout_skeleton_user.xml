@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="@dimen/activity_margin">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_margin"
+                android:background="@drawable/shape_card_skeleton">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image1View"
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
+                    android:src="@drawable/shape_item_skeleton_circle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/overline1TextView"
+                    android:layout_width="@dimen/skeleton_header_width_3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.Keeper.Overline"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/header1TextView"
+                    app:layout_constraintStart_toEndOf="@id/image1View"/>
+
+                <TextView
+                    android:id="@+id/header1TextView"
+                    android:layout_width="@dimen/skeleton_header_width_1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                    app:layout_constraintTop_toBottomOf="@id/overline1TextView"
+                    app:layout_constraintBottom_toTopOf="@id/information1TextView"
+                    app:layout_constraintStart_toEndOf="@id/image1View"/>
+
+                <TextView
+                    android:id="@+id/information1TextView"
+                    android:layout_width="@dimen/skeleton_summary_width_1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toBottomOf="@id/header1TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image1View"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="@dimen/activity_margin">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_margin"
+                android:background="@drawable/shape_card_skeleton">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image2View"
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
+                    android:src="@drawable/shape_item_skeleton_circle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/overline2TextView"
+                    android:layout_width="@dimen/skeleton_header_width_4"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.Keeper.Overline"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/header2TextView"
+                    app:layout_constraintStart_toEndOf="@id/image2View"/>
+
+                <TextView
+                    android:id="@+id/header2TextView"
+                    android:layout_width="@dimen/skeleton_header_width_2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                    app:layout_constraintTop_toBottomOf="@id/overline2TextView"
+                    app:layout_constraintBottom_toTopOf="@id/information2TextView"
+                    app:layout_constraintStart_toEndOf="@id/image2View"/>
+
+                <TextView
+                    android:id="@+id/information2TextView"
+                    android:layout_width="@dimen/skeleton_summary_width_2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toBottomOf="@id/header2TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image2View"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="@dimen/activity_margin">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_margin"
+                android:background="@drawable/shape_card_skeleton">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image3View"
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
+                    android:src="@drawable/shape_item_skeleton_circle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/overline3TextView"
+                    android:layout_width="@dimen/skeleton_summary_width_2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.Keeper.Overline"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/header3TextView"
+                    app:layout_constraintStart_toEndOf="@id/image3View"/>
+
+                <TextView
+                    android:id="@+id/header3TextView"
+                    android:layout_width="@dimen/skeleton_header_width_3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                    app:layout_constraintTop_toBottomOf="@id/overline3TextView"
+                    app:layout_constraintBottom_toTopOf="@id/information3TextView"
+                    app:layout_constraintStart_toEndOf="@id/image3View"/>
+
+                <TextView
+                    android:id="@+id/information3TextView"
+                    android:layout_width="@dimen/skeleton_summary_width_3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toBottomOf="@id/header3TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image3View"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="@dimen/activity_margin">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_margin"
+                android:background="@drawable/shape_card_skeleton">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image4View"
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
+                    android:src="@drawable/shape_item_skeleton_circle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/overline4TextView"
+                    android:layout_width="@dimen/skeleton_summary_width_5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.Keeper.Overline"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/header4TextView"
+                    app:layout_constraintStart_toEndOf="@id/image4View"/>
+
+                <TextView
+                    android:id="@+id/header4TextView"
+                    android:layout_width="@dimen/skeleton_header_width_4"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                    app:layout_constraintTop_toBottomOf="@id/overline4TextView"
+                    app:layout_constraintBottom_toTopOf="@id/information4TextView"
+                    app:layout_constraintStart_toEndOf="@id/image4View"/>
+
+                <TextView
+                    android:id="@+id/information4TextView"
+                    android:layout_width="@dimen/skeleton_summary_width_4"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toBottomOf="@id/header4TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image4View"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="@dimen/activity_margin">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_margin">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image5View"
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
+                    android:src="@drawable/shape_item_skeleton_circle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/overline5TextView"
+                    android:layout_width="@dimen/skeleton_summary_width_2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.Keeper.Overline"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/header5TextView"
+                    app:layout_constraintStart_toEndOf="@id/image5View"/>
+
+                <TextView
+                    android:id="@+id/header5TextView"
+                    android:layout_width="@dimen/skeleton_header_width_5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_tiny"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    android:textAppearance="@style/TextAppearance.Keeper.List.Title"
+                    app:layout_constraintTop_toBottomOf="@id/overline5TextView"
+                    app:layout_constraintBottom_toTopOf="@id/information5TextView"
+                    app:layout_constraintStart_toEndOf="@id/image5View"/>
+
+                <TextView
+                    android:id="@+id/information5TextView"
+                    android:layout_width="@dimen/skeleton_summary_width_5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:background="@drawable/shape_item_skeleton"
+                    app:layout_constraintTop_toBottomOf="@id/header5TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image5View"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="@dimen/activity_margin"/>
+
+    </LinearLayout>
+
+</LinearLayout>
