@@ -6,7 +6,11 @@
 
 **Warning: Construction Ahead!**
 
-Ludendorff is our capstone project that is a client app used in asset tracking and management of the CLIRDEC in Central Luzon State University.
+Ludendorff is a part of our thesis project. The client side of the system, targeted at various platforms such as the Web, Desktop and Android operating systems. 
+
+Ludendorff intends to handle the specific workflow of the employees and staff of the Supply Warehouse of the Central Luzon State University more automated, thus reducing the workload of the said employees.
+
+This repository houses the official codebase for the native Android client built using the Android SDK and written using Kotlin.
 
 ## Built with
 
