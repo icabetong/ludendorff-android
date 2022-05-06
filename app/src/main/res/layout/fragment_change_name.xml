@@ -13,7 +13,8 @@
         android:layout_margin="@dimen/activity_margin"
         android:text="@string/title_change_name"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
+        app:fontFamily="@font/font_inter_semibold"/>
 
     <View
         android:layout_width="match_parent"

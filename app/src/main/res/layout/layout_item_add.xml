@@ -9,4 +9,5 @@
     android:text="@string/button_add"
     app:icon="@drawable/ic_round_add_24"
     app:iconGravity="textStart"
+    app:fontFamily="@font/font_inter_semibold"
     style="@style/Widget.MaterialComponents.Button.TextButton"/>

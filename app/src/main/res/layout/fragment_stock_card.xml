@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin"
             android:visibility="gone"
-            app:strokeColor="@color/brand_info"
+            app:cardBackgroundColor="@color/brand_info_container"
+            app:strokeColor="@android:color/transparent"
             tools:visibility="visible">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -39,22 +40,22 @@
                     android:layout_marginHorizontal="@dimen/activity_margin"
                     android:gravity="center_vertical"
                     android:text="@string/info_dataset_filtered"
-                    android:textColor="@color/brand_info"
+                    android:textColor="@color/brand_on_info"
                     android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
                     android:drawableStart="@drawable/ic_round_info_24"
                     android:drawablePadding="@dimen/activity_margin"
-                    android:drawableTint="@color/brand_info"/>
+                    android:drawableTint="@color/brand_on_info"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/resetButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_small"
                     android:layout_marginBottom="@dimen/activity_margin"
                     android:layout_marginHorizontal="@dimen/activity_margin"
                     android:layout_gravity="end"
                     android:text="@string/button_reset"
-                    android:textColor="@color/brand_info"
-                    style="@style/Widget.Keeper.Button.Outlined"/>
+                    style="@style/Widget.Keeper.Button"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

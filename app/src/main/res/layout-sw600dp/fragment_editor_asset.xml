@@ -50,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin"
-                app:strokeColor="@color/brand_info"
+                app:cardBackgroundColor="@color/brand_info_container"
+                app:strokeColor="@android:color/transparent"
                 tools:visibility="visible">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -58,11 +59,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/activity_margin_small"
                     android:text="@string/info_stock_number"
-                    android:textColor="@color/brand_info"
+                    android:textColor="@color/brand_on_info"
                     android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
                     android:drawableStart="@drawable/ic_round_info_24"
                     android:drawablePadding="@dimen/activity_margin"
-                    android:drawableTint="@color/brand_info"/>
+                    android:drawableTint="@color/brand_on_info"
+                    app:fontFamily="@font/font_inter_medium"/>
 
             </com.google.android.material.card.MaterialCardView>
 

@@ -37,7 +37,8 @@
             android:layout_height="wrap_content"
             android:text="@string/error_camera_permission_header"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+            android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
+            app:fontFamily="@font/font_inter_semibold"/>
 
         <TextView
             android:layout_width="match_parent"

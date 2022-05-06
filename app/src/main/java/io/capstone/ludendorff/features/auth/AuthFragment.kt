@@ -135,14 +135,24 @@ class AuthFragment: BaseFragment() {
         binding.passwordTextInput.doAfterTextChanged { resetErrors() }
 
         binding.authenticateButton.setOnClickListener {
+            val email = binding.emailTextInput.text.toString()
+            val password = binding.passwordTextInput.text.toString()
+            if (email.isNullOrBlank()) {
+                binding.emailTextInputLayout.error = getString(R.string.error_invalid_email_address)
+                return@setOnClickListener
+            }
+            if (password.isNullOrBlank()) {
+                binding.passwordTextInputLayout.error = getString(R.string.error_invalid_credentials)
+                return@setOnClickListener
+            }
+
             binding.emailTextInputLayout.isEnabled = false
             binding.passwordTextInputLayout.isEnabled = false
             binding.authenticateButton.isEnabled = false
             binding.progressIndicator.show()
             binding.authenticateButton.setText(R.string.button_authenticating)
 
-            viewModel.authenticate(binding.emailTextInput.text.toString(),
-                binding.passwordTextInput.text.toString())
+            viewModel.authenticate(email, password)
         }
         binding.passwordTextInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -192,7 +202,7 @@ class AuthFragment: BaseFragment() {
         if (binding.progressIndicator.isVisible)
             binding.progressIndicator.hide()
 
-        binding.authenticateButton.setText(R.string.button_sign_in)
+        binding.authenticateButton.setText(R.string.button_log_in)
     }
 
     private fun resetErrors() {

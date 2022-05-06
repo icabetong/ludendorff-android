@@ -13,7 +13,8 @@
         android:layout_marginVertical="@dimen/activity_margin"
         android:text="@string/title_configure_issued_item"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"/>
+        android:textAppearance="@style/TextAppearance.Keeper.Header.Component"
+        app:fontFamily="@font/font_inter_semibold"/>
 
     <View
         android:layout_width="match_parent"
@@ -36,7 +37,8 @@
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/hint_description"
                 android:textColor="@color/brand_primary"
-                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+                android:textAppearance="@style/TextAppearance.Keeper.Overline"
+                app:fontFamily="@font/font_inter_bold"/>
 
             <TextView
                 android:id="@+id/descriptionTextView"

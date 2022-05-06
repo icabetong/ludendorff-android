@@ -55,7 +55,8 @@
                 android:layout_marginVertical="@dimen/activity_margin_small"
                 android:text="@string/hint_credentials"
                 android:textColor="@color/brand_primary"
-                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+                android:textAppearance="@style/TextAppearance.Keeper.Overline"
+                app:fontFamily="@font/font_inter_bold"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailTextInputLayout"
@@ -84,7 +85,8 @@
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/hint_permissions"
                 android:textColor="@color/brand_primary"
-                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+                android:textAppearance="@style/TextAppearance.Keeper.Overline"
+                app:fontFamily="@font/font_inter_bold"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -146,7 +148,8 @@
                 android:layout_marginVertical="@dimen/activity_margin_small"
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:visibility="gone"
-                app:strokeColor="@color/brand_warning"
+                app:cardBackgroundColor="@color/brand_warning_container"
+                app:strokeColor="@android:color/transparent"
                 tools:visibility="visible">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -154,11 +157,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/activity_margin_small"
                     android:text="@string/info_administrative_permissions"
-                    android:textColor="@color/brand_warning"
+                    android:textColor="@color/brand_on_warning"
                     android:textAppearance="@style/TextAppearance.Keeper.Body.Medium"
                     android:drawableStart="@drawable/ic_round_info_24"
                     android:drawablePadding="@dimen/activity_margin"
-                    android:drawableTint="@color/brand_warning"/>
+                    android:drawableTint="@color/brand_on_warning"
+                    app:fontFamily="@font/font_inter_medium"/>
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -170,7 +174,8 @@
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:text="@string/hint_information"
                 android:textColor="@color/brand_primary"
-                android:textAppearance="@style/TextAppearance.Keeper.Overline"/>
+                android:textAppearance="@style/TextAppearance.Keeper.Overline"
+                app:fontFamily="@font/font_inter_bold"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/lastNameTextInputLayout"

@@ -5,17 +5,16 @@
     <color name="brand_on_primary">@android:color/black</color>
 
     <color name="brand_error">#f44336</color>
-    <color name="brand_error_dark">#d32f2f</color>
-    <color name="brand_error_light">#e57373</color>
-    <color name="brand_on_error">#fff</color>
+    <color name="brand_on_error">#f9dedc</color>
+    <color name="brand_error_container">#8c1d18</color>
 
-    <color name="brand_warning">#ffa726</color>
-    <color name="brand_warning_dark">#f57c00</color>
-    <color name="brand_warning_light">#ffb74d</color>
-    <color name="brand_on_warning">@android:color/black</color>
+    <color name="brand_warning">#ffb68c</color>
+    <color name="brand_on_warning">#ffdbc8</color>
+    <color name="brand_warning_container">#783200</color>
 
     <color name="brand_info">#29b6f6</color>
-    <color name="brand_on_info">@android:color/black</color>
+    <color name="brand_on_info">#cce5ff</color>
+    <color name="brand_info_container">#004a76</color>
 
     <color name="brand_surface">#4b5563</color>
     <color name="brand_on_surface">@android:color/white</color>

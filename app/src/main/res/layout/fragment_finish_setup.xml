@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_margin_tiny"
             android:text="@string/title_account_setup"
-            android:textAppearance="@style/TextAppearance.Keeper.Header"/>
+            android:textAppearance="@style/TextAppearance.Keeper.Header"
+            app:fontFamily="@font/font_inter_semibold"/>
 
         <TextView
             android:layout_width="match_parent"

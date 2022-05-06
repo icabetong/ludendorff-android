@@ -60,6 +60,7 @@
                 android:layout_marginHorizontal="@dimen/activity_margin"
                 android:textAppearance="@style/TextAppearance.Keeper.Header"
                 app:layout_constraintTop_toBottomOf="@id/imageView"
+                app:fontFamily="@font/font_inter_semibold"
                 tools:text="Fedor von Bock"/>
 
             <androidx.appcompat.widget.AppCompatTextView
