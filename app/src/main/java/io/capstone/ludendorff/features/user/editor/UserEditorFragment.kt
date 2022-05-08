@@ -87,7 +87,8 @@ class UserEditorFragment: BaseEditorFragment(), BaseFragment.CascadeMenuDelegate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setInsets(view, binding.appBar.toolbar, arrayOf(binding.snackbarAnchor))
+        setInsets(view, binding.appBar.toolbar, arrayOf(binding.snackbarAnchor,
+            binding.positionTextInputLayout))
 
         binding.root.transitionName = TRANSITION_NAME_ROOT
         binding.appBar.toolbar.setup(

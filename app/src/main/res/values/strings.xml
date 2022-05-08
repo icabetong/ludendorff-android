@@ -58,6 +58,7 @@
     <string name="title_configure_inventory_item">Configure Inventory Item</string>
     <string name="title_configure_issued_item">Configure Issued Item</string>
     <string name="title_configure_stock_card_entry">Configure Stock Card Entry</string>
+    <string name="title_find_asset_stock_card_usages">Find Asset Usages</string>
     <string name="title_account_setup">Finish Account Setup</string>
     <string name="title_third_party_notices">Third Party Notices</string>
 
@@ -172,7 +173,7 @@
     <string name="menu_request_password_reset">Request Password Reset</string>
 
     <string name="authentication_title">Log in to Ludendorff</string>
-    <string name="authentication_summary">Enter your email and password</string>
+    <string name="authentication_summary">Enter your email address and password</string>
     <string name="authentication_confirm">Authentication is Required</string>
     <string name="authentication_confirm_summary">Provide your credentials to continue.</string>
     <string name="authentication_anonymous_user">Anonymous User</string>

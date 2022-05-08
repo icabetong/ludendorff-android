@@ -9,6 +9,8 @@ import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.algolia.instantsearch.helper.android.list.autoScrollToStart
@@ -22,11 +24,13 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchCategoryBinding
 import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.category.editor.CategoryEditorFragment
 import io.capstone.ludendorff.features.category.subcategory.SubcategoryEditorBottomSheet
 
 class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Category> {
     private var _binding: FragmentSearchCategoryBinding? = null
     private var controller: NavController? = null
+    private var mainController: NavController? = null
 
     private val binding get() = _binding!!
     private val searchAdapter = CategorySearchAdapter(this)
@@ -80,6 +84,7 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
     override fun onStart() {
         super.onStart()
         controller = findNavController()
+        mainController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
 
         searchAdapter.addLoadStateListener { _, loadState ->
             when(loadState) {
@@ -116,8 +121,10 @@ class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Categor
         container: View?
     ) {
         if (action == OnItemActionListener.Action.SELECT) {
-            SubcategoryEditorBottomSheet(childFragmentManager).show {
-                arguments = bundleOf(SubcategoryEditorBottomSheet.EXTRA_SUBCATEGORY to data)
+            container?.let {
+                mainController?.navigate(R.id.navigation_editor_category,
+                    bundleOf(CategoryEditorFragment.EXTRA_CATEGORY to data), null,
+                    FragmentNavigatorExtras(it to TRANSITION_NAME_ROOT + data?.categoryId))
             }
         }
     }

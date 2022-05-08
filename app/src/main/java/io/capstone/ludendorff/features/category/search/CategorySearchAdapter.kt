@@ -12,6 +12,7 @@ import io.capstone.ludendorff.databinding.LayoutItemSearchBinding
 import io.capstone.ludendorff.features.shared.BasePagedListAdapter
 import io.capstone.ludendorff.features.shared.BaseViewHolder
 import io.capstone.ludendorff.features.category.Category
+import io.capstone.ludendorff.features.shared.BaseFragment
 
 class CategorySearchAdapter(
     private val onItemActionListener: OnItemActionListener<Category>
@@ -32,6 +33,8 @@ class CategorySearchAdapter(
 
         override fun onBind(data: Category?) {
             with(binding) {
+                binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.categoryId
+
                 val style = ForegroundColorSpan(
                     ContextCompat.getColor(root.context,
                     R.color.brand_primary))
@@ -40,7 +43,7 @@ class CategorySearchAdapter(
 
                 root.setOnClickListener {
                     onItemActionListener.onActionPerformed(data, OnItemActionListener.Action.SELECT,
-                        binding.root)
+                        it)
                 }
             }
         }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -37,6 +38,16 @@ class FindUsagesFragment: BaseFragment(), OnItemActionListener<StockCard> {
     private val stockCardAdapter = StockCardAdapter(this)
     private val viewModel: FindUsagesViewModel by activityViewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object: OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    controller?.navigateUp()
+                }
+            })
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,7 +71,7 @@ class FindUsagesFragment: BaseFragment(), OnItemActionListener<StockCard> {
         }
 
         binding.appBar.toolbar.setup(
-            titleRes = R.string.button_find_usages,
+            titleRes = R.string.title_find_asset_stock_card_usages,
             onNavigationClicked = { controller?.navigateUp() }
         )
         with(binding.recyclerView) {
