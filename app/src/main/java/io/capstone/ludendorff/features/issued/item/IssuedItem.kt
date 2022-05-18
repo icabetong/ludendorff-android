@@ -3,6 +3,7 @@ package io.capstone.ludendorff.features.issued.item
 import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
+import io.capstone.ludendorff.components.utils.IDGenerator
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import kotlinx.parcelize.Parcelize
@@ -11,6 +12,7 @@ import org.json.JSONObject
 @Keep
 @Parcelize
 data class IssuedItem @JvmOverloads constructor(
+    var issuedReportItemId: String = IDGenerator.generateRandom(),
     var stockNumber: String = "",
     var description: String? = null,
     var unitOfMeasure: String? = null,
@@ -22,6 +24,7 @@ data class IssuedItem @JvmOverloads constructor(
 
     fun toJSONObject(): JSONObject {
         return JSONObject().also {
+            it.put(FIELD_ISSUED_ITEM_ID, issuedReportItemId)
             it.put(FIELD_STOCK_NUMBER, stockNumber)
             it.put(FIELD_DESCRIPTION, description)
             it.put(FIELD_UNIT_OF_MEASURE, unitOfMeasure)
@@ -37,6 +40,7 @@ data class IssuedItem @JvmOverloads constructor(
     }
 
     companion object {
+        const val FIELD_ISSUED_ITEM_ID = "issuedReportItemId"
         const val FIELD_STOCK_NUMBER = "stockNumber"
         const val FIELD_DESCRIPTION = "description"
         const val FIELD_UNIT_OF_MEASURE = "unitOfMeasure"
@@ -46,7 +50,7 @@ data class IssuedItem @JvmOverloads constructor(
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<IssuedItem>() {
             override fun areItemsTheSame(oldItem: IssuedItem, newItem: IssuedItem): Boolean {
-                return oldItem.stockNumber == newItem.stockNumber
+                return oldItem.issuedReportItemId == newItem.issuedReportItemId
             }
 
             override fun areContentsTheSame(oldItem: IssuedItem, newItem: IssuedItem): Boolean {

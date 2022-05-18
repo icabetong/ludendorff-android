@@ -47,7 +47,7 @@ class IssuedReportEditorViewModel @Inject constructor(
 
     fun insert(item: IssuedItem) {
         val newItems = ArrayList(items)
-        val index = newItems.indexOfFirst { it.stockNumber == item.stockNumber }
+        val index = newItems.indexOfFirst { it.issuedReportItemId == item.issuedReportItemId }
         if (index < 0) {
             newItems.add(item)
             _issuedItems.value = ArrayList(newItems)
@@ -56,7 +56,7 @@ class IssuedReportEditorViewModel @Inject constructor(
     fun update(item: IssuedItem) {
         val newItems = ArrayList(items)
         _issuedItems.value = mutableListOf()
-        val index = newItems.indexOfFirst { it.stockNumber == item.stockNumber }
+        val index = newItems.indexOfFirst { it.issuedReportItemId == item.issuedReportItemId }
         if (index >= 0) {
             newItems[index] = item
             _issuedItems.value = newItems
@@ -64,7 +64,7 @@ class IssuedReportEditorViewModel @Inject constructor(
     }
     fun remove(item: IssuedItem) {
         val newItems = ArrayList(items)
-        val index = newItems.indexOfFirst { it.stockNumber == item.stockNumber }
+        val index = newItems.indexOfFirst { it.issuedReportItemId == item.issuedReportItemId }
         if (index >= 0) {
             newItems.removeAt(index)
             _issuedItems.value = newItems

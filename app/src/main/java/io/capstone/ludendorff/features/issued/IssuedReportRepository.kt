@@ -47,7 +47,7 @@ class IssuedReportRepository @Inject constructor(
                 it.set(documentReference, issuedReport)
 
                 for (item in issuedReport.items) {
-                    it.set(itemsReference.document(item.stockNumber), item)
+                    it.set(itemsReference.document(item.issuedReportItemId), item)
                 }
             }.await()
 
@@ -84,7 +84,7 @@ class IssuedReportRepository @Inject constructor(
             firestore.runBatch {
                 it.set(documentReference, issuedReport)
                 for (item in issuedReport.items) {
-                    it.set(itemsReference.document(item.stockNumber), item)
+                    it.set(itemsReference.document(item.issuedReportItemId), item)
                 }
             }.await()
 
@@ -115,7 +115,7 @@ class IssuedReportRepository @Inject constructor(
                 val reference = reportsReference.document(issuedReport.issuedReportId)
                 val itemsCollection = reference.collection(IssuedReport.FIELD_ITEMS)
                 for (item in issuedReport.items) {
-                    it.delete(itemsCollection.document(item.stockNumber))
+                    it.delete(itemsCollection.document(item.issuedReportItemId))
                 }
 
                 it.delete(reference)

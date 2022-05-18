@@ -197,6 +197,7 @@ class InventoryReportFragment: BaseFragment(),
             viewModel.action.collect {
                 when(it) {
                     is Response.Error -> {
+                        android.util.Log.e("DEBUG", it.throwable.toString())
                         if (it.throwable is FirebaseFirestoreException &&
                             it.throwable.code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
 
