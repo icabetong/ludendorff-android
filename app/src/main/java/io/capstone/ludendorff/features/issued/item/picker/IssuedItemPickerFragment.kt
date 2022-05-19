@@ -10,6 +10,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.algolia.instantsearch.helper.android.searchbox.SearchBoxViewAppCompat
 import com.algolia.instantsearch.helper.android.searchbox.connectView
 import dagger.hilt.android.AndroidEntryPoint
@@ -92,6 +93,7 @@ class IssuedItemPickerFragment(manager: FragmentManager): BasePickerFragment(man
         }
         with(binding.recyclerView) {
             addItemDecoration(GenericItemDecoration(context))
+            layoutManager = LinearLayoutManager(context)
             adapter = issuedAdapter
         }
     }
