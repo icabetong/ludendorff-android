@@ -127,6 +127,7 @@
     <string name="hint_amount">Amount</string>
     <string name="hint_subcategories">Subcategories</string>
     <string name="hint_subcategory_name">Subcategory Name</string>
+    <string name="hint_inventory_report_source">Inventory Report Source</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>
