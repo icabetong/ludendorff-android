@@ -23,6 +23,10 @@ class IssuedReportEditorViewModel @Inject constructor(
             field = value
             fetchItems()
         }
+        get() {
+            field.items = items
+            return field
+        }
 
     private val _issuedItems = MutableLiveData<List<IssuedItem>>(mutableListOf())
     val issuedItems: LiveData<List<IssuedItem>> = _issuedItems

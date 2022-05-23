@@ -31,7 +31,7 @@ class IssuedReportAdapter(
     inner class IssuedReportViewHolder(itemView: View): BaseViewHolder<IssuedReport>(itemView) {
         private val binding = LayoutItemIssuedReportBinding.bind(itemView)
         private val userPreferences = UserPreferences(itemView.context)
-        private val formatter = DateTimeFormatter.getDateFormatter(isShort = false, withYear = true)
+        private val formatter = DateTimeFormatter.getDateFormatter(isShort = true, withYear = true)
 
         override fun onBind(data: IssuedReport?) {
             binding.root.transitionName = BaseFragment.TRANSITION_NAME_ROOT + data?.issuedReportId

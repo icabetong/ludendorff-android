@@ -1,14 +1,10 @@
 package io.capstone.ludendorff.features.inventory
 
-import com.google.firebase.auth.FirebaseAuth
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.ktx.toObject
-import io.capstone.ludendorff.api.Deshi
-import io.capstone.ludendorff.api.DeshiException
-import io.capstone.ludendorff.api.DeshiRequest
-import io.capstone.ludendorff.components.extensions.toJSONArray
-import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.inventory.item.InventoryItem
 import kotlinx.coroutines.tasks.await
@@ -18,20 +14,8 @@ import javax.inject.Singleton
 @Singleton
 class InventoryReportRepository @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val firebaseAuth: FirebaseAuth,
-    private val deshi: Deshi
+    private val workManager: WorkManager,
 ){
-
-    suspend fun fetchAssetUsages(assetId: String): Response<List<InventoryItem?>> {
-        return try {
-            val task = firestore.collectionGroup(InventoryReport.FIELD_ITEMS)
-                .whereEqualTo(Asset.FIELD_STOCK_NUMBER, assetId).get().await();
-            val items = task.documents.map { it.toObject(InventoryItem::class.java) }
-            return Response.Success(items)
-        } catch (e: Exception) {
-            Response.Error(e)
-        }
-    }
 
     suspend fun fetch(inventoryReportId: String): Response<List<InventoryItem>> {
         return try {
@@ -45,6 +29,8 @@ class InventoryReportRepository @Inject constructor(
                 val items = task.toObjects(InventoryItem::class.java)
                 Response.Success(items)
             } else Response.Error(Exception())
+
+
         } catch (e: Exception) {
             Response.Error(e)
         }
@@ -64,18 +50,14 @@ class InventoryReportRepository @Inject constructor(
                 }
             }.await()
 
-            val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
-                ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
-
-            val request = DeshiRequest(token)
-            request.put(Deshi.EXTRA_ID, inventoryReport.inventoryReportId)
-            request.putArray(InventoryReport.FIELD_ITEMS,
-                inventoryReport.items.map { it.toJSONObject() }.toJSONArray())
-            val response = deshi.requestInventoryItemsUpdate(request)
-            response.close()
-            if (response.code == 200)
-                Response.Success(Response.Action.CREATE)
-            else throw DeshiException(response.code)
+            val data = InventoryReportWorker.convert(inventoryReport)
+            val workRequest = OneTimeWorkRequestBuilder<InventoryReportWorker>()
+                .addTag(inventoryReport.inventoryReportId)
+                .setInputData(data)
+                .build()
+            workManager.enqueueUniqueWork(inventoryReport.inventoryReportId,
+                ExistingWorkPolicy.APPEND, workRequest)
+            return Response.Success(Response.Action.CREATE)
 
         } catch (exception: FirebaseFirestoreException) {
             Response.Error(exception, Response.Action.CREATE)
@@ -101,18 +83,14 @@ class InventoryReportRepository @Inject constructor(
                 }
             }.await()
 
-            val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
-                ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
-
-            val request = DeshiRequest(token)
-            request.put(Deshi.EXTRA_ID, inventoryReport.inventoryReportId)
-            request.putArray(InventoryReport.FIELD_ITEMS,
-                inventoryReport.items.map { it.toJSONObject() }.toJSONArray())
-            val response = deshi.requestInventoryItemsUpdate(request)
-            response.close()
-            if (response.code == 200)
-                Response.Success(Response.Action.CREATE)
-            else throw DeshiException(response.code)
+            val data = InventoryReportWorker.convert(inventoryReport)
+            val workRequest = OneTimeWorkRequestBuilder<InventoryReportWorker>()
+                .addTag(inventoryReport.inventoryReportId)
+                .setInputData(data)
+                .build()
+            workManager.enqueueUniqueWork(inventoryReport.inventoryReportId,
+                ExistingWorkPolicy.APPEND, workRequest)
+            return Response.Success(Response.Action.CREATE)
 
         } catch (exception: FirebaseFirestoreException) {
             Response.Error(exception, Response.Action.CREATE)

@@ -5,10 +5,12 @@ import androidx.annotation.Keep
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.category.CategoryCore
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 import org.json.JSONObject
 
 @Keep
 @Parcelize
+@Serializable
 class InventoryItem @JvmOverloads constructor(
     var stockNumber: String = "",
     var article: String? = null,

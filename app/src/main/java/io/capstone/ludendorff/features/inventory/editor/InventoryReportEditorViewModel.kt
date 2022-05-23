@@ -23,6 +23,10 @@ class InventoryReportEditorViewModel @Inject constructor(
             field = value
             fetchItems()
         }
+        get() {
+            field.items
+            return field
+        }
 
     private val _inventoryItems = MutableLiveData<List<InventoryItem>>(mutableListOf())
     val inventoryItems: LiveData<List<InventoryItem>> = _inventoryItems

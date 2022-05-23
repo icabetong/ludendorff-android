@@ -31,7 +31,7 @@ class InventoryReportAdapter(
         : BaseViewHolder<InventoryReport>(itemView) {
         private val binding = LayoutItemInventoryReportBinding.bind(itemView)
         private val userPreferences = UserPreferences(itemView.context)
-        private val formatter = DateTimeFormatter.getDateFormatter(isShort = false, withYear = true)
+        private val formatter = DateTimeFormatter.getDateFormatter(isShort = true, withYear = true)
 
         override fun onBind(data: InventoryReport?) {
             binding.root.transitionName =

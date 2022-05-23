@@ -1,12 +1,10 @@
 package io.capstone.ludendorff.features.stockcard
 
-import com.google.firebase.auth.FirebaseAuth
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import io.capstone.ludendorff.api.Deshi
-import io.capstone.ludendorff.api.DeshiException
-import io.capstone.ludendorff.api.DeshiRequest
-import io.capstone.ludendorff.components.extensions.toJSONArray
 import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import kotlinx.coroutines.tasks.await
@@ -16,8 +14,7 @@ import javax.inject.Singleton
 @Singleton
 class StockCardRepository @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val firebaseAuth: FirebaseAuth,
-    private val deshi: Deshi,
+    private val workManager: WorkManager
 ) {
 
     suspend fun fetch(stockCard: String): Response<List<StockCardEntry>> {
@@ -50,18 +47,14 @@ class StockCardRepository @Inject constructor(
                 }
             }.await()
 
-            val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.toString()
-                ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
-
-            val request = DeshiRequest(token)
-            request.put(Deshi.EXTRA_ID, stockCard.stockCardId)
-            request.putArray(StockCard.FIELD_ENTRIES,
-                stockCard.entries.map { it.toJSONObject() }.toJSONArray())
-            val response = deshi.requestStockCardEntryUpdate(request)
-            response.close()
-            if (response.code == 200)
-                Response.Success(Response.Action.CREATE)
-            else throw DeshiException(response.code)
+            val data = StockCardWorker.convert(stockCard)
+            val workRequest = OneTimeWorkRequestBuilder<StockCardWorker>()
+                .addTag(stockCard.stockCardId)
+                .setInputData(data)
+                .build()
+            workManager.enqueueUniqueWork(stockCard.stockCardId,
+                ExistingWorkPolicy.APPEND, workRequest)
+            return Response.Success(Response.Action.CREATE)
 
         } catch (exception: FirebaseFirestoreException) {
             Response.Error(exception, Response.Action.CREATE)
@@ -87,18 +80,14 @@ class StockCardRepository @Inject constructor(
                 it.set(reference, stockCard)
             }.await()
 
-            val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.toString()
-                ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
-
-            val request = DeshiRequest(token)
-            request.put(Deshi.EXTRA_ID, stockCard.stockCardId)
-            request.putArray(StockCard.FIELD_ENTRIES,
-                stockCard.entries.map { it.toJSONObject() }.toJSONArray() )
-            val response = deshi.requestStockCardEntryUpdate(request)
-            response.close()
-            if (response.code == 200)
-                Response.Success(Response.Action.UPDATE)
-            else throw DeshiException(response.code)
+            val data = StockCardWorker.convert(stockCard)
+            val workRequest = OneTimeWorkRequestBuilder<StockCardWorker>()
+                .addTag(stockCard.stockCardId)
+                .setInputData(data)
+                .build()
+            workManager.enqueueUniqueWork(stockCard.stockCardId,
+                ExistingWorkPolicy.APPEND, workRequest)
+            return Response.Success(Response.Action.UPDATE)
 
         } catch (exception: FirebaseFirestoreException) {
             Response.Error(exception, Response.Action.UPDATE)
