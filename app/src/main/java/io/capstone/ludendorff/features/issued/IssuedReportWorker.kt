@@ -6,6 +6,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.functions.FirebaseFunctions
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import io.capstone.ludendorff.api.Deshi
@@ -23,8 +24,7 @@ import kotlinx.serialization.json.Json
 class IssuedReportWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val firebaseAuth: FirebaseAuth,
-    private val deshi: Deshi
+    private val functions: FirebaseFunctions,
 ): CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
@@ -35,27 +35,22 @@ class IssuedReportWorker @AssistedInject constructor(
                 ?: throw DeshiException(DeshiException.Code.PRECONDITION_FAILED)
 
             val items = jsonItems.map { Json.decodeFromString<IssuedItem>(it) }
-            val token = firebaseAuth?.currentUser?.getIdToken(false)?.await()?.token
-                ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
+            val data = hashMapOf(DATA_ID to id, DATA_ENTRIES to items)
 
-            val request = DeshiRequest(token)
-            request.put(Deshi.EXTRA_ID, id)
-            request.putArray(IssuedReport.FIELD_ITEMS,
-                items.map { it.toJSONObject() }.toJSONArray())
-            val response = deshi.requestIssuedItemsUpdate(request)
-            response.close()
-            if (response.code == 200)
-                return Result.success()
-            else throw DeshiException(response.code)
-
+            functions.getHttpsCallable(CALLABLE_NAME)
+                .call(data).await()
+            Result.success()
         } catch (exception: Exception) {
-            return Result.failure()
+            Result.failure()
         }
     }
 
     companion object {
         const val EXTRA_ISSUED_REPORT_ID = "extra:issuedReportId"
         const val EXTRA_ISSUED_REPORT_ITEMS = "extra:issuedReportItems"
+        const val CALLABLE_NAME = "indexIssued"
+        const val DATA_ID = "id"
+        const val DATA_ENTRIES = "entries"
 
         fun convert(report: IssuedReport): Data {
             val issuedItems = report.items.map { Json.encodeToString(it) }.toTypedArray()
