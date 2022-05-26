@@ -1,8 +1,6 @@
 package io.capstone.ludendorff.features.shared
 
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
-import androidx.navigation.NavController
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.snackbar.Snackbar
 

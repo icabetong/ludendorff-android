@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import java.util.HashMap;
 
 import io.capstone.ludendorff.R;

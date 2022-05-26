@@ -7,9 +7,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentResultListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

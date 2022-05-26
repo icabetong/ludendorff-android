@@ -6,23 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.*
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
-import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.extensions.toLocalDate
 import io.capstone.ludendorff.components.extensions.toTimestamp
 import io.capstone.ludendorff.components.utils.DateTimeFormatter
 import io.capstone.ludendorff.components.utils.IntegerInputFilter
 import io.capstone.ludendorff.databinding.FragmentEditorStockCardEntryBinding
-import io.capstone.ludendorff.features.inventory.InventoryReport
-import io.capstone.ludendorff.features.inventory.picker.InventoryReportPickerFragment
 import io.capstone.ludendorff.features.shared.BaseBottomSheet
 import io.capstone.ludendorff.features.stockcard.editor.StockCardEditorViewModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import java.text.NumberFormat
 import java.util.*
 

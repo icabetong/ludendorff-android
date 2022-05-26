@@ -22,7 +22,6 @@ import io.capstone.ludendorff.components.extensions.isTablet
 import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentEditorStockCardBinding
-import io.capstone.ludendorff.features.core.entity.Entity
 import io.capstone.ludendorff.features.core.entity.EntityViewModel
 import io.capstone.ludendorff.features.inventory.picker.InventoryReportPickerFragment
 import io.capstone.ludendorff.features.issued.item.picker.GroupedIssuedItem

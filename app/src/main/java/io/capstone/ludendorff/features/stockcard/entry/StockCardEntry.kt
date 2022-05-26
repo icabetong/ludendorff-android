@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.Timestamp
 import io.capstone.ludendorff.components.extensions.toJSONObject
-import io.capstone.ludendorff.components.extensions.toZonedDateTime
 import io.capstone.ludendorff.components.utils.IDGenerator
 import kotlinx.parcelize.Parcelize
 import org.json.JSONObject

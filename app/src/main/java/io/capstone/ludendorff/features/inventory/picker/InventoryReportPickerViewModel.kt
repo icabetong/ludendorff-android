@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.algolia.instantsearch.core.connection.ConnectionHandler
 import com.algolia.instantsearch.helper.android.searchbox.SearchBoxConnectorPagedList
-import com.algolia.instantsearch.helper.searchbox.SearchBoxConnector
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,16 +1,14 @@
 package io.capstone.ludendorff.components.serialization
 
 import com.google.firebase.Timestamp
-import io.capstone.ludendorff.features.asset.Asset
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encodeToString
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.buildClassSerialDescriptor
+import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.encoding.decodeStructure
 import kotlinx.serialization.encoding.encodeStructure
-import kotlinx.serialization.json.Json
 
 object TimestampSerializer: KSerializer<Timestamp> {
     private const val FIELD_NANOSECONDS = "_nanoseconds"

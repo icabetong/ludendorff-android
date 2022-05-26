@@ -2,7 +2,6 @@ package io.capstone.ludendorff.features.issued.item.picker
 
 import android.os.Parcelable
 import io.capstone.ludendorff.features.issued.item.IssuedItem
-import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

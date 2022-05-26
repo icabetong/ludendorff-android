@@ -6,7 +6,6 @@ import com.algolia.instantsearch.core.highlighting.HighlightedString
 import com.algolia.instantsearch.helper.highlighting.Highlightable
 import com.algolia.search.model.Attribute
 import io.capstone.ludendorff.features.asset.Asset
-import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.CategoryCore
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject

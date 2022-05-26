@@ -24,10 +24,10 @@ import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetViewModel
 import io.capstone.ludendorff.features.asset.qrcode.QRCodeViewBottomSheet
 import io.capstone.ludendorff.features.asset.usages.FindUsagesFragment
-import io.capstone.ludendorff.features.shared.BaseEditorFragment
-import io.capstone.ludendorff.features.shared.BaseFragment
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.picker.CategoryPickerBottomSheet
+import io.capstone.ludendorff.features.shared.BaseEditorFragment
+import io.capstone.ludendorff.features.shared.BaseFragment
 
 @AndroidEntryPoint
 class AssetEditorFragment: BaseEditorFragment(), FragmentResultListener,

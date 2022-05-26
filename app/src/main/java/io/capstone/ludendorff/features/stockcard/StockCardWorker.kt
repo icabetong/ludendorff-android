@@ -5,14 +5,10 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.functions.FirebaseFunctions
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import io.capstone.ludendorff.api.Deshi
 import io.capstone.ludendorff.api.DeshiException
-import io.capstone.ludendorff.api.DeshiRequest
-import io.capstone.ludendorff.components.extensions.toJSONArray
 import io.capstone.ludendorff.features.stockcard.entry.StockCardEntry
 import kotlinx.coroutines.tasks.await
 import kotlinx.serialization.decodeFromString

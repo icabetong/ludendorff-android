@@ -14,7 +14,6 @@ import io.capstone.ludendorff.features.core.backend.Response
 import io.capstone.ludendorff.features.issued.IssuedReport
 import io.capstone.ludendorff.features.issued.IssuedReportPagingSource
 import io.capstone.ludendorff.features.issued.IssuedReportRepository
-import io.capstone.ludendorff.features.issued.item.IssuedItem
 import io.capstone.ludendorff.features.issued.search.IssuedReportSearch
 import io.capstone.ludendorff.features.shared.BaseViewModel
 import kotlinx.coroutines.Dispatchers.IO

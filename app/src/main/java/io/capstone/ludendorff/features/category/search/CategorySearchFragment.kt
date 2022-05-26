@@ -22,10 +22,9 @@ import io.capstone.ludendorff.components.extensions.setup
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentSearchCategoryBinding
-import io.capstone.ludendorff.features.shared.BaseSearchFragment
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.category.editor.CategoryEditorFragment
-import io.capstone.ludendorff.features.category.subcategory.SubcategoryEditorBottomSheet
+import io.capstone.ludendorff.features.shared.BaseSearchFragment
 
 class CategorySearchFragment: BaseSearchFragment(), OnItemActionListener<Category> {
     private var _binding: FragmentSearchCategoryBinding? = null

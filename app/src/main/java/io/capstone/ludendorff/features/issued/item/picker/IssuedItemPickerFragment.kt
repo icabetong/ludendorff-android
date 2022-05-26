@@ -23,8 +23,6 @@ import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.FragmentPickerIssuedItemBinding
 import io.capstone.ludendorff.features.issued.IssuedReport
 import io.capstone.ludendorff.features.issued.IssuedReportAdapter
-import io.capstone.ludendorff.features.issued.item.IssuedItem
-import io.capstone.ludendorff.features.issued.item.IssuedItemAdapter
 import io.capstone.ludendorff.features.issued.search.IssuedReportSearchAdapter
 import io.capstone.ludendorff.features.shared.BasePickerFragment
 import kotlinx.coroutines.flow.collectLatest

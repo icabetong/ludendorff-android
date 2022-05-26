@@ -9,10 +9,10 @@ import com.algolia.instantsearch.helper.android.highlighting.toSpannedString
 import io.capstone.ludendorff.R
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
 import io.capstone.ludendorff.databinding.LayoutItemSearchBinding
-import io.capstone.ludendorff.features.shared.BasePagedListAdapter
-import io.capstone.ludendorff.features.shared.BaseViewHolder
 import io.capstone.ludendorff.features.category.Category
 import io.capstone.ludendorff.features.shared.BaseFragment
+import io.capstone.ludendorff.features.shared.BasePagedListAdapter
+import io.capstone.ludendorff.features.shared.BaseViewHolder
 
 class CategorySearchAdapter(
     private val onItemActionListener: OnItemActionListener<Category>

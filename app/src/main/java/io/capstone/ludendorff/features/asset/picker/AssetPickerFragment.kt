@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
@@ -23,7 +22,6 @@ import io.capstone.ludendorff.components.extensions.hide
 import io.capstone.ludendorff.components.extensions.isTablet
 import io.capstone.ludendorff.components.extensions.show
 import io.capstone.ludendorff.components.interfaces.OnItemActionListener
-import io.capstone.ludendorff.components.persistence.UserPreferences
 import io.capstone.ludendorff.databinding.FragmentPickerAssetBinding
 import io.capstone.ludendorff.features.asset.Asset
 import io.capstone.ludendorff.features.asset.AssetAdapter
@@ -31,7 +29,6 @@ import io.capstone.ludendorff.features.asset.search.AssetSearchAdapter
 import io.capstone.ludendorff.features.shared.BasePickerFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AssetPickerFragment(manager: FragmentManager): BasePickerFragment(manager),

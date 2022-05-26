@@ -21,6 +21,7 @@ class Deshi {
         return client.newCall(request).await()
     }
 
+    @Deprecated("Endpoint moved to Firebase Functions")
     suspend fun requestInventoryItemsUpdate(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_UPDATE_INVENTORY}")
@@ -29,6 +30,7 @@ class Deshi {
         return start(request)
     }
 
+    @Deprecated("Endpoint moved to Firebase Functions")
     suspend fun requestIssuedItemsUpdate(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_UPDATE_ISSUED}")
@@ -37,6 +39,7 @@ class Deshi {
         return start(request)
     }
 
+    @Deprecated("Endpoint moved to Firebase Functions")
     suspend fun requestStockCardEntryUpdate(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_UPDATE_STOCK_CARDS}")
