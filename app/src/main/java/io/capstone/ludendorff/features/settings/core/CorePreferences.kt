@@ -7,9 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
-import androidx.work.WorkManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import io.capstone.ludendorff.BuildConfig
 import io.capstone.ludendorff.R
@@ -24,15 +22,9 @@ class CorePreferences: BasePreference() {
     private var controller: NavController? = null
 
     @Inject lateinit var userPreferences: UserPreferences
-    @Inject lateinit var firebaseMessaging: FirebaseMessaging
     @Inject lateinit var firebaseAuth: FirebaseAuth
 
     private val authViewModel: CoreViewModel by activityViewModels()
-    private val workManager by lazy {
-        WorkManager.getInstance(requireContext())
-    }
-
-    private var isTriggered: Boolean = false
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.xml_settings, rootKey)
