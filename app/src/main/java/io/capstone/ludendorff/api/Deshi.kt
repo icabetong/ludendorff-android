@@ -48,6 +48,7 @@ class Deshi {
         return start(request)
     }
 
+    @Deprecated("Endpoint moved to Firebase Functions")
     suspend fun requestUserCreate(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_CREATE_USER}")
@@ -56,6 +57,7 @@ class Deshi {
         return start(request)
     }
 
+    @Deprecated("Endpoint moved to Firebase Functions")
     suspend fun requestUserRemove(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_REMOVE_USER}")
@@ -64,6 +66,7 @@ class Deshi {
         return start(request)
     }
 
+    @Deprecated("Endpoint moved to Firebase Functions")
     suspend fun requestUserModify(deshiRequest: DeshiRequest): Response {
         val request = Request.Builder()
             .url("${SERVER_URL}${REQUEST_MODIFY_USER}")
@@ -80,6 +83,5 @@ class Deshi {
         const val REQUEST_UPDATE_INVENTORY = "inventory-items"
         const val REQUEST_UPDATE_ISSUED = "issued-items"
         const val REQUEST_UPDATE_STOCK_CARDS = "stock-card-entries";
-        const val EXTRA_ID = "id"
     }
 }

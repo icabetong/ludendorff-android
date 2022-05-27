@@ -3,6 +3,7 @@ package io.capstone.ludendorff.features.user
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.functions.FirebaseFunctions
 import io.capstone.ludendorff.api.Deshi
 import io.capstone.ludendorff.api.DeshiException
 import io.capstone.ludendorff.api.DeshiRequest
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 class UserRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
+    private val functions: FirebaseFunctions,
     private val userProperties: UserProperties,
     private val deshi: Deshi
 ){
@@ -27,14 +29,18 @@ class UserRepository @Inject constructor(
 
             val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
                 ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
+            val data = hashMapOf(
+                DATA_TOKEN to token,
+                User.FIELD_EMAIL to user.email,
+                User.FIELD_FIRST_NAME to user.firstName,
+                User.FIELD_LAST_NAME to user.lastName,
+                User.FIELD_POSITION to user.position,
+                User.FIELD_PERMISSIONS to user.permissions,
+            )
 
-            val request = DeshiRequest(token, user.toJSON())
-            val response = deshi.requestUserCreate(request)
-            response.close()
-            if (response.code == 200)
-                Response.Success(Response.Action.CREATE)
-            else throw DeshiException(response.code)
-
+            functions.getHttpsCallable(CREATE_CALLABLE_NAME)
+                .call(data).await()
+            Response.Success(Response.Action.CREATE)
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.CREATE)
         }
@@ -42,36 +48,16 @@ class UserRepository @Inject constructor(
 
     suspend fun update(user: User, statusChanged: Boolean): Response<Response.Action> {
         return try {
-            val batchWrite = firestore.batch()
+            val token = firebaseAuth?.currentUser?.getIdToken(false)?.await()?.token
+            val data = hashMapOf(
+                DATA_TOKEN to token,
+                User.FIELD_ID to user.userId,
+                User.FIELD_DISABLED to statusChanged
+            )
 
-            batchWrite.set(firestore.collection(User.COLLECTION)
-                .document(user.userId), user)
-
-            batchWrite.commit().await()
-
-            if (statusChanged) {
-                val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
-                    ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
-
-                val request = DeshiRequest(token).apply {
-                    put(User.FIELD_ID, user.userId)
-                    put(User.FIELD_DISABLED, user.disabled)
-                }
-                val response = deshi.requestUserModify(request)
-                response.close()
-                if (response.code != 200) {
-                    throw DeshiException(response.code)
-                }
-
-                firebaseAuth.currentUser?.uid?.let {
-                    if (it == user.userId) {
-                        userProperties.set(user)
-                    }
-                }
-            }
-
+            functions.getHttpsCallable(MODIFY_CALLABLE_NAME)
+                .call(data).await()
             Response.Success(Response.Action.UPDATE)
-
         } catch (exception: FirebaseFirestoreException) {
             Response.Error(exception, Response.Action.UPDATE)
         } catch (exception: Exception) {
@@ -82,10 +68,8 @@ class UserRepository @Inject constructor(
     suspend fun update(id: String, fields: Map<String, Any?>): Response<Response.Action> {
         return try {
             val batchWrite = firestore.batch()
-
             batchWrite.update(firestore.collection(User.COLLECTION)
                 .document(id), fields)
-
             batchWrite.commit().await()
 
             firebaseAuth.currentUser?.uid?.let {
@@ -111,19 +95,23 @@ class UserRepository @Inject constructor(
         return try {
             val token = firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
                 ?: throw DeshiException(DeshiException.Code.UNAUTHORIZED)
+            val data = hashMapOf(
+                DATA_TOKEN to token,
+                User.FIELD_ID to user.userId,
+            )
 
-            val request = DeshiRequest(token).apply {
-                put(User.FIELD_ID, user.userId)
-            }
-
-            val response = deshi.requestUserRemove(request)
-            response.close()
-            if (response.code == 200)
-                Response.Success(Response.Action.REMOVE)
-            else throw DeshiException(response.code)
-
+            functions.getHttpsCallable(DELETE_CALLABLE_NAME)
+                .call(data).await()
+            Response.Success(Response.Action.REMOVE)
         } catch (exception: Exception) {
             Response.Error(exception, Response.Action.REMOVE)
         }
+    }
+
+    companion object {
+        const val CREATE_CALLABLE_NAME = "createUser"
+        const val MODIFY_CALLABLE_NAME = "modifyUser"
+        const val DELETE_CALLABLE_NAME = "deleteUser"
+        const val DATA_TOKEN = "token"
     }
 }
