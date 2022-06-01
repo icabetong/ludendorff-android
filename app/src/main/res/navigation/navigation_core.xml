@@ -20,6 +20,9 @@
         android:id="@+id/navigation_stock_card"
         android:name="io.capstone.ludendorff.features.stockcard.StockCardFragment"/>
     <fragment
+        android:id="@+id/navigation_audit_logs"
+        android:name="io.capstone.ludendorff.features.audit.AuditLogsFragment"/>
+    <fragment
         android:id="@+id/navigation_users"
         android:name="io.capstone.ludendorff.features.user.UserFragment"/>
 

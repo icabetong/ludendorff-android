@@ -7,6 +7,7 @@
     <string name="activity_inventory">Inventory Reports</string>
     <string name="activity_issued">Issued Items Reports</string>
     <string name="activity_stock_card">Stock Cards</string>
+    <string name="activity_audit_log">Audit Logs</string>
     <string name="activity_users">Users</string>
     <string name="activity_settings">Settings</string>
     <string name="activity_categories">Categories</string>
@@ -21,6 +22,7 @@
     <string name="navigation_inventory">@string/activity_inventory</string>
     <string name="navigation_issued">@string/activity_issued</string>
     <string name="navigation_stock_card">@string/activity_stock_card</string>
+    <string name="navigation_audit_logs">@string/activity_audit_log</string>
     <string name="navigation_categories">@string/activity_categories</string>
     <string name="navigation_departments">@string/activity_departments</string>
     <string name="navigation_settings">@string/activity_settings</string>
@@ -58,6 +60,7 @@
     <string name="title_configure_inventory_item">Configure Inventory Item</string>
     <string name="title_configure_issued_item">Configure Issued Item</string>
     <string name="title_configure_stock_card_entry">Configure Stock Card Entry</string>
+    <string name="title_view_audit_log">View Audit Log</string>
     <string name="title_find_asset_stock_card_usages">Find Asset Usages</string>
     <string name="title_account_setup">Finish Account Setup</string>
     <string name="title_third_party_notices">Third Party Notices</string>
@@ -128,6 +131,13 @@
     <string name="hint_subcategories">Subcategories</string>
     <string name="hint_subcategory_name">Subcategory Name</string>
     <string name="hint_inventory_report_source">Inventory Report Source</string>
+    <string name="hint_log_id">Log ID</string>
+    <string name="hint_data_type">Data Type</string>
+    <string name="hint_identifier">Identifier</string>
+    <string name="hint_before">Before Data</string>
+    <string name="hint_after">After Data</string>
+    <string name="hint_operation">Operation</string>
+    <string name="hint_timestamp">Timestamp</string>
 
     <string name="button_add">Add</string>
     <string name="button_authenticating">Authenticating</string>
@@ -188,6 +198,16 @@
     <string name="sort_direction">Direction</string>
     <string name="sort_direction_ascending">Ascending</string>
     <string name="sort_direction_descending">Descending</string>
+
+    <string name="type_asset">Asset</string>
+    <string name="type_inventory">Inventory Report</string>
+    <string name="type_issued">Issued</string>
+    <string name="type_stock_card">Stock Card</string>
+    <string name="type_user">User Data</string>
+
+    <string name="operation_create">Create</string>
+    <string name="operation_update">Modify</string>
+    <string name="operation_remove">Remove</string>
 
     <string name="feedback_sign_in_success">Signed-in successfully</string>
     <string name="feedback_empty_asset_description">You forgot to enter the asset description</string>
@@ -270,6 +290,8 @@
     <string name="empty_no_scanned_code_summary">You\'ll need to scan a valid QR-Code first to view its embedded data.</string>
     <string name="empty_no_search_results_header">No Results Found</string>
     <string name="empty_no_search_results_summary">There are no results matching in your query, try using other terms.</string>
+    <string name="empty_no_audit_logs_header">No Logs Recorded</string>
+    <string name="empty_no_audit_logs_summary">There have been no recorded logs yet, or they may have been removed.</string>
 
     <string name="info_not_endorsed">Not Endorsed</string>
     <string name="info_dataset_filtered">Showing records that is \"%1$s\" on their \"%2$s\" attribute</string>
@@ -363,6 +385,7 @@
     <string name="concat_today_at">Today at %1$s</string>
     <string name="concat_issued_data">%1$s (%2$d issued)</string>
     <string name="concat_entity">%1$s (%2$s)</string>
+    <string name="concat_audit_log_summary">(%1$s): %2$s record with id: %3$s</string>
 
     <string name="month_jan">January</string>
     <string name="month_feb">February</string>

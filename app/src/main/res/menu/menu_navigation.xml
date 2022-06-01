@@ -32,6 +32,11 @@
             android:icon="@drawable/ic_round_local_atm_24"/>
 
         <item
+            android:id="@+id/navigation_audit_logs"
+            android:title="@string/navigation_audit_logs"
+            android:icon="@drawable/ic_round_query_stats_24"/>
+
+        <item
             android:id="@+id/navigation_users"
             android:title="@string/navigation_users"
             android:icon="@drawable/ic_round_people_outline_24"/>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/layout_appbar_search"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:animateLayoutChanges="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerFrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include
+                    android:id="@+id/rowLayout"
+                    layout="@layout/layout_skeleton_audit_log"/>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/errorView"
+        layout="@layout/layout_error_generic"/>
+
+    <include
+        android:id="@+id/permissionView"
+        layout="@layout/layout_error_permission"/>
+
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/layout_empty_audit_logs"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
